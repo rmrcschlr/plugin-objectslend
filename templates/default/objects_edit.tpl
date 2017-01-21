@@ -8,8 +8,8 @@
         <h1>{_T string="OBJECT EDIT.WILL BE CLONED"}</h1>
     </div>
 {/if}
-<a href="objects_list.php{if $view_category}?category_id={$object->category_id}{/if}">
-    <img src="picts/back.png" title="{_T string="OBJECT EDIT.BACK"}">
+<a href="objects_list.php">
+    <img src="picts/back.png" title="{_T string="OBJECT EDIT.BACK"}"/>
     {_T string="OBJECT EDIT.BACK"}
     <br/>&nbsp;
 </a>
@@ -30,19 +30,22 @@
                     <input type="text" name="description" maxlength="500" size="80" value="{$object->description}" required>
                 </p>
             </div>
-{if $view_category}
-            <div>
-                <p>
-                    <span class="bline">{_T string="OBJECT EDIT.CATEGORY"}</span>
-                    <select name="category_id" style="width: 300px">
-                        <option value="">{_T string="OBJECT EDIT.CHOICE CATEGORY"}</option>
-                        {foreach from=$categories item=categ}
-                            <option value="{$categ->category_id}"{if $object->category_id eq $categ->category_id} selected="selected"{/if}>{$categ->name}</option>
-                        {/foreach}
-                    </select>
-                </p>
-            </div>
-{/if}
+            {if $view_category}
+                <div>
+                    <p>
+                        <span class="bline">{_T string="OBJECT EDIT.CATEGORY"}</span>
+                        <select name="category_id" style="width: 300px">
+                            <option value="">{_T string="OBJECT EDIT.CHOICE CATEGORY"}</option>
+                            {foreach from=$categories item=categ}
+                                <option value="{$categ->category_id}"{if $object->category_id eq $categ->category_id} selected="selected"{/if}>
+                                    {$categ->name}
+                                    ({$categ->objects_nb})
+                                </option>
+                            {/foreach}
+                        </select>
+                    </p>
+                </div>
+            {/if}
             <div>
                 <p>
                     <span class="bline">{_T string="OBJECT EDIT.SERIAL"}</span>
@@ -63,6 +66,15 @@
             </div>
             <div>
                 <p>
+                    <label class="bline tooltip_lend" for="price_per_day" title="{_T string="OBJECT EDIT.HELP PRICE PER DAY"}">
+                        {_T string="OBJECT EDIT.PRICE PER DAY"}
+                        <img src="picts/help.png"/>
+                    </label>
+                    <input type="checkbox" name="price_per_day" id="price_per_day" value="true"{if $object->price_per_day} checked="checked"{/if}>
+                </p>
+            </div>
+            <div>
+                <p>
                     <span class="bline">{_T string="OBJECT EDIT.DIMENSION"}</span>
                     <input type="text" name="dimension" maxlength="100" size="60" value="{$object->dimension}">
                 </p>
@@ -75,8 +87,8 @@
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.IS ACTIVE"}</span>
-                    <input type="checkbox" name="is_active" value="true"{if $object->is_active} checked="checked"{/if}>
+                    <label class="bline" for="is_active">{_T string="OBJECT EDIT.IS ACTIVE"}</label>
+                    <input type="checkbox" id="is_active" name="is_active" value="true"{if $object->is_active} checked="checked"{/if}>
                 </p>
             </div>
             {if $show_status}
@@ -85,7 +97,7 @@
                         <span class="bline">{_T string="OBJECT EDIT.1ST STATUS"}</span>
                         <select name="1st_status">
                             {foreach from=$statuses item=sta}
-                                <option value="{$sta->status_id}"{if $sta->is_galette_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_galette_location} (@Galette){/if}</option>
+                                <option value="{$sta->status_id}"{if $sta->is_home_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_home_location} (@Galette){/if}</option>
                             {/foreach}
                         </select>
                     </p>
@@ -93,33 +105,39 @@
             {/if}
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.PICTURE"}</span>
+                    <span class="bline tooltip_lend" title="{_T string="OBJECT EDIT.HELP UPLOAD PICTURE"}">
+                        {_T string="OBJECT EDIT.PICTURE"}
+                        <img src="picts/help.png"/>
+                    </span>
                     <input type="file" name="picture">
-                    <br/>
-                    <img src="picts/help.png">
-                    {_T string="OBJECT EDIT.HELP UPLOAD PICTURE"}
-            {if $object->object_id ne ''}
-                    <br/>
-                    <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="OBJECT EDIT.DELETE PICTURE"}</label></span><br/>
-            {/if}   
+                    {if $object->object_id ne ''}
+                        <br/>
+                        <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="OBJECT EDIT.DELETE PICTURE"}</label></span><br/>
+                        {/if}   
                 </p>
             </div>
-            {if $object->object_id ne ''}
+            {if $object->draw_image}
                 <div> 
                     <p>
                         <span class="bline">{_T string="OBJECT EDIT.THUMB"}</span>
-                        <img src="picture.php?object_id={$object->object_id}&thumb=1" class="picture" />
+                        <img src="{$object->object_image_url}" 
+                             class="tooltip_lend" 
+                             style="max-width: {$thumb_max_width}px; max-height: {$thumb_max_height}px"
+                             title="<img src='{$object->object_image_url}' width='{$pic_width}' height='{$pic_height}'/>"/>
                     </p>
                 </div>
             {/if}   
         </fieldset>
     </div>
     <div class="button-container">
-        <input type="submit" id="save" name="save" value="{_T string="OBJECT EDIT.SAVE"}">
-{if $object->object_id ne ''}
-        <input type="submit" id="duplicate" name="duplicate" value="{_T string="OBJECT EDIT.DUPLICATE"}" onclick="return confirmClone({$object->object_id});">
-{/if}
-        <input type="submit" id="cancel" name="cancel" value="{_T string="OBJECT EDIT.CANCEL"}" onclick="document.location = 'objects_list.php?msg=canceled{if $view_category}&category_id={$object->category_id}{/if}'; return false;">
+        <input type="submit" id="lend_save" name="save" value="{_T string="OBJECT EDIT.SAVE"}">
+        {if $object->object_id ne ''}
+            <input type="submit" id="duplicate" name="duplicate" value="{_T string="OBJECT EDIT.DUPLICATE"}" onclick="return confirmClone({$object->object_id});">
+            <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECT EDIT.PRINT"}" onclick="window.location = 'objects_print.php?object_id={$object->object_id}';
+                    return false;">
+        {/if}
+        <input type="submit" id="lend_cancel" name="cancel" value="{_T string="OBJECT EDIT.CANCEL"}" onclick="document.location = 'objects_list.php?msg=canceled';
+                return false;">
     </div>
 </form>
 
@@ -148,7 +166,7 @@
                     <td style="background-color: #CCFECC " colspan="4">
                         <select name="new_status">
                             {foreach from=$statuses item=sta}
-                                <option value="{$sta->status_id}"{if $sta->is_galette_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_galette_location} (@Galette){/if}</option>
+                                <option value="{$sta->status_id}"{if $sta->is_home_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_home_location} (@Galette){/if}</option>
                             {/foreach}
                         </select>
                     </td>
@@ -180,7 +198,7 @@
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_begin}</td>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_end}</td>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->status_text}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}" align="center">{if $rt->is_galette_location}<img src="picts/check.png">{/if}</td>
+                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}" align="center">{if $rt->is_home_location}<img src="picts/check.png"/>{/if}</td>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{if $rt->nom_adh ne ''}<a href="mailto:{$rt->email_adh}">{$rt->nom_adh} {$rt->prenom_adh}</a>{/if}</td>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->comments}</td>                
                 </tr>
@@ -194,10 +212,10 @@
     </div>
 </form>
 <script>
-function confirmClone(object_id) {
-    if (confirm('{_T string="OBJECT EDIT.CONFIRM DUPLICATE"}')) {
-        window.location = 'objects_edit.php?clone_object_id=' + object_id;
+    function confirmClone(object_id) {
+        if (confirm('{_T string="OBJECT EDIT.CONFIRM DUPLICATE"}')) {
+            window.location = 'objects_edit.php?clone_object_id=' + object_id;
+        }
+        return false;
     }
-    return false;
-}
 </script>

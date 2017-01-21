@@ -23,13 +23,13 @@
         </thead>
         <tbody>
             {foreach from=$liste_parametres item=parametre}
-                <tr>
-                    <td width="30%" class="tbl_line_{if $parametre->id_parametre % 2 eq 0}even{else}odd{/if}">
+                <tr class="{if $parametre@index % 2 eq 0}even{else}odd{/if}">
+                    <td width="30%">
                         <b>{$parametre->code}</b>
                         <br/>{_T string="PARAMETER LEND.LABEL {$parametre->code}"}
                         <input type="hidden" name="liste_codes[]" value="{$parametre->code}">
                     </td>
-                    <td width="20%" class="tbl_line_{if $parametre->id_parametre % 2 eq 0}even{else}odd{/if}">
+                    <td width="20%">
                         {if $parametre->is_date}
                             {_T string="PARAMETER LEND.DATE"}
                             <input type="hidden" name="format_{$parametre->code}" value="date">
@@ -43,7 +43,7 @@
                             <input type="hidden" name="format_{$parametre->code}" value="numeric">
                         {/if}
                     </td>
-                    <td width="50%" class="tbl_line_{if $parametre->id_parametre % 2 eq 0}even{else}odd{/if}">
+                    <td width="50%">
                         <input type="text" size="50" id="valeur_{$parametre->code}" name="valeur_{$parametre->code}" value="{if $parametre->is_date}{$parametre->value_date}{elseif $parametre->is_text}{$parametre->value_text}{else}{$parametre->value_numeric}{/if}"{if $parametre->isColor()} class="hex"{/if}>
                         <input type="hidden" name="ancienne_valeur_{$parametre->code}" value="{if $parametre->is_date}{$parametre->value_date}{elseif $parametre->is_text}{$parametre->value_text}{else}{$parametre->value_numeric}{/if}">
                     </td>
@@ -60,7 +60,7 @@
 
     {foreach from=$liste_parametres item=parametre}
         {if $parametre->is_date}
-    $('#valeur_{$parametre->code}').datepicker({ldelim}
+    $('#valeur_{$parametre->code}').datepicker({
         changeMonth: true,
         changeYear: true,
         showOn: 'both',
@@ -68,49 +68,49 @@
         buttonImageOnly: true,
         maxDate: '-0d',
         yearRange: 'c-20'
-            {rdelim});
+            });
         {/if}
     {/foreach}
 
     //for color pickers
-    $(function(){ldelim}
+    $(function(){
         // hex inputs
         $('input.hex')
                 .validHex()
-                .keyup(function() {ldelim}
+                .keyup(function() {
             $(this).validHex();
-    {rdelim})
-                .click(function(){ldelim}
+    })
+                .click(function(){
             $(this).addClass('focus');
             $('#picker').remove();
             $('div.picker-on').removeClass('picker-on');
             $(this).after('<div id="picker"></div>').parent().addClass('picker-on');
             $('#picker').farbtastic(this);
             return false;
-    {rdelim})
+    })
                 .wrap('<div class="hasPicker"></div>')
                 .applyFarbtastic();
 
         //general app click cleanup
-        $('body').click(function() {ldelim}
+        $('body').click(function() {
             $('div.picker-on').removeClass('picker-on');
             $('#picker').remove();
             $('input.focus, select.focus').removeClass('focus');
-    {rdelim});
+    });
 
-    {rdelim});
+    });
 
     //color pickers setup (sets bg color of inputs)
-    $.fn.applyFarbtastic = function() {ldelim}
-        return this.each(function() {ldelim}
+    $.fn.applyFarbtastic = function() {
+        return this.each(function() {
             $('<div/>').farbtastic(this).remove();
-    {rdelim});
-    {rdelim};
+    });
+    };
 
     // validation for hex inputs
-    $.fn.validHex = function() {ldelim}
+    $.fn.validHex = function() {
 
-        return this.each(function() {ldelim}
+        return this.each(function() {
 
             var value = $(this).val();
             value = value.replace(/[^#a-fA-F0-9]/g, ''); // non [#a-f0-9]
@@ -123,7 +123,7 @@
 
             $(this).val(value);
 
-    {rdelim});
+    });
 
-    {rdelim};
+    };
 </script>

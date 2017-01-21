@@ -11,21 +11,33 @@
             </div>
             <div>
                 <p>
-                    <label for="is_galette_location" class="bline tooltip" title="{_T string="STATUS EDIT.HELP GALETTE LOCATION"}">{_T string="STATUS EDIT.IS GALETTE LOCATION"}</label>
-                    <span class="tip">{_T string="STATUS EDIT.HELP GALETTE LOCATION"}</span>
-                    <input type="checkbox" name="is_galette_location" id="is_galette_location" value="true"{if $status->is_galette_location} checked="checked"{/if}>
+                    <label for="is_home_location" class="bline tooltip_lend" title="{_T string="STATUS EDIT.HELP GALETTE LOCATION"}">
+                        {_T string="STATUS EDIT.IS GALETTE LOCATION"}
+                        <img src="picts/help.png"/>
+                    </label>
+                    <input type="checkbox" name="is_home_location" id="is_home_location" value="true"{if $status->is_home_location} checked="checked"{/if}>
                 </p>
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="STATUS EDIT.IS ACTIVE"}</span>
-                    <input type="checkbox" name="is_active" value="true"{if $status->is_active} checked="checked"{/if}>
+                    <label for="is_active" class="bline">{_T string="STATUS EDIT.IS ACTIVE"}</label>
+                    <input type="checkbox" name="is_active" id="is_active" value="true"{if $status->is_active} checked="checked"{/if}>
                 </p>
             </div>
+            <div>
+                <p>
+                    <label for="is_home_location" class="bline tooltip_lend" title="{_T string="STATUS EDIT.HELP RENT DAY NUMBER"}">
+                        {_T string="STATUS EDIT.RENT DAY NUMBER"}
+                        <img src="picts/help.png"/>
+                    </label>
+                    <input type="text" name="rent_day_number" size="5" maxlength="6" value="{$status->rent_day_number}">
+                </p>
+            </div>        
         </fieldset>
     </div>
     <div class="button-container">
-        <input type="submit" id="save" name="save" value="{_T string="STATUS EDIT.SAVE"}">
-        <input type="submit" id="cancel" name="cancel" value="{_T string="STATUS EDIT.CANCEL"}" onclick="document.location = 'status_list.php?msg=canceled'; return false;">
+        <input type="submit" id="lend_save" name="save" value="{_T string="STATUS EDIT.SAVE"}">
+        <input type="submit" id="lend_cancel" name="cancel" value="{_T string="STATUS EDIT.CANCEL"}" onclick="document.location = 'status_list.php?msg=canceled';
+                return false;">
     </div>
 </form>
