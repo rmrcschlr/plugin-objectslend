@@ -31,7 +31,7 @@
     cursor: pointer;
 }
 
-#status_create, #object_create, #lend_cancel, #lend_save, #lend_yes, #duplicate,
+#status_create, #lend_cancel, #lend_save, #lend_yes, #duplicate,
 #objects_delete, #objects_disable, #objects_give_back,
 #objects_take_away, #objects_print, #objects_record_print, #save_categories,
 #save_objects, #restore_objects ,.button {
@@ -45,13 +45,6 @@
 }
 #status_create.ui-state-hover {
     background-image: url(../../picts/status_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
-}
-
-#object_create {
-    background-image: url(../../picts/box.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
-}
-#object_create.ui-state-hover {
-    background-image: url(../../picts/box_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
 }
 
 #lend_cancel {

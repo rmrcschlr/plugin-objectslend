@@ -63,14 +63,14 @@
     {*
     TABLE DE RECHERCHE
     *}
-    <form id="filtre" method="post" action="objects_list.php">    
+    <form id="filtre" method="post" action="objects_list.php">
         <div id="listfilter">
             <label for="search">{_T string="OBJECTS LIST.SEARCH"}</label>
-            <input id="search" name="search" type="text" placeholder="{_T string="OBJECTS LIST.ENTER WORD"}" value="{$search}" size="60">
-            <input name="go_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GO SEARCH"}">
-            <input name="reset_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.RESET SEARCH"}">
+            <input id="search" name="search" type="text" placeholder="{_T string="Enter a value"}" value="{$search}" size="60">
+            <input name="go_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="Filter"}">
+            <input name="reset_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="Clear filter"}">
         </div>
-    </form>    
+    </form>
     {*
     TABLE DES CATEGORIES SI ELLES SONT AFFICHEES
     *}
@@ -121,7 +121,7 @@
             <table class="infoline">
                 <tr>
                     <td class="left">{$nb_results} {_T string="OBJECTS LIST.NB RESULTS"}</td>
-                    <td class="right">{_T string="OBJECTS LIST.NB LINES"}
+                    <td class="right">{_T string="Records per page:"}
                         <select name="nb_lines" onchange="this.form.submit()">
                             {foreach from=$nb_lines_list item=nb}
                                 <option value="{$nb}"{if $nb_lines eq $nb} selected="selected"{/if}>{$nb}</option>
@@ -428,7 +428,6 @@
             <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.PRINT"}" onclick="return printObjectList('{$tri}', '{$category_id}');">
             {if $login->isAdmin() || $login->isStaff()}
                 <input type="submit" id="objects_record_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.SINGLE PRINT"}" onclick="return printObjectRecords();" style="display: none;">
-                <input type="submit" id="object_create" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.CREATE"}">
                 <input type="submit" id="objects_take_away" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.MORE AWAY"}" style="display: none;">
                 <input type="submit" id="objects_give_back" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GIVE BACK"}" style="display: none;">
                 <input type="submit" id="objects_disable" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DISABLE"}" onclick="return confirmDelete(false);" style="display: none;">
