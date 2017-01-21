@@ -121,7 +121,7 @@ if (filter_has_var(INPUT_POST, 'yes')) {
 }
 
 /**
- * Annulation de l'emprunt 
+ * Annulation de l'emprunt
  */
 if (array_key_exists('cancel', $_POST)) {
     header('location: objects_list.php?msg=not_taken');

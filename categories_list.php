@@ -55,11 +55,11 @@ $tpl->assign('page_title', _T("CATEGORIES LIST.PAGE TITLE"));
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
-$tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET,'tri') : 'name';
-$direction = filter_has_var(INPUT_GET,'direction') ? filter_input(INPUT_GET,'direction') : 'asc';
-$saved = filter_has_var(INPUT_GET,'msg') && filter_input(INPUT_GET,'msg') == 'saved';
-$canceled = filter_has_var(INPUT_GET,'msg') && filter_input(INPUT_GET,'msg') == 'canceled';
-$deleted = filter_has_var(INPUT_GET,'msg') && filter_input(INPUT_GET,'msg') == 'deleted';
+$tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET, 'tri') : 'name';
+$direction = filter_has_var(INPUT_GET, 'direction') ? filter_input(INPUT_GET, 'direction') : 'asc';
+$saved = filter_has_var(INPUT_GET, 'msg') && filter_input(INPUT_GET, 'msg') == 'saved';
+$canceled = filter_has_var(INPUT_GET, 'msg') && filter_input(INPUT_GET, 'msg') == 'canceled';
+$deleted = filter_has_var(INPUT_GET, 'msg') && filter_input(INPUT_GET, 'msg') == 'deleted';
 
 $categories = LendCategory::getAllCategories($tri, $direction);
 
@@ -79,4 +79,3 @@ $tpl->assign('content', $content);
 //Set path to main Galette's template
 $tpl->template_dir = $orig_template_path;
 $tpl->display('page.tpl', LEND_SMARTY_PREFIX);
-?>

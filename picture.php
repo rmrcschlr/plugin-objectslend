@@ -90,4 +90,3 @@ if ($quick_mode) {
         $picture->display();
     }
 }
-?>

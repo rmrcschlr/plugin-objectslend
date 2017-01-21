@@ -54,7 +54,8 @@ if (!$login->isLogged()) {
 // Import des classes de notre plugin
 require_once '_config.inc.php';
 
-function cut($str, $length) {
+function cut($str, $length)
+{
     $l = intval($length / 1.8);
     if (strlen($str) > $l) {
         return substr($str, 0, $l);
@@ -62,7 +63,8 @@ function cut($str, $length) {
     return $str;
 }
 
-function getNotHtmlText($code) {
+function getNotHtmlText($code)
+{
     return html_entity_decode(_T($code));
 }
 
@@ -211,4 +213,3 @@ $pdf->Cell(0, 0, getNotHtmlText('PDF.OBJECT IN'));
 $pdf->Ln();
 
 $pdf->Output('objects_list_' . date('Ymd-Hi') . '.pdf', 'D');
-?>

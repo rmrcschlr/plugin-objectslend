@@ -41,15 +41,16 @@
 
 /**
  * Convertit une date du format IHM 'jj/mm/aaaa' vers le format SQL 'aaaa-mm-jj'
- * 
+ *
  * @param string $str Date au format IHM 'jj/mm/aaaa'
- * 
+ *
  * @return string Date au format SQL 'aaaa-mm-jj'
  */
 
 use GaletteObjectsLend\LendParameter;
 
-function dateIHMtoSQL($str) {
+function dateIHMtoSQL($str)
+{
     if (strlen($str) < 5) {
         return '';
     }
@@ -59,12 +60,13 @@ function dateIHMtoSQL($str) {
 
 /**
  * Convertit une date du format SQL 'aaaa-mm-jj' vers le format IHM 'jj/mm/aaaa'
- * 
+ *
  * @param string $str Date au format SQL 'aaaa-mm-jj'
- * 
+ *
  * @return string Date au format IHM 'jj/mm/aaaa'
  */
-function dateSQLtoIHM($str) {
+function dateSQLtoIHM($str)
+{
     list($annee, $mois, $jour) = explode('-', $str);
     return $jour . '/' . $mois . '/' . $annee;
 }
@@ -110,8 +112,9 @@ if (filter_has_var(INPUT_POST, 'liste_codes')) {
                 $liste_erreurs[] = 'Sauvegarde du paramètre ' . $code_param . ' échouée.';
                 $erreurs = true;
                 Analog\Analog::log(
-                        'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog\Analog::ERROR
+                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                        $e->getTraceAsString(),
+                    Analog\Analog::ERROR
                 );
             }
         }
@@ -137,8 +140,9 @@ try {
     }
 } catch (Exception $e) {
     Analog\Analog::log(
-            'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-            $e->getTraceAsString(), Analog\Analog::ERROR
+        'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+            $e->getTraceAsString(),
+        Analog\Analog::ERROR
     );
 }
 
@@ -165,4 +169,3 @@ $tpl->assign('content', $content);
 //Set path to main Galette's template
 $tpl->template_dir = $orig_template_path;
 $tpl->display('page.tpl', LEND_SMARTY_PREFIX);
-?>

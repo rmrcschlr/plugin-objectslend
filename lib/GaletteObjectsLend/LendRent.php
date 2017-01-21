@@ -79,10 +79,11 @@ class LendRent
 
     /**
      * Construit un nouvel historique d'emprunt à partir de la BDD (à partir de son ID) ou vierge
-     * 
+     *
      * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
-    public function __construct($args = null) {
+    public function __construct($args = null)
+    {
         global $zdb;
 
         $this->_date_begin = date('Y-m-d H:i:s');
@@ -97,8 +98,9 @@ class LendRent
                 }
             } catch (\Exception $e) {
                 Analog::log(
-                        'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog::ERROR
+                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                        $e->getTraceAsString(),
+                    Analog::ERROR
                 );
             }
         } else if (is_object($args)) {
@@ -113,7 +115,8 @@ class LendRent
      *
      * @return void
      */
-    private function _loadFromRS($r) {
+    private function _loadFromRS($r)
+    {
         $this->_rent_id = $r->rent_id;
         $this->_object_id = $r->object_id;
         $this->_date_begin = $r->date_begin;
@@ -126,10 +129,11 @@ class LendRent
 
     /**
      * Enregistre l'élément en cours que ce soit en insert ou update
-     * 
+     *
      * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
-    public function store() {
+    public function store()
+    {
         global $zdb;
 
         try {
@@ -157,22 +161,24 @@ class LendRent
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
     }
 
     /**
-     * Retourne tous les historiques d'emprunts pour un objet donné trié par date de début 
+     * Retourne tous les historiques d'emprunts pour un objet donné trié par date de début
      * les plus récents en 1er.
-     * 
+     *
      * @param int $object_id ID de l'objet dont on souhaite l'historique d'emprunt
-     * 
+     *
      * @return LendRent[] Tableau d'objects emprunts
      */
-    public static function getRentsForObjectId($object_id) {
+    public static function getRentsForObjectId($object_id)
+    {
         global $zdb;
 
         try {
@@ -198,8 +204,9 @@ class LendRent
             return $rents;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -207,13 +214,14 @@ class LendRent
 
     /**
      * Ferme tous les emprunts ouverts pour un objet donné avec le commentaire indiqué
-     * 
+     *
      * @param int $object_id ID de l'objet surlequel fermer les emprunts
      * @param string $comments Commentaire à mettre sur les emprunts
-     * 
+     *
      * @return boolean True si OK, False si une erreur SQL est survenue
      */
-    public static function closeAllRentsForObject($object_id, $comments) {
+    public static function closeAllRentsForObject($object_id, $comments)
+    {
         global $zdb;
 
         try {
@@ -221,7 +229,7 @@ class LendRent
                     ->where(array(
                 'object_id' => $object_id,
                 'date_end' => null
-            ));
+                    ));
             $rows = $zdb->execute($select);
 
             foreach ($rows as $r) {
@@ -234,8 +242,9 @@ class LendRent
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -243,10 +252,11 @@ class LendRent
 
     /**
      * Renvoi une liste de tous les adhérents actifs triés par nom
-     * 
+     *
      * @return \Galette\Entity\Adherent[] Tableau des adhérents actifs triés par nom
      */
-    public static function getAllActivesAdherents() {
+    public static function getAllActivesAdherents()
+    {
         global $zdb;
 
         try {
@@ -263,8 +273,9 @@ class LendRent
             return $adherents;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -277,7 +288,8 @@ class LendRent
      *
      * @return false|object the called property
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         $rname = '_' . $name;
         if (substr($rname, 0, 3) == '___') {
             return false;
@@ -314,9 +326,9 @@ class LendRent
      *
      * @return void
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $rname = '_' . $name;
         $this->$rname = $value;
     }
-
 }

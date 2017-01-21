@@ -102,10 +102,11 @@ class LendObject
 
     /**
      * Construit un nouvel object d'emprunt à partir de la BDD (à partir de son ID) ou vierge
-     * 
+     *
      * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
-    public function __construct($args = null, $cloned = false) {
+    public function __construct($args = null, $cloned = false)
+    {
         global $zdb;
 
         if (is_int($args)) {
@@ -121,8 +122,9 @@ class LendObject
                 }
             } catch (\Exception $e) {
                 Analog::log(
-                        'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog::ERROR
+                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                        $e->getTraceAsString(),
+                    Analog::ERROR
                 );
             }
         } else if (is_object($args)) {
@@ -137,7 +139,8 @@ class LendObject
      *
      * @return void
      */
-    private function _loadFromRS($r) {
+    private function _loadFromRS($r)
+    {
         $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
 
         $this->_object_id = $r->object_id;
@@ -166,21 +169,23 @@ class LendObject
 
     /**
      * Protège les guillemets et apostrophes en les transformant en caractères qui ne gênent pas en HTML
-     * 
+     *
      * @param string $str Chaîne à transformer
-     * 
+     *
      * @return string Chaîne protégée
      */
-    private static function protectQuote($str) {
+    private static function protectQuote($str)
+    {
         return str_replace(array('\'', '"'), array(html_entity_decode('&rsquo;'), html_entity_decode('&rdquo;')), $str);
     }
 
     /**
      * Enregistre l'élément en cours que ce soit en insert ou update
-     * 
+     *
      * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
-    public function store() {
+    public function store()
+    {
         global $zdb;
 
         try {
@@ -208,8 +213,9 @@ class LendObject
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -217,12 +223,13 @@ class LendObject
 
     /**
      * Supprime logiquement un object (passe son statut IsActive à false)
-     * 
+     *
      * @param int $object_id ID de l'objet à rendre inactif
-     * 
+     *
      * @return boolean Renvoi true quand tout s'est bien déroulé
      */
-    public static function setInactiveObject($object_id) {
+    public static function setInactiveObject($object_id)
+    {
         $o = new self(intval($object_id));
         $o->is_active = false;
         $o->store();
@@ -231,12 +238,13 @@ class LendObject
 
     /**
      * Supprime physiquement un objet de la BDD ainsi que son historique d'emprunts
-     * 
+     *
      * @param int $object_id ID de l'objet à supprimer
-     * 
+     *
      * @return boolean Renvoi true quand tout s'est bien déroulé
      */
-    public static function removeObject($object_id) {
+    public static function removeObject($object_id)
+    {
         global $zdb;
 
         try {
@@ -248,8 +256,9 @@ class LendObject
             $zdb->execute($delete_object);
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -258,7 +267,7 @@ class LendObject
     /**
      * Renvoi tous les objets avec leur dernier historique d'emprunt triés par la propriété
      * donnée
-     * 
+     *
      * @param string $tri Nom de propriété surlaquelle faire le tri
      * @param string $direction Sens de tri 'asc' ou 'desc'
      * @param string $search Recherche pour l'objet
@@ -268,7 +277,8 @@ class LendObject
      * @param int $rows_per_page Nombre de lignes par page
      * @return LendObject[] Tableau des objets
      */
-    public static function getPaginatedObjects($tri, $direction, $search = '', $category_id = null, $admin_mode = false, $page = 0, $rows_per_page = 10) {
+    public static function getPaginatedObjects($tri, $direction, $search = '', $category_id = null, $admin_mode = false, $page = 0, $rows_per_page = 10)
+    {
         global $zdb;
 
         $objs = array();
@@ -351,11 +361,11 @@ class LendObject
                     }
                     break;
             }
-
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             //throw $e;
         }
@@ -366,10 +376,11 @@ class LendObject
      * Exécute une requête SQL pour récupérer le statut de location d'un objet, ainsi que l'utilisateur
      * qui loue l'objet.
      * Ne retourne rien.
-     * 
+     *
      * @param LendObject $object L'objet dont on cherche le statut. Est automatiquement modifié.
      */
-    public static function getStatusForObject($object) {
+    public static function getStatusForObject($object)
+    {
         global $zdb;
 
         // Statut
@@ -398,13 +409,14 @@ class LendObject
 
     /**
      * Renvoi le nombre d'objet correspondant à la catégorie donnée
-     * 
+     *
      * @param int $category_id Affiche seulement les objets appartenant à la catégorie donnée
      * @param string $search Recherche
      * @param bool $admin_mode Permet d'afficher aussi les objets "supprimés" (= inactifs) si mis à true
      * @return int Tableau des objets
      */
-    public static function getNbObjects($category_id = null, $search = '', $admin_mode = false) {
+    public static function getNbObjects($category_id = null, $search = '', $admin_mode = false)
+    {
         global $zdb;
 
         try {
@@ -416,8 +428,9 @@ class LendObject
             return $results->current()->nb;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -425,11 +438,11 @@ class LendObject
 
     /**
      * Ajoute les clauses or where à une requête existante
-     * 
+     *
      * @param bool $admin_mode Si true cherche tous les objets (is_active = 0/1), si false, cherche uniquement les actifs
      * @param int $category_id Si différent de null, cherche les objets de cette catégorie uniquement
      * @param string $search Cherche uniquement les objets correspondant à la chaine recherchée
-     * 
+     *
      * @return string La clause where à mettre comme recherche
      */
     static function writeWhereQuery($admin_mode, $category_id, $search)
@@ -490,7 +503,8 @@ class LendObject
      *
      * @return int Nombre d'objets
      */
-    public static function getObjectsNumberWithoutCategory($search = '') {
+    public static function getObjectsNumberWithoutCategory($search = '')
+    {
         global $zdb;
 
         try {
@@ -502,8 +516,9 @@ class LendObject
             return $results->current()->nb;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -512,12 +527,13 @@ class LendObject
     /**
      * Renvoit la somme des prix des objets correspondant a la recherche (si pas de recherche,
      * renvoit juste la somme des prix des objets)
-     * 
+     *
      * @param string $search Chaine cherchee (peut etre vide et renvoit la somme des prix des objets)
-     * 
+     *
      * @return boolean
      */
-    public static function getSumPriceObjectsWithoutCategory($search = '') {
+    public static function getSumPriceObjectsWithoutCategory($search = '')
+    {
         global $zdb;
 
         try {
@@ -529,8 +545,9 @@ class LendObject
             return $results->current()->sum;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -538,12 +555,13 @@ class LendObject
 
     /**
      * Renvoit tous les objects correspondant aux IDs donnés.
-     * 
+     *
      * @param array $ids Tableau des IDs pour lequels on souhaite avoir les objects
-     * 
+     *
      * @return LendObject[] Tableau des objets correspondant aux IDs
      */
-    public static function getMoreObjectsByIds($ids) {
+    public static function getMoreObjectsByIds($ids)
+    {
         global $zdb;
 
         $myids = array();
@@ -571,8 +589,9 @@ class LendObject
             return $results;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -585,7 +604,8 @@ class LendObject
      *
      * @return false|object the called property
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         $rname = '_' . $name;
         if (substr($rname, 0, 3) == '___') {
             return false;

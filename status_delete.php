@@ -53,4 +53,3 @@ if (array_key_exists('status_id', $_GET) && is_numeric($_GET['status_id'])) {
 }
 
 header('Location: status_list.php?msg=deleted');
-?>

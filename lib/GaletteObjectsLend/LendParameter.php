@@ -204,21 +204,23 @@ class LendParameter
 
     /**
      * Indique si le paramètre est un paramètre de couleur
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function isColor() {
+    public function isColor()
+    {
         return substr($this->_valeur_texte, 0, 1) == '#';
     }
 
     /**
      * Construit un paramètre vierge ou depuis son code
-     * 
+     *
      * @param string|object $args Nom du paramètre ou ligne de BDD
-     * 
+     *
      * @return PiloteParametre
      */
-    public function __construct($args = null) {
+    public function __construct($args = null)
+    {
         global $zdb;
 
         if (is_string($args) && strlen($args) > 0) {
@@ -246,7 +248,8 @@ class LendParameter
      *
      * @return void
      */
-    private function _loadFromRS($r) {
+    private function _loadFromRS($r)
+    {
         $this->_parameter_id = $r->parameter_id;
         $this->_code = $r->code;
         $this->_is_date = $r->is_date;
@@ -267,7 +270,8 @@ class LendParameter
      *
      * @return false|object the called property
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         $rname = '_' . $name;
         if (substr($rname, 0, 3) == '___') {
             return null;
@@ -286,17 +290,19 @@ class LendParameter
      *
      * @return void
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $rname = '_' . $name;
         $this->$rname = $value;
     }
 
     /**
      * Enregistre l'élément en cours que ce soit en insert ou update
-     * 
+     *
      * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
-    public function store() {
+    public function store()
+    {
         global $zdb;
 
         try {
@@ -331,8 +337,9 @@ class LendParameter
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -340,12 +347,13 @@ class LendParameter
 
     /**
      * Renvoie la valeur d'un paramètre à partir de son code
-     * 
+     *
      * @param string $code Code du paramètre
-     * 
+     *
      * @return type Peut être du texte, une date ou une valeur numérique
      */
-    public static function getParameterValue($code) {
+    public static function getParameterValue($code)
+    {
         global $zdb;
 
         if (array_key_exists($code, self::$_parameters_values)) {
@@ -369,10 +377,11 @@ class LendParameter
 
     /**
      * Renvoie la liste des codes utilisés dans l'application
-     * 
+     *
      * @return array Tableau des codes utilisés pour les paramètres
      */
-    public static function getAllParametersCodes() {
+    public static function getAllParametersCodes()
+    {
         global $zdb;
 
         $liste_codes = array();
@@ -396,17 +405,18 @@ class LendParameter
      * Ecrit la pagination d'une liste selon le nombre d'objets total dans la liste, le tri et
      * la direction définis. Renvoi la pagination au format HTML prêt à être inséré dans la page
      * finale.
-     * 
+     *
      * @param int $no_page No actuel de la page vue pour mise en surbrillance
      * @param string $tri Valeur de la variable de tri choisi
      * @param string $direction Valeur de la direction du tri choisi
      * @param int $nb_objet Nombre d'objets au total dans la liste
      * @param int $nb_lignes Nombre d'enregistrements par page
      * @param string $complement Complèment à mettre dans l'URL (faire précéder d'un "&")
-     * 
+     *
      * @return string La pagination faite
      */
-    public static function paginate($no_page, $nb_objet, $nb_lignes, $complement) {
+    public static function paginate($no_page, $nb_objet, $nb_lignes, $complement)
+    {
         if ($nb_objet < $nb_lignes) {
             return '';
         }
@@ -460,10 +470,11 @@ class LendParameter
 
     /**
      * Met la valeur d'un paramètre en cache pour ne le lire qu'une fois par page.
-     * 
+     *
      * @param LendParameter $parametre Le paramètre dont on veut avoir la valeur en cache.
      */
-    private static function _cacheParameter($parametre) {
+    private static function _cacheParameter($parametre)
+    {
         if ($parametre->is_date) {
             $dt = date_create_from_format('Y-m-d', $parametre->value_date);
             self::$_parameters_values[$parametre->code] = $dt->format('d/m/Y');
@@ -473,5 +484,4 @@ class LendParameter
             self::$_parameters_values[$parametre->code] = $parametre->value_numeric;
         }
     }
-
 }

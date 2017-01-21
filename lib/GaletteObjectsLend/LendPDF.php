@@ -41,12 +41,14 @@
 
 namespace GaletteObjectsLend;
 
-class LendPDF extends Galette\IO\Pdf {
+class LendPDF extends Galette\IO\Pdf
+{
 
     /**
      * Construit un nouveau PDF
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->SetDisplayMode('real', 'OneColumn');
     }

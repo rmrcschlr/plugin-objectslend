@@ -60,8 +60,8 @@ if (filter_has_var(INPUT_POST, 'save_categories') || filter_has_var(INPUT_POST, 
     $zip->open($zip_name, ZipArchive::OVERWRITE);
     $dir_name = filter_has_var(INPUT_POST, 'save_categories') ? 'categories_pictures' : 'objects_pictures';
     $dir_pictures = opendir($dir_name);
-    while (($file = readdir($dir_pictures)) !== FALSE) {
-        if (preg_match('/^[0-9]+$/', pathinfo($file, PATHINFO_FILENAME)) !== FALSE) {
+    while (($file = readdir($dir_pictures)) !== false) {
+        if (preg_match('/^[0-9]+$/', pathinfo($file, PATHINFO_FILENAME)) !== false) {
             $zip->addFile($dir_name . '/' . $file, $file);
         }
     }

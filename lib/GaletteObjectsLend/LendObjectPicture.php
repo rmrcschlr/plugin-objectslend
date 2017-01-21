@@ -138,19 +138,19 @@ class LendObjectPicture extends Galette\Core\Picture
 
         //On vérifie si le parametre de la hauteur est plus grand que 0
         if ($h_thumb == 0) {
-            // si egal a zaro on affecte la hauteur proportionnellement 
+            // si egal a zaro on affecte la hauteur proportionnellement
             $h_thumb = floor($pic['src']['info']['height'] * $w_thumb / $pic['src']['info']['width']);
         }
         switch ($pic['src']['info']['type']) {
-            case"1":
+            case "1":
                 // Création de l'image pour une source gif
                 $pic['src']['ress'] = imagecreatefromgif($img_src);
                 break;
-            case"2":
+            case "2":
                 // Création de l'image pour une source jpg
                 $pic['src']['ress'] = imagecreatefromjpeg($img_src);
                 break;
-            case"3":
+            case "3":
                 // Création de l'image pour une source png
                 $pic['src']['ress'] = imagecreatefrompng($img_src);
                 break;

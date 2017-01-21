@@ -64,10 +64,11 @@ class LendStatus
 
     /**
      * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
-     * 
+     *
      * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
-    public function __construct($args = null) {
+    public function __construct($args = null)
+    {
         global $zdb;
 
         if (is_int($args)) {
@@ -80,8 +81,9 @@ class LendStatus
                 }
             } catch (\Exception $e) {
                 Analog::log(
-                        'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog::ERROR
+                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                        $e->getTraceAsString(),
+                    Analog::ERROR
                 );
             }
         } else if (is_object($args)) {
@@ -96,7 +98,8 @@ class LendStatus
      *
      * @return void
      */
-    private function _loadFromRS($r) {
+    private function _loadFromRS($r)
+    {
         $this->_status_id = $r->status_id;
         $this->_status_text = $r->status_text;
         $this->_is_home_location = $r->is_home_location == '1' ? true : false;
@@ -106,10 +109,11 @@ class LendStatus
 
     /**
      * Enregistre l'élément en cours que ce soit en insert ou update
-     * 
+     *
      * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
-    public function store() {
+    public function store()
+    {
         global $zdb;
 
         try {
@@ -137,8 +141,9 @@ class LendStatus
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -146,13 +151,14 @@ class LendStatus
 
     /**
      * Renvoi tous les statuts triés par le tri indiqué
-     * 
+     *
      * @param string $tri Colonne de tri
      * @param string $direction asc ou desc
-     * 
+     *
      * @return LendStatus[] La liste des statuts triés par le tri donné
      */
-    public static function getAllStatuses($tri, $direction) {
+    public static function getAllStatuses($tri, $direction)
+    {
         global $zdb;
 
         try {
@@ -167,8 +173,9 @@ class LendStatus
             return $status;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -176,10 +183,11 @@ class LendStatus
 
     /**
      * Renvoi tous les statuts actifs triés par nom
-     * 
+     *
      * @return LendStatus[] La liste des statuts actifs triés
      */
-    public static function getActiveStatuses() {
+    public static function getActiveStatuses()
+    {
         global $zdb;
 
         try {
@@ -195,8 +203,9 @@ class LendStatus
             return $status;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -204,10 +213,11 @@ class LendStatus
 
     /**
      * Renvoi tous les statuts actifs considéré comme empruntés triés par nom
-     * 
+     *
      * @return LendStatus[] La liste des statuts actifs triés
      */
-    public static function getActiveTakeAwayStatuses() {
+    public static function getActiveTakeAwayStatuses()
+    {
         global $zdb;
 
         try {
@@ -223,8 +233,9 @@ class LendStatus
             return $status;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -232,10 +243,11 @@ class LendStatus
 
     /**
      * Renvoi tous les statuts actifs considéré comme à la maison triés par nom
-     * 
+     *
      * @return LendStatus[] La liste des statuts actifs triés
      */
-    public static function getActiveHomeStatuses() {
+    public static function getActiveHomeStatuses()
+    {
         global $zdb;
 
         try {
@@ -251,8 +263,9 @@ class LendStatus
             return $status;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -260,12 +273,13 @@ class LendStatus
 
     /**
      * Supprime un statut
-     * 
+     *
      * @param int $id Id du statut à supprimer
-     * 
+     *
      * @return boolean True en cas de réussite, false sinon
      */
-    public static function deleteStatus($id) {
+    public static function deleteStatus($id)
+    {
         global $zdb;
 
         try {
@@ -275,8 +289,9 @@ class LendStatus
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog::ERROR
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -289,7 +304,8 @@ class LendStatus
      *
      * @return false|object the called property
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         $rname = '_' . $name;
         if (substr($rname, 0, 3) == '___') {
             return false;
@@ -308,9 +324,9 @@ class LendStatus
      *
      * @return void
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $rname = '_' . $name;
         $this->$rname = $value;
     }
-
 }

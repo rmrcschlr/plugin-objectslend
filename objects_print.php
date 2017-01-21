@@ -56,11 +56,13 @@ if (!$login->isLogged()) {
 // Import des classes de notre plugin
 require_once '_config.inc.php';
 
-function getNotHtmlText($code) {
+function getNotHtmlText($code)
+{
     return html_entity_decode(_T($code));
 }
 
-function cut($str, $length) {
+function cut($str, $length)
+{
     $l = intval($length / 1.8);
     if (strlen($str) > $l) {
         return substr($str, 0, $l);
@@ -68,7 +70,8 @@ function cut($str, $length) {
     return $str;
 }
 
-function addLine($pdf, $code_title, $value, $width) {
+function addLine($pdf, $code_title, $value, $width)
+{
     $pdf->Cell($width, 0, '');
     $title = getNotHtmlText($code_title);
     $pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
@@ -203,4 +206,3 @@ foreach ($ids as $object_id) {
 }
 
 $pdf->Output('object_print_' . date('Ymd-Hi') . '.pdf', 'D');
-?>

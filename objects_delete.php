@@ -67,4 +67,3 @@ if (array_key_exists('objects_ids', $_GET)) {
 }
 
 header('Location: objects_list.php?msg=' . ($to_delete ? 'deleted' : '') . ($to_disable ? 'disabled' : ''));
-?>

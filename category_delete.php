@@ -53,4 +53,3 @@ if (array_key_exists('category_id', $_GET) && is_numeric($_GET['category_id'])) 
 }
 
 header('Location: categories_list.php?msg=deleted');
-?>

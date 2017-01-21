@@ -118,12 +118,16 @@ if (filter_has_var(INPUT_POST, 'save')) {
                                 htmlentities($objPicture->getBadChars())
                             );
                             $error_detected[] = preg_replace(
-                                    $patterns, $replacements, _T("- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t")
+                                $patterns,
+                                $replacements,
+                                _T("- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t")
                             );
                             break;
                         case LendObjectPicture::FILE_TOO_BIG:
                             $error_detected[] = preg_replace(
-                                    '|%d|', LendObjectPicture::MAX_FILE_SIZE, _T("File is too big. Maximum allowed size is %d")
+                                '|%d|',
+                                LendObjectPicture::MAX_FILE_SIZE,
+                                _T("File is too big. Maximum allowed size is %d")
                             );
                             break;
                         case LendObjectPicture::MIME_NOT_ALLOWED:
@@ -150,7 +154,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
 }
 
 /**
- * Modification du statut 
+ * Modification du statut
  */
 if (filter_has_var(INPUT_POST, 'status')) {
     $object_id = filter_input(INPUT_POST, 'object_id');
@@ -172,7 +176,7 @@ $statuses = LendStatus::getActiveStatuses();
 $adherents = LendRent::getAllActivesAdherents();
 
 /**
- * Lecture de l'objet à éditer 
+ * Lecture de l'objet à éditer
  */
 if ($object_id != null) {
     $object = new LendObject(intval($object_id));
@@ -210,4 +214,3 @@ $tpl->assign('content', $content);
 //Set path to main Galette's template
 $tpl->template_dir = $orig_template_path;
 $tpl->display('page.tpl', LEND_SMARTY_PREFIX);
-?>
