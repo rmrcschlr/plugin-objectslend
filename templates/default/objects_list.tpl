@@ -67,8 +67,8 @@
         <div id="listfilter">
             <label for="search">{_T string="OBJECTS LIST.SEARCH"}</label>
             <input id="search" name="search" type="text" placeholder="{_T string="OBJECTS LIST.ENTER WORD"}" value="{$search}" size="60">
-            <input id="go_search" name="go_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GO SEARCH"}">
-            <input id="reset_search" name="reset_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.RESET SEARCH"}">
+            <input name="go_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GO SEARCH"}">
+            <input name="reset_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.RESET SEARCH"}">
         </div>
     </form>    
     {*

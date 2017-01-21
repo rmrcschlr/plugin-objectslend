@@ -31,9 +31,9 @@
     cursor: pointer;
 }
 
-#status_create, #object_create, #lend_cancel, #lend_save, #lend_yes, #duplicate, #go_search, 
-#reset_search, #objects_delete, #objects_disable, #objects_give_back,
-#objects_take_away, #objects_print, #objects_record_print, #save_categories, 
+#status_create, #object_create, #lend_cancel, #lend_save, #lend_yes, #duplicate,
+#objects_delete, #objects_disable, #objects_give_back,
+#objects_take_away, #objects_print, #objects_record_print, #save_categories,
 #save_objects, #restore_objects ,.button {
     background-position: 10px 50%, 50% 50% !important;
     background-repeat: no-repeat, repeat !important;
@@ -80,20 +80,6 @@
 }
 #duplicate.ui-state-hover {
     background-image: url(../../picts/copy_16_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
-}
-
-#go_search {
-    background-image: url(../../picts/search.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
-}
-#go_search.ui-state-hover {
-    background-image: url(../../picts/search_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
-}
-
-#reset_search {
-    background-image: url(../../picts/clear.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
-}
-#reset_search.ui-state-hover {
-    background-image: url(../../picts/clear_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
 }
 
 #objects_delete {
