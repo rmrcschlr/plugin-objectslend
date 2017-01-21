@@ -43,7 +43,7 @@ namespace GaletteObjectsLend;
 
 use Analog\Analog;
 
-class LendObjectPicture extends Galette\Core\Picture
+class LendObjectPicture extends \Galette\Core\Picture
 {
 
     const PK = 'object_id';

@@ -41,7 +41,7 @@
 
 namespace GaletteObjectsLend;
 
-class LendPDF extends Galette\IO\Pdf
+class LendPDF extends \Galette\IO\Pdf
 {
 
     /**
