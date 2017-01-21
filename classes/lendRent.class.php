@@ -1,16 +1,24 @@
 <?php
 
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
  * Public Class LendRent
  * Store all informations about rent status and time of an object
  *
  * PHP version 5
  *
- * Copyright © 2013 M�lissa Djebel
+ * Copyright © 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
- * Plugin ObjectsLend is distributed in the hope that it will be useful,
+ * ObjectsLend is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ObjectsLend is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -21,8 +29,10 @@
  * @category  Plugins
  * @package   ObjectsLend
  *
- * @author    M�lissa Djebel <melissa.djebel@gmx.net>
- * @copyright 2013 M�lissa Djebel
+ * @author    Mélissa Djebel <melissa.djebel@gmx.net>
+ * @author    Johan Cwiklinski <johan@x-tnd.be>
+ * @copyright 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -54,16 +64,16 @@ class LendRent {
     // Join sur table Status
     private $_status_text;
     private $_is_home_location;
-    // Left join sur table adh�rents
+    // Left join sur table adhérents
     private $_nom_adh = '';
     private $_prenom_adh = '';
     private $_pseudo_adh = '';
     private $_email_adh = '';
 
     /**
-     * Construit un nouvel historie d'emprunt � partir de la BDD (� partir de son ID) ou vierge
+     * Construit un nouvel historique d'emprunt à partir de la BDD (à partir de son ID) ou vierge
      * 
-     * @param int|object $args Peut �tre null, un ID ou une ligne de la BDD
+     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
     public function __construct($args = null) {
         global $zdb;
@@ -108,9 +118,9 @@ class LendRent {
     }
 
     /**
-     * Enregistre l'�l�ment en cours que ce soit en insert ou update
+     * Enregistre l'élément en cours que ce soit en insert ou update
      * 
-     * @return bool False si l'enregistrement a �chou�, true si aucune erreur
+     * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
     public function store() {
         global $zdb;
@@ -148,8 +158,8 @@ class LendRent {
     }
 
     /**
-     * Retourne tous les historiques d'emprunts pour un objet donn� tri� par date de d�but 
-     * les plus r�cents en 1er.
+     * Retourne tous les historiques d'emprunts pour un objet donné trié par date de début 
+     * les plus récents en 1er.
      * 
      * @param int $object_id ID de l'objet dont on souhaite l'historique d'emprunt
      * 
@@ -189,10 +199,10 @@ class LendRent {
     }
 
     /**
-     * Ferme tous les emprunts ouverts pour un objet donn� avec le commentaire indiqu�
+     * Ferme tous les emprunts ouverts pour un objet donné avec le commentaire indiqué
      * 
      * @param int $object_id ID de l'objet surlequel fermer les emprunts
-     * @param string $comments Commentaire � mettre sur les emprunts
+     * @param string $comments Commentaire à mettre sur les emprunts
      * 
      * @return boolean True si OK, False si une erreur SQL est survenue
      */
@@ -225,9 +235,9 @@ class LendRent {
     }
 
     /**
-     * Renvoi une liste de tous les adh�rents actifs tri�s par nom
+     * Renvoi une liste de tous les adhérents actifs triés par nom
      * 
-     * @return \Galette\Entity\Adherent[] Tableau des adh�rents actifs tri�s par nom
+     * @return \Galette\Entity\Adherent[] Tableau des adhérents actifs triés par nom
      */
     public static function getAllActivesAdherents() {
         global $zdb;
@@ -303,5 +313,3 @@ class LendRent {
     }
 
 }
-
-?>

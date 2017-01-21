@@ -1,16 +1,24 @@
 <?php
 
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
  * Public Class LendParameter
  * Store the parameters of the Plugin
  *
  * PHP version 5
  *
- * Copyright � 2013 M�lissa Djebel
+ * Copyright © 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
- * Plugin ObjectsLend is distributed in the hope that it will be useful,
+ * ObjectsLend is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ObjectsLend is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -21,8 +29,10 @@
  * @category  Plugins
  * @package   ObjectsLend
  *
- * @author    M�lissa Djebel <melissa.djebel@gmx.net>
- * @copyright 2013 M�lissa Djebel
+ * @author    Mélissa Djebel <melissa.djebel@gmx.net>
+ * @author    Johan Cwiklinski <johan@x-tnd.be>
+ * @copyright 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -34,55 +44,55 @@ class LendParameter {
     const PK = 'code';
 
     /**
-     * Param�tre : voir la liste des cat�gories en en-t�tes de la liste des objets
+     * Paramètre : voir la liste des catégories en en-têtes de la liste des objets
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_CATEGORY = 'VIEW_CATEGORY';
 
     /**
-     * Param�tre : voir la colonne "n� de s�rie"
+     * Paramètre : voir la colonne "no de série"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_SERIAL = 'VIEW_SERIAL';
 
     /**
-     * Param�tre : voir la colonne "photo/minitature"
+     * Paramètre : voir la colonne "photo/minitature"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_THUMBNAIL = 'VIEW_THUMBNAIL';
 
     /**
-     * Param�tre : voir la colonne "nom"
+     * Paramètre : voir la colonne "nom"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_NAME = 'VIEW_NAME';
 
     /**
-     * Param�tre : voir la colonne "description"
+     * Paramètre : voir la colonne "description"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_DESCRIPTION = 'VIEW_DESCRIPTION';
 
     /**
-     * Param�tre :  voir la colonne "prix"
+     * Paramètre :  voir la colonne "prix"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_PRICE = 'VIEW_PRICE';
 
     /**
-     * Param�tre : voir la colonne "dimensions"
+     * Paramètre : voir la colonne "dimensions"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_DIMENSION = 'VIEW_DIMENSION';
 
     /**
-     * Param�tre : voir la colonne "poids"
+     * Paramètre : voir la colonne "poids"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_WEIGHT = 'VIEW_WEIGHT';
 
     /**
-     * Param�tre : voir la colonne "prix de location"
+     * Paramètre : voir la colonne "prix de location"
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_LEND_PRICE = 'VIEW_LEND_PRICE';
@@ -94,7 +104,7 @@ class LendParameter {
     const PARAM_VIEW_DATE_FORECAST = 'VIEW_DATE_FORECAST';
 
     /**
-     * Param�tre : voir une miniature pour l'image des cat�gories
+     * Paramètre : voir une miniature pour l'image des catégories
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_CATEGORY_THUMB = 'VIEW_CATEGORY_THUMB';
@@ -106,43 +116,43 @@ class LendParameter {
     const PARAM_VIEW_LIST_PRICE_SUM = 'VIEW_LIST_PRICE_SUM';
 
     /**
-     * Param�tre : voir une miniature pour l'image des objets
+     * Paramètre : voir une miniature pour l'image des objets
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_VIEW_OBJECT_THUMB = 'VIEW_OBJECT_THUMB';
 
     /**
-     * Param�tre : largeur max d'une miniature (appliqu�e aux objets/cat�gories)
+     * Paramètre : largeur max d'une miniature (appliquée aux objets/catégories)
      * Valeur : largeur en pixels
      */
     const PARAM_THUMB_MAX_WIDTH = 'THUMB_MAX_WIDTH';
 
     /**
-     * Param�tre : hauteur max d'une miniature (appliqu�e aux objets/cat�gories)
+     * Paramètre : hauteur max d'une miniature (appliquée aux objets/catégories)
      * Valeur : largeur en pixels
      */
     const PARAM_THUMB_MAX_HEIGHT = 'THUMB_MAX_HEIGHT';
 
     /**
-     * Param�tre : G�n�rer automatiquement une contribution lors de la location d'un objet
+     * Paramètre : Générer automatiquement une contribution lors de la location d'un objet
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_AUTO_GENERATE_CONTRIBUTION = 'AUTO_GENERATE_CONTRIBUTION';
 
     /**
-     * Param�tre : Id du type de contribution si auto-g�n�ration d'une contribution
+     * Paramètre : Id du type de contribution si auto-génération d'une contribution
      * Valeur : ID du type de contribution
      */
     const PARAM_GENERATED_CONTRIBUTION_TYPE_ID = 'GENERATED_CONTRIBUTION_TYPE_ID';
 
     /**
-     * Param�tre : Texte pour la contribution
-     * Valeur : texte d'info � mettre avec des placeholders � remplacer
+     * Paramètre : Texte pour la contribution
+     * Valeur : texte d'info à mettre avec des placeholders à remplacer
      */
     const PARAM_GENERATED_CONTRIB_INFO_TEXT = 'GENERATED_CONTRIB_INFO_TEXT';
 
     /**
-     * Param�tre : Autoriser les membres non staff ni admin � pouvoir louer un objet = acc�s � la page take_object.php
+     * Paramètre : Autoriser les membres non staff ni admin à pouvoir louer un objet = accès à la page take_object.php
      * Valeur : 0 = false / 1 = true
      */
     const PARAM_ENABLE_MEMBER_RENT_OBJECT = 'ENABLE_MEMBER_RENT_OBJECT';
@@ -186,7 +196,7 @@ class LendParameter {
     private static $_parameters_values = array();
 
     /**
-     * Indique si le param�tre est un param�tre de couleur
+     * Indique si le paramètre est un paramètre de couleur
      * 
      * @return bool 
      */
@@ -195,9 +205,9 @@ class LendParameter {
     }
 
     /**
-     * Construit un param�tre vierge ou depuis son code
+     * Construit un paramètre vierge ou depuis son code
      * 
-     * @param string|object $args Nom du param�tre ou ligne de BDD
+     * @param string|object $args Nom du paramètre ou ligne de BDD
      * 
      * @return PiloteParametre
      */
@@ -275,9 +285,9 @@ class LendParameter {
     }
 
     /**
-     * Enregistre l'�l�ment en cours que ce soit en insert ou update
+     * Enregistre l'élément en cours que ce soit en insert ou update
      * 
-     * @return bool False si l'enregistrement a �chou�, true si aucune erreur
+     * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
     public function store() {
         global $zdb;
@@ -322,11 +332,11 @@ class LendParameter {
     }
 
     /**
-     * Renvoie la valeur d'un param�tre � partir de son code
+     * Renvoie la valeur d'un paramètre à partir de son code
      * 
-     * @param string $code Code du param�tre
+     * @param string $code Code du paramètre
      * 
-     * @return type Peut �tre du texte, une date ou une valeur num�rique
+     * @return type Peut être du texte, une date ou une valeur numérique
      */
     public static function getParameterValue($code) {
         global $zdb;
@@ -351,9 +361,9 @@ class LendParameter {
     }
 
     /**
-     * Renvoie la liste des codes utilis�s dans l'application
+     * Renvoie la liste des codes utilisés dans l'application
      * 
-     * @return array Tableau des codes utilis�s pour les param�tres
+     * @return array Tableau des codes utilisés pour les paramètres
      */
     public static function getAllParametersCodes() {
         global $zdb;
@@ -377,15 +387,15 @@ class LendParameter {
 
     /**
      * Ecrit la pagination d'une liste selon le nombre d'objets total dans la liste, le tri et
-     * la direction d�finis. Renvoi la pagination au format HTML pr�t � �tre ins�r� dans la page
+     * la direction définis. Renvoi la pagination au format HTML prêt à être inséré dans la page
      * finale.
      * 
-     * @param int $no_page N� actuel de la page vue pour mise en surbrillance
+     * @param int $no_page No actuel de la page vue pour mise en surbrillance
      * @param string $tri Valeur de la variable de tri choisi
      * @param string $direction Valeur de la direction du tri choisi
      * @param int $nb_objet Nombre d'objets au total dans la liste
      * @param int $nb_lignes Nombre d'enregistrements par page
-     * @param string $complement Compl�ment � mettre dans l'URL (faire pr�c�der d'un "&")
+     * @param string $complement Complèment à mettre dans l'URL (faire précéder d'un "&")
      * 
      * @return string La pagination faite
      */
@@ -442,9 +452,9 @@ class LendParameter {
     }
 
     /**
-     * Met la valeur d'un param�tre en cache pour ne le lire qu'une fois par page.
+     * Met la valeur d'un paramètre en cache pour ne le lire qu'une fois par page.
      * 
-     * @param LendParameter $parametre Le param�tre dont on veut avoir la valeur en cache.
+     * @param LendParameter $parametre Le paramètre dont on veut avoir la valeur en cache.
      */
     private static function _cacheParameter($parametre) {
         if ($parametre->is_date) {
@@ -458,5 +468,3 @@ class LendParameter {
     }
 
 }
-
-?>

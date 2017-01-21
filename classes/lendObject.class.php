@@ -1,16 +1,24 @@
 <?php
 
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
  * Public Class LendObject
  * Store informations about an object to lend
  *
  * PHP version 5
  *
- * Copyright © 2013 M�lissa Djebel
+ * Copyright © 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
- * Plugin ObjectsLend is distributed in the hope that it will be useful,
+ * ObjectsLend is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ObjectsLend is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -21,8 +29,10 @@
  * @category  Plugins
  * @package   ObjectsLend
  *
- * @author    M�lissa Djebel <melissa.djebel@gmx.net>
- * @copyright 2013 M�lissa Djebel
+ * @author    Mélissa Djebel <melissa.djebel@gmx.net>
+ * @author    Johan Cwiklinski <johan@x-tnd.be>
+ * @copyright 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -59,33 +69,33 @@ class LendObject {
     private $_is_active = true;
     private $_category_id;
     private $_nb_available = 1;
-    // Nom de la cat�gorie
+    // Nom de la catégorie
     private $_category_name = '';
-    // Requ�te sur le dernier statut de l'objet
+    // Requête sur le dernier statut de l'objet
     private $_date_begin;
     private $_date_forecast;
     private $_date_end;
     private $_status_text;
     private $_is_home_location;
-    // Requ�te sur l'adh�rent associ� au statut
+    // Requête sur l'adhérent associé au statut
     private $_nom_adh = '';
     private $_prenom_adh = '';
     private $_email_adh = '';
     private $_id_adh;
-    // Propri�t�s pour la recherche
+    // Propriétés pour la recherche
     private $_search_serial_number = '';
     private $_search_name = '';
     private $_search_description = '';
     private $_search_dimension = '';
-    // Propri�t�s pour la taille des images au survol
+    // Propriétés pour la taille des images au survol
     private $_tooltip_title = '';
     private $_object_image_url;
     private $_draw_image;
 
     /**
-     * Construit un nouvel object d'emprunt � partir de la BDD (� partir de son ID) ou vierge
+     * Construit un nouvel object d'emprunt à partir de la BDD (à partir de son ID) ou vierge
      * 
-     * @param int|object $args Peut �tre null, un ID ou une ligne de la BDD
+     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
     public function __construct($args = null, $cloned = false) {
         global $zdb;
@@ -147,20 +157,20 @@ class LendObject {
     }
 
     /**
-     * Prot�ge les guillemets et apostrophes en les transformant en caract�res qui ne g�nent pas en HTML
+     * Protège les guillemets et apostrophes en les transformant en caractères qui ne gênent pas en HTML
      * 
-     * @param string $str Cha�ne � transform�e
+     * @param string $str Chaîne à transformer
      * 
-     * @return string Cha�ne prot�g�e
+     * @return string Chaîne protégée
      */
     private static function protectQuote($str) {
         return str_replace(array('\'', '"'), array(html_entity_decode('&rsquo;'), html_entity_decode('&rdquo;')), $str);
     }
 
     /**
-     * Enregistre l'�l�ment en cours que ce soit en insert ou update
+     * Enregistre l'élément en cours que ce soit en insert ou update
      * 
-     * @return bool False si l'enregistrement a �chou�, true si aucune erreur
+     * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
     public function store() {
         global $zdb;
@@ -198,11 +208,11 @@ class LendObject {
     }
 
     /**
-     * Supprime logiquement un object (passe son statut IsActive � false)
+     * Supprime logiquement un object (passe son statut IsActive à false)
      * 
-     * @param int $object_id ID de l'objet � rendre inactif
+     * @param int $object_id ID de l'objet à rendre inactif
      * 
-     * @return boolean Renvoi true quand tout s'est bien d�roul�
+     * @return boolean Renvoi true quand tout s'est bien déroulé
      */
     public static function setInactiveObject($object_id) {
         $o = new LendObject(intval($object_id));
@@ -214,9 +224,9 @@ class LendObject {
     /**
      * Supprime physiquement un objet de la BDD ainsi que son historique d'emprunts
      * 
-     * @param int $object_id ID de l'objet � supprimer
+     * @param int $object_id ID de l'objet à supprimer
      * 
-     * @return boolean Renvoi true quand tout s'est bien d�roul�
+     * @return boolean Renvoi true quand tout s'est bien déroulé
      */
     public static function removeObject($object_id) {
         global $zdb;
@@ -238,15 +248,15 @@ class LendObject {
     }
 
     /**
-     * Renvoi tous les objets avec leur dernier historique d'emprunt tri�s par la propri�t� 
-     * donn�e
+     * Renvoi tous les objets avec leur dernier historique d'emprunt triés par la propriété
+     * donnée
      * 
-     * @param string $tri Nom de propri�t� surlaquelle faire le tri
+     * @param string $tri Nom de propriété surlaquelle faire le tri
      * @param string $direction Sens de tri 'asc' ou 'desc'
      * @param string $search Recherche pour l'objet
-     * @param int $category_id Affiche seulement les objets appartenant � la cat�gorie donn�e
-     * @param bool $admin_mode Permet d'afficher aussi les objets "supprim�s" (= inactifs) si mis � true
-     * @param int $page N� de la page � afficher (index 1)
+     * @param int $category_id Affiche seulement les objets appartenant à la catégorie donnée
+     * @param bool $admin_mode Permet d'afficher aussi les objets "supprimés" (= inactifs) si mis à true
+     * @param int $page No de la page à afficher (index 1)
      * @param int $rows_per_page Nombre de lignes par page
      * @return LendObject[] Tableau des objets
      */
@@ -344,11 +354,11 @@ class LendObject {
     }
 
     /**
-     * Ex�cute une requ�te SQL pour r�cup�rer le statut de location d'un objet, ainsi que l'utilisateur
+     * Exécute une requête SQL pour récupérer le statut de location d'un objet, ainsi que l'utilisateur
      * qui loue l'objet.
      * Ne retourne rien.
      * 
-     * @param LendObject $object L'objet dont on cherche le statut. Est automatiquement modifi�.
+     * @param LendObject $object L'objet dont on cherche le statut. Est automatiquement modifié.
      */
     public static function getStatusForObject($object) {
         global $zdb;
@@ -378,11 +388,11 @@ class LendObject {
     }
 
     /**
-     * Renvoi le nombre d'objet correspondant � la cat�gorie donn�e
+     * Renvoi le nombre d'objet correspondant à la catégorie donnée
      * 
-     * @param int $category_id Affiche seulement les objets appartenant � la cat�gorie donn�e
+     * @param int $category_id Affiche seulement les objets appartenant à la catégorie donnée
      * @param string $search Recherche
-     * @param bool $admin_mode Permet d'afficher aussi les objets "supprim�s" (= inactifs) si mis � true
+     * @param bool $admin_mode Permet d'afficher aussi les objets "supprimés" (= inactifs) si mis à true
      * @return int Tableau des objets
      */
     public static function getNbObjects($category_id = null, $search = '', $admin_mode = false) {
@@ -405,13 +415,13 @@ class LendObject {
     }
 
     /**
-     * Ajoute les clauses or where � une requ�te existante
+     * Ajoute les clauses or where à une requête existante
      * 
      * @param bool $admin_mode Si true cherche tous les objets (is_active = 0/1), si false, cherche uniquement les actifs
      * @param int $category_id Si différent de null, cherche les objets de cette catégorie uniquement
      * @param string $search Cherche uniquement les objets correspondant à la chaine recherchée
      * 
-     * @return string La clause where � mettre comme recherche
+     * @return string La clause where à mettre comme recherche
      */
     static function writeWhereQuery($admin_mode, $category_id, $search) {
         $where = new Zend\Db\Sql\Where();
@@ -445,10 +455,10 @@ class LendObject {
     }
 
     /**
-     * Renvoit le nombre total d'objets correspondant � la recherche (si pas de recherche,
+     * Renvoit le nombre total d'objets correspondant à la recherche (si pas de recherche,
      * renvoit juste le nombre total d'objets)
      * 
-     * @param string $search Cha�ne cherch�e (peut �tre vide et renvoit le nombre total d'objets)
+     * @param string $search Chaîne cherchée (peut être vide et renvoit le nombre total d'objets)
      * 
      * @return int Nombre d'objets
      */
@@ -499,7 +509,7 @@ class LendObject {
     }
 
     /**
-     * Renvoit tous les objects correspondant aux IDs donn�s.
+     * Renvoit tous les objects correspondant aux IDs donnés.
      * 
      * @param array $ids Tableau des IDs pour lequels on souhaite avoir les objects
      * 

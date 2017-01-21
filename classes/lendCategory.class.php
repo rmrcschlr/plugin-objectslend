@@ -1,16 +1,24 @@
 <?php
 
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
  * Public Class LendCategory
  * Store informations about a lend category
  *
  * PHP version 5
  *
- * Copyright � 2013 M�lissa Djebel
+ * Copyright © 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
- * Plugin ObjectsLend is distributed in the hope that it will be useful,
+ * ObjectsLend is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ObjectsLend is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -21,8 +29,10 @@
  * @category  Plugins
  * @package   ObjectsLend
  *
- * @author    M�lissa Djebel <melissa.djebel@gmx.net>
- * @copyright 2013 M�lissa Djebel
+ * @author    Mélissa Djebel <melissa.djebel@gmx.net>
+ * @author    Johan Cwiklinski <johan@x-tnd.be>
+ * @copyright 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -47,9 +57,9 @@ class LendCategory {
     private $_categ_image_url = '';
 
     /**
-     * Construit un nouveau statut d'emprunt � partir de la BDD (� partir de son ID) ou vierge
+     * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
      * 
-     * @param int|object $args Peut �tre null, un ID ou une ligne de la BDD
+     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
     public function __construct($args = null) {
         global $zdb;
@@ -96,9 +106,9 @@ class LendCategory {
     }
 
     /**
-     * Enregistre l'�l�ment en cours que ce soit en insert ou update
+     * Enregistre l'élément en cours que ce soit en insert ou update
      * 
-     * @return bool False si l'enregistrement a �chou�, true si aucune erreur
+     * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
     public function store() {
         global $zdb;
@@ -136,12 +146,12 @@ class LendCategory {
     }
 
     /**
-     * Renvoi toutes les categories tri�es par le tri indiqu�
+     * Renvoi toutes les categories triées par le tri indiqué
      * 
      * @param string $tri Colonne de tri
      * @param string $direction asc ou desc
      * 
-     * @return LendCategory[] La liste des statuts tri�s par le tri donn�
+     * @return LendCategory[] La liste des statuts triés par le tri donné
      */
     public static function getAllCategories($tri, $direction) {
         global $zdb;
@@ -166,10 +176,10 @@ class LendCategory {
     }
 
     /**
-     * Renvoi toutes les categories actives tri�s par nom avec le nombre
-     * d'objets qu'elles contiennent (propri�t� 'objects_nb')
+     * Renvoi toutes les categories actives triés par nom avec le nombre
+     * d'objets qu'elles contiennent (propriété 'objects_nb')
      * 
-     * @return LendCategory[] La liste des categories actives tri�es
+     * @return LendCategory[] La liste des categories actives triées
      */
     public static function getActiveCategories() {
         global $zdb;
@@ -218,11 +228,11 @@ class LendCategory {
     }
 
     /**
-     * Renvoi toutes les categories actives tri�s par nom avec le nombre
-     * d'objet qui correspond � la chaine recherch�e
+     * Renvoi toutes les categories actives triés par nom avec le nombre
+     * d'objet qui correspond à la chaine recherchée
      * 
      * @param string $search Chaine de recherche
-     * @return LendCategory[] La liste des categories actives tri�es
+     * @return LendCategory[] La liste des categories actives triées
      */
     public static function getActiveCategoriesWithSearchCriteria($search) {
         if (strlen($search) < 1) {
@@ -263,11 +273,11 @@ class LendCategory {
     }
 
     /**
-     * Supprime une cat�gorie et assigne les objets de cette cat�gorie � "aucune cat�gorie"
+     * Supprime une catégorie et assigne les objets de cette catégorie à "aucune catégorie"
      * 
-     * @param int $id Id de la cat�gorie � supprimer
+     * @param int $id Id de la catégorie à supprimer
      * 
-     * @return boolean True en cas de r�ussite, false sinon
+     * @return boolean True en cas de réussite, false sinon
      */
     public static function deleteCategory($id) {
         global $zdb;

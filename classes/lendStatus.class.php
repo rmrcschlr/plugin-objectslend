@@ -1,16 +1,24 @@
 <?php
 
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
  * Public Class LendStatus
  * Store informations about a lend status
  *
  * PHP version 5
  *
- * Copyright © 2013 M�lissa Djebel
+ * Copyright © 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
- * Plugin ObjectsLend is distributed in the hope that it will be useful,
+ * ObjectsLend is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ObjectsLend is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -21,8 +29,10 @@
  * @category  Plugins
  * @package   ObjectsLend
  *
- * @author    M�lissa Djebel <melissa.djebel@gmx.net>
- * @copyright 2013 M�lissa Djebel
+ * @author    Mélissa Djebel <melissa.djebel@gmx.net>
+ * @author    Johan Cwiklinski <johan@x-tnd.be>
+ * @copyright 2013-2016 Mélissa Djebel
+ * Copyright © 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -47,9 +57,9 @@ class LendStatus {
     private $_rent_day_number = null;
 
     /**
-     * Construit un nouveau statut d'emprunt � partir de la BDD (� partir de son ID) ou vierge
+     * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
      * 
-     * @param int|object $args Peut �tre null, un ID ou une ligne de la BDD
+     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
     public function __construct($args = null) {
         global $zdb;
@@ -89,9 +99,9 @@ class LendStatus {
     }
 
     /**
-     * Enregistre l'�l�ment en cours que ce soit en insert ou update
+     * Enregistre l'élément en cours que ce soit en insert ou update
      * 
-     * @return bool False si l'enregistrement a �chou�, true si aucune erreur
+     * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
     public function store() {
         global $zdb;
@@ -129,12 +139,12 @@ class LendStatus {
     }
 
     /**
-     * Renvoi tous les statuts tri�s par le tri indiqu�
+     * Renvoi tous les statuts triés par le tri indiqué
      * 
      * @param string $tri Colonne de tri
      * @param string $direction asc ou desc
      * 
-     * @return LendStatus[] La liste des statuts tri�s par le tri donn�
+     * @return LendStatus[] La liste des statuts triés par le tri donné
      */
     public static function getAllStatuses($tri, $direction) {
         global $zdb;
@@ -159,9 +169,9 @@ class LendStatus {
     }
 
     /**
-     * Renvoi tous les statuts actifs tri�s par nom
+     * Renvoi tous les statuts actifs triés par nom
      * 
-     * @return LendStatus[] La liste des statuts actifs tri�s
+     * @return LendStatus[] La liste des statuts actifs triés
      */
     public static function getActiveStatuses() {
         global $zdb;
@@ -187,9 +197,9 @@ class LendStatus {
     }
 
     /**
-     * Renvoi tous les statuts actifs consid�r� comme emprunt�s tri�s par nom
+     * Renvoi tous les statuts actifs considéré comme empruntés triés par nom
      * 
-     * @return LendStatus[] La liste des statuts actifs tri�s
+     * @return LendStatus[] La liste des statuts actifs triés
      */
     public static function getActiveTakeAwayStatuses() {
         global $zdb;
@@ -215,9 +225,9 @@ class LendStatus {
     }
 
     /**
-     * Renvoi tous les statuts actifs consid�r� comme � la maison tri�s par nom
+     * Renvoi tous les statuts actifs considéré comme à la maison triés par nom
      * 
-     * @return LendStatus[] La liste des statuts actifs tri�s
+     * @return LendStatus[] La liste des statuts actifs triés
      */
     public static function getActiveHomeStatuses() {
         global $zdb;
@@ -245,9 +255,9 @@ class LendStatus {
     /**
      * Supprime un statut
      * 
-     * @param int $id Id du statut � supprimer
+     * @param int $id Id du statut à supprimer
      * 
-     * @return boolean True en cas de r�ussite, false sinon
+     * @return boolean True en cas de réussite, false sinon
      */
     public static function deleteStatus($id) {
         global $zdb;
@@ -298,5 +308,3 @@ class LendStatus {
     }
 
 }
-
-?>
