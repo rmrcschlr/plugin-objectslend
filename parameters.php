@@ -46,6 +46,9 @@
  * 
  * @return string Date au format SQL 'aaaa-mm-jj'
  */
+
+use GaletteObjectsLend\LendParameter;
+
 function dateIHMtoSQL($str) {
     if (strlen($str) < 5) {
         return '';

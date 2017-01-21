@@ -38,6 +38,8 @@
  * @since     Available since 0.7
  */
 
+use GaletteObjectsLend\LendObjectPicture;
+
 $thumb = array_key_exists('thumb', $_GET) && $_GET['thumb'] == '1';
 $quick_mode = array_key_exists('quick', $_GET) && $_GET['quick'] == '1';
 

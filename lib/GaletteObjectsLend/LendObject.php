@@ -38,7 +38,15 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
-class LendObject {
+
+namespace GaletteObjectsLend;
+
+use Analog\Analog;
+use \Zend\Db\Sql\Predicate;
+use Galette\Entity\Adherent;
+
+class LendObject
+{
 
     const TABLE = 'objects';
     const PK = 'object_id';
@@ -111,10 +119,10 @@ class LendObject {
                 if ($cloned) {
                     unset($this->_object_id);
                 }
-            } catch (Exception $e) {
-                Analog\Analog::log(
+            } catch (\Exception $e) {
+                Analog::log(
                         'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog\Analog::ERROR
+                        $e->getTraceAsString(), Analog::ERROR
                 );
             }
         } else if (is_object($args)) {
@@ -189,7 +197,7 @@ class LendObject {
                 if ($add > 0) {
                     $this->_object_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new Exception(_T("OBJECT.AJOUT ECHEC"));
+                    throw new \Exception(_T("OBJECT.AJOUT ECHEC"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
@@ -198,10 +206,10 @@ class LendObject {
                 $zdb->execute($update);
             }
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -215,7 +223,7 @@ class LendObject {
      * @return boolean Renvoi true quand tout s'est bien déroulé
      */
     public static function setInactiveObject($object_id) {
-        $o = new LendObject(intval($object_id));
+        $o = new self(intval($object_id));
         $o->is_active = false;
         $o->store();
         return true;
@@ -238,10 +246,10 @@ class LendObject {
             $delete_object = $zdb->delete(LEND_PREFIX . self::TABLE)
                     ->where(array(self::PK => $object_id));
             $zdb->execute($delete_object);
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -290,7 +298,7 @@ class LendObject {
 
             $results = $zdb->execute($select);
             foreach ($results as $r) {
-                $obj = new LendObject($r);
+                $obj = new self($r);
 
                 self::getStatusForObject($obj);
 
@@ -344,12 +352,12 @@ class LendObject {
                     break;
             }
 
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
-            return false;
+            //throw $e;
         }
         return $objs;
     }
@@ -367,7 +375,7 @@ class LendObject {
         // Statut
         $select_rent = $zdb->select(LEND_PREFIX . LendRent::TABLE)
                 ->join(PREFIX_DB . LEND_PREFIX . LendStatus::TABLE, PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.status_id = ' . PREFIX_DB . LEND_PREFIX . LendStatus::TABLE . '.status_id')
-                ->join(PREFIX_DB . Galette\Entity\Adherent::TABLE, PREFIX_DB . Galette\Entity\Adherent::TABLE . '.id_adh = ' . PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.adherent_id', '*', 'left')
+                ->join(PREFIX_DB . Adherent::TABLE, PREFIX_DB . Adherent::TABLE . '.id_adh = ' . PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.adherent_id', '*', 'left')
                 ->where(array('object_id' => $object->object_id))
                 ->limit(1)
                 ->offset(0)
@@ -401,15 +409,15 @@ class LendObject {
 
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('nb' => new Zend\Db\Sql\Predicate\Expression('count(*)')))
+                    ->columns(array('nb' => new Predicate\Expression('count(*)')))
                     ->where(self::writeWhereQuery($admin_mode, $category_id, $search));
 
             $results = $zdb->execute($select);
             return $results->current()->nb;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -424,32 +432,51 @@ class LendObject {
      * 
      * @return string La clause where à mettre comme recherche
      */
-    static function writeWhereQuery($admin_mode, $category_id, $search) {
-        $where = new Zend\Db\Sql\Where();
+    static function writeWhereQuery($admin_mode, $category_id, $search)
+    {
+        $where = new \Zend\Db\Sql\Where();
         if (!$admin_mode) {
-            $where->addPredicate(new Zend\Db\Sql\Predicate\PredicateSet(array(new Zend\Db\Sql\Predicate\Operator(PREFIX_DB . LEND_PREFIX . self::TABLE . '.is_active', '=', 1)), Zend\Db\Sql\Predicate\PredicateSet::OP_AND));
+            $where->addPredicate(
+                new Predicate\PredicateSet(
+                    array(
+                        new Predicate\Operator(PREFIX_DB . LEND_PREFIX . self::TABLE . '.is_active', '=', 1)
+                    ),
+                    Predicate\PredicateSet::OP_AND
+                )
+            );
         }
 
         if ($category_id != null && $category_id > 0) {
-            $where->addPredicate(new Zend\Db\Sql\Predicate\PredicateSet(array(new Zend\Db\Sql\Predicate\Operator(PREFIX_DB . LEND_PREFIX . self::TABLE . '.category_id', '=', $category_id)), Zend\Db\Sql\Predicate\PredicateSet::OP_AND));
+            $where->addPredicate(
+                new Predicate\PredicateSet(
+                    array(
+                        new Predicate\Operator(
+                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.category_id',
+                            '=',
+                            $category_id
+                        )
+                    ),
+                    Predicate\PredicateSet::OP_AND
+                )
+            );
         }
 
         $or_where = array();
         if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL)) {
-            $or_where[] = new Zend\Db\Sql\Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.serial_number', '%' . $search . '%');
+            $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.serial_number', '%' . $search . '%');
         }
         if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_NAME)) {
-            $or_where[] = new Zend\Db\Sql\Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.name', '%' . $search . '%');
+            $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.name', '%' . $search . '%');
         }
         if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION)) {
-            $or_where[] = new Zend\Db\Sql\Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.description', '%' . $search . '%');
+            $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.description', '%' . $search . '%');
         }
         if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION)) {
-            $or_where[] = new Zend\Db\Sql\Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.dimension', '%' . $search . '%');
+            $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.dimension', '%' . $search . '%');
         }
 
         if (count($or_where) > 0) {
-            $where->addPredicate(new Zend\Db\Sql\Predicate\PredicateSet($or_where, Zend\Db\Sql\Predicate\PredicateSet::OP_OR));
+            $where->addPredicate(new Predicate\PredicateSet($or_where, Predicate\PredicateSet::OP_OR));
         }
 
         return $where;
@@ -458,9 +485,9 @@ class LendObject {
     /**
      * Renvoit le nombre total d'objets correspondant à la recherche (si pas de recherche,
      * renvoit juste le nombre total d'objets)
-     * 
+     *
      * @param string $search Chaîne cherchée (peut être vide et renvoit le nombre total d'objets)
-     * 
+     *
      * @return int Nombre d'objets
      */
     public static function getObjectsNumberWithoutCategory($search = '') {
@@ -468,15 +495,15 @@ class LendObject {
 
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('nb' => new Zend\Db\Sql\Predicate\Expression('count(*)')))
+                    ->columns(array('nb' => new Predicate\Expression('count(*)')))
                     ->where(self::writeWhereQuery(false, null, $search));
 
             $results = $zdb->execute($select);
             return $results->current()->nb;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -495,15 +522,15 @@ class LendObject {
 
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('sum' => new Zend\Db\Sql\Predicate\Expression('SUM(price)')))
+                    ->columns(array('sum' => new Predicate\Expression('SUM(price)')))
                     ->where(self::writeWhereQuery(false, null, $search));
 
             $results = $zdb->execute($select);
             return $results->current()->sum;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -534,7 +561,7 @@ class LendObject {
 
             $rows = $zdb->execute($select);
             foreach ($rows as $r) {
-                $o = new LendObject($r);
+                $o = new self($r);
 
                 self::getStatusForObject($o);
 
@@ -542,10 +569,10 @@ class LendObject {
             }
 
             return $results;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -568,31 +595,31 @@ class LendObject {
                 if ($this->_date_begin == '' || $this->_date_begin == null) {
                     return '';
                 }
-                $dtb = new DateTime($this->_date_begin);
+                $dtb = new \DateTime($this->_date_begin);
                 return $dtb->format('j M Y');
             case 'date_begin_short':
                 if ($this->_date_begin == '' || $this->_date_begin == null) {
                     return '';
                 }
-                $dtb = new DateTime($this->_date_begin);
+                $dtb = new \DateTime($this->_date_begin);
                 return $dtb->format('d/m/Y');
             case 'date_end_ihm':
                 if ($this->_date_end == '' || $this->_date_end == null) {
                     return '';
                 }
-                $dtb = new DateTime($this->_date_end);
+                $dtb = new \DateTime($this->_date_end);
                 return $dtb->format('j M Y');
             case 'date_forecast_ihm':
                 if ($this->_date_forecast == '' || $this->_date_forecast == null) {
                     return '';
                 }
-                $dtb = new DateTime($this->_date_forecast);
+                $dtb = new \DateTime($this->_date_forecast);
                 return $dtb->format('j M Y');
             case 'date_forecast_short':
                 if ($this->_date_forecast == '' || $this->_date_forecast == null) {
                     return '';
                 }
-                $dtb = new DateTime($this->_date_forecast);
+                $dtb = new \DateTime($this->_date_forecast);
                 return $dtb->format('d/m/Y');
             case 'name':
                 return str_replace('\'', '’', $this->_name);
@@ -621,9 +648,9 @@ class LendObject {
      *
      * @return void
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $rname = '_' . $name;
         $this->$rname = $value;
     }
-
 }

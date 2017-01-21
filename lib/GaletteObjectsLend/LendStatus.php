@@ -38,7 +38,13 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
-class LendStatus {
+
+namespace GaletteObjectsLend;
+
+use Analog\Analog;
+
+class LendStatus
+{
 
     const TABLE = 'status';
     const PK = 'status_id';
@@ -72,10 +78,10 @@ class LendStatus {
                 if ($result->count() == 1) {
                     $this->_loadFromRS($result->current());
                 }
-            } catch (Exception $e) {
-                Analog\Analog::log(
+            } catch (\Exception $e) {
+                Analog::log(
                         'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog\Analog::ERROR
+                        $e->getTraceAsString(), Analog::ERROR
                 );
             }
         } else if (is_object($args)) {
@@ -120,7 +126,7 @@ class LendStatus {
                 if ($add > 0) {
                     $this->_status_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new Exception(_T("STATUS.AJOUT ECHEC"));
+                    throw new \Exception(_T("STATUS.AJOUT ECHEC"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
@@ -129,10 +135,10 @@ class LendStatus {
                 $zdb->execute($update);
             }
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -159,10 +165,10 @@ class LendStatus {
                 $status[] = new LendStatus($r);
             }
             return $status;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -187,10 +193,10 @@ class LendStatus {
                 $status[] = new LendStatus($r);
             }
             return $status;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -215,10 +221,10 @@ class LendStatus {
                 $status[] = new LendStatus($r);
             }
             return $status;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -243,10 +249,10 @@ class LendStatus {
                 $status[] = new LendStatus($r);
             }
             return $status;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -267,10 +273,10 @@ class LendStatus {
                     ->where(array(self::PK => $id));
             $zdb->execute($delete);
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }

@@ -38,7 +38,14 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
-class LendParameter {
+
+namespace GaletteObjectsLend;
+
+use Analog\Analog;
+use \Zend\Db\Sql\Predicate;
+
+class LendParameter
+{
 
     const TABLE = 'parameters';
     const PK = 'code';
@@ -223,8 +230,8 @@ class LendParameter {
                     $this->_loadFromRS($results->current());
                 }
                 $this->_code = $args;
-            } catch (Exception $e) {
-                Analog\Analog::log("Erreur" . $e->getMessage(), Analog\Analog::ERROR);
+            } catch (\Exception $e) {
+                Analog::log("Erreur" . $e->getMessage(), Analog::ERROR);
                 return false;
             }
         } else if (is_object($args)) {
@@ -302,7 +309,7 @@ class LendParameter {
             //an empty value will cause date to be set to 1901-01-01, a null
             //will result in 0000-00-00. We want a database NULL value here.
             if (!$this->_value_date || $this->_value_date == '') {
-                $values['value_date'] = new Zend\Db\Sql\Predicate\Expression('NULL');
+                $values['value_date'] = new Predicate\Expression('NULL');
             }
 
             $values['date_modification'] = date('Y-m-d H:i:s');
@@ -322,10 +329,10 @@ class LendParameter {
                 $zdb->execute($update);
             }
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -342,19 +349,19 @@ class LendParameter {
         global $zdb;
 
         if (array_key_exists($code, self::$_parameters_values)) {
-            Analog\Analog::log('LendParameter::getParameterValue(' . $code . ') - from cache ;-)', \Analog\Analog::DEBUG);
+            Analog::log('LendParameter::getParameterValue(' . $code . ') - from cache ;-)', Analog::DEBUG);
             return self::$_parameters_values[$code];
         } else {
             try {
-                Analog\Analog::log('LendParameter::get all parameters from Database', \Analog\Analog::DEBUG);
+                Analog::log('LendParameter::get all parameters from Database', Analog::DEBUG);
                 $select = $zdb->select(LEND_PREFIX . self::TABLE);
                 $results = $zdb->execute($select);
                 foreach ($results as $row) {
                     self::_cacheParameter($row);
                 }
                 return self::$_parameters_values[$code];
-            } catch (Exception $e) {
-                Analog\Analog::log("Erreur" . $e->getMessage(), Analog\Analog::ERROR);
+            } catch (\Exception $e) {
+                Analog::log("Erreur" . $e->getMessage(), Analog::ERROR);
                 return false;
             }
         }
@@ -379,8 +386,8 @@ class LendParameter {
                 $liste_codes[] = $row->$code;
             }
             return $liste_codes;
-        } catch (Exception $e) {
-            Analog\Analog::log('Erreur SQL ' . $e->getMessage(), Analog\Analog::ERROR);
+        } catch (\Exception $e) {
+            Analog::log('Erreur SQL ' . $e->getMessage(), Analog::ERROR);
             return false;
         }
     }

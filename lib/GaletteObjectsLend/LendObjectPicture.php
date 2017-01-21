@@ -38,12 +38,18 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
-class LendObjectPicture extends Galette\Core\Picture {
+
+namespace GaletteObjectsLend;
+
+use Analog\Analog;
+
+class LendObjectPicture extends Galette\Core\Picture
+{
 
     const PK = 'object_id';
 
     //path is relative to Picture class, not to LendObjectPicture
-    protected $store_path = '../plugins/ObjectsLend/objects_pictures/';
+    protected $store_path;
     protected $max_width = 350;
     protected $max_height = 350;
     protected $thumb_max_width = 96;
@@ -51,12 +57,12 @@ class LendObjectPicture extends Galette\Core\Picture {
 
     /**
      * Construit une nouvelle image pour un objet ou une catégorie soit vierge, soit à partir de son ID
-     * 
+     *
      * @param int $args ID de l'objet dont on cherche l'image
-     * @param int $is_category Indique si c'est une image d'une catégorie (true) ou d'un objet (false)
      */
-    public function __construct($args = null) {
-        $this->store_path = GALETTE_ROOT . 'plugins/ObjectsLend/objects_pictures/';
+    public function __construct($args = null)
+    {
+        $this->store_path = GALETTE_PHOTOS_PATH . 'objectslend/objects/';
         $this->tbl_prefix = LEND_PREFIX;
 
         $this->thumb_max_height = intval(LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
@@ -72,7 +78,8 @@ class LendObjectPicture extends Galette\Core\Picture {
      *
      * @return void
      */
-    protected function getDefaultPicture() {
+    protected function getDefaultPicture()
+    {
         $this->file_path = GALETTE_ROOT . 'plugins/ObjectsLend/picts/default.png';
         $this->format = 'png';
         $this->mime = 'image/png';
@@ -81,8 +88,11 @@ class LendObjectPicture extends Galette\Core\Picture {
 
     /**
      * Affiche la miniature d'une photo d'un avion et la créé si nécessaire
+     *
+     * @return void
      */
-    public function displayThumb() {
+    public function displayThumb()
+    {
         $nom_fichier = substr($this->file_path, 0, strlen($this->file_path) - 4);
 
         // Ano 61 - Quand le fichier fait 0Ko on affiche l'image par défaut
@@ -110,16 +120,18 @@ class LendObjectPicture extends Galette\Core\Picture {
 
     /**
      * Créer une miniature d'une image donnée en arrondissant les bords (transparent)
-     * 
-     * @param string $img_src Nom de l'image source
+     *
+     * @param string $img_src  Nom de l'image source
      * @param string $img_dest Nom de l'image de destination
-     * @param int $w_thumb Largeur en pixel de la miniature
-     * @param int $h_thumb Hauteur en pixel de la miniature
-     * @param int $border Taille de la bordure
-     * @param int $radial Rayon de la bordure
+     * @param int    $w_thumb  Largeur en pixel de la miniature
+     * @param int    $h_thumb  Hauteur en pixel de la miniature
+     * @param int    $border   Taille de la bordure
+     * @param int    $radial   Rayon de la bordure
+     *
+     * @return void
      */
-    private function _createRoundThumb($img_src, $img_dest, $w_thumb, $h_thumb, $border = 10, $radial = 24) {
-
+    private function _createRoundThumb($img_src, $img_dest, $w_thumb, $h_thumb, $border = 10, $radial = 24)
+    {
         $pic['destNormal']['name'] = $img_src; // nom du fichier normal
         // Récupération des infos de l'image source
         list($pic['src']['info']['width'], $pic['src']['info']['height'], $pic['src']['info']['type'], $pic['src']['info']['attr']) = getimagesize($img_src);
@@ -170,11 +182,11 @@ class LendObjectPicture extends Galette\Core\Picture {
         imagecopymerge($pic['destNormal']['ress'], $pic['maskBorder']['ress'], 0, 0, 0, 0, $w_thumb, $h_thumb, 100);
         // il faut enlever le vert pour que le fond soit transparent
         if ($radial > 0) {
-            // si le radial est de 0 alors ne pas appliquer la transparence parce que le pixel 0,0 
-            // n'est pas vert ce qui entraine une transparence sur les zones qui on la meme couleur 
+            // si le radial est de 0 alors ne pas appliquer la transparence parce que le pixel 0,0
+            // n'est pas vert ce qui entraine une transparence sur les zones qui on la meme couleur
             // que le pixel 0,0
-            // conversion en palette 256 couleur 
-            //imagetruecolortopalette($pic['destNormal']['ress'], FALSE, 256); 
+            // conversion en palette 256 couleur
+            //imagetruecolortopalette($pic['destNormal']['ress'], FALSE, 256);
             // affectation de la couleur verte (récupérer au pixel 0,0)
             $pic['destNormal']['green'] = imagecolorat($pic['destNormal']['ress'], 0, 0);
             // Applique la transparence à la couleur verte
@@ -190,7 +202,8 @@ class LendObjectPicture extends Galette\Core\Picture {
      *
      * @return boolean true if image was successfully deleted, false otherwise
      */
-    public function delete($transaction = true) {
+    public function delete()
+    {
         $extension = strlen(pathinfo($this->file_path, PATHINFO_EXTENSION)) + 1;
         $nom_fichier = substr($this->file_path, 0, strlen($this->file_path) - $extension);
 
@@ -207,11 +220,12 @@ class LendObjectPicture extends Galette\Core\Picture {
      * Stores an image on the disk and in the database
      *
      * @param object $file the uploaded file
-     * @param bool $ajax not used
+     * @param bool   $ajax not used
      *
      * @return true|false result of the storage process
      */
-    public function store($file, $ajax = false) {
+    public function store($file, $ajax = false)
+    {
         $nom_fichier = substr($this->file_path, 0, strlen($this->file_path) - 4);
 
         $nom_thumb = $nom_fichier . '_th.png';
@@ -225,11 +239,14 @@ class LendObjectPicture extends Galette\Core\Picture {
 
     /**
      * Renvoi la taille en pixels d'une image
-     * @param LendObject $object
+     *
+     * @param LendObject $object Lend object instance
+     *
      * @return stdClass Un objet avec 2 propriétés width et height
      */
-    public static function getHeightWidthForObject($object) {
-        $result = new stdClass();
+    public static function getHeightWidthForObject($object)
+    {
+        $result = new \stdClass();
         $result->width = 0;
         $result->height = 0;
 
@@ -244,9 +261,11 @@ class LendObjectPicture extends Galette\Core\Picture {
 
     /**
      * Restaure toutes les images des objects a partir du blob en base de donnée
+     *
      * @return Les messages de l'execution
      */
-    public function restoreObjectPictures() {
+    public function restoreObjectPictures()
+    {
         global $zdb;
 
         $messages = array();
@@ -269,10 +288,11 @@ class LendObjectPicture extends Galette\Core\Picture {
                 $messages[] = 'Writed object picture \'' . $path . '\'';
                 file_put_contents($path, $picture->picture);
             }
-        } catch (Exception $e) {
-            Analog\Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
         }
 

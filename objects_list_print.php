@@ -38,6 +38,12 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
+
+use GaletteObjectsLend\LendObject;
+use GaletteObjectsLend\LendCategory;
+use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\LendPDF;
+
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
 if (!$login->isLogged()) {

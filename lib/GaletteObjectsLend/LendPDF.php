@@ -38,6 +38,9 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
+
+namespace GaletteObjectsLend;
+
 class LendPDF extends Galette\IO\Pdf {
 
     /**

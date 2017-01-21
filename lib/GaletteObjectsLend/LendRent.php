@@ -38,7 +38,14 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
-class LendRent {
+
+namespace GaletteObjectsLend;
+
+use Analog\Analog;
+use Galette\Entity\Adherent;
+
+class LendRent
+{
 
     const TABLE = 'rents';
     const PK = 'rent_id';
@@ -88,10 +95,10 @@ class LendRent {
                 if ($result->count() == 1) {
                     $this->_loadFromRS($result->current());
                 }
-            } catch (Exception $e) {
-                Analog\Analog::log(
+            } catch (\Exception $e) {
+                Analog::log(
                         'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog\Analog::ERROR
+                        $e->getTraceAsString(), Analog::ERROR
                 );
             }
         } else if (is_object($args)) {
@@ -139,7 +146,7 @@ class LendRent {
                 if ($add > 0) {
                     $this->_rent_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new Exception(_T("RENT.AJOUT ECHEC"));
+                    throw new \Exception(_T("RENT.AJOUT ECHEC"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
@@ -148,10 +155,10 @@ class LendRent {
                 $zdb->execute($update);
             }
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -170,7 +177,7 @@ class LendRent {
 
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->join(PREFIX_DB . Galette\Entity\Adherent::TABLE, PREFIX_DB . Galette\Entity\Adherent::TABLE . '.id_adh = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.adherent_id', '*', 'left')
+                    ->join(PREFIX_DB . Adherent::TABLE, PREFIX_DB . Adherent::TABLE . '.id_adh = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.adherent_id', '*', 'left')
                     ->join(PREFIX_DB . LEND_PREFIX . LendStatus::TABLE, PREFIX_DB . LEND_PREFIX . LendStatus::TABLE . '.status_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.status_id')
                     ->where(array('object_id' => $object_id))
                     ->order('date_begin desc');
@@ -189,10 +196,10 @@ class LendRent {
             }
 
             return $rents;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -225,10 +232,10 @@ class LendRent {
             }
 
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -243,21 +250,21 @@ class LendRent {
         global $zdb;
 
         try {
-            $select = $zdb->select(Galette\Entity\Adherent::TABLE)
+            $select = $zdb->select(Adherent::TABLE)
                     ->where(array('activite_adh' => 1))
                     ->order('nom_adh');
 
             $adherents = array();
             $result = $zdb->execute($select);
             foreach ($result as $row) {
-                $adherents[] = new Galette\Entity\Adherent($row);
+                $adherents[] = new Adherent($row);
             }
 
             return $adherents;
-        } catch (Exception $e) {
-            Analog\Analog::log(
+        } catch (\Exception $e) {
+            Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+                    $e->getTraceAsString(), Analog::ERROR
             );
             return false;
         }
@@ -277,20 +284,20 @@ class LendRent {
         }
         switch ($name) {
             case 'date_begin':
-                $dt = new DateTime($this->_date_begin);
+                $dt = new \DateTime($this->_date_begin);
                 return $dt->format('d/m/Y - H:i');
             case 'date_begin_short':
-                $dt = new DateTime($this->_date_begin);
+                $dt = new \DateTime($this->_date_begin);
                 return $dt->format('d/m/Y');
             case 'date_forecast':
                 if ($this->_date_forecast != '') {
-                    $dt = new DateTime($this->_date_forecast);
+                    $dt = new \DateTime($this->_date_forecast);
                     return $dt->format('d/m/Y');
                 }
                 return '';
             case 'date_end':
                 if ($this->_date_end != '') {
-                    $dt = new DateTime($this->_date_end);
+                    $dt = new \DateTime($this->_date_end);
                     return $dt->format('d/m/Y - H:i');
                 }
                 return '';

@@ -38,8 +38,14 @@
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
-class LendCategory {
 
+namespace GaletteObjectsLend;
+
+use Analog\Analog;
+use \Zend\Db\Sql\Predicate;
+
+class LendCategory
+{
     const TABLE = 'category';
     const PK = 'category_id';
 
@@ -58,10 +64,11 @@ class LendCategory {
 
     /**
      * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
-     * 
+     *
      * @param int|object $args Peut être null, un ID ou une ligne de la BDD
      */
-    public function __construct($args = null) {
+    public function __construct($args = null)
+    {
         global $zdb;
 
         if (is_int($args)) {
@@ -72,13 +79,14 @@ class LendCategory {
                 if ($results->count() == 1) {
                     $this->_loadFromRS($results->current());
                 }
-            } catch (Exception $e) {
-                Analog\Analog::log(
-                        'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                        $e->getTraceAsString(), Analog\Analog::ERROR
+            } catch (\Exception $e) {
+                Analog::log(
+                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                    Analog::ERROR
                 );
             }
-        } else if (is_object($args)) {
+        } elseif (is_object($args)) {
             $this->_loadFromRS($args);
         }
     }
@@ -90,7 +98,8 @@ class LendCategory {
      *
      * @return void
      */
-    private function _loadFromRS($r) {
+    private function _loadFromRS($r)
+    {
         $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
 
         $this->_category_id = $r->category_id;
@@ -107,10 +116,11 @@ class LendCategory {
 
     /**
      * Enregistre l'élément en cours que ce soit en insert ou update
-     * 
+     *
      * @return bool False si l'enregistrement a échoué, true si aucune erreur
      */
-    public function store() {
+    public function store()
+    {
         global $zdb;
 
         try {
@@ -127,7 +137,7 @@ class LendCategory {
                 if ($add > 0) {
                     $this->_category_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new Exception(_T("CATEGORY.AJOUT ECHEC"));
+                    throw new \Exception(_T("CATEGORY.AJOUT ECHEC"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
@@ -136,10 +146,11 @@ class LendCategory {
                 $zdb->execute($update);
             }
             return true;
-        } catch (Exception $e) {
-            Analog\Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -147,13 +158,14 @@ class LendCategory {
 
     /**
      * Renvoi toutes les categories triées par le tri indiqué
-     * 
-     * @param string $tri Colonne de tri
+     *
+     * @param string $tri       Colonne de tri
      * @param string $direction asc ou desc
-     * 
+     *
      * @return LendCategory[] La liste des statuts triés par le tri donné
      */
-    public static function getAllCategories($tri, $direction) {
+    public static function getAllCategories($tri, $direction)
+    {
         global $zdb;
 
         try {
@@ -166,10 +178,11 @@ class LendCategory {
                 $categs[] = new LendCategory($r);
             }
             return $categs;
-        } catch (Exception $e) {
-            Analog\Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -178,34 +191,42 @@ class LendCategory {
     /**
      * Renvoi toutes les categories actives triés par nom avec le nombre
      * d'objets qu'elles contiennent (propriété 'objects_nb')
-     * 
+     *
      * @return LendCategory[] La liste des categories actives triées
      */
-    public static function getActiveCategories() {
+    public static function getActiveCategories()
+    {
         global $zdb;
 
         try {
             $select_count = $zdb->select(LEND_PREFIX . LendObject::TABLE)
-                    ->columns(array(new Zend\Db\Sql\Predicate\Expression('count(*)')))
-                    ->where(array(
-                'is_active' => 1,
-                new Zend\Db\Sql\Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
-            ));
+                ->columns(array(new Predicate\Expression('count(*)')))
+                ->where(
+                    array(
+                        'is_active' => 1,
+                        new Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
+                    )
+                );
 
             $select_sum = $zdb->select(LEND_PREFIX . LendObject::TABLE)
-                    ->columns(array(new Zend\Db\Sql\Predicate\Expression('sum(price)')))
-                    ->where(array(
-                'is_active' => 1,
-                new Zend\Db\Sql\Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
-            ));
+                ->columns(array(new Predicate\Expression('sum(price)')))
+                ->where(
+                    array(
+                        'is_active' => 1,
+                        new Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
+                    )
+                );
 
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('*',
-                        'nb' => new Zend\Db\Sql\Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'),
-                        'sum' => new Zend\Db\Sql\Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_sum) . ')'),
-                    ))
-                    ->where(array('is_active' => 1))
-                    ->order('name');
+                ->columns(
+                    array(
+                        '*',
+                        'nb' => new Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'),
+                        'sum' => new Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_sum) . ')'),
+                    )
+                )
+                ->where(array('is_active' => 1))
+                ->order('name');
 
             $categs = array();
             $result = $zdb->execute($select);
@@ -218,10 +239,11 @@ class LendCategory {
                 $categs[] = $cat;
             }
             return $categs;
-        } catch (Exception $e) {
-            Analog\Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -230,11 +252,12 @@ class LendCategory {
     /**
      * Renvoi toutes les categories actives triés par nom avec le nombre
      * d'objet qui correspond à la chaine recherchée
-     * 
+     *
      * @param string $search Chaine de recherche
      * @return LendCategory[] La liste des categories actives triées
      */
-    public static function getActiveCategoriesWithSearchCriteria($search) {
+    public static function getActiveCategoriesWithSearchCriteria($search)
+    {
         if (strlen($search) < 1) {
             return self::getActiveCategories();
         }
@@ -243,17 +266,24 @@ class LendCategory {
 
         try {
             $select_count = $zdb->select(LEND_PREFIX . LendObject::TABLE)
-                    ->columns(array(new Zend\Db\Sql\Predicate\Expression('count(*)')))
-                    ->where(array(
-                'is_active' => 1,
-                LendObject::writeWhereQuery($search),
-                new Zend\Db\Sql\Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
-            ));
+                ->columns(array(new Predicate\Expression('count(*)')))
+                ->where(
+                    array(
+                        'is_active' => 1,
+                        LendObject::writeWhereQuery($search),
+                        new Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
+                    )
+                );
 
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('*', 'nb' => new Zend\Db\Sql\Predicate\Expression(('(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'))))
-                    ->where(array('is_active' => 1))
-                    ->order('name');
+                ->columns(
+                    array(
+                        '*',
+                        'nb' => new Predicate\Expression(('(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'))
+                    )
+                )
+                ->where(array('is_active' => 1))
+                ->order('name');
 
             $categs = array();
             $result = $zdb->execute($select);
@@ -263,10 +293,11 @@ class LendCategory {
                 $categs[] = $cat;
             }
             return $categs;
-        } catch (Exception $e) {
-            Analog\Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -274,12 +305,13 @@ class LendCategory {
 
     /**
      * Supprime une catégorie et assigne les objets de cette catégorie à "aucune catégorie"
-     * 
+     *
      * @param int $id Id de la catégorie à supprimer
-     * 
+     *
      * @return boolean True en cas de réussite, false sinon
      */
-    public static function deleteCategory($id) {
+    public static function deleteCategory($id)
+    {
         global $zdb;
 
         try {
@@ -288,7 +320,7 @@ class LendCategory {
             $results = $zdb->execute($select);
             if ($results->count() > 0) {
                 $values = array();
-                $values['category_id'] = new Zend\Db\Sql\Predicate\Expression('NULL');
+                $values['category_id'] = new Predicate\Expression('NULL');
                 $update = $zdb->update(LEND_PREFIX . LendObject::TABLE)
                         ->set($values)
                         ->where(array('category_id' => $id));
@@ -298,10 +330,11 @@ class LendCategory {
             $delete = $zdb->delete(PREFIX_DB . LEND_PREFIX . self::TABLE)
                     ->where(array(self::PK => $id));
             $zdb->execute($delete);
-        } catch (Exception $e) {
-            Analog\Analog::log(
-                    'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(), Analog\Analog::ERROR
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
@@ -314,7 +347,8 @@ class LendCategory {
      *
      * @return false|object the called property
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         $rname = '_' . $name;
         if (substr($rname, 0, 3) == '___') {
             return false;
@@ -335,9 +369,9 @@ class LendCategory {
      *
      * @return void
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $rname = '_' . $name;
         $this->$rname = $value;
     }
-
 }
