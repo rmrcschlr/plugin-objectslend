@@ -263,6 +263,8 @@ class LendObject {
     public static function getPaginatedObjects($tri, $direction, $search = '', $category_id = null, $admin_mode = false, $page = 0, $rows_per_page = 10) {
         global $zdb;
 
+        $objs = array();
+
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->where(self::writeWhereQuery($admin_mode, $category_id, $search))
@@ -286,7 +288,6 @@ class LendObject {
                 $select->offset($page * $rows_per_page);
             }
 
-            $objs = array();
             $results = $zdb->execute($select);
             foreach ($results as $r) {
                 $obj = new LendObject($r);
@@ -343,7 +344,6 @@ class LendObject {
                     break;
             }
 
-            return $objs;
         } catch (Exception $e) {
             Analog\Analog::log(
                     'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
@@ -351,6 +351,7 @@ class LendObject {
             );
             return false;
         }
+        return $objs;
     }
 
     /**
