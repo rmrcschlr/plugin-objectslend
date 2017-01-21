@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sat Jan 21 16:57:39 2017 (GMT)
+// This file was automatically generated on Sat Jan 21 18:51:58 2017 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -9,8 +9,11 @@ $lang['OBJECTS LIST.NOT GIVEN'] = 'OBJECTS LIST.NOT GIVEN';
 // ../templates/default/take_object.tpl:119 
 $lang['TAKE OBJECT.NO'] = 'TAKE OBJECT.NO';
 
-// ../templates/default/objects_list.tpl:398 
+// ../templates/default/objects_list.tpl:399 
 $lang['No object has been found'] = 'No object has been found';
+
+// ../templates/default/parametres.tpl:16 
+$lang['PARAMETER LEND.LIST'] = 'PARAMETER LEND.LIST';
 
 // ../templates/default/parametres.tpl:38 
 $lang['PARAMETER LEND.TEXT'] = 'PARAMETER LEND.TEXT';
@@ -21,10 +24,10 @@ $lang['OBJECT EDIT.CHANGE STATUS'] = 'OBJECT EDIT.CHANGE STATUS';
 // ../templates/default/objects_list.tpl:17 
 $lang['OBJECTS LIST.GIVEN'] = 'OBJECTS LIST.GIVEN';
 
-// ../templates/default/categories_list.tpl:8 
-$lang['CATEGORIES LIST.CANCELED'] = 'CATEGORIES LIST.CANCELED';
+// ../templates/default/parametres.tpl:55 
+$lang['PARAMETER LEND.SAVE'] = 'PARAMETER LEND.SAVE';
 
-// ../parameters.php:145 
+// ../parameters.php:152 
 $lang['PARAMETER LEND.PAGE TITLE'] = 'PARAMETER LEND.PAGE TITLE';
 
 // ../templates/default/give_object_back.tpl:57 
@@ -35,6 +38,9 @@ $lang['STATUS LIST.GALETTE LOCATION NEEDED'] = 'STATUS LIST.GALETTE LOCATION NEE
 
 // ../templates/default/give_object_back.tpl:31 
 $lang['GIVE OBJECT BACK.SERIAL'] = 'GIVE OBJECT BACK.SERIAL';
+
+// ../templates/default/objects_edit.tpl:51 
+$lang['OBJECT EDIT.SERIAL'] = 'OBJECT EDIT.SERIAL';
 
 // ../templates/default/status_list.tpl:54 
 $lang['STATUS LIST.IS GALETTE LOCATION'] = 'STATUS LIST.IS GALETTE LOCATION';
@@ -54,7 +60,7 @@ $lang['STATUS LIST.AWAY NEEDED'] = 'STATUS LIST.AWAY NEEDED';
 // ../templates/default/categories_list.tpl:59 ../templates/default/status_list.tpl:86 
 $lang['STATUS LIST.DELETE SHORT'] = 'STATUS LIST.DELETE SHORT';
 
-// ../objects_edit.php:113 
+// ../objects_edit.php:123 
 $lang['- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t'] = '- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t';
 
 // ../templates/default/give_more_objects_back.tpl:43 
@@ -63,14 +69,20 @@ $lang['BACK OBJECTS.RENT PRICE'] = 'BACK OBJECTS.RENT PRICE';
 // ../templates/default/take_object.tpl:86 
 $lang['TAKE OBJECT.DAYS'] = 'TAKE OBJECT.DAYS';
 
+// ../lib/GaletteObjectsLend/LendParameter.php:436 
+$lang['PAGINATE.PREVIOUS PAGE'] = 'PAGINATE.PREVIOUS PAGE';
+
 // ../templates/default/status_edit.tpl:39 
 $lang['STATUS EDIT.SAVE'] = 'STATUS EDIT.SAVE';
 
-// ../templates/default/objects_list.tpl:469 
+// ../templates/default/objects_list.tpl:470 
 $lang['Show legend'] = 'Show legend';
 
-// ../templates/default/objects_list.tpl:463 
+// ../templates/default/objects_list.tpl:464 
 $lang['Invert selection'] = 'Invert selection';
+
+// ../take_object.php:104 ../take_object.php:105 ../take_more_objects_away.php:97 ../take_more_objects_away.php:98 
+$lang['Y-m-d'] = 'Y-m-d';
 
 // ../templates/default/objects_edit.tpl:145 
 $lang['OBJECT EDIT.ALL RENTS'] = 'OBJECT EDIT.ALL RENTS';
@@ -90,14 +102,17 @@ $lang['PARAMETER LEND.LABEL {$parametre->code}'] = 'PARAMETER LEND.LABEL {$param
 // ../templates/default/give_more_objects_back.tpl:127 
 $lang['BACK OBJECTS.REMAINING'] = 'BACK OBJECTS.REMAINING';
 
+// ../templates/default/objects_edit.tpl:155 
+$lang['OBJECT EDIT.AT HOME'] = 'OBJECT EDIT.AT HOME';
+
 // ../templates/default/give_object_back.tpl:55 
 $lang['GIVE OBJECT BACK.STATUS'] = 'GIVE OBJECT BACK.STATUS';
 
 // ../templates/default/give_more_objects_back.tpl:33 
 $lang['BACK OBJECTS.SERIAL'] = 'BACK OBJECTS.SERIAL';
 
-// ../templates/default/give_object_back.tpl:19 
-$lang['GIVE OBJECT BACK.NAME'] = 'GIVE OBJECT BACK.NAME';
+// ../templates/default/status_list.tpl:44 
+$lang['STATUS LIST.TEXT'] = 'STATUS LIST.TEXT';
 
 // ../templates/default/status_edit.tpl:40 
 $lang['STATUS EDIT.CANCEL'] = 'STATUS EDIT.CANCEL';
@@ -105,14 +120,17 @@ $lang['STATUS EDIT.CANCEL'] = 'STATUS EDIT.CANCEL';
 // ../templates/default/take_object.tpl:9 
 $lang['TAKE OBJECT.TITLE'] = 'TAKE OBJECT.TITLE';
 
-// ../category_edit.php:48 
+// ../category_edit.php:52 
 $lang['CATEGORY EDIT.PAGE TITLE'] = 'CATEGORY EDIT.PAGE TITLE';
 
-// ../templates/default/objects_list.tpl:422 
+// ../templates/default/objects_list.tpl:423 
 $lang['OBJECTS LIST.DISABLE'] = 'OBJECTS LIST.DISABLE';
 
-// ../templates/default/parametres.tpl:55 
-$lang['PARAMETER LEND.SAVE'] = 'PARAMETER LEND.SAVE';
+// ../lib/GaletteObjectsLend/LendParameter.php:455 
+$lang['PAGINATE.NEXT PAGE'] = 'PAGINATE.NEXT PAGE';
+
+// ../templates/default/take_more_objects_away.tpl:33 
+$lang['TAKE OBJECTS.SERIAL'] = 'TAKE OBJECTS.SERIAL';
 
 // ../templates/default/objects_list.tpl:71 
 $lang['Clear filter'] = 'Clear filter';
@@ -123,17 +141,14 @@ $lang['TAKE OBJECTS.RENT PRICE'] = 'TAKE OBJECTS.RENT PRICE';
 // ../templates/default/status_edit.tpl:8 
 $lang['STATUS EDIT.TEXT'] = 'STATUS EDIT.TEXT';
 
-// ../objects_edit.php:127 
+// ../objects_edit.php:139 
 $lang['An SQL error has occured.'] = 'An SQL error has occured.';
 
-// ../templates/default/menu.tpl:34 
-$lang['MENU.PARAMETERS'] = 'MENU.PARAMETERS';
+// ../give_object_back.php:54 ../give_more_objects_back.php:78 
+$lang['BACK OBJECTS.PAGE TITLE'] = 'BACK OBJECTS.PAGE TITLE';
 
-// ../templates/default/menu.tpl:28 
-$lang['MENU.CATEGORIES LIST'] = 'MENU.CATEGORIES LIST';
-
-// ../templates/default/status_list.tpl:44 
-$lang['STATUS LIST.TEXT'] = 'STATUS LIST.TEXT';
+// ../templates/default/give_object_back.tpl:19 
+$lang['GIVE OBJECT BACK.NAME'] = 'GIVE OBJECT BACK.NAME';
 
 // ../templates/default/objects_edit.tpl:90 
 $lang['OBJECT EDIT.IS ACTIVE'] = 'OBJECT EDIT.IS ACTIVE';
@@ -162,14 +177,14 @@ $lang['BACK OBJECTS.PRICE'] = 'BACK OBJECTS.PRICE';
 // ../templates/default/take_object.tpl:25 
 $lang['TAKE OBJECT.DESCRIPTION'] = 'TAKE OBJECT.DESCRIPTION';
 
-// ../templates/default/objects_list.tpl:147 
-$lang['OBJECTS LIST.THUMB'] = 'OBJECTS LIST.THUMB';
-
 // ../templates/default/objects_edit.tpl:157 
 $lang['OBJECT EDIT.COMMENTS'] = 'OBJECT EDIT.COMMENTS';
 
+// ../lib/GaletteObjectsLend/LendParameter.php:460 
+$lang['PAGINATE.LAST PAGE'] = 'PAGINATE.LAST PAGE';
+
 // ../templates/default/objects_list.tpl:204 
-$lang['OBJECTS LIST.RENT PRICE'] = 'OBJECTS LIST.RENT PRICE';
+$lang['Borrow price'] = 'Borrow price';
 
 // ../templates/default/objects_edit.tpl:97 
 $lang['OBJECT EDIT.1ST STATUS'] = 'OBJECT EDIT.1ST STATUS';
@@ -189,7 +204,7 @@ $lang['OBJECT EDIT.THUMB'] = 'OBJECT EDIT.THUMB';
 // ../templates/default/categories_list.tpl:37 
 $lang['CATEGORIES LIST.TEXT'] = 'CATEGORIES LIST.TEXT';
 
-// ../admin_picture.php:48 
+// ../admin_picture.php:51 
 $lang['ADMIN PICTURE.PAGE TITLE'] = 'ADMIN PICTURE.PAGE TITLE';
 
 // ../templates/default/take_object.tpl:37 
@@ -201,8 +216,8 @@ $lang['TAKE OBJECTS.SELECT MEMBER'] = 'TAKE OBJECTS.SELECT MEMBER';
 // ../templates/default/categories_list.tpl:84 
 $lang['CATEGORIES LIST.EDIT'] = 'CATEGORIES LIST.EDIT';
 
-// ../templates/default/take_more_objects_away.tpl:153 
-$lang['TAKE OBJECTS.NO'] = 'TAKE OBJECTS.NO';
+// ../templates/default/objects_list.tpl:249 
+$lang['Since'] = 'Since';
 
 // ../templates/default/objects_edit.tpl:136 
 $lang['OBJECT EDIT.PRINT'] = 'OBJECT EDIT.PRINT';
@@ -216,7 +231,7 @@ $lang['STATUS EDIT.HELP RENT DAY NUMBER'] = 'STATUS EDIT.HELP RENT DAY NUMBER';
 // ../templates/default/category_edit.tpl:27 
 $lang['CATEGORY EDIT.DELETE PICTURE'] = 'CATEGORY EDIT.DELETE PICTURE';
 
-// ../templates/default/objects_list.tpl:413 
+// ../templates/default/objects_list.tpl:414 
 $lang['OBJECTS LIST.SINGLE PRINT'] = 'OBJECTS LIST.SINGLE PRINT';
 
 // ../templates/default/objects_edit.tpl:188 
@@ -228,11 +243,17 @@ $lang['BACK OBJECTS.THUMB'] = 'BACK OBJECTS.THUMB';
 // ../templates/default/objects_list.tpl:32 
 $lang['OBJECTS LIST.NO RIGHT'] = 'OBJECTS LIST.NO RIGHT';
 
-// ../templates/default/give_more_objects_back.tpl:133 
-$lang['BACK OBJECTS.YES'] = 'BACK OBJECTS.YES';
+// ../templates/default/menu.tpl:40 
+$lang['Picture admin'] = 'Picture admin';
+
+// ../templates/default/take_more_objects_away.tpl:27 
+$lang['TAKE OBJECTS.DESCRIPTION'] = 'TAKE OBJECTS.DESCRIPTION';
 
 // ../templates/default/status_list.tpl:114 
 $lang['STATUS LIST.EDIT'] = 'STATUS LIST.EDIT';
+
+// ../templates/default/objects_list.tpl:147 
+$lang['Picture'] = 'Picture';
 
 // ../templates/default/give_object_back.tpl:84 
 $lang['GIVE OBJECT BACK.YES'] = 'GIVE OBJECT BACK.YES';
@@ -245,9 +266,6 @@ $lang['BACK OBJECTS.WEIGHT'] = 'BACK OBJECTS.WEIGHT';
 
 // ../templates/default/take_more_objects_away.tpl:48 
 $lang['TAKE OBJECTS.DIMENSION'] = 'TAKE OBJECTS.DIMENSION';
-
-// ../templates/default/objects_list.tpl:259 
-$lang['OBJECTS LIST.ADHERENT'] = 'OBJECTS LIST.ADHERENT';
 
 // ../templates/default/objects_list.tpl:335 
 $lang['OBJECTS LIST.RENT PRICE PER DAY'] = 'OBJECTS LIST.RENT PRICE PER DAY';
@@ -288,20 +306,23 @@ $lang['CATEGORIES LIST.DELETED'] = 'CATEGORIES LIST.DELETED';
 // ../templates/default/take_more_objects_away.tpl:136 
 $lang['TAKE OBJECTS.PAYMENT TYPE'] = 'TAKE OBJECTS.PAYMENT TYPE';
 
-// ../templates/default/objects_list.tpl:270 
-$lang['OBJECTS LIST.DATE FORECAST'] = 'OBJECTS LIST.DATE FORECAST';
+// ../templates/default/objects_list.tpl:417 
+$lang['OBJECTS LIST.MORE AWAY'] = 'OBJECTS LIST.MORE AWAY';
 
-// ../templates/default/objects_list.tpl:409 
+// ../templates/default/menu.tpl:12 
+$lang['Objects list'] = 'Objects list';
+
+// ../templates/default/objects_list.tpl:410 
 $lang['OBJECTS LIST.PRINT'] = 'OBJECTS LIST.PRINT';
 
 // ../templates/default/give_more_objects_back.tpl:113 
 $lang['BACK OBJECTS.STATUS'] = 'BACK OBJECTS.STATUS';
 
+// ../templates/default/menu.tpl:3 
+$lang['Borrow'] = 'Borrow';
+
 // ../templates/default/take_more_objects_away.tpl:139 ../templates/default/take_object.tpl:105 
 $lang['Cash'] = 'Cash';
-
-// ../objects_edit.php:118 
-$lang['File is too big. Maximum allowed size is %d'] = 'File is too big. Maximum allowed size is %d';
 
 // ../templates/default/give_more_objects_back.tpl:21 
 $lang['BACK OBJECTS.NAME'] = 'BACK OBJECTS.NAME';
@@ -321,11 +342,11 @@ $lang['TAKE OBJECT.MEMBERS'] = 'TAKE OBJECT.MEMBERS';
 // ../templates/default/objects_edit.tpl:152 
 $lang['OBJECT EDIT.DATE BEGIN'] = 'OBJECT EDIT.DATE BEGIN';
 
-// ../templates/default/objects_list.tpl:463 
+// ../templates/default/objects_list.tpl:464 
 $lang['(Un)Check all'] = '(Un)Check all';
 
-// ../templates/default/objects_edit.tpl:3 
-$lang['OBJECT EDIT.SAVED'] = 'OBJECT EDIT.SAVED';
+// ../status_edit.php:51 
+$lang['STATUS EDIT.PAGE TITLE'] = 'STATUS EDIT.PAGE TITLE';
 
 // ../templates/default/categories_list.tpl:56 ../templates/default/status_list.tpl:83 
 $lang['STATUS LIST.EDIT SHORT'] = 'STATUS LIST.EDIT SHORT';
@@ -339,14 +360,14 @@ $lang['OBJECTS LIST.PDF'] = 'OBJECTS LIST.PDF';
 // ../templates/default/objects_list.tpl:369 
 $lang['OBJECTS LIST.TAKE AWAY'] = 'OBJECTS LIST.TAKE AWAY';
 
+// ../templates/default/objects_list.tpl:228 
+$lang['Weight'] = 'Weight';
+
 // ../templates/default/parametres.tpl:6 
 $lang['- ERROR -'] = '- ERROR -';
 
 // ../templates/default/objects_edit.tpl:57 
 $lang['OBJECT EDIT.PRICE'] = 'OBJECT EDIT.PRICE';
-
-// ../templates/default/objects_list.tpl:239 
-$lang['OBJECTS LIST.STATUS TEXT'] = 'OBJECTS LIST.STATUS TEXT';
 
 // ../templates/default/objects_list.tpl:124 
 $lang['Records per page:'] = 'Records per page:';
@@ -360,8 +381,8 @@ $lang['PARAMETER LEND.NUMERIC'] = 'PARAMETER LEND.NUMERIC';
 // ../templates/default/take_more_objects_away.tpl:126 
 $lang['TAKE OBJECTS.SELECT STATUS'] = 'TAKE OBJECTS.SELECT STATUS';
 
-// ../templates/default/menu.tpl:22 
-$lang['MENU.STATUS LIST'] = 'MENU.STATUS LIST';
+// ../templates/default/give_object_back.tpl:49 
+$lang['GIVE OBJECT BACK.WEIGHT'] = 'GIVE OBJECT BACK.WEIGHT';
 
 // ../templates/default/admin_picture.tpl:4 
 $lang['ADMIN PICTURE.SAVE OBJECTS'] = 'ADMIN PICTURE.SAVE OBJECTS';
@@ -372,17 +393,23 @@ $lang['STATUS LIST.CANCELED'] = 'STATUS LIST.CANCELED';
 // ../templates/default/give_object_back.tpl:78 
 $lang['GIVE OBJECT BACK.REMAINING'] = 'GIVE OBJECT BACK.REMAINING';
 
+// ../templates/default/objects_list.tpl:180 
+$lang['Serial'] = 'Serial';
+
 // ../templates/default/status_list.tpl:136 
 $lang['STATUS LIST.CONFIRM DELETE'] = 'STATUS LIST.CONFIRM DELETE';
 
 // ../templates/default/take_object.tpl:79 
 $lang['TAKE OBJECT.STATUS'] = 'TAKE OBJECT.STATUS';
 
-// ../templates/default/parametres.tpl:16 
-$lang['PARAMETER LEND.LIST'] = 'PARAMETER LEND.LIST';
+// ../templates/default/objects_list.tpl:259 
+$lang['By'] = 'By';
 
 // ../templates/default/give_object_back.tpl:9 
 $lang['GIVE OBJECT BACK.TITLE'] = 'GIVE OBJECT BACK.TITLE';
+
+// ../templates/default/objects_list.tpl:216 
+$lang['Dimensions'] = 'Dimensions';
 
 // ../templates/default/take_more_objects_away.tpl:113 
 $lang['TAKE OBJECTS.MEMBERS'] = 'TAKE OBJECTS.MEMBERS';
@@ -390,14 +417,8 @@ $lang['TAKE OBJECTS.MEMBERS'] = 'TAKE OBJECTS.MEMBERS';
 // ../templates/default/objects_edit.tpl:153 
 $lang['OBJECT EDIT.DATE FIN'] = 'OBJECT EDIT.DATE FIN';
 
-// ../templates/default/take_more_objects_away.tpl:33 
-$lang['TAKE OBJECTS.SERIAL'] = 'TAKE OBJECTS.SERIAL';
-
-// ../templates/default/objects_list.tpl:192 
-$lang['OBJECTS LIST.PRICE'] = 'OBJECTS LIST.PRICE';
-
-// ../templates/default/menu.tpl:12 
-$lang['MENU.OBJECTS LIST'] = 'MENU.OBJECTS LIST';
+// ../objects_edit.php:130 
+$lang['File is too big. Maximum allowed size is %d'] = 'File is too big. Maximum allowed size is %d';
 
 // ../templates/default/categories_list.tpl:47 
 $lang['CATEGORIES LIST.IS ACTIVE'] = 'CATEGORIES LIST.IS ACTIVE';
@@ -426,26 +447,23 @@ $lang['STATUS EDIT.TITLE'] = 'STATUS EDIT.TITLE';
 // ../templates/default/give_object_back.tpl:69 
 $lang['GIVE OBJECT BACK.TO'] = 'GIVE OBJECT BACK.TO';
 
-// ../templates/default/objects_edit.tpl:155 
-$lang['OBJECT EDIT.AT HOME'] = 'OBJECT EDIT.AT HOME';
+// ../templates/default/menu.tpl:28 
+$lang['Object categories'] = 'Object categories';
 
-// ../categories_list.php:48 
+// ../categories_list.php:52 
 $lang['CATEGORIES LIST.PAGE TITLE'] = 'CATEGORIES LIST.PAGE TITLE';
 
-// ../take_object.php:97 ../take_object.php:98 ../take_more_objects_away.php:91 ../take_more_objects_away.php:92 
-$lang['Y-m-d'] = 'Y-m-d';
+// ../templates/default/objects_list.tpl:239 
+$lang['Status'] = 'Status';
 
-// ../status_edit.php:48 
-$lang['STATUS EDIT.PAGE TITLE'] = 'STATUS EDIT.PAGE TITLE';
+// ../lib/GaletteObjectsLend/LendCategory.php:140 
+$lang['CATEGORY.AJOUT ECHEC'] = 'CATEGORY.AJOUT ECHEC';
 
-// ../templates/default/objects_list.tpl:154 
-$lang['OBJECTS LIST.NAME'] = 'OBJECTS LIST.NAME';
+// ../templates/default/objects_edit.tpl:3 
+$lang['OBJECT EDIT.SAVED'] = 'OBJECT EDIT.SAVED';
 
 // ../templates/default/parametres.tpl:34 
 $lang['PARAMETER LEND.DATE'] = 'PARAMETER LEND.DATE';
-
-// ../templates/default/menu.tpl:3 
-$lang['MENU.LEND'] = 'MENU.LEND';
 
 // ../templates/default/take_object.tpl:81 
 $lang['TAKE OBJECT.SELECT STATUS'] = 'TAKE OBJECT.SELECT STATUS';
@@ -453,11 +471,17 @@ $lang['TAKE OBJECT.SELECT STATUS'] = 'TAKE OBJECT.SELECT STATUS';
 // ../templates/default/objects_edit.tpl:70 
 $lang['OBJECT EDIT.PRICE PER DAY'] = 'OBJECT EDIT.PRICE PER DAY';
 
+// ../lib/GaletteObjectsLend/LendObject.php:205 
+$lang['OBJECT.AJOUT ECHEC'] = 'OBJECT.AJOUT ECHEC';
+
 // ../templates/default/give_object_back.tpl:67 
 $lang['GIVE OBJECT BACK.FROM'] = 'GIVE OBJECT BACK.FROM';
 
-// ../templates/default/objects_list.tpl:485 
+// ../templates/default/objects_list.tpl:486 
 $lang['No object selected'] = 'No object selected';
+
+// ../templates/default/objects_list.tpl:284 
+$lang['Active'] = 'Active';
 
 // ../templates/default/take_more_objects_away.tpl:21 
 $lang['TAKE OBJECTS.NAME'] = 'TAKE OBJECTS.NAME';
@@ -470,9 +494,6 @@ $lang['OBJECTS LIST.DISABLED'] = 'OBJECTS LIST.DISABLED';
 
 // ../templates/default/give_more_objects_back.tpl:124 
 $lang['BACK OBJECTS.COMMENTS'] = 'BACK OBJECTS.COMMENTS';
-
-// ../templates/default/menu.tpl:40 
-$lang['MENU.ADMIN PICTURE'] = 'MENU.ADMIN PICTURE';
 
 // ../templates/default/category_edit.tpl:34 
 $lang['CATEGORY EDIT.THUMB'] = 'CATEGORY EDIT.THUMB';
@@ -492,11 +513,8 @@ $lang['OBJECTS LIST.TAKEN'] = 'OBJECTS LIST.TAKEN';
 // ../templates/default/take_more_objects_away.tpl:152 
 $lang['TAKE OBJECTS.YES'] = 'TAKE OBJECTS.YES';
 
-// ../templates/default/objects_list.tpl:538 
+// ../templates/default/objects_list.tpl:539 
 $lang['OBJECTS LIST.CONFIRM DELETE'] = 'OBJECTS LIST.CONFIRM DELETE';
-
-// ../templates/default/give_object_back.tpl:49 
-$lang['GIVE OBJECT BACK.WEIGHT'] = 'GIVE OBJECT BACK.WEIGHT';
 
 // ../templates/default/take_object.tpl:31 
 $lang['TAKE OBJECT.SERIAL'] = 'TAKE OBJECT.SERIAL';
@@ -507,17 +525,14 @@ $lang['GIVE OBJECT BACK.DIMENSION'] = 'GIVE OBJECT BACK.DIMENSION';
 // ../templates/default/take_more_objects_away.tpl:140 ../templates/default/take_object.tpl:106 
 $lang['Credit card'] = 'Credit card';
 
-// ../templates/default/objects_edit.tpl:51 
-$lang['OBJECT EDIT.SERIAL'] = 'OBJECT EDIT.SERIAL';
+// ../lib/GaletteObjectsLend/LendRent.php:153 
+$lang['RENT.AJOUT ECHEC'] = 'RENT.AJOUT ECHEC';
 
 // ../templates/default/objects_list.tpl:27 
 $lang['OBJECTS LIST.CANCELED'] = 'OBJECTS LIST.CANCELED';
 
 // ../templates/default/give_object_back.tpl:85 
 $lang['GIVE OBJECT BACK.NO'] = 'GIVE OBJECT BACK.NO';
-
-// ../templates/default/objects_list.tpl:180 
-$lang['OBJECTS LIST.SERIAL'] = 'OBJECTS LIST.SERIAL';
 
 // ../templates/default/objects_list.tpl:69 
 $lang['Enter a value'] = 'Enter a value';
@@ -527,9 +542,6 @@ $lang['TAKE OBJECT.EXPECTED RETURN'] = 'TAKE OBJECT.EXPECTED RETURN';
 
 // ../templates/default/objects_edit.tpl:63 
 $lang['OBJECT EDIT.RENT PRICE'] = 'OBJECT EDIT.RENT PRICE';
-
-// ../templates/default/objects_list.tpl:228 
-$lang['OBJECTS LIST.WEIGHT'] = 'OBJECTS LIST.WEIGHT';
 
 // ../templates/default/objects_edit.tpl:23 
 $lang['OBJECT EDIT.NAME'] = 'OBJECT EDIT.NAME';
@@ -543,7 +555,7 @@ $lang['GIVE OBJECT BACK.TIME'] = 'GIVE OBJECT BACK.TIME';
 // ../templates/default/categories_list.tpl:106 
 $lang['CATEGORIES LIST.CONFIRM DELETE'] = 'CATEGORIES LIST.CONFIRM DELETE';
 
-// ../objects_list.php:46 
+// ../objects_list.php:51 
 $lang['OBJECTS LIST.PAGE TITLE'] = 'OBJECTS LIST.PAGE TITLE';
 
 // ../templates/default/take_more_objects_away.tpl:9 
@@ -582,7 +594,7 @@ $lang['Create a new object'] = 'Create a new object';
 // ../templates/default/parametres.tpl:20 
 $lang['PARAMETER LEND.FORMAT'] = 'PARAMETER LEND.FORMAT';
 
-// ../templates/default/objects_list.tpl:501 
+// ../templates/default/objects_list.tpl:502 
 $lang['Do you really want to delete all selected accounts (and related contributions)?'] = 'Do you really want to delete all selected accounts (and related contributions)?';
 
 // ../templates/default/take_more_objects_away.tpl:142 ../templates/default/take_object.tpl:108 
@@ -606,23 +618,35 @@ $lang['OBJECTS LIST.COPY'] = 'OBJECTS LIST.COPY';
 // ../templates/default/take_object.tpl:60 
 $lang['TAKE OBJECT.WEIGHT'] = 'TAKE OBJECT.WEIGHT';
 
-// ../templates/default/objects_list.tpl:416 
-$lang['OBJECTS LIST.MORE AWAY'] = 'OBJECTS LIST.MORE AWAY';
+// ../lib/GaletteObjectsLend/LendParameter.php:431 
+$lang['PAGINATE.FIRST PAGE'] = 'PAGINATE.FIRST PAGE';
 
-// ../templates/default/objects_list.tpl:419 
+// ../templates/default/menu.tpl:22 
+$lang['Borrow status'] = 'Borrow status';
+
+// ../templates/default/objects_list.tpl:420 
 $lang['OBJECTS LIST.GIVE BACK'] = 'OBJECTS LIST.GIVE BACK';
 
 // ../templates/default/objects_list.tpl:42 
 $lang['OBJECTS LIST.DELETED'] = 'OBJECTS LIST.DELETED';
 
-// ../templates/default/objects_list.tpl:538 
+// ../templates/default/objects_list.tpl:539 
 $lang['OBJECTS LIST.CONFIRM DISABLE'] = 'OBJECTS LIST.CONFIRM DISABLE';
+
+// ../templates/default/objects_list.tpl:270 
+$lang['Return'] = 'Return';
+
+// ../templates/default/objects_list.tpl:167 
+$lang['Description'] = 'Description';
 
 // ../templates/default/take_more_objects_away.tpl:15 
 $lang['TAKE OBJECTS.THUMB'] = 'TAKE OBJECTS.THUMB';
 
-// ../templates/default/objects_list.tpl:425 
+// ../templates/default/objects_list.tpl:426 
 $lang['OBJECTS LIST.DELETE'] = 'OBJECTS LIST.DELETE';
+
+// ../templates/default/objects_list.tpl:192 
+$lang['Price'] = 'Price';
 
 // ../templates/default/take_more_objects_away.tpl:143 ../templates/default/take_object.tpl:109 
 $lang['Paypal'] = 'Paypal';
@@ -630,31 +654,31 @@ $lang['Paypal'] = 'Paypal';
 // ../templates/default/objects_edit.tpl:78 
 $lang['OBJECT EDIT.DIMENSION'] = 'OBJECT EDIT.DIMENSION';
 
+// ../templates/default/menu.tpl:34 
+$lang['Parameters'] = 'Parameters';
+
 // ../templates/default/parametres.tpl:2 
 $lang['PARAMETER LEND.PARAMETERS SAVED'] = 'PARAMETER LEND.PARAMETERS SAVED';
 
-// ../templates/default/objects_list.tpl:485 
+// ../templates/default/objects_list.tpl:486 
 $lang['Please make sure to select at least one object from the list to perform this action.'] = 'Please make sure to select at least one object from the list to perform this action.';
 
 // ../templates/default/objects_edit.tpl:139 
 $lang['OBJECT EDIT.CANCEL'] = 'OBJECT EDIT.CANCEL';
 
-// ../templates/default/objects_list.tpl:216 
-$lang['OBJECTS LIST.DIMENSION'] = 'OBJECTS LIST.DIMENSION';
-
 // ../templates/default/take_more_objects_away.tpl:38 
 $lang['TAKE OBJECTS.PRICE'] = 'TAKE OBJECTS.PRICE';
 
-// ../templates/default/objects_list.tpl:280 
-$lang['OBJECTS LIST.ACTION'] = 'OBJECTS LIST.ACTION';
+// ../templates/default/give_more_objects_back.tpl:133 
+$lang['BACK OBJECTS.YES'] = 'BACK OBJECTS.YES';
 
-// ../templates/default/objects_list.tpl:406 
+// ../templates/default/objects_list.tpl:407 
 $lang['For the selection:'] = 'For the selection:';
 
-// ../status_list.php:48 
+// ../status_list.php:51 
 $lang['STATUS LIST.PAGE TITLE'] = 'STATUS LIST.PAGE TITLE';
 
-// ../templates/default/objects_list.tpl:284 ../templates/default/objects_list.tpl:381 
+// ../templates/default/objects_list.tpl:381 
 $lang['OBJECTS LIST.IS ACTIVE'] = 'OBJECTS LIST.IS ACTIVE';
 
 // ../templates/default/status_edit.tpl:23 
@@ -666,14 +690,14 @@ $lang['CATEGORIES LIST.CREATE'] = 'CATEGORIES LIST.CREATE';
 // ../templates/default/admin_picture.tpl:3 
 $lang['ADMIN PICTURE.SAVE CATEGORIES'] = 'ADMIN PICTURE.SAVE CATEGORIES';
 
-// ../objects_edit.php:48 
+// ../objects_edit.php:56 
 $lang['OBJECT EDIT.PAGE TITLE'] = 'OBJECT EDIT.PAGE TITLE';
 
 // ../templates/default/objects_edit.tpl:176 
 $lang['OBJECT EDIT.NEW COMMENT'] = 'OBJECT EDIT.NEW COMMENT';
 
-// ../templates/default/take_more_objects_away.tpl:27 
-$lang['TAKE OBJECTS.DESCRIPTION'] = 'TAKE OBJECTS.DESCRIPTION';
+// ../templates/default/objects_list.tpl:154 
+$lang['Name'] = 'Name';
 
 // ../templates/default/status_list.tpl:74 
 $lang['STATUS LIST.RENT DAY NUMBER'] = 'STATUS LIST.RENT DAY NUMBER';
@@ -693,7 +717,7 @@ $lang['OBJECT EDIT.CHOICE CATEGORY'] = 'OBJECT EDIT.CHOICE CATEGORY';
 // ../templates/default/categories_list.tpl:17 
 $lang['CATEGORIES LIST.NB RESULT'] = 'CATEGORIES LIST.NB RESULT';
 
-// ../objects_edit.php:123 
+// ../objects_edit.php:135 
 $lang['Mime-Type not allowed'] = 'Mime-Type not allowed';
 
 // ../templates/default/categories_list.tpl:3 
@@ -702,13 +726,22 @@ $lang['CATEGORIES LIST.SAVED'] = 'CATEGORIES LIST.SAVED';
 // ../templates/default/take_object.tpl:118 
 $lang['TAKE OBJECT.YES'] = 'TAKE OBJECT.YES';
 
+// ../templates/default/categories_list.tpl:8 
+$lang['CATEGORIES LIST.CANCELED'] = 'CATEGORIES LIST.CANCELED';
+
 // ../templates/default/objects_list.tpl:37 
 $lang['OBJECTS LIST.BAD LOCATION'] = 'OBJECTS LIST.BAD LOCATION';
+
+// ../lib/GaletteObjectsLend/LendParameter.php:446 
+$lang['PAGINATE.GO TO PAGE'] = 'PAGINATE.GO TO PAGE';
 
 // ../templates/default/objects_edit.tpl:216 
 $lang['OBJECT EDIT.CONFIRM DUPLICATE'] = 'OBJECT EDIT.CONFIRM DUPLICATE';
 
-// ../take_object.php:48 
+// ../templates/default/take_more_objects_away.tpl:153 
+$lang['TAKE OBJECTS.NO'] = 'TAKE OBJECTS.NO';
+
+// ../take_object.php:55 
 $lang['TAKE OBJECT.PAGE TITLE'] = 'TAKE OBJECT.PAGE TITLE';
 
 // ../templates/default/give_more_objects_back.tpl:115 
@@ -723,17 +756,14 @@ $lang['OBJECT EDIT.HELP UPLOAD PICTURE'] = 'OBJECT EDIT.HELP UPLOAD PICTURE';
 // ../templates/default/objects_edit.tpl:8 
 $lang['OBJECT EDIT.WILL BE CLONED'] = 'OBJECT EDIT.WILL BE CLONED';
 
-// ../templates/default/objects_list.tpl:249 
-$lang['OBJECTS LIST.DATE BEGIN'] = 'OBJECTS LIST.DATE BEGIN';
-
-// ../take_more_objects_away.php:48 
+// ../take_more_objects_away.php:54 
 $lang['TAKE OBJECTS.PAGE TITLE'] = 'TAKE OBJECTS.PAGE TITLE';
+
+// ../templates/default/objects_list.tpl:280 
+$lang['Actions'] = 'Actions';
 
 // ../templates/default/objects_edit.tpl:135 
 $lang['OBJECT EDIT.DUPLICATE'] = 'OBJECT EDIT.DUPLICATE';
-
-// ../templates/default/objects_list.tpl:167 
-$lang['OBJECTS LIST.DESCRIPTION'] = 'OBJECTS LIST.DESCRIPTION';
 
 // ../templates/default/category_edit.tpl:21 
 $lang['CATEGORY EDIT.PICTURE'] = 'CATEGORY EDIT.PICTURE';
@@ -744,7 +774,7 @@ $lang['OBJECTS LIST.CHOICE'] = 'OBJECTS LIST.CHOICE';
 // ../templates/default/take_more_objects_away.tpl:138 
 $lang['TAKE OBJECTS.SELECT PAYMENT TYPE'] = 'TAKE OBJECTS.SELECT PAYMENT TYPE';
 
-// ../give_object_back.php:48 ../give_more_objects_back.php:72 
-$lang['BACK OBJECTS.PAGE TITLE'] = 'BACK OBJECTS.PAGE TITLE';
+// ../lib/GaletteObjectsLend/LendStatus.php:133 
+$lang['STATUS.AJOUT ECHEC'] = 'STATUS.AJOUT ECHEC';
 
 ?>

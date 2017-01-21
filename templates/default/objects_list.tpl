@@ -120,7 +120,7 @@
         <form action="objects_list.php" method="get">
             <table class="infoline">
                 <tr>
-                    <td class="left">{$nb_results} {if $nb_results != 1}{_T string="objects"}{else}{_T string="object"}{/if}</td>
+                    <td class="left">{$nb_results} {if $nb_results gt 1}{_T string="objects"}{else}{_T string="object"}{/if}</td>
                     <td class="right">{_T string="Records per page:"}
                         <select name="nb_lines" onchange="this.form.submit()">
                             {foreach from=$nb_lines_list item=nb}
@@ -144,14 +144,14 @@
                         {/if}
                         {if $view_thumbnail}
                             <th>
-                                {_T string="OBJECTS LIST.THUMB"}
+                                {_T string="Picture"}
                             </th>
                         {/if}
                         {if $view_name || $view_description}
                             <th>
                                 {if $view_name}
                                     <a href="?tri=name{$sort_suffix}&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
-                                        {_T string="OBJECTS LIST.NAME"}
+                                        {_T string="Name"}
                                     </a>
                                     {if $tri eq 'name' && $direction eq 'asc'}
                                         <img src="{$template_subdir}images/down.png"/>
@@ -164,7 +164,7 @@
                                 {/if}
                                 {if $view_description}
                                     <a href="?tri=description{$sort_suffix}&direction={if $tri eq 'description' && $direction eq 'asc'}desc{else}asc{/if}">
-                                        {_T string="OBJECTS LIST.DESCRIPTION"}
+                                        {_T string="Description"}
                                     </a>
                                     {if $tri eq 'description' && $direction eq 'asc'} 
                                         <img src="{$template_subdir}images/down.png"/>
@@ -177,7 +177,7 @@
                         {if $view_serial}
                             <th>
                                 <a href="?tri=serial_number{$sort_suffix}&direction={if $tri eq 'serial_number' && $direction eq 'asc'}desc{else}asc{/if}">
-                                    {_T string="OBJECTS LIST.SERIAL"}
+                                    {_T string="Serial"}
                                 </a>
                                 {if $tri eq 'serial_number' && $direction eq 'asc'} 
                                     <img src="{$template_subdir}images/down.png"/>
@@ -189,7 +189,7 @@
                         {if $view_price}
                             <th>
                                 <a href="?tri=price{$sort_suffix}&direction={if $tri eq 'price' && $direction eq 'asc'}desc{else}asc{/if}">
-                                    {_T string="OBJECTS LIST.PRICE"}
+                                    {_T string="Price"}
                                 </a>
                                 {if $tri eq 'price' && $direction eq 'asc'} 
                                     <img src="{$template_subdir}images/down.png"/>
@@ -201,7 +201,7 @@
                         {if $view_lend_price}
                             <th>
                                 <a href="?tri=rent_price{$sort_suffix}&direction={if $tri eq 'rent_price' && $direction eq 'asc'}desc{else}asc{/if}">
-                                    {_T string="OBJECTS LIST.RENT PRICE"}
+                                    {_T string="Borrow price"}
                                 </a>
                                 {if $tri eq 'rent_price' && $direction eq 'asc'} 
                                     <img src="{$template_subdir}images/down.png"/>
@@ -213,7 +213,7 @@
                         {if $view_dimension}
                             <th>
                                 <a href="?tri=dimension{$sort_suffix}&direction={if $tri eq 'dimension' && $direction eq 'asc'}desc{else}asc{/if}">
-                                    {_T string="OBJECTS LIST.DIMENSION"}
+                                    {_T string="Dimensions"}
                                 </a>
                                 {if $tri eq 'dimension' && $direction eq 'asc'}
                                     <img src="{$template_subdir}images/down.png"/>
@@ -225,7 +225,7 @@
                         {if $view_weight }
                             <th>
                                 <a href="?tri=weight{$sort_suffix}&direction={if $tri eq 'weight' && $direction eq 'asc'}desc{else}asc{/if}">
-                                    {_T string="OBJECTS LIST.WEIGHT"}
+                                    {_T string="Weight"}
                                 </a>
                                 {if $tri eq 'weight' && $direction eq 'asc'}
                                     <img src="{$template_subdir}images/down.png"/>
@@ -236,7 +236,7 @@
                         {/if} 
                         <th>
                             <a href="?tri=status_text{$sort_suffix}&direction={if $tri eq 'status_text' && $direction eq 'asc'}desc{else}asc{/if}">
-                                {_T string="OBJECTS LIST.STATUS TEXT"}
+                                {_T string="Status"}
                             </a>
                             {if $tri eq 'status_text' && $direction eq 'asc'}
                                 <img src="{$template_subdir}images/down.png"/>
@@ -246,7 +246,7 @@
                         </th>
                         <th>
                             <a href="?tri=date_begin{$sort_suffix}&direction={if $tri eq 'date_begin' && $direction eq 'asc'}desc{else}asc{/if}">
-                                {_T string="OBJECTS LIST.DATE BEGIN"}
+                                {_T string="Since"}
                             </a>
                             {if $tri eq 'date_begin' && $direction eq 'asc'}
                                 <img src="{$template_subdir}images/down.png"/>
@@ -256,7 +256,7 @@
                         </th>
                         <th>
                             <a href="?tri=nom_adh{$sort_suffix}&direction={if $tri eq 'nom_adh' && $direction eq 'asc'}desc{else}asc{/if}">
-                                {_T string="OBJECTS LIST.ADHERENT"}
+                                {_T string="By"}
                             </a>
                             {if $tri eq 'nom_adh' && $direction eq 'asc'}
                                 <img src="{$template_subdir}images/down.png"/>
@@ -267,7 +267,7 @@
                         {if $view_date_forecast}
                             <th>
                                 <a href="?tri=forecast{$sort_suffix}&direction={if $tri eq 'forecast' && $direction eq 'asc'}desc{else}asc{/if}">
-                                    {_T string="OBJECTS LIST.DATE FORECAST"}
+                                    {_T string="Return"}
                                 </a>
                                 {if $tri eq 'forecast' && $direction eq 'asc'}
                                     <img src="{$template_subdir}images/down.png"/>
@@ -277,11 +277,11 @@
                             </th>
                         {/if}
                         <th>
-                            {_T string="OBJECTS LIST.ACTION"}
+                            {_T string="Actions"}
                         </th>
                         {if $login->isAdmin() || $login->isStaff()}
                             <th>
-                                {_T string="OBJECTS LIST.IS ACTIVE"}
+                                {_T string="Active"}
                             </th>
                             <th>
                             </th>
@@ -313,8 +313,8 @@
                                     {if $view_name && $view_description}
                                         <br/>
                                     {/if}
-                                    {if $view_description}    
-                                        {$objt->search_description}   
+                                    {if $view_description}
+                                        {$objt->search_description}
                                     {/if} 
                                 </td>
                             {/if}
@@ -329,7 +329,7 @@
                                 </td>
                             {/if}
                             {if $view_lend_price eq '1'}
-                                <td align="right"> 
+                                <td align="right">
                                     {$objt->rent_price}&euro;
                                     {if $objt->price_per_day}
                                         {_T string="OBJECTS LIST.RENT PRICE PER DAY"}
@@ -395,7 +395,8 @@
                             {/if}
                         </tr>
                     {foreachelse}
-                        <tr><td colspan="7" class="emptylist">{_T string="No object has been found"}</td></tr>
+                        {* FIXME: calculate colspan *}
+                        <tr><td colspan="10" class="emptylist">{_T string="No object has been found"}</td></tr>
                     {/foreach}
                 </tbody>
 {if $nb_results != 0}
