@@ -1,0 +1,47 @@
+#status_create, #object_create, #cancel, #save, #yes, #duplicate, .button{
+    background-position: 10px 50%, 50% 50% !important;
+    background-repeat: no-repeat, repeat !important;
+    padding-left: 2em !important;
+}
+
+#status_create {
+    background-image: url(../../picts/status.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#status_create.ui-state-hover {
+    background-image: url(../../picts/status.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+#object_create {
+    background-image: url(../../picts/box.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#object_create.ui-state-hover {
+    background-image: url(../../picts/box.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+#cancel {
+    background-image: url(../../picts/cancel.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#cancel.ui-state-hover {
+    background-image: url(../../picts/cancel.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+#save {
+    background-image: url(../../picts/save.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#save.ui-state-hover {
+    background-image: url(../../picts/save.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+#yes {
+    background-image: url(../../picts/yes.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#yes.ui-state-hover {
+    background-image: url(../../picts/yes.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+#duplicate {
+    background-image: url(../../picts/copy.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#duplicate.ui-state-hover {
+    background-image: url(../../picts/copy.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
