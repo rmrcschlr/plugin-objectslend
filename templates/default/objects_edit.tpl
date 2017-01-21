@@ -8,34 +8,30 @@
         <h1>{_T string="OBJECT EDIT.WILL BE CLONED"}</h1>
     </div>
 {/if}
-<a href="objects_list.php">
-    <img src="picts/back.png" title="{_T string="OBJECT EDIT.BACK"}"/>
-    {_T string="OBJECT EDIT.BACK"}
-    <br/>&nbsp;
-</a>
+
 <form action="objects_edit.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="object_id" value="{$object->object_id}">
     <div class="bigtable">
         <fieldset class="cssform">
-            <legend class="ui-state-active ui-corner-top">{_T string="OBJECT EDIT.TITLE"}</legend>
+            <legend class="ui-state-active ui-corner-top">{_T string="Object"}</legend>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.NAME"}</span>
-                    <input type="text" name="name" maxlength="100" size="60" value="{$object->name}" required>
+                    <label for="name" class="bline">{_T string="Name:"}</label>
+                    <input type="text" name="name" id="name" maxlength="100" size="60" value="{$object->name}" required>
                 </p>
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.DESCRIPTION"}</span>
-                    <input type="text" name="description" maxlength="500" size="80" value="{$object->description}" required>
+                    <label for="description" class="bline">{_T string="Description:"}</label>
+                    <input type="text" name="description" id="description" maxlength="500" size="80" value="{$object->description}" required>
                 </p>
             </div>
             {if $view_category}
                 <div>
                     <p>
-                        <span class="bline">{_T string="OBJECT EDIT.CATEGORY"}</span>
-                        <select name="category_id" style="width: 300px">
-                            <option value="">{_T string="OBJECT EDIT.CHOICE CATEGORY"}</option>
+                        <label for="category_id" class="bline">{_T string="Category:"}</label>
+                        <select name="category_id" id="category_id">
+                            <option value="">{_T string="--- Select a category ---"}</option>
                             {foreach from=$categories item=categ}
                                 <option value="{$categ->category_id}"{if $object->category_id eq $categ->category_id} selected="selected"{/if}>
                                     {$categ->name}
@@ -48,54 +44,54 @@
             {/if}
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.SERIAL"}</span>
-                    <input type="text" name="serial" maxlength="30" size="20" value="{$object->serial_number}">
+                    <label for="serial" class="bline">{_T string="Serial number:"}</label>
+                    <input type="text" name="serial" id="serial" maxlength="30" size="20" value="{$object->serial_number}">
                 </p>
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.PRICE"}</span>
-                    <input type="text" name="price" size="10" style="text-align: right" value="{$object->price}">
+                    <label for="price" class="bline">{_T string="Price:"}</label>
+                    <input type="text" name="price" id="price" size="10" style="text-align: right" value="{$object->price}">
                 </p>
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.RENT PRICE"}</span>
+                    <span class="bline">{_T string="Borrow price (€):"}</span>
                     <input type="text" name="rent_price" size="10" style="text-align: right" value="{$object->rent_price}">
                 </p>
             </div>
             <div>
                 <p>
-                    <label class="bline tooltip_lend" for="price_per_day" title="{_T string="OBJECT EDIT.HELP PRICE PER DAY"}">
-                        {_T string="OBJECT EDIT.PRICE PER DAY"}
-                        <img src="picts/help.png"/>
+                    <label class="bline tooltip" for="price_per_day" title="{_T string="- Checked = the price applies to each rental day <br/> - Unchecked = the price applies once"}">
+                        {_T string="Price per rental day:"}
                     </label>
+                    <span class="tip">{_T string="- Checked = the price applies to each rental day <br/> - Unchecked = the price applies once"}</span>
                     <input type="checkbox" name="price_per_day" id="price_per_day" value="true"{if $object->price_per_day} checked="checked"{/if}>
                 </p>
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.DIMENSION"}</span>
-                    <input type="text" name="dimension" maxlength="100" size="60" value="{$object->dimension}">
+                    <label for="dimension" class="bline">{_T string="Dimensions (cm):"}</label>
+                    <input type="text" name="dimension" id="dimension" maxlength="100" size="60" value="{$object->dimension}">
                 </p>
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="OBJECT EDIT.WEIGHT"}</span>
-                    <input type="text" name="weight" size="10" style="text-align: right" value="{$object->weight}">
+                    <label for="weight" class="bline">{_T string="Weight (kg):"}</label>
+                    <input type="text" name="weight" id="weight" size="10" style="text-align: right" value="{$object->weight}">
                 </p>
             </div>
             <div>
                 <p>
-                    <label class="bline" for="is_active">{_T string="OBJECT EDIT.IS ACTIVE"}</label>
+                    <label class="bline" for="is_active">{_T string="Active:"}</label>
                     <input type="checkbox" id="is_active" name="is_active" value="true"{if $object->is_active} checked="checked"{/if}>
                 </p>
             </div>
             {if $show_status}
                 <div>
                     <p>
-                        <span class="bline">{_T string="OBJECT EDIT.1ST STATUS"}</span>
-                        <select name="1st_status">
+                        <label for="1st_status" class="bline">{_T string="Where is the object?"}</label>
+                        <select name="1st_status" id="1st_status">
                             {foreach from=$statuses item=sta}
                                 <option value="{$sta->status_id}"{if $sta->is_home_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_home_location} (@Galette){/if}</option>
                             {/foreach}
@@ -105,44 +101,45 @@
             {/if}
             <div>
                 <p>
-                    <span class="bline tooltip_lend" title="{_T string="OBJECT EDIT.HELP UPLOAD PICTURE"}">
-                        {_T string="OBJECT EDIT.PICTURE"}
-                        <img src="picts/help.png"/>
-                    </span>
-                    <input type="file" name="picture">
+                    <label for="object_picture" class="bline tooltip" title="{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}">
+                        {_T string="Picture:"}
+                    </label>
+                    <span class="tip">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</span>
+                    <input type="file" name="picture" id="object_picture">
                     {if $object->object_id ne ''}
                         <br/>
                         <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="OBJECT EDIT.DELETE PICTURE"}</label></span><br/>
-                        {/if}   
+                        {/if}
                 </p>
             </div>
             {if $object->draw_image}
-                <div> 
+                <div>
                     <p>
                         <span class="bline">{_T string="OBJECT EDIT.THUMB"}</span>
-                        <img src="{$object->object_image_url}" 
-                             class="tooltip_lend" 
-                             style="max-width: {$thumb_max_width}px; max-height: {$thumb_max_height}px"
-                             title="<img src='{$object->object_image_url}' width='{$pic_width}' height='{$pic_height}'/>"/>
+                        <img src="{$object->object_image_url}"
+                             width="{$thumb_max_width}" height="{$thumb_max_height}"/>
                     </p>
                 </div>
-            {/if}   
+            {/if}
         </fieldset>
     </div>
     <div class="button-container">
-        <input type="submit" id="lend_save" name="save" value="{_T string="OBJECT EDIT.SAVE"}">
+        <input type="submit" id="btnsave" name="save" value="{_T string="Save"}">
         {if $object->object_id ne ''}
             <input type="submit" id="duplicate" name="duplicate" value="{_T string="OBJECT EDIT.DUPLICATE"}" onclick="return confirmClone({$object->object_id});">
             <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECT EDIT.PRINT"}" onclick="window.location = 'objects_print.php?object_id={$object->object_id}';
                     return false;">
         {/if}
-        <input type="submit" id="lend_cancel" name="cancel" value="{_T string="OBJECT EDIT.CANCEL"}" onclick="document.location = 'objects_list.php?msg=canceled';
-                return false;">
+        <p>
+            <a href="objects_list.php" class="button" id="btnback" title="{_T string="Back to objects list"}">
+                {_T string="Back to objects list"}
+            </a>
+        </p>
     </div>
 </form>
-
+{if $object->object_id}
 <h3>
-    {_T string="OBJECT EDIT.ALL RENTS"}
+    {_T string="History of object loans"}
 </h3>
 <form action="objects_edit.php" method="post">
     <input type="hidden" name="object_id" value="{$object->object_id}">
@@ -161,7 +158,7 @@
             {if $object->object_id ne ''}
                 <tr>
                     <td style="background-color: #CCFECC " colspan="2">
-                        {_T string="OBJECT EDIT.NEW STATUS"}                   
+                        {_T string="OBJECT EDIT.NEW STATUS"}
                     </td>
                     <td style="background-color: #CCFECC " colspan="4">
                         <select name="new_status">
@@ -211,6 +208,7 @@
         <input type="submit" id="status_create" name="status" value="{_T string="OBJECT EDIT.CHANGE STATUS"}">
     </div>
 </form>
+{/if}
 <script>
     function confirmClone(object_id) {
         if (confirm('{_T string="OBJECT EDIT.CONFIRM DUPLICATE"}')) {

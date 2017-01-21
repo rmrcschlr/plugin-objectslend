@@ -53,7 +53,7 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("OBJECT EDIT.PAGE TITLE"));
+$tpl->assign('page_title', _T("Edit an object"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
