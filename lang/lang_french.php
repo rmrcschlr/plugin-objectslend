@@ -1,340 +1,750 @@
 <?php
+// This file was automatically generated on Sat Jan 21 16:57:39 2017 (GMT)
+// Don't modify it by hand, rather use the target lang from the Makefile.
 
-/**
- * I18n - French
- *
- * PHP version 5
- *
- * Copyright © 2011 M&eacute;lissa Djebel
- *
- * This file is part of Galette (http://galette.tuxfamily.org).
- *
- * Plugin ObjectsLend is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Galette. If not, see <http://www.gnu.org/licenses/>.
- *
- * @category  Plugins
- * @package   ObjectsLend
- *
- * @author    M&eacute;lissa Djebel <melissa.djebel@gmx.net>
- * @copyright 2012 M&eacute;lissa Djebel
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   0.7
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7
- */
-$lang['MENU.LEND'] = 'Emprunter';
-$lang['MENU.OBJECTS LIST'] = 'Liste des objets';
-$lang['MENU.STATUS LIST'] = 'Statuts de location';
-$lang['MENU.CATEGORIES LIST'] = 'Cat&eacute;gories d&rsquo;objets';
-$lang['MENU.PARAMETERS'] = 'Param&egrave;tres';
-$lang['MENU.ADMIN PICTURE'] = 'Administration images';
 
-$lang['OBJECTS LIST.PAGE TITLE'] = 'Gestion des objets de l&rsquo;association';
-$lang['OBJECTS LIST.TAKEN'] = 'L&rsquo;objet est maintenant emprunt&eacute; ! Pensez &agrave; le rendre !';
-$lang['OBJECTS LIST.NOT TAKEN'] = 'L&rsquo;emprunt a &eacute;t&eacute; annul&eacute; !';
-$lang['OBJECTS LIST.GIVEN'] = 'L&rsquo;objet est a &eacute;t&eacute; rendu !';
-$lang['OBJECTS LIST.NOT GIVEN'] = 'L&rsquo;objet n&rsquo;a pas &eacute;t&eacute; rendu ! N&rsquo;oubliez pas !';
-$lang['OBJECTS LIST.CANCELED'] = 'Les modifications ont &eacute;t&eacute; annul&eacute;es !';
-$lang['OBJECTS LIST.NO RIGHT'] = 'Vous ne pouvez pas rendre un objet que vous n&rsquo;avez pas !';
-$lang['OBJECTS LIST.BAD LOCATION'] = 'Vous ne pouvez pas prendre un objet d&eacute;tenu par quelqu&rsquo;un d&rsquo;autre !';
-$lang['OBJECTS LIST.DELETED'] = 'Les objets ont &eacute;t&eacute; d&eacute;finitivement supprim&eacute;s de la base de donn&eacute;es ainsi que leur historique.';
-$lang['OBJECTS LIST.DISABLED'] = 'Les objets sont maintenant inactifs et sont visibles seulement pour les membres du staff';
-$lang['OBJECTS LIST.SEARCH'] = 'Rechercher un objet :';
-$lang['OBJECTS LIST.ENTER WORD'] = 'Entrez un crit&egrave;re de recherche';
-$lang['OBJECTS LIST.GO SEARCH'] = 'Filtrer !';
-$lang['OBJECTS LIST.RESET SEARCH'] = 'Effacer le filtre';
-$lang['OBJECTS LIST.ADMIN'] = 'L&rsquo;admin ne peut pas emprunter d&rsquo;objet, il doit se connecter avec son compte membre';
-$lang['OBJECTS LIST.CHOICE'] = 'Choisissez la cat&eacute;gorie avant d&rsquo;emprunter';
-$lang['OBJECTS LIST.CHOOSE THIS'] = 'Choisir la cat&eacute;gorie';
-$lang['OBJECTS LIST.ALL OBJECTS'] = 'Tous les objets';
-$lang['OBJECTS LIST.NB RESULTS'] = 'objets';
-$lang['OBJECTS LIST.NB LINES'] = 'Nombre d&rsquo;objets par page :';
-$lang['OBJECTS LIST.THUMB'] = 'Photo';
-$lang['OBJECTS LIST.NAME'] = 'Nom';
-$lang['OBJECTS LIST.DESCRIPTION'] = 'Description';
-$lang['OBJECTS LIST.SERIAL'] = 'N&deg; s&eacute;rie';
-$lang['OBJECTS LIST.PRICE'] = 'Prix';
-$lang['OBJECTS LIST.RENT PRICE'] = 'Prix loc.';
-$lang['OBJECTS LIST.RENT PRICE PER DAY'] = 'par jour';
-$lang['OBJECTS LIST.DIMENSION'] = 'Dimensions';
-$lang['OBJECTS LIST.WEIGHT'] = 'Poids';
-$lang['OBJECTS LIST.DATE BEGIN'] = 'Depuis';
-$lang['OBJECTS LIST.ADHERENT'] = 'Par';
-$lang['OBJECTS LIST.DATE END'] = 'Fin';
-$lang['OBJECTS LIST.STATUS TEXT'] = 'Etat';
-$lang['OBJECTS LIST.GALETTE LOCATION'] = 'Dispo';
-$lang['OBJECTS LIST.DATE FORECAST'] = 'Retour';
-$lang['OBJECTS LIST.ACTION'] = 'Action';
-$lang['OBJECTS LIST.IS ACTIVE'] = 'Actif';
-$lang['OBJECTS LIST.CHECK'] = 'Cocher tout';
-$lang['OBJECTS LIST.UNCHECK'] = 'D&eacute;cocher tout';
-$lang['OBJECTS LIST.INVERT'] = 'Inverser s&eacute;lection';
-$lang['OBJECTS LIST.EDIT'] = 'Modifier l&rsquo;objet';
-$lang['OBJECTS LIST.COPY'] = 'Dupliquer l&rsquo;objet';
-$lang['OBJECTS LIST.COPY SHORT'] = 'Dupl.';
-$lang['OBJECTS LIST.PDF'] = 'Imprimer la fiche object en PDF';
-$lang['OBJECTS LIST.DELETE'] = 'Supprimer cet objet';
-$lang['OBJECTS LIST.TAKE AWAY'] = 'Emprunter l&rsquo;objet';
-$lang['OBJECTS LIST.REPLACE'] = 'Rendre l&rsquo;objet';
-$lang['OBJECTS LIST.PRINT'] = 'Imprimer la liste d&rsquo;objets';
-$lang['OBJECTS LIST.SINGLE PRINT'] = 'Imprimer les fiches objets';
-$lang['OBJECTS LIST.CREATE'] = 'Cr&eacute;er un nouvel objet';
-$lang['OBJECTS LIST.DISABLE'] = 'D&eacute;sactiver les objets';
-$lang['OBJECTS LIST.DELETE'] = 'Supprimer des objets';
-$lang['OBJECTS LIST.MORE AWAY'] = 'Sortir les objets';
-$lang['OBJECTS LIST.GIVE BACK'] = 'Rendre les objets';
-$lang['OBJECTS LIST.CONFIRM DISABLE'] = '&Ecirc;tes-vous s&ucirc;r de vouloir d&eacute;sactiver ces $0 objets ?\n'
-        . 'Attention : ils restent pr&eacute;sents mais ne peuvent plus &ecirc;tre lou&eacute;s !';
-$lang['OBJECTS LIST.CONFIRM DELETE'] = '&Ecirc;tes-vous s&ucirc;r de vouloir supprimer ces $0 objets ?\n'
-        . 'Attention : ils seront supprim&eacute;s d&eacute;finitivement de la base et ne pourront plus &ecirc;tre utilis&eacute;s dans le futur !';
+// ../templates/default/objects_list.tpl:22 
+$lang['OBJECTS LIST.NOT GIVEN'] = 'OBJECTS LIST.NOT GIVEN';
 
-$lang['PAGINATE.FIRST PAGE'] = 'Aller &agrave; la premi&egrave;re page';
-$lang['PAGINATE.PREVIOUS PAGE'] = 'Reculer d&rsquo;une page';
-$lang['PAGINATE.GO TO PAGE'] = 'Aller &agrave; la page n&deg;';
-$lang['PAGINATE.NEXT PAGE'] = 'Avancer d&rsquo;une page';
-$lang['PAGINATE.LAST PAGE'] = 'Aller &agrave; la derni&egrave;re page';
+// ../templates/default/take_object.tpl:119 
+$lang['TAKE OBJECT.NO'] = 'TAKE OBJECT.NO';
 
-$lang['OBJECTS LIST PDF.PRINTED'] = 'Imprim&eacute; le ';
-$lang['OBJECTS LIST PDF.CATEGORY'] = 'Cat&eacute;gorie s&eacute;lectionn&eacute;e : ';
+// ../templates/default/objects_list.tpl:398 
+$lang['No object has been found'] = 'No object has been found';
 
-$lang['OBJECT EDIT.PAGE TITLE'] = 'Gestion des objets &agrave; emprunter';
-$lang['OBJECT EDIT.SAVED'] = 'Modifications enregistr&eacute;es';
-$lang['OBJECT EDIT.WILL BE CLONED'] = 'Cet objet va &ecirc;tre dupliqu&eacute; ! Vous n&rsquo;&ecirc;tes pas en modification !';
-$lang['OBJECT EDIT.BACK'] = 'Revenir &agrave; la liste des objets';
-$lang['OBJECT EDIT.TITLE'] = 'Modification d&rsquo;un objet';
-$lang['OBJECT EDIT.NAME'] = 'Nom :';
-$lang['OBJECT EDIT.DESCRIPTION'] = 'Description :';
-$lang['OBJECT EDIT.CATEGORY'] = 'Cat&eacute;gorie :';
-$lang['OBJECT EDIT.CHOICE CATEGORY'] = '--- Choisissez une cat&eacute;gorie ---';
-$lang['OBJECT EDIT.SERIAL'] = 'N&deg; de s&eacute;rie :';
-$lang['OBJECT EDIT.PRICE'] = 'Prix (&euro;) :';
-$lang['OBJECT EDIT.RENT PRICE'] = 'Prix de location (&euro;) :';
-$lang['OBJECT EDIT.PRICE PER DAY'] = 'Prix par jour de location :';
-$lang['OBJECT EDIT.HELP PRICE PER DAY'] = '- Coch&eacute; = le prix s&rsquo;applique pour chaque jour de location <br/>- Non coch&eacute; = le prix s&rsquo;applique une seule fois';
-$lang['OBJECT EDIT.DIMENSION'] = 'Dimensions (cm) :';
-$lang['OBJECT EDIT.WEIGHT'] = 'Poids (kg) :';
-$lang['OBJECT EDIT.IS ACTIVE'] = 'Actif :';
-$lang['OBJECT EDIT.1ST STATUS'] = 'Etat de l&rsquo;objet :';
-$lang['OBJECT EDIT.PICTURE'] = 'Photo de l&rsquo;objet :';
-$lang['OBJECT EDIT.HELP UPLOAD PICTURE'] = 'Le fichier doit faire moins de 2Mo et ne pas contenir d&rsquo;espaces dans le nom!';
-$lang['OBJECT EDIT.DELETE PICTURE'] = 'Supprimer la photo de l&rsquo;objet';
-$lang['OBJECT EDIT.THUMB'] = 'Miniature automatique :';
-$lang['OBJECT EDIT.SAVE'] = 'Enregistrer';
-$lang['OBJECT EDIT.DUPLICATE'] = 'Dupliquer l&rsquo;objet';
-$lang['OBJECT EDIT.PRINT'] = 'Imprimer l&rsquo;objet';
-$lang['OBJECT EDIT.CONFIRM DUPLICATE'] = 'Attention, les modifications actuelles ne vont pas &ecirc;tre enregistr&eacute;es!\nVous allez tout de suite travailler sur une copie de l\\&rsquo;objet.\nContinuer ?';
-$lang['OBJECT EDIT.CANCEL'] = 'Annuler';
-$lang['OBJECT EDIT.ALL RENTS'] = 'Historique des emprunts de l&rsquo;objet';
-$lang['OBJECT EDIT.DATE BEGIN'] = 'D&eacute;but';
-$lang['OBJECT EDIT.DATE FIN'] = 'Fin';
-$lang['OBJECT EDIT.STATUS'] = 'Statut';
-$lang['OBJECT EDIT.AT HOME'] = 'Au local';
-$lang['OBJECT EDIT.ADH'] = 'Adh&eacute;rent';
-$lang['OBJECT EDIT.COMMENTS'] = 'Commentaires';
-$lang['OBJECT EDIT.NEW STATUS'] = 'Changer le statut pour :';
-$lang['OBJECT EDIT.NEW COMMENT'] = 'Commentaire : ';
-$lang['OBJECT EDIT.NEW ADH'] = 'Adh&eacute;rent : ';
-$lang['OBJECT EDIT.NO ADH'] = '--- Sans adh&eacute;rent ---';
-$lang['OBJECT EDIT.CHANGE STATUS'] = 'Modifier le statut';
+// ../templates/default/parametres.tpl:38 
+$lang['PARAMETER LEND.TEXT'] = 'PARAMETER LEND.TEXT';
 
-$lang['TAKE OBJECT.PAGE TITLE'] = 'Emprunter un objet';
-$lang['TAKE OBJECT.TITLE'] = '&Ecirc;tes-vous s&ucirc;r de vouloir emprunter cet objet ?';
-$lang['TAKE OBJECT.NAME'] = 'Nom :';
-$lang['TAKE OBJECT.DESCRIPTION'] = 'Description :';
-$lang['TAKE OBJECT.SERIAL'] = 'N&deg; de s&eacute;rie :';
-$lang['TAKE OBJECT.PRICE'] = 'Prix (&euro;) :';
-$lang['TAKE OBJECT.RENT PRICE'] = 'Prix de location (&euro;) :';
-$lang['TAKE OBJECT.DIMENSION'] = 'Dimensions (cm) :';
-$lang['TAKE OBJECT.WEIGHT'] = 'Poids (kg) :';
-$lang['TAKE OBJECT.MEMBERS'] = 'Emprunteur :';
-$lang['TAKE OBJECT.SELECT MEMBER'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['TAKE OBJECT.STATUS'] = 'Raison de l&rsquo;emprunt :';
-$lang['TAKE OBJECT.SELECT STATUS'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['TAKE OBJECT.DAYS'] = 'jours';
-$lang['TAKE OBJECT.EXPECTED RETURN'] = 'Retour prévu le :';
-$lang['TAKE OBJECT.PAYMENT TYPE'] = 'Type de paiement :';
-$lang['TAKE OBJECT.SELECT PAYMENT TYPE'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['TAKE OBJECT.RESPONSIBLE FOR'] = 'Les objets propos&eacute;s &agrave; la location sont en bon &eacute;tat de location et la '
-        . 'v&eacute;rification contradictoire de leur &eacute;tat se fait au moment du retrait. Aucune r&eacute;clamation ne sera '
-        . ' recevable apr&egrave;s la sortie de l&rsquo;objet. La r&eacute;daction par le magasin d&rsquo;une liste de r&eacute;servation n&rsquo;exon&egrave;re '
-        . 'pas le client de la v&eacute;rification de sa tenue au moment du retrait.'
-        . 'Le paiement d&rsquo;une location donne droit &agrave; l&rsquo;acheteur de pouvoir faire '
-        . 'un usage normal de l&rsquo;objet pr&ecirc;t&eacute;. Si l&rsquo;objet est rendu dans un &eacute;tat d&eacute;grad&eacute;, le vendeur se r&eacute;serve '
-        . 'le droit d&rsquo;encaisser tout ou partie du ch&egrave;que de caution. En cas de d&eacute;gradation de l&rsquo;objet lou&eacute; '
-        . 'au-del&agrave; des standards, une participation financi&egrave;re sera exig&eacute;e pour le nettoyage suppl&eacute;mentaire '
-        . 'occasionn&eacute;. En cas de d&eacute;t&eacute;rioration, de perte ou de vol de l&rsquo;objet lou&eacute;, le d&eacute;p&ocirc;t de garantie restera '
-        . 'acquis de plein droit &agrave; la soci&eacute;t&eacute;, &agrave; titre de dommages et int&eacute;r&ecirc;ts conform&eacute;ment aux dispositions de '
-        . 'l&rsquo;article 1152 du Code Civil et ce sans qu&rsquo;il soit besoin d&rsquo;aucune autre formalit&eacute; judiciaire ou extra '
-        . 'judiciaire. Dans certains autres cas, non &eacute;num&eacute;r&eacute;s ci-dessus et laiss&eacute;s &agrave; l&rsquo;appr&eacute;ciation du vendeur, '
-        . 'le ch&egrave;que de caution peut &eacute;galement &ecirc;tre encaiss&eacute; en tout ou parti.';
-$lang['TAKE OBJECT.YES'] = 'Oui, j&rsquo;emprunte !';
-$lang['TAKE OBJECT.NO'] = 'Non, je le laisse !';
+// ../templates/default/objects_edit.tpl:211 
+$lang['OBJECT EDIT.CHANGE STATUS'] = 'OBJECT EDIT.CHANGE STATUS';
 
-$lang['GIVE OBJECT BACK.PAGE TITLE'] = 'Rendre un objet';
-$lang['GIVE OBJECT BACK.TITLE'] = 'Voulez-vous rendre cet objet ?';
-$lang['GIVE OBJECT BACK.NAME'] = 'Nom :';
-$lang['GIVE OBJECT BACK.DESCRIPTION'] = 'Description :';
-$lang['GIVE OBJECT BACK.SERIAL'] = 'N&deg; de s&eacute;rie :';
-$lang['GIVE OBJECT BACK.PRICE'] = 'Prix (&euro;) :';
-$lang['GIVE OBJECT BACK.DIMENSION'] = 'Dimensions (cm) :';
-$lang['GIVE OBJECT BACK.WEIGHT'] = 'Poids (kg) :';
-$lang['GIVE OBJECT BACK.STATUS'] = 'O&ugrave; reposez-vous l&rsquo;objet ?';
-$lang['GIVE OBJECT BACK.SELECT STATUS'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['GIVE OBJECT BACK.TIME'] = 'Dur&eacute;e de location :';
-$lang['GIVE OBJECT BACK.FROM'] = 'Du';
-$lang['GIVE OBJECT BACK.TO'] = 'au';
-$lang['GIVE OBJECT BACK.COMMENTS'] = 'Commentaires :';
-$lang['GIVE OBJECT BACK.REMAINING'] = 'caract&egrave;re(s) restant';
-$lang['GIVE OBJECT BACK.YES'] = 'Oui, je le rend';
-$lang['GIVE OBJECT BACK.NO'] = 'Non, je le garde !';
+// ../templates/default/objects_list.tpl:17 
+$lang['OBJECTS LIST.GIVEN'] = 'OBJECTS LIST.GIVEN';
 
-$lang['BACK OBJECTS.PAGE TITLE'] = 'Rendre plusieurs objets';
-$lang['BACK OBJECTS.OBJECTS TITLE'] = 'Objets &agrave; rendre :';
-$lang['BACK OBJECTS.THUMB'] = 'Photo';
-$lang['BACK OBJECTS.NAME'] = 'Nom';
-$lang['BACK OBJECTS.DESCRIPTION'] = 'Description';
-$lang['BACK OBJECTS.SERIAL'] = 'N&deg; de s&eacute;rie';
-$lang['BACK OBJECTS.PRICE'] = 'Prix';
-$lang['BACK OBJECTS.RENT PRICE'] = 'Prix loc.';
-$lang['BACK OBJECTS.DIMENSION'] = 'Dimensions';
-$lang['BACK OBJECTS.WEIGHT'] = 'Poids';
-$lang['BACK OBJECTS.TITLE'] = 'Rendre plusieurs objets';
-$lang['BACK OBJECTS.STATUS'] = 'O&ugrave; vont se trouver les objets ?';
-$lang['BACK OBJECTS.SELECT STATUS'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['BACK OBJECTS.COMMENTS'] = 'Commentaires :';
-$lang['BACK OBJECTS.REMAINING'] = 'caract&egrave;re(s) restant';
-$lang['BACK OBJECTS.YES'] = 'Retour des objets';
-$lang['BACK OBJECTS.NO'] = 'Annuler les retours';
+// ../templates/default/categories_list.tpl:8 
+$lang['CATEGORIES LIST.CANCELED'] = 'CATEGORIES LIST.CANCELED';
 
-$lang['TAKE OBJECTS.PAGE TITLE'] = 'Sortir plusieurs objets';
-$lang['TAKE OBJECTS.OBJECTS TITLE'] = 'Objets &agrave; sortir :';
-$lang['TAKE OBJECTS.THUMB'] = 'Photo';
-$lang['TAKE OBJECTS.NAME'] = 'Nom';
-$lang['TAKE OBJECTS.DESCRIPTION'] = 'Description';
-$lang['TAKE OBJECTS.SERIAL'] = 'N&deg; de s&eacute;rie';
-$lang['TAKE OBJECTS.PRICE'] = 'Prix';
-$lang['TAKE OBJECTS.RENT PRICE'] = 'Prix loc.';
-$lang['TAKE OBJECTS.DIMENSION'] = 'Dimensions';
-$lang['TAKE OBJECTS.WEIGHT'] = 'Poids';
-$lang['TAKE OBJECTS.TITLE'] = 'Sortir plusieurs objets';
-$lang['TAKE OBJECTS.STATUS'] = 'O&ugrave; sortent les objets ?';
-$lang['TAKE OBJECTS.SELECT STATUS'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['TAKE OBJECTS.MEMBERS'] = 'Emprunteur :';
-$lang['TAKE OBJECTS.SELECT MEMBER'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['TAKE OBJECTS.PAYMENT TYPE'] = 'Type de paiement :';
-$lang['TAKE OBJECTS.SELECT PAYMENT TYPE'] = '-- S&eacute;lectionnez dans la liste --';
-$lang['TAKE OBJECTS.YES'] = 'Sortir les objets';
-$lang['TAKE OBJECTS.NO'] = 'Annuler la sortie';
+// ../parameters.php:145 
+$lang['PARAMETER LEND.PAGE TITLE'] = 'PARAMETER LEND.PAGE TITLE';
 
-$lang['STATUS LIST.PAGE TITLE'] = 'Gestion des statuts d&rsquo;emprunt';
-$lang['STATUS LIST.SAVED'] = 'Modifications enregistr&eacute;es';
-$lang['STATUS LIST.CANCELED'] = 'Modifications annul&eacute;es';
-$lang['STATUS LIST.DELETED'] = 'Statut supprim&eacute;';
-$lang['STATUS LIST.GALETTE LOCATION NEEDED'] = 'Au minimum 1 statut "Peut &ecirc;tre emprunt&eacute;" doit &ecirc;tre ajout&eacute; pour le bon fonctionnement de l&rsquo;emprunt !';
-$lang['STATUS LIST.AWAY NEEDED'] = 'Au minimum 1 statut "Objet emprunt&eacute;" doit &ecirc;tre ajout&eacute; pour le bon fonctionnement de l&rsquo;emprunt !';
-$lang['STATUS LIST.NB RESULT'] = ' statuts';
-$lang['STATUS LIST.TEXT'] = 'Statut';
-$lang['STATUS LIST.IS GALETTE LOCATION'] = 'Equivalent "Peut &ecirc;tre emprunt&eacute; par un membre"';
-$lang['STATUS LIST.IS ACTIVE'] = 'Actif';
-$lang['STATUS LIST.RENT DAY NUMBER'] = 'Nb jour location';
-$lang['STATUS LIST.EDIT'] = 'Modifier statut';
-$lang['STATUS LIST.EDIT SHORT'] = 'Modif.';
-$lang['STATUS LIST.DELETE'] = 'Supprimer le statut';
-$lang['STATUS LIST.DELETE SHORT'] = 'Suppr.';
-$lang['STATUS LIST.CREATE'] = 'Cr&eacute;er un statut';
-$lang['STATUS LIST.CONFIRM DELETE'] = '&Ecirc;tes vous s&ucirc;r de vouloir supprimer le statut ';
+// ../templates/default/give_object_back.tpl:57 
+$lang['GIVE OBJECT BACK.SELECT STATUS'] = 'GIVE OBJECT BACK.SELECT STATUS';
 
-$lang['STATUS EDIT.PAGE TITLE'] = 'Modifier un statut';
-$lang['STATUS EDIT.TITLE'] = 'Modifier un statut';
-$lang['STATUS EDIT.TEXT'] = 'Titre : ';
-$lang['STATUS EDIT.HELP GALETTE LOCATION'] = '&middot; Coch&eacute; correspond &agrave; <i>&rsquo;&rsquo;Objet disponible actuellement<br/>'
-        . 'au local de l&rsquo;association et peut &ecirc;tre emprunt&eacute;&rsquo;&rsquo;</i>'
-        . '<br/>&middot; D&eacute;coch&eacute; correspond &agrave; <i>&rsquo;&rsquo;Objet est emprunt&eacute; par <br/>un membre et doit &ecirc;tre rendu&rsquo;&rsquo;</i>';
-$lang['STATUS EDIT.IS GALETTE LOCATION'] = 'Equivalent "Peut &ecirc;tre emprunt&eacute; par un membre" : ';
-$lang['STATUS EDIT.IS ACTIVE'] = 'Actif : ';
-$lang['STATUS EDIT.HELP RENT DAY NUMBER'] = 'Nombre de jour par défaut de location = précalcul de la date de retour';
-$lang['STATUS EDIT.RENT DAY NUMBER'] = 'Nb de jour de location :';
-$lang['STATUS EDIT.SAVE'] = 'Enregistrer';
-$lang['STATUS EDIT.CANCEL'] = 'Annuler';
+// ../templates/default/status_list.tpl:18 
+$lang['STATUS LIST.GALETTE LOCATION NEEDED'] = 'STATUS LIST.GALETTE LOCATION NEEDED';
 
-$lang['PARAMETER LEND.PAGE TITLE'] = 'Param&egrave;tres du plugin d&rsquo;emprunt';
-$lang['PARAMETER LEND.PARAMETERS SAVED'] = 'Modifications des param&egrave;tres enregistr&eacute;es';
-$lang['PARAMETER LEND.LIST'] = 'Liste des param&egrave;tres';
-$lang['PARAMETER LEND.CODE'] = 'Code param&egrave;tre';
-$lang['PARAMETER LEND.LABEL VIEW_CATEGORY'] = 'Voir la cat&eacute;gorie <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_DATE_FORECAST'] = 'Voir la date de retour p&eacute;vu <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_DESCRIPTION'] = 'Voir la description <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_DIMENSION'] = 'Voir les dimensions <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_LEND_PRICE'] = 'Voir le prix de location <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_LIST_PRICE_SUM'] = 'Voir la somme des prix d&rsquo;achat des objets sur la liste sous la cat&eacute;gorie <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_NAME'] = 'Voir le nom <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_PRICE'] = 'Voir le prix d&rsquo;achat <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_SERIAL'] = 'Voir le num&eacute;ro de s&eacute;rie <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_THUMBNAIL'] = 'Voir la photo <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_WEIGHT'] = 'Voir le poids <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL VIEW_CATEGORY_THUMB'] = 'Voir l&rsquo;image de la cat&eacute;gorie sous forme de miniature (= 1) ou avec sa taille d&rsquo;origine (= 0)';
-$lang['PARAMETER LEND.LABEL VIEW_OBJECT_THUMB'] = 'Voir l&rsquo;image de l&rsquo;object sous forme de miniature (= 1) ou avec sa taille d&rsquo;origine (= 0)';
-$lang['PARAMETER LEND.LABEL THUMB_MAX_HEIGHT'] = 'Hauteur maximum d&rsquo;une miniature (en pixels)';
-$lang['PARAMETER LEND.LABEL THUMB_MAX_WIDTH'] = 'Largeur maximum d&rsquo;une miniature (en pixels)';
-$lang['PARAMETER LEND.LABEL AUTO_GENERATE_CONTRIBUTION'] = 'Gen&egrave;re automatiquement une contribution pour l&rsquo;adh&eacute;rent '
-        . 'du montant du prix de location de l&rsquo;objet <br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL GENERATED_CONTRIBUTION_TYPE_ID'] = 'ID du type de contribution pour la g&eacute;n&eacute;ration automatique '
-        . 'de la contribution (<a href="../../gestion_intitules.php?class=ContributionsTypes" target="_blank">voir la liste</a>)';
-$lang['PARAMETER LEND.LABEL GENERATED_CONTRIB_INFO_TEXT'] = 'Texte &agrave; mettre dans la contribution g&eacute;n&eacute;r&eacute;e. <br/>Valeurs remplac&eacute;es automatiquement : '
-        . '<br/>&middot; {NAME} : Nom'
-        . '<br/>&middot; {DESCRIPTION} : Description'
-        . '<br/>&middot; {SERIAL_NUMBER} : N&deg; de s&eacute;rie'
-        . '<br/>&middot; {PRICE} : Prix'
-        . '<br/>&middot; {RENT_PRICE} : Prix de location'
-        . '<br/>&middot; {WEIGHT} : Poids'
-        . '<br/>&middot; {DIMENSION} : Dimensions';
-$lang['PARAMETER LEND.LABEL ENABLE_MEMBER_RENT_OBJECT'] = 'Autorise un membre ni staff ni admin &agrave; prendre un objet (= acc&egrave;s &agrave; la page "take_object.php").'
-        . '<br/>Si mis &agrave; 0, seuls les staff et admin pourront attribuer un objet &agrave; un membre.'
-        . '<br/>(0 = non / 1 = oui)';
-$lang['PARAMETER LEND.LABEL OBJECTS_PER_PAGE_DEFAULT'] = 'Nombre d&rsquo;objets par page par d&eacute;faut sur la liste des objets';
-$lang['PARAMETER LEND.LABEL OBJECTS_PER_PAGE_NUMBER_LIST'] = 'Choix possibles (s&eacute;par&eacute;es par des ";") pour le nombre d&rsquo;objets par page sur la liste des objets';
-$lang['PARAMETER LEND.FORMAT'] = 'Format';
-$lang['PARAMETER LEND.VALUE'] = 'Valeur';
-$lang['PARAMETER LEND.DATE'] = 'Date';
-$lang['PARAMETER LEND.TEXT'] = 'Texte';
-$lang['PARAMETER LEND.NUMERIC'] = 'Num&eacute;rique';
-$lang['PARAMETER LEND.SAVE'] = 'Enregistrer';
+// ../templates/default/give_object_back.tpl:31 
+$lang['GIVE OBJECT BACK.SERIAL'] = 'GIVE OBJECT BACK.SERIAL';
 
-$lang['CATEGORIES LIST.PAGE TITLE'] = 'Liste des cat&eacute;gories d&rsquo;objets';
-$lang['CATEGORIES LIST.SAVED'] = 'Modifications enregistr&eacute;es';
-$lang['CATEGORIES LIST.CANCELED'] = 'Modifications annul&eacute;es';
-$lang['CATEGORIES LIST.DELETED'] = 'Cat&eacute;gorie supprim&eacute;e (rendue inactive)';
-$lang['CATEGORIES LIST.NB RESULT'] = 'categories';
-$lang['CATEGORIES LIST.IMAGE'] = 'Photo';
-$lang['CATEGORIES LIST.TEXT'] = 'Nom';
-$lang['CATEGORIES LIST.IS ACTIVE'] = 'Actif';
-$lang['CATEGORIES LIST.EDIT'] = 'Modifier cette cat&eacute;gorie';
-$lang['CATEGORIES LIST.DELETE'] = 'Supprimer cette cat&eacute;gorie';
-$lang['CATEGORIES LIST.CREATE'] = 'Nouvelle cat&eacute;gorie';
-$lang['CATEGORIES LIST.CONFIRM DELETE'] = '&Ecirc;tes vous s&ucirc;r de vouloir supprimer cette cat&eacute;gorie ';
+// ../templates/default/status_list.tpl:54 
+$lang['STATUS LIST.IS GALETTE LOCATION'] = 'STATUS LIST.IS GALETTE LOCATION';
 
-$lang['CATEGORY EDIT.PAGE TITLE'] = 'Cr&eacute;er/Modifier une cat&eacute;gorie';
-$lang['CATEGORY EDIT.TITLE'] = 'D&eacute;tails de la cat&eacute;gorie';
-$lang['CATEGORY EDIT.NAME'] = 'Nom :';
-$lang['CATEGORY EDIT.IS ACTIVE'] = 'Actif :';
-$lang['CATEGORY EDIT.PICTURE'] = 'Image pour la cat&eacute;gorie :';
-$lang['CATEGORY EDIT.DELETE PICTURE'] = 'Supprimer la photo de la cat&eacute;gorie';
-$lang['CATEGORY EDIT.THUMB'] = 'Miniature de l&rsquo;image :';
-$lang['CATEGORY EDIT.SAVE'] = 'Enregistrer';
-$lang['CATEGORY EDIT.CANCEL'] = 'Annuler';
+// ../templates/default/take_object.tpl:43 
+$lang['TAKE OBJECT.RENT PRICE'] = 'TAKE OBJECT.RENT PRICE';
 
-$lang['AJAX.CLOSE'] = 'Fermer';
+// ../templates/default/give_more_objects_back.tpl:134 
+$lang['BACK OBJECTS.NO'] = 'BACK OBJECTS.NO';
 
-$lang['PDF.SUM'] = 'Total :';
-$lang['PDF.OBJECT OUT'] = 'Objet lou&eacute;';
-$lang['PDF.OBJECT IN'] = 'Objet en stock';
+// ../templates/default/category_edit.tpl:5 
+$lang['CATEGORY EDIT.TITLE'] = 'CATEGORY EDIT.TITLE';
 
-$lang['ADMIN PICTURE.PAGE TITLE'] = 'Administration des images';
-$lang['ADMIN PICTURE.SAVE CATEGORIES'] = 'T&eacute;l&eacute;charger les images des cat&eacute;gories';
-$lang['ADMIN PICTURE.SAVE OBJECTS'] = 'T&eacute;l&eacute;charger les images des objets';
-$lang['ADMIN PICTURE.RESTORE OBJECTS'] = 'Restaurer les images objets depuis la BDD';
+// ../templates/default/status_list.tpl:23 
+$lang['STATUS LIST.AWAY NEEDED'] = 'STATUS LIST.AWAY NEEDED';
+
+// ../templates/default/categories_list.tpl:59 ../templates/default/status_list.tpl:86 
+$lang['STATUS LIST.DELETE SHORT'] = 'STATUS LIST.DELETE SHORT';
+
+// ../objects_edit.php:113 
+$lang['- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t'] = '- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t';
+
+// ../templates/default/give_more_objects_back.tpl:43 
+$lang['BACK OBJECTS.RENT PRICE'] = 'BACK OBJECTS.RENT PRICE';
+
+// ../templates/default/take_object.tpl:86 
+$lang['TAKE OBJECT.DAYS'] = 'TAKE OBJECT.DAYS';
+
+// ../templates/default/status_edit.tpl:39 
+$lang['STATUS EDIT.SAVE'] = 'STATUS EDIT.SAVE';
+
+// ../templates/default/objects_list.tpl:469 
+$lang['Show legend'] = 'Show legend';
+
+// ../templates/default/objects_list.tpl:463 
+$lang['Invert selection'] = 'Invert selection';
+
+// ../templates/default/objects_edit.tpl:145 
+$lang['OBJECT EDIT.ALL RENTS'] = 'OBJECT EDIT.ALL RENTS';
+
+// ../templates/default/categories_list.tpl:33 
+$lang['CATEGORIES LIST.IMAGE'] = 'CATEGORIES LIST.IMAGE';
+
+// ../templates/default/give_object_back.tpl:25 
+$lang['GIVE OBJECT BACK.DESCRIPTION'] = 'GIVE OBJECT BACK.DESCRIPTION';
+
+// ../templates/default/take_object.tpl:69 
+$lang['TAKE OBJECT.SELECT MEMBER'] = 'TAKE OBJECT.SELECT MEMBER';
+
+// ../templates/default/parametres.tpl:29 
+$lang['PARAMETER LEND.LABEL {$parametre->code}'] = 'PARAMETER LEND.LABEL {$parametre->code}';
+
+// ../templates/default/give_more_objects_back.tpl:127 
+$lang['BACK OBJECTS.REMAINING'] = 'BACK OBJECTS.REMAINING';
+
+// ../templates/default/give_object_back.tpl:55 
+$lang['GIVE OBJECT BACK.STATUS'] = 'GIVE OBJECT BACK.STATUS';
+
+// ../templates/default/give_more_objects_back.tpl:33 
+$lang['BACK OBJECTS.SERIAL'] = 'BACK OBJECTS.SERIAL';
+
+// ../templates/default/give_object_back.tpl:19 
+$lang['GIVE OBJECT BACK.NAME'] = 'GIVE OBJECT BACK.NAME';
+
+// ../templates/default/status_edit.tpl:40 
+$lang['STATUS EDIT.CANCEL'] = 'STATUS EDIT.CANCEL';
+
+// ../templates/default/take_object.tpl:9 
+$lang['TAKE OBJECT.TITLE'] = 'TAKE OBJECT.TITLE';
+
+// ../category_edit.php:48 
+$lang['CATEGORY EDIT.PAGE TITLE'] = 'CATEGORY EDIT.PAGE TITLE';
+
+// ../templates/default/objects_list.tpl:422 
+$lang['OBJECTS LIST.DISABLE'] = 'OBJECTS LIST.DISABLE';
+
+// ../templates/default/parametres.tpl:55 
+$lang['PARAMETER LEND.SAVE'] = 'PARAMETER LEND.SAVE';
+
+// ../templates/default/objects_list.tpl:71 
+$lang['Clear filter'] = 'Clear filter';
+
+// ../templates/default/take_more_objects_away.tpl:43 
+$lang['TAKE OBJECTS.RENT PRICE'] = 'TAKE OBJECTS.RENT PRICE';
+
+// ../templates/default/status_edit.tpl:8 
+$lang['STATUS EDIT.TEXT'] = 'STATUS EDIT.TEXT';
+
+// ../objects_edit.php:127 
+$lang['An SQL error has occured.'] = 'An SQL error has occured.';
+
+// ../templates/default/menu.tpl:34 
+$lang['MENU.PARAMETERS'] = 'MENU.PARAMETERS';
+
+// ../templates/default/menu.tpl:28 
+$lang['MENU.CATEGORIES LIST'] = 'MENU.CATEGORIES LIST';
+
+// ../templates/default/status_list.tpl:44 
+$lang['STATUS LIST.TEXT'] = 'STATUS LIST.TEXT';
+
+// ../templates/default/objects_edit.tpl:90 
+$lang['OBJECT EDIT.IS ACTIVE'] = 'OBJECT EDIT.IS ACTIVE';
+
+// ../templates/default/status_list.tpl:64 
+$lang['STATUS LIST.IS ACTIVE'] = 'STATUS LIST.IS ACTIVE';
+
+// ../templates/default/status_edit.tpl:14 
+$lang['STATUS EDIT.HELP GALETTE LOCATION'] = 'STATUS EDIT.HELP GALETTE LOCATION';
+
+// ../templates/default/take_more_objects_away.tpl:5 ../templates/default/give_object_back.tpl:5 ../templates/default/give_more_objects_back.tpl:5 ../templates/default/take_object.tpl:5 
+$lang['AJAX.CLOSE'] = 'AJAX.CLOSE';
+
+// ../templates/default/objects_list.tpl:100 ../templates/default/objects_list.tpl:102 
+$lang['OBJECTS LIST.ALL OBJECTS'] = 'OBJECTS LIST.ALL OBJECTS';
+
+// ../templates/default/objects_edit.tpl:69 
+$lang['OBJECT EDIT.HELP PRICE PER DAY'] = 'OBJECT EDIT.HELP PRICE PER DAY';
+
+// ../templates/default/objects_list.tpl:12 
+$lang['OBJECTS LIST.NOT TAKEN'] = 'OBJECTS LIST.NOT TAKEN';
+
+// ../templates/default/give_more_objects_back.tpl:38 
+$lang['BACK OBJECTS.PRICE'] = 'BACK OBJECTS.PRICE';
+
+// ../templates/default/take_object.tpl:25 
+$lang['TAKE OBJECT.DESCRIPTION'] = 'TAKE OBJECT.DESCRIPTION';
+
+// ../templates/default/objects_list.tpl:147 
+$lang['OBJECTS LIST.THUMB'] = 'OBJECTS LIST.THUMB';
+
+// ../templates/default/objects_edit.tpl:157 
+$lang['OBJECT EDIT.COMMENTS'] = 'OBJECT EDIT.COMMENTS';
+
+// ../templates/default/objects_list.tpl:204 
+$lang['OBJECTS LIST.RENT PRICE'] = 'OBJECTS LIST.RENT PRICE';
+
+// ../templates/default/objects_edit.tpl:97 
+$lang['OBJECT EDIT.1ST STATUS'] = 'OBJECT EDIT.1ST STATUS';
+
+// ../templates/default/take_more_objects_away.tpl:141 ../templates/default/take_object.tpl:107 
+$lang['Check'] = 'Check';
+
+// ../templates/default/objects_edit.tpl:154 
+$lang['OBJECT EDIT.STATUS'] = 'OBJECT EDIT.STATUS';
+
+// ../templates/default/objects_edit.tpl:133 
+$lang['OBJECT EDIT.SAVE'] = 'OBJECT EDIT.SAVE';
+
+// ../templates/default/objects_edit.tpl:122 
+$lang['OBJECT EDIT.THUMB'] = 'OBJECT EDIT.THUMB';
+
+// ../templates/default/categories_list.tpl:37 
+$lang['CATEGORIES LIST.TEXT'] = 'CATEGORIES LIST.TEXT';
+
+// ../admin_picture.php:48 
+$lang['ADMIN PICTURE.PAGE TITLE'] = 'ADMIN PICTURE.PAGE TITLE';
+
+// ../templates/default/take_object.tpl:37 
+$lang['TAKE OBJECT.PRICE'] = 'TAKE OBJECT.PRICE';
+
+// ../templates/default/take_more_objects_away.tpl:115 
+$lang['TAKE OBJECTS.SELECT MEMBER'] = 'TAKE OBJECTS.SELECT MEMBER';
+
+// ../templates/default/categories_list.tpl:84 
+$lang['CATEGORIES LIST.EDIT'] = 'CATEGORIES LIST.EDIT';
+
+// ../templates/default/take_more_objects_away.tpl:153 
+$lang['TAKE OBJECTS.NO'] = 'TAKE OBJECTS.NO';
+
+// ../templates/default/objects_edit.tpl:136 
+$lang['OBJECT EDIT.PRINT'] = 'OBJECT EDIT.PRINT';
+
+// ../templates/default/categories_list.tpl:89 
+$lang['CATEGORIES LIST.DELETE'] = 'CATEGORIES LIST.DELETE';
+
+// ../templates/default/status_edit.tpl:29 
+$lang['STATUS EDIT.HELP RENT DAY NUMBER'] = 'STATUS EDIT.HELP RENT DAY NUMBER';
+
+// ../templates/default/category_edit.tpl:27 
+$lang['CATEGORY EDIT.DELETE PICTURE'] = 'CATEGORY EDIT.DELETE PICTURE';
+
+// ../templates/default/objects_list.tpl:413 
+$lang['OBJECTS LIST.SINGLE PRINT'] = 'OBJECTS LIST.SINGLE PRINT';
+
+// ../templates/default/objects_edit.tpl:188 
+$lang['OBJECT EDIT.NO ADH'] = 'OBJECT EDIT.NO ADH';
+
+// ../templates/default/give_more_objects_back.tpl:15 
+$lang['BACK OBJECTS.THUMB'] = 'BACK OBJECTS.THUMB';
+
+// ../templates/default/objects_list.tpl:32 
+$lang['OBJECTS LIST.NO RIGHT'] = 'OBJECTS LIST.NO RIGHT';
+
+// ../templates/default/give_more_objects_back.tpl:133 
+$lang['BACK OBJECTS.YES'] = 'BACK OBJECTS.YES';
+
+// ../templates/default/status_list.tpl:114 
+$lang['STATUS LIST.EDIT'] = 'STATUS LIST.EDIT';
+
+// ../templates/default/give_object_back.tpl:84 
+$lang['GIVE OBJECT BACK.YES'] = 'GIVE OBJECT BACK.YES';
+
+// ../templates/default/category_edit.tpl:42 
+$lang['CATEGORY EDIT.SAVE'] = 'CATEGORY EDIT.SAVE';
+
+// ../templates/default/give_more_objects_back.tpl:53 
+$lang['BACK OBJECTS.WEIGHT'] = 'BACK OBJECTS.WEIGHT';
+
+// ../templates/default/take_more_objects_away.tpl:48 
+$lang['TAKE OBJECTS.DIMENSION'] = 'TAKE OBJECTS.DIMENSION';
+
+// ../templates/default/objects_list.tpl:259 
+$lang['OBJECTS LIST.ADHERENT'] = 'OBJECTS LIST.ADHERENT';
+
+// ../templates/default/objects_list.tpl:335 
+$lang['OBJECTS LIST.RENT PRICE PER DAY'] = 'OBJECTS LIST.RENT PRICE PER DAY';
+
+// ../templates/default/status_list.tpl:131 
+$lang['STATUS LIST.CREATE'] = 'STATUS LIST.CREATE';
+
+// ../templates/default/give_object_back.tpl:37 
+$lang['GIVE OBJECT BACK.PRICE'] = 'GIVE OBJECT BACK.PRICE';
+
+// ../templates/default/objects_list.tpl:386 
+$lang['OBJECTS LIST.EDIT'] = 'OBJECTS LIST.EDIT';
+
+// ../templates/default/status_edit.tpl:15 
+$lang['STATUS EDIT.IS GALETTE LOCATION'] = 'STATUS EDIT.IS GALETTE LOCATION';
+
+// ../templates/default/status_list.tpl:27 
+$lang['STATUS LIST.NB RESULT'] = 'STATUS LIST.NB RESULT';
+
+// ../templates/default/parametres.tpl:21 
+$lang['PARAMETER LEND.VALUE'] = 'PARAMETER LEND.VALUE';
+
+// ../templates/default/admin_picture.tpl:5 
+$lang['ADMIN PICTURE.RESTORE OBJECTS'] = 'ADMIN PICTURE.RESTORE OBJECTS';
+
+// ../templates/default/status_edit.tpl:30 
+$lang['STATUS EDIT.RENT DAY NUMBER'] = 'STATUS EDIT.RENT DAY NUMBER';
+
+// ../templates/default/take_object.tpl:54 
+$lang['TAKE OBJECT.DIMENSION'] = 'TAKE OBJECT.DIMENSION';
+
+// ../templates/default/objects_edit.tpl:115 
+$lang['OBJECT EDIT.DELETE PICTURE'] = 'OBJECT EDIT.DELETE PICTURE';
+
+// ../templates/default/categories_list.tpl:13 
+$lang['CATEGORIES LIST.DELETED'] = 'CATEGORIES LIST.DELETED';
+
+// ../templates/default/take_more_objects_away.tpl:136 
+$lang['TAKE OBJECTS.PAYMENT TYPE'] = 'TAKE OBJECTS.PAYMENT TYPE';
+
+// ../templates/default/objects_list.tpl:270 
+$lang['OBJECTS LIST.DATE FORECAST'] = 'OBJECTS LIST.DATE FORECAST';
+
+// ../templates/default/objects_list.tpl:409 
+$lang['OBJECTS LIST.PRINT'] = 'OBJECTS LIST.PRINT';
+
+// ../templates/default/give_more_objects_back.tpl:113 
+$lang['BACK OBJECTS.STATUS'] = 'BACK OBJECTS.STATUS';
+
+// ../templates/default/take_more_objects_away.tpl:139 ../templates/default/take_object.tpl:105 
+$lang['Cash'] = 'Cash';
+
+// ../objects_edit.php:118 
+$lang['File is too big. Maximum allowed size is %d'] = 'File is too big. Maximum allowed size is %d';
+
+// ../templates/default/give_more_objects_back.tpl:21 
+$lang['BACK OBJECTS.NAME'] = 'BACK OBJECTS.NAME';
+
+// ../templates/default/objects_list.tpl:123 
+$lang['objects'] = 'objects';
+
+// ../templates/default/objects_list.tpl:87 
+$lang['OBJECTS LIST.CHOOSE THIS'] = 'OBJECTS LIST.CHOOSE THIS';
+
+// ../templates/default/objects_edit.tpl:164 
+$lang['OBJECT EDIT.NEW STATUS'] = 'OBJECT EDIT.NEW STATUS';
+
+// ../templates/default/take_object.tpl:67 
+$lang['TAKE OBJECT.MEMBERS'] = 'TAKE OBJECT.MEMBERS';
+
+// ../templates/default/objects_edit.tpl:152 
+$lang['OBJECT EDIT.DATE BEGIN'] = 'OBJECT EDIT.DATE BEGIN';
+
+// ../templates/default/objects_list.tpl:463 
+$lang['(Un)Check all'] = '(Un)Check all';
+
+// ../templates/default/objects_edit.tpl:3 
+$lang['OBJECT EDIT.SAVED'] = 'OBJECT EDIT.SAVED';
+
+// ../templates/default/categories_list.tpl:56 ../templates/default/status_list.tpl:83 
+$lang['STATUS LIST.EDIT SHORT'] = 'STATUS LIST.EDIT SHORT';
+
+// ../templates/default/take_object.tpl:104 
+$lang['TAKE OBJECT.SELECT PAYMENT TYPE'] = 'TAKE OBJECT.SELECT PAYMENT TYPE';
+
+// ../templates/default/objects_list.tpl:392 
+$lang['OBJECTS LIST.PDF'] = 'OBJECTS LIST.PDF';
+
+// ../templates/default/objects_list.tpl:369 
+$lang['OBJECTS LIST.TAKE AWAY'] = 'OBJECTS LIST.TAKE AWAY';
+
+// ../templates/default/parametres.tpl:6 
+$lang['- ERROR -'] = '- ERROR -';
+
+// ../templates/default/objects_edit.tpl:57 
+$lang['OBJECT EDIT.PRICE'] = 'OBJECT EDIT.PRICE';
+
+// ../templates/default/objects_list.tpl:239 
+$lang['OBJECTS LIST.STATUS TEXT'] = 'OBJECTS LIST.STATUS TEXT';
+
+// ../templates/default/objects_list.tpl:124 
+$lang['Records per page:'] = 'Records per page:';
+
+// ../templates/default/category_edit.tpl:43 
+$lang['CATEGORY EDIT.CANCEL'] = 'CATEGORY EDIT.CANCEL';
+
+// ../templates/default/parametres.tpl:42 
+$lang['PARAMETER LEND.NUMERIC'] = 'PARAMETER LEND.NUMERIC';
+
+// ../templates/default/take_more_objects_away.tpl:126 
+$lang['TAKE OBJECTS.SELECT STATUS'] = 'TAKE OBJECTS.SELECT STATUS';
+
+// ../templates/default/menu.tpl:22 
+$lang['MENU.STATUS LIST'] = 'MENU.STATUS LIST';
+
+// ../templates/default/admin_picture.tpl:4 
+$lang['ADMIN PICTURE.SAVE OBJECTS'] = 'ADMIN PICTURE.SAVE OBJECTS';
+
+// ../templates/default/status_list.tpl:8 
+$lang['STATUS LIST.CANCELED'] = 'STATUS LIST.CANCELED';
+
+// ../templates/default/give_object_back.tpl:78 
+$lang['GIVE OBJECT BACK.REMAINING'] = 'GIVE OBJECT BACK.REMAINING';
+
+// ../templates/default/status_list.tpl:136 
+$lang['STATUS LIST.CONFIRM DELETE'] = 'STATUS LIST.CONFIRM DELETE';
+
+// ../templates/default/take_object.tpl:79 
+$lang['TAKE OBJECT.STATUS'] = 'TAKE OBJECT.STATUS';
+
+// ../templates/default/parametres.tpl:16 
+$lang['PARAMETER LEND.LIST'] = 'PARAMETER LEND.LIST';
+
+// ../templates/default/give_object_back.tpl:9 
+$lang['GIVE OBJECT BACK.TITLE'] = 'GIVE OBJECT BACK.TITLE';
+
+// ../templates/default/take_more_objects_away.tpl:113 
+$lang['TAKE OBJECTS.MEMBERS'] = 'TAKE OBJECTS.MEMBERS';
+
+// ../templates/default/objects_edit.tpl:153 
+$lang['OBJECT EDIT.DATE FIN'] = 'OBJECT EDIT.DATE FIN';
+
+// ../templates/default/take_more_objects_away.tpl:33 
+$lang['TAKE OBJECTS.SERIAL'] = 'TAKE OBJECTS.SERIAL';
+
+// ../templates/default/objects_list.tpl:192 
+$lang['OBJECTS LIST.PRICE'] = 'OBJECTS LIST.PRICE';
+
+// ../templates/default/menu.tpl:12 
+$lang['MENU.OBJECTS LIST'] = 'MENU.OBJECTS LIST';
+
+// ../templates/default/categories_list.tpl:47 
+$lang['CATEGORIES LIST.IS ACTIVE'] = 'CATEGORIES LIST.IS ACTIVE';
+
+// ../templates/default/objects_list.tpl:374 
+$lang['OBJECTS LIST.REPLACE'] = 'OBJECTS LIST.REPLACE';
+
+// ../templates/default/objects_edit.tpl:84 
+$lang['OBJECT EDIT.WEIGHT'] = 'OBJECT EDIT.WEIGHT';
+
+// ../templates/default/category_edit.tpl:14 
+$lang['CATEGORY EDIT.IS ACTIVE'] = 'CATEGORY EDIT.IS ACTIVE';
+
+// ../templates/default/take_more_objects_away.tpl:53 
+$lang['TAKE OBJECTS.WEIGHT'] = 'TAKE OBJECTS.WEIGHT';
+
+// ../templates/default/give_more_objects_back.tpl:48 
+$lang['BACK OBJECTS.DIMENSION'] = 'BACK OBJECTS.DIMENSION';
+
+// ../templates/default/status_list.tpl:3 
+$lang['STATUS LIST.SAVED'] = 'STATUS LIST.SAVED';
+
+// ../templates/default/status_edit.tpl:5 
+$lang['STATUS EDIT.TITLE'] = 'STATUS EDIT.TITLE';
+
+// ../templates/default/give_object_back.tpl:69 
+$lang['GIVE OBJECT BACK.TO'] = 'GIVE OBJECT BACK.TO';
+
+// ../templates/default/objects_edit.tpl:155 
+$lang['OBJECT EDIT.AT HOME'] = 'OBJECT EDIT.AT HOME';
+
+// ../categories_list.php:48 
+$lang['CATEGORIES LIST.PAGE TITLE'] = 'CATEGORIES LIST.PAGE TITLE';
+
+// ../take_object.php:97 ../take_object.php:98 ../take_more_objects_away.php:91 ../take_more_objects_away.php:92 
+$lang['Y-m-d'] = 'Y-m-d';
+
+// ../status_edit.php:48 
+$lang['STATUS EDIT.PAGE TITLE'] = 'STATUS EDIT.PAGE TITLE';
+
+// ../templates/default/objects_list.tpl:154 
+$lang['OBJECTS LIST.NAME'] = 'OBJECTS LIST.NAME';
+
+// ../templates/default/parametres.tpl:34 
+$lang['PARAMETER LEND.DATE'] = 'PARAMETER LEND.DATE';
+
+// ../templates/default/menu.tpl:3 
+$lang['MENU.LEND'] = 'MENU.LEND';
+
+// ../templates/default/take_object.tpl:81 
+$lang['TAKE OBJECT.SELECT STATUS'] = 'TAKE OBJECT.SELECT STATUS';
+
+// ../templates/default/objects_edit.tpl:70 
+$lang['OBJECT EDIT.PRICE PER DAY'] = 'OBJECT EDIT.PRICE PER DAY';
+
+// ../templates/default/give_object_back.tpl:67 
+$lang['GIVE OBJECT BACK.FROM'] = 'GIVE OBJECT BACK.FROM';
+
+// ../templates/default/objects_list.tpl:485 
+$lang['No object selected'] = 'No object selected';
+
+// ../templates/default/take_more_objects_away.tpl:21 
+$lang['TAKE OBJECTS.NAME'] = 'TAKE OBJECTS.NAME';
+
+// ../templates/default/objects_edit.tpl:20 
+$lang['OBJECT EDIT.TITLE'] = 'OBJECT EDIT.TITLE';
+
+// ../templates/default/objects_list.tpl:47 
+$lang['OBJECTS LIST.DISABLED'] = 'OBJECTS LIST.DISABLED';
+
+// ../templates/default/give_more_objects_back.tpl:124 
+$lang['BACK OBJECTS.COMMENTS'] = 'BACK OBJECTS.COMMENTS';
+
+// ../templates/default/menu.tpl:40 
+$lang['MENU.ADMIN PICTURE'] = 'MENU.ADMIN PICTURE';
+
+// ../templates/default/category_edit.tpl:34 
+$lang['CATEGORY EDIT.THUMB'] = 'CATEGORY EDIT.THUMB';
+
+// ../templates/default/objects_list.tpl:68 
+$lang['OBJECTS LIST.SEARCH'] = 'OBJECTS LIST.SEARCH';
+
+// ../templates/default/objects_edit.tpl:12 ../templates/default/objects_edit.tpl:13 
+$lang['OBJECT EDIT.BACK'] = 'OBJECT EDIT.BACK';
+
+// ../templates/default/objects_list.tpl:70 
+$lang['Filter'] = 'Filter';
+
+// ../templates/default/objects_list.tpl:7 
+$lang['OBJECTS LIST.TAKEN'] = 'OBJECTS LIST.TAKEN';
+
+// ../templates/default/take_more_objects_away.tpl:152 
+$lang['TAKE OBJECTS.YES'] = 'TAKE OBJECTS.YES';
+
+// ../templates/default/objects_list.tpl:538 
+$lang['OBJECTS LIST.CONFIRM DELETE'] = 'OBJECTS LIST.CONFIRM DELETE';
+
+// ../templates/default/give_object_back.tpl:49 
+$lang['GIVE OBJECT BACK.WEIGHT'] = 'GIVE OBJECT BACK.WEIGHT';
+
+// ../templates/default/take_object.tpl:31 
+$lang['TAKE OBJECT.SERIAL'] = 'TAKE OBJECT.SERIAL';
+
+// ../templates/default/give_object_back.tpl:43 
+$lang['GIVE OBJECT BACK.DIMENSION'] = 'GIVE OBJECT BACK.DIMENSION';
+
+// ../templates/default/take_more_objects_away.tpl:140 ../templates/default/take_object.tpl:106 
+$lang['Credit card'] = 'Credit card';
+
+// ../templates/default/objects_edit.tpl:51 
+$lang['OBJECT EDIT.SERIAL'] = 'OBJECT EDIT.SERIAL';
+
+// ../templates/default/objects_list.tpl:27 
+$lang['OBJECTS LIST.CANCELED'] = 'OBJECTS LIST.CANCELED';
+
+// ../templates/default/give_object_back.tpl:85 
+$lang['GIVE OBJECT BACK.NO'] = 'GIVE OBJECT BACK.NO';
+
+// ../templates/default/objects_list.tpl:180 
+$lang['OBJECTS LIST.SERIAL'] = 'OBJECTS LIST.SERIAL';
+
+// ../templates/default/objects_list.tpl:69 
+$lang['Enter a value'] = 'Enter a value';
+
+// ../templates/default/take_object.tpl:95 
+$lang['TAKE OBJECT.EXPECTED RETURN'] = 'TAKE OBJECT.EXPECTED RETURN';
+
+// ../templates/default/objects_edit.tpl:63 
+$lang['OBJECT EDIT.RENT PRICE'] = 'OBJECT EDIT.RENT PRICE';
+
+// ../templates/default/objects_list.tpl:228 
+$lang['OBJECTS LIST.WEIGHT'] = 'OBJECTS LIST.WEIGHT';
+
+// ../templates/default/objects_edit.tpl:23 
+$lang['OBJECT EDIT.NAME'] = 'OBJECT EDIT.NAME';
+
+// ../templates/default/objects_edit.tpl:36 
+$lang['OBJECT EDIT.CATEGORY'] = 'OBJECT EDIT.CATEGORY';
+
+// ../templates/default/give_object_back.tpl:66 
+$lang['GIVE OBJECT BACK.TIME'] = 'GIVE OBJECT BACK.TIME';
+
+// ../templates/default/categories_list.tpl:106 
+$lang['CATEGORIES LIST.CONFIRM DELETE'] = 'CATEGORIES LIST.CONFIRM DELETE';
+
+// ../objects_list.php:46 
+$lang['OBJECTS LIST.PAGE TITLE'] = 'OBJECTS LIST.PAGE TITLE';
+
+// ../templates/default/take_more_objects_away.tpl:9 
+$lang['TAKE OBJECTS.TITLE'] = 'TAKE OBJECTS.TITLE';
+
+// ../templates/default/take_more_objects_away.tpl:124 
+$lang['TAKE OBJECTS.STATUS'] = 'TAKE OBJECTS.STATUS';
+
+// ../templates/default/objects_edit.tpl:184 
+$lang['OBJECT EDIT.NEW ADH'] = 'OBJECT EDIT.NEW ADH';
+
+// ../templates/default/take_object.tpl:124 
+$lang['TAKE OBJECT.RESPONSIBLE FOR'] = 'TAKE OBJECT.RESPONSIBLE FOR';
+
+// ../templates/default/give_more_objects_back.tpl:9 
+$lang['BACK OBJECTS.TITLE'] = 'BACK OBJECTS.TITLE';
+
+// ../templates/default/take_object.tpl:19 
+$lang['TAKE OBJECT.NAME'] = 'TAKE OBJECT.NAME';
+
+// ../templates/default/give_more_objects_back.tpl:27 
+$lang['BACK OBJECTS.DESCRIPTION'] = 'BACK OBJECTS.DESCRIPTION';
+
+// ../templates/default/parametres.tpl:19 
+$lang['PARAMETER LEND.CODE'] = 'PARAMETER LEND.CODE';
+
+// ../templates/default/category_edit.tpl:8 
+$lang['CATEGORY EDIT.NAME'] = 'CATEGORY EDIT.NAME';
+
+// ../templates/default/give_object_back.tpl:75 
+$lang['GIVE OBJECT BACK.COMMENTS'] = 'GIVE OBJECT BACK.COMMENTS';
+
+// ../templates/default/menu.tpl:17 
+$lang['Create a new object'] = 'Create a new object';
+
+// ../templates/default/parametres.tpl:20 
+$lang['PARAMETER LEND.FORMAT'] = 'PARAMETER LEND.FORMAT';
+
+// ../templates/default/objects_list.tpl:501 
+$lang['Do you really want to delete all selected accounts (and related contributions)?'] = 'Do you really want to delete all selected accounts (and related contributions)?';
+
+// ../templates/default/take_more_objects_away.tpl:142 ../templates/default/take_object.tpl:108 
+$lang['Transfer'] = 'Transfer';
+
+// ../templates/default/take_object.tpl:102 
+$lang['TAKE OBJECT.PAYMENT TYPE'] = 'TAKE OBJECT.PAYMENT TYPE';
+
+// ../templates/default/status_list.tpl:13 
+$lang['STATUS LIST.DELETED'] = 'STATUS LIST.DELETED';
+
+// ../templates/default/take_more_objects_away.tpl:144 ../templates/default/take_object.tpl:110 
+$lang['Other'] = 'Other';
+
+// ../templates/default/status_list.tpl:119 
+$lang['STATUS LIST.DELETE'] = 'STATUS LIST.DELETE';
+
+// ../templates/default/objects_list.tpl:389 
+$lang['OBJECTS LIST.COPY'] = 'OBJECTS LIST.COPY';
+
+// ../templates/default/take_object.tpl:60 
+$lang['TAKE OBJECT.WEIGHT'] = 'TAKE OBJECT.WEIGHT';
+
+// ../templates/default/objects_list.tpl:416 
+$lang['OBJECTS LIST.MORE AWAY'] = 'OBJECTS LIST.MORE AWAY';
+
+// ../templates/default/objects_list.tpl:419 
+$lang['OBJECTS LIST.GIVE BACK'] = 'OBJECTS LIST.GIVE BACK';
+
+// ../templates/default/objects_list.tpl:42 
+$lang['OBJECTS LIST.DELETED'] = 'OBJECTS LIST.DELETED';
+
+// ../templates/default/objects_list.tpl:538 
+$lang['OBJECTS LIST.CONFIRM DISABLE'] = 'OBJECTS LIST.CONFIRM DISABLE';
+
+// ../templates/default/take_more_objects_away.tpl:15 
+$lang['TAKE OBJECTS.THUMB'] = 'TAKE OBJECTS.THUMB';
+
+// ../templates/default/objects_list.tpl:425 
+$lang['OBJECTS LIST.DELETE'] = 'OBJECTS LIST.DELETE';
+
+// ../templates/default/take_more_objects_away.tpl:143 ../templates/default/take_object.tpl:109 
+$lang['Paypal'] = 'Paypal';
+
+// ../templates/default/objects_edit.tpl:78 
+$lang['OBJECT EDIT.DIMENSION'] = 'OBJECT EDIT.DIMENSION';
+
+// ../templates/default/parametres.tpl:2 
+$lang['PARAMETER LEND.PARAMETERS SAVED'] = 'PARAMETER LEND.PARAMETERS SAVED';
+
+// ../templates/default/objects_list.tpl:485 
+$lang['Please make sure to select at least one object from the list to perform this action.'] = 'Please make sure to select at least one object from the list to perform this action.';
+
+// ../templates/default/objects_edit.tpl:139 
+$lang['OBJECT EDIT.CANCEL'] = 'OBJECT EDIT.CANCEL';
+
+// ../templates/default/objects_list.tpl:216 
+$lang['OBJECTS LIST.DIMENSION'] = 'OBJECTS LIST.DIMENSION';
+
+// ../templates/default/take_more_objects_away.tpl:38 
+$lang['TAKE OBJECTS.PRICE'] = 'TAKE OBJECTS.PRICE';
+
+// ../templates/default/objects_list.tpl:280 
+$lang['OBJECTS LIST.ACTION'] = 'OBJECTS LIST.ACTION';
+
+// ../templates/default/objects_list.tpl:406 
+$lang['For the selection:'] = 'For the selection:';
+
+// ../status_list.php:48 
+$lang['STATUS LIST.PAGE TITLE'] = 'STATUS LIST.PAGE TITLE';
+
+// ../templates/default/objects_list.tpl:284 ../templates/default/objects_list.tpl:381 
+$lang['OBJECTS LIST.IS ACTIVE'] = 'OBJECTS LIST.IS ACTIVE';
+
+// ../templates/default/status_edit.tpl:23 
+$lang['STATUS EDIT.IS ACTIVE'] = 'STATUS EDIT.IS ACTIVE';
+
+// ../templates/default/categories_list.tpl:101 
+$lang['CATEGORIES LIST.CREATE'] = 'CATEGORIES LIST.CREATE';
+
+// ../templates/default/admin_picture.tpl:3 
+$lang['ADMIN PICTURE.SAVE CATEGORIES'] = 'ADMIN PICTURE.SAVE CATEGORIES';
+
+// ../objects_edit.php:48 
+$lang['OBJECT EDIT.PAGE TITLE'] = 'OBJECT EDIT.PAGE TITLE';
+
+// ../templates/default/objects_edit.tpl:176 
+$lang['OBJECT EDIT.NEW COMMENT'] = 'OBJECT EDIT.NEW COMMENT';
+
+// ../templates/default/take_more_objects_away.tpl:27 
+$lang['TAKE OBJECTS.DESCRIPTION'] = 'TAKE OBJECTS.DESCRIPTION';
+
+// ../templates/default/status_list.tpl:74 
+$lang['STATUS LIST.RENT DAY NUMBER'] = 'STATUS LIST.RENT DAY NUMBER';
+
+// ../templates/default/objects_edit.tpl:109 
+$lang['OBJECT EDIT.PICTURE'] = 'OBJECT EDIT.PICTURE';
+
+// ../templates/default/objects_list.tpl:123 
+$lang['object'] = 'object';
+
+// ../templates/default/objects_edit.tpl:29 
+$lang['OBJECT EDIT.DESCRIPTION'] = 'OBJECT EDIT.DESCRIPTION';
+
+// ../templates/default/objects_edit.tpl:38 
+$lang['OBJECT EDIT.CHOICE CATEGORY'] = 'OBJECT EDIT.CHOICE CATEGORY';
+
+// ../templates/default/categories_list.tpl:17 
+$lang['CATEGORIES LIST.NB RESULT'] = 'CATEGORIES LIST.NB RESULT';
+
+// ../objects_edit.php:123 
+$lang['Mime-Type not allowed'] = 'Mime-Type not allowed';
+
+// ../templates/default/categories_list.tpl:3 
+$lang['CATEGORIES LIST.SAVED'] = 'CATEGORIES LIST.SAVED';
+
+// ../templates/default/take_object.tpl:118 
+$lang['TAKE OBJECT.YES'] = 'TAKE OBJECT.YES';
+
+// ../templates/default/objects_list.tpl:37 
+$lang['OBJECTS LIST.BAD LOCATION'] = 'OBJECTS LIST.BAD LOCATION';
+
+// ../templates/default/objects_edit.tpl:216 
+$lang['OBJECT EDIT.CONFIRM DUPLICATE'] = 'OBJECT EDIT.CONFIRM DUPLICATE';
+
+// ../take_object.php:48 
+$lang['TAKE OBJECT.PAGE TITLE'] = 'TAKE OBJECT.PAGE TITLE';
+
+// ../templates/default/give_more_objects_back.tpl:115 
+$lang['BACK OBJECTS.SELECT STATUS'] = 'BACK OBJECTS.SELECT STATUS';
+
+// ../templates/default/objects_edit.tpl:156 
+$lang['OBJECT EDIT.ADH'] = 'OBJECT EDIT.ADH';
+
+// ../templates/default/objects_edit.tpl:108 ../templates/default/category_edit.tpl:20 
+$lang['OBJECT EDIT.HELP UPLOAD PICTURE'] = 'OBJECT EDIT.HELP UPLOAD PICTURE';
+
+// ../templates/default/objects_edit.tpl:8 
+$lang['OBJECT EDIT.WILL BE CLONED'] = 'OBJECT EDIT.WILL BE CLONED';
+
+// ../templates/default/objects_list.tpl:249 
+$lang['OBJECTS LIST.DATE BEGIN'] = 'OBJECTS LIST.DATE BEGIN';
+
+// ../take_more_objects_away.php:48 
+$lang['TAKE OBJECTS.PAGE TITLE'] = 'TAKE OBJECTS.PAGE TITLE';
+
+// ../templates/default/objects_edit.tpl:135 
+$lang['OBJECT EDIT.DUPLICATE'] = 'OBJECT EDIT.DUPLICATE';
+
+// ../templates/default/objects_list.tpl:167 
+$lang['OBJECTS LIST.DESCRIPTION'] = 'OBJECTS LIST.DESCRIPTION';
+
+// ../templates/default/category_edit.tpl:21 
+$lang['CATEGORY EDIT.PICTURE'] = 'CATEGORY EDIT.PICTURE';
+
+// ../templates/default/objects_list.tpl:80 
+$lang['OBJECTS LIST.CHOICE'] = 'OBJECTS LIST.CHOICE';
+
+// ../templates/default/take_more_objects_away.tpl:138 
+$lang['TAKE OBJECTS.SELECT PAYMENT TYPE'] = 'TAKE OBJECTS.SELECT PAYMENT TYPE';
+
+// ../give_object_back.php:48 ../give_more_objects_back.php:72 
+$lang['BACK OBJECTS.PAGE TITLE'] = 'BACK OBJECTS.PAGE TITLE';
+
+?>

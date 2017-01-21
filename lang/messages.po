@@ -1,0 +1,997 @@
+#: ../templates/default/take_more_objects_away.tpl:43
+msgid "TAKE OBJECTS.RENT PRICE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:115
+msgid "OBJECT EDIT.DELETE PICTURE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:78
+msgid "OBJECT EDIT.DIMENSION"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:409
+msgid "OBJECTS LIST.PRINT"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:167
+msgid "OBJECTS LIST.DESCRIPTION"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:154
+msgid "OBJECT EDIT.STATUS"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:80
+msgid "OBJECTS LIST.CHOICE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:538
+msgid "OBJECTS LIST.CONFIRM DISABLE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:71
+msgid "Clear filter"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:42
+msgid "CATEGORY EDIT.SAVE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:42
+msgid "OBJECTS LIST.DELETED"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:49
+msgid "GIVE OBJECT BACK.WEIGHT"
+msgstr ""
+
+#: ../templates/default/menu.tpl:22
+msgid "MENU.STATUS LIST"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:152
+msgid "TAKE OBJECTS.YES"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:60
+msgid "TAKE OBJECT.WEIGHT"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:29
+msgid "STATUS EDIT.HELP RENT DAY NUMBER"
+msgstr ""
+
+#: ../status_edit.php:48
+msgid "STATUS EDIT.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:44
+msgid "STATUS LIST.TEXT"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:8
+msgid "CATEGORY EDIT.NAME"
+msgstr ""
+
+#: ../objects_edit.php:48
+msgid "OBJECT EDIT.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:19
+msgid "GIVE OBJECT BACK.NAME"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:419
+msgid "OBJECTS LIST.GIVE BACK"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:59 ../templates/default/status_list.tpl:86
+msgid "STATUS LIST.DELETE SHORT"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:84
+msgid "CATEGORIES LIST.EDIT"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:8
+msgid "OBJECT EDIT.WILL BE CLONED"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:75
+msgid "GIVE OBJECT BACK.COMMENTS"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:115
+msgid "TAKE OBJECTS.SELECT MEMBER"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:374 ../templates/default/objects_list.tpl:374
+msgid "OBJECTS LIST.REPLACE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:15
+msgid "TAKE OBJECTS.THUMB"
+msgstr ""
+
+#: ../objects_list.php:46
+msgid "OBJECTS LIST.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:154
+msgid "OBJECTS LIST.NAME"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:5
+msgid "STATUS EDIT.TITLE"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:6
+msgid "- ERROR -"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:126
+msgid "TAKE OBJECTS.SELECT STATUS"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:389
+msgid "OBJECTS LIST.COPY"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:392
+msgid "OBJECTS LIST.PDF"
+msgstr ""
+
+#: ../take_object.php:48
+msgid "TAKE OBJECT.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:34
+msgid "CATEGORY EDIT.THUMB"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:38
+msgid "TAKE OBJECTS.PRICE"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:33
+msgid "CATEGORIES LIST.IMAGE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:104
+msgid "TAKE OBJECT.SELECT PAYMENT TYPE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:124
+msgid "TAKE OBJECTS.STATUS"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:79
+msgid "TAKE OBJECT.STATUS"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:78
+msgid "GIVE OBJECT BACK.REMAINING"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:3
+msgid "CATEGORIES LIST.SAVED"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:27
+msgid "CATEGORY EDIT.DELETE PICTURE"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:47
+msgid "CATEGORIES LIST.IS ACTIVE"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:27
+msgid "BACK OBJECTS.DESCRIPTION"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:143 ../templates/default/take_object.tpl:109
+msgid "Paypal"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:54
+msgid "TAKE OBJECT.DIMENSION"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:25
+msgid "GIVE OBJECT BACK.DESCRIPTION"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:37
+msgid "TAKE OBJECT.PRICE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:157
+msgid "OBJECT EDIT.COMMENTS"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:21
+msgid "CATEGORY EDIT.PICTURE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:239
+msgid "OBJECTS LIST.STATUS TEXT"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:67
+msgid "GIVE OBJECT BACK.FROM"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:124
+msgid "TAKE OBJECT.RESPONSIBLE FOR"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:27
+msgid "OBJECTS LIST.CANCELED"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:422
+msgid "OBJECTS LIST.DISABLE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:142 ../templates/default/take_object.tpl:108
+msgid "Transfer"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:19
+msgid "PARAMETER LEND.CODE"
+msgstr ""
+
+#: ../objects_edit.php:127
+msgid "An SQL error has occured."
+msgstr ""
+
+#: ../templates/default/status_list.tpl:54
+msgid "STATUS LIST.IS GALETTE LOCATION"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:9
+msgid "TAKE OBJECTS.TITLE"
+msgstr ""
+
+#: ../admin_picture.php:48
+msgid "ADMIN PICTURE.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:216
+msgid "OBJECTS LIST.DIMENSION"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:13
+msgid "STATUS LIST.DELETED"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:102
+msgid "TAKE OBJECT.PAYMENT TYPE"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:33
+msgid "BACK OBJECTS.SERIAL"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:18
+msgid "STATUS LIST.GALETTE LOCATION NEEDED"
+msgstr ""
+
+#: ../templates/default/menu.tpl:34
+msgid "MENU.PARAMETERS"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:81
+msgid "TAKE OBJECT.SELECT STATUS"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:153
+msgid "OBJECT EDIT.DATE FIN"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:3
+msgid "OBJECT EDIT.SAVED"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:8
+msgid "STATUS EDIT.TEXT"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:90
+msgid "OBJECT EDIT.IS ACTIVE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:22
+msgid "OBJECTS LIST.NOT GIVEN"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:184
+msgid "OBJECT EDIT.NEW ADH"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:140 ../templates/default/take_object.tpl:106
+msgid "Credit card"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:413
+msgid "OBJECTS LIST.SINGLE PRINT"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:69
+msgid "GIVE OBJECT BACK.TO"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:55
+msgid "GIVE OBJECT BACK.STATUS"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:141 ../templates/default/take_object.tpl:107
+msgid "Check"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:70
+msgid "Filter"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:23
+msgid "STATUS EDIT.IS ACTIVE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:36
+msgid "OBJECT EDIT.CATEGORY"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:84
+msgid "GIVE OBJECT BACK.YES"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:144 ../templates/default/take_object.tpl:110
+msgid "Other"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:211
+msgid "OBJECT EDIT.CHANGE STATUS"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:38
+msgid "OBJECT EDIT.CHOICE CATEGORY"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:23
+msgid "OBJECT EDIT.NAME"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:43
+msgid "CATEGORY EDIT.CANCEL"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:85
+msgid "GIVE OBJECT BACK.NO"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:485
+msgid "No object selected"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:12
+msgid "OBJECTS LIST.NOT TAKEN"
+msgstr ""
+
+#: ../category_edit.php:48
+msgid "CATEGORY EDIT.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:43
+msgid "TAKE OBJECT.RENT PRICE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:188
+msgid "OBJECT EDIT.NO ADH"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:12 ../templates/default/objects_edit.tpl:13
+msgid "OBJECT EDIT.BACK"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:15
+msgid "BACK OBJECTS.THUMB"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:38
+msgid "PARAMETER LEND.TEXT"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:124
+msgid "Records per page:"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:123
+msgid "objects"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:469
+msgid "Show legend"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:113
+msgid "BACK OBJECTS.STATUS"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:48
+msgid "TAKE OBJECTS.DIMENSION"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:84
+msgid "OBJECT EDIT.WEIGHT"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:386
+msgid "OBJECTS LIST.EDIT"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:74
+msgid "STATUS LIST.RENT DAY NUMBER"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:14
+msgid "STATUS EDIT.HELP GALETTE LOCATION"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:56 ../templates/default/status_list.tpl:83
+msgid "STATUS LIST.EDIT SHORT"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:135
+msgid "OBJECT EDIT.DUPLICATE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:29
+msgid "OBJECT EDIT.DESCRIPTION"
+msgstr ""
+
+#: ../categories_list.php:48
+msgid "CATEGORIES LIST.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:70
+msgid "OBJECT EDIT.PRICE PER DAY"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:13
+msgid "CATEGORIES LIST.DELETED"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:87
+msgid "OBJECTS LIST.CHOOSE THIS"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:406
+msgid "For the selection:"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:123
+msgid "object"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:156
+msgid "OBJECT EDIT.ADH"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:101
+msgid "CATEGORIES LIST.CREATE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:118
+msgid "TAKE OBJECT.YES"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:30
+msgid "STATUS EDIT.RENT DAY NUMBER"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:335
+msgid "OBJECTS LIST.RENT PRICE PER DAY"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:106
+msgid "CATEGORIES LIST.CONFIRM DELETE"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:20
+msgid "PARAMETER LEND.FORMAT"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:113
+msgid "TAKE OBJECTS.MEMBERS"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:5 ../templates/default/take_more_objects_away.tpl:5
+#: ../templates/default/give_object_back.tpl:5 ../templates/default/give_object_back.tpl:5
+#: ../templates/default/give_more_objects_back.tpl:5 ../templates/default/give_more_objects_back.tpl:5
+#: ../templates/default/take_object.tpl:5 ../templates/default/take_object.tpl:5
+msgid "AJAX.CLOSE"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:114
+msgid "STATUS LIST.EDIT"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:119
+msgid "TAKE OBJECT.NO"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:43
+msgid "BACK OBJECTS.RENT PRICE"
+msgstr ""
+
+#: ../status_list.php:48
+msgid "STATUS LIST.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:398
+msgid "No object has been found"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:270
+msgid "OBJECTS LIST.DATE FORECAST"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:42
+msgid "PARAMETER LEND.NUMERIC"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:249
+msgid "OBJECTS LIST.DATE BEGIN"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:164
+msgid "OBJECT EDIT.NEW STATUS"
+msgstr ""
+
+#: ../objects_edit.php:123
+msgid "Mime-Type not allowed"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:9
+msgid "BACK OBJECTS.TITLE"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:48
+msgid "BACK OBJECTS.DIMENSION"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:66
+msgid "GIVE OBJECT BACK.TIME"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:5
+msgid "CATEGORY EDIT.TITLE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:25
+msgid "TAKE OBJECT.DESCRIPTION"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:284 ../templates/default/objects_list.tpl:381
+#: ../templates/default/objects_list.tpl:381
+msgid "OBJECTS LIST.IS ACTIVE"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:119
+msgid "STATUS LIST.DELETE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:57
+msgid "OBJECT EDIT.PRICE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:95
+msgid "TAKE OBJECT.EXPECTED RETURN"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:38
+msgid "BACK OBJECTS.PRICE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:21
+msgid "TAKE OBJECTS.NAME"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:122
+msgid "OBJECT EDIT.THUMB"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:127
+msgid "BACK OBJECTS.REMAINING"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:67
+msgid "TAKE OBJECT.MEMBERS"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:369 ../templates/default/objects_list.tpl:369
+msgid "OBJECTS LIST.TAKE AWAY"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:39
+msgid "STATUS EDIT.SAVE"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:136
+msgid "STATUS LIST.CONFIRM DELETE"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:131
+msgid "STATUS LIST.CREATE"
+msgstr ""
+
+#: ../templates/default/admin_picture.tpl:5
+msgid "ADMIN PICTURE.RESTORE OBJECTS"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:63
+msgid "OBJECT EDIT.RENT PRICE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:139 ../templates/default/take_object.tpl:105
+msgid "Cash"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:9
+msgid "GIVE OBJECT BACK.TITLE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:33
+msgid "TAKE OBJECTS.SERIAL"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:145
+msgid "OBJECT EDIT.ALL RENTS"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:138
+msgid "TAKE OBJECTS.SELECT PAYMENT TYPE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:192
+msgid "OBJECTS LIST.PRICE"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:40
+msgid "STATUS EDIT.CANCEL"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:19
+msgid "TAKE OBJECT.NAME"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:280
+msgid "OBJECTS LIST.ACTION"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:147
+msgid "OBJECTS LIST.THUMB"
+msgstr ""
+
+#: ../objects_edit.php:118
+msgid "File is too big. Maximum allowed size is %d"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:153
+msgid "TAKE OBJECTS.NO"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:57
+msgid "GIVE OBJECT BACK.SELECT STATUS"
+msgstr ""
+
+#: ../parameters.php:145
+msgid "PARAMETER LEND.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:204
+msgid "OBJECTS LIST.RENT PRICE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:100 ../templates/default/objects_list.tpl:102
+msgid "OBJECTS LIST.ALL OBJECTS"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:180
+msgid "OBJECTS LIST.SERIAL"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:29
+msgid "PARAMETER LEND.LABEL {$parametre->code}"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:3
+msgid "STATUS LIST.SAVED"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:133
+msgid "OBJECT EDIT.SAVE"
+msgstr ""
+
+#: ../templates/default/menu.tpl:17
+msgid "Create a new object"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:216
+msgid "OBJECT EDIT.CONFIRM DUPLICATE"
+msgstr ""
+
+#: ../templates/default/menu.tpl:28
+msgid "MENU.CATEGORIES LIST"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:21
+msgid "PARAMETER LEND.VALUE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:69
+msgid "Enter a value"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:27
+msgid "TAKE OBJECTS.DESCRIPTION"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:37
+msgid "OBJECTS LIST.BAD LOCATION"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:64
+msgid "STATUS LIST.IS ACTIVE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:31
+msgid "TAKE OBJECT.SERIAL"
+msgstr ""
+
+#: ../templates/default/menu.tpl:3
+msgid "MENU.LEND"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:152
+msgid "OBJECT EDIT.DATE BEGIN"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:155
+msgid "OBJECT EDIT.AT HOME"
+msgstr ""
+
+#: ../take_more_objects_away.php:48
+msgid "TAKE OBJECTS.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/menu.tpl:12
+msgid "MENU.OBJECTS LIST"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:27
+msgid "STATUS LIST.NB RESULT"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:538
+msgid "OBJECTS LIST.CONFIRM DELETE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:109
+msgid "OBJECT EDIT.PICTURE"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:37
+msgid "CATEGORIES LIST.TEXT"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:23
+msgid "STATUS LIST.AWAY NEEDED"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:463
+msgid "(Un)Check all"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:259
+msgid "OBJECTS LIST.ADHERENT"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:9
+msgid "TAKE OBJECT.TITLE"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:21
+msgid "BACK OBJECTS.NAME"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:133
+msgid "BACK OBJECTS.YES"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:463
+msgid "Invert selection"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:69
+msgid "OBJECT EDIT.HELP PRICE PER DAY"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:53
+msgid "TAKE OBJECTS.WEIGHT"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:8
+msgid "CATEGORIES LIST.CANCELED"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:69
+msgid "TAKE OBJECT.SELECT MEMBER"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:2
+msgid "PARAMETER LEND.PARAMETERS SAVED"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:425
+msgid "OBJECTS LIST.DELETE"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:53
+msgid "BACK OBJECTS.WEIGHT"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:55
+msgid "PARAMETER LEND.SAVE"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:86
+msgid "TAKE OBJECT.DAYS"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:136
+msgid "OBJECT EDIT.PRINT"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:43
+msgid "GIVE OBJECT BACK.DIMENSION"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:32
+msgid "OBJECTS LIST.NO RIGHT"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:176
+msgid "OBJECT EDIT.NEW COMMENT"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:139
+msgid "OBJECT EDIT.CANCEL"
+msgstr ""
+
+#: ../templates/default/status_edit.tpl:15
+msgid "STATUS EDIT.IS GALETTE LOCATION"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:17
+msgid "OBJECTS LIST.GIVEN"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:51
+msgid "OBJECT EDIT.SERIAL"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:20
+msgid "OBJECT EDIT.TITLE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:68
+msgid "OBJECTS LIST.SEARCH"
+msgstr ""
+
+#: ../templates/default/admin_picture.tpl:4
+msgid "ADMIN PICTURE.SAVE OBJECTS"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:89
+msgid "CATEGORIES LIST.DELETE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:416
+msgid "OBJECTS LIST.MORE AWAY"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:34
+msgid "PARAMETER LEND.DATE"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:108 ../templates/default/category_edit.tpl:20
+msgid "OBJECT EDIT.HELP UPLOAD PICTURE"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:7
+msgid "OBJECTS LIST.TAKEN"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:124
+msgid "BACK OBJECTS.COMMENTS"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:115
+msgid "BACK OBJECTS.SELECT STATUS"
+msgstr ""
+
+#: ../templates/default/status_list.tpl:8
+msgid "STATUS LIST.CANCELED"
+msgstr ""
+
+#: ../give_object_back.php:48 ../give_more_objects_back.php:72
+msgid "BACK OBJECTS.PAGE TITLE"
+msgstr ""
+
+#: ../templates/default/parametres.tpl:16
+msgid "PARAMETER LEND.LIST"
+msgstr ""
+
+#: ../templates/default/categories_list.tpl:17
+msgid "CATEGORIES LIST.NB RESULT"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:47
+msgid "OBJECTS LIST.DISABLED"
+msgstr ""
+
+#: ../templates/default/admin_picture.tpl:3
+msgid "ADMIN PICTURE.SAVE CATEGORIES"
+msgstr ""
+
+#: ../templates/default/give_more_objects_back.tpl:134
+msgid "BACK OBJECTS.NO"
+msgstr ""
+
+#: ../templates/default/objects_edit.tpl:97
+msgid "OBJECT EDIT.1ST STATUS"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:501
+msgid "Do you really want to delete all selected accounts (and related contributions)?"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:228
+msgid "OBJECTS LIST.WEIGHT"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:485
+msgid "Please make sure to select at least one object from the list to perform this action."
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:31
+msgid "GIVE OBJECT BACK.SERIAL"
+msgstr ""
+
+#: ../templates/default/menu.tpl:40
+msgid "MENU.ADMIN PICTURE"
+msgstr ""
+
+#: ../templates/default/give_object_back.tpl:37
+msgid "GIVE OBJECT BACK.PRICE"
+msgstr ""
+
+#: ../take_object.php:97 ../take_object.php:98
+#: ../take_more_objects_away.php:91 ../take_more_objects_away.php:92
+msgid "Y-m-d"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:14
+msgid "CATEGORY EDIT.IS ACTIVE"
+msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:136
+msgid "TAKE OBJECTS.PAYMENT TYPE"
+msgstr ""
+
+#: ../objects_edit.php:113
+msgid "- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t"
+msgstr ""
+
