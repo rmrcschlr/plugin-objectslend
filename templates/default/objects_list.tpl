@@ -120,7 +120,7 @@
         <form action="objects_list.php" method="get">
             <table class="infoline">
                 <tr>
-                    <td class="left">{$nb_results} {_T string="OBJECTS LIST.NB RESULTS"}</td>
+                    <td class="left">{$nb_results} {if $nb_results != 1}{_T string="objects"}{else}{_T string="object"}{/if}</td>
                     <td class="right">{_T string="Records per page:"}
                         <select name="nb_lines" onchange="this.form.submit()">
                             {foreach from=$nb_lines_list item=nb}
@@ -134,7 +134,7 @@
         {*
         TABLE DES OBJETS
         *}
-        <form id="objects_list">
+        <form action="objects_edit.php?object_id=new" method="get" id="objects_list">
             <table class="listing">
                 <thead>
                     <tr>
@@ -293,7 +293,7 @@
                         <tr class="{if $objt@index is odd}even{else}odd{/if}">
                             {if $login->isAdmin() || $login->isStaff()}
                                 <td align="center">
-                                    <input type="checkbox" name="object_ids" value="{$objt->object_id}" onchange="enableButtons();">
+                                    <input type="checkbox" name="object_ids" value="{$objt->object_id}">
                                 </td>
                             {/if}
                             {if $view_thumbnail eq '1'}
@@ -345,7 +345,7 @@
                                 <td>
                                     {$objt->weight}
                                 </td>
-                            {/if}    
+                            {/if}
                             <td>
                                 {$objt->status_text}
                             </td>
@@ -387,55 +387,124 @@
                                     </a>
                                     <a href="objects_edit.php?clone_object_id={$objt->object_id}">
                                         <img src="picts/copy.png" class="tooltip_lend" title="{_T string="OBJECTS LIST.COPY"}" border="0"/>
-                                    </a>                    
+                                    </a>
                                     <a href="objects_print.php?object_id={$objt->object_id}">
                                         <img src="picts/pdf24.png" class="tooltip_lend" title="{_T string="OBJECTS LIST.PDF"}" border="0"/>
                                     </a>
                                 </td>
                             {/if}
                         </tr>
+                    {foreachelse}
+                        <tr><td colspan="7" class="emptylist">{_T string="No object has been found"}</td></tr>
                     {/foreach}
                 </tbody>
+{if $nb_results != 0}
+            <tfoot>
+                <tr>
+                    <td colspan="7" id="table_footer">
+                        <ul class="selection_menu">
+                            <li>{_T string="For the selection:"}</li>
+                            <li>
+                                <input type="hidden" name="actual_page" id="actual_page" value="{$page}">
+                                <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.PRINT"}" onclick="return printObjectList('{$tri}', '{$category_id}');">
+                            </li>
+    {if $login->isAdmin() || $login->isStaff()}
+                            <li>
+                                <input type="submit" id="objects_record_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.SINGLE PRINT"}" onclick="return printObjectRecords();">
+                            </li>
+                            <li>
+                                <input type="submit" id="objects_take_away" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.MORE AWAY"}">
+                            </li>
+                            <li>
+                                <input type="submit" id="objects_give_back" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GIVE BACK"}">
+                            </li>
+                            <li>
+                                <input type="submit" id="objects_disable" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DISABLE"}" onclick="return confirmDelete(false);">
+                            </li>
+                            <li>
+                                <input type="submit" id="objects_delete" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DELETE"}" onclick="return confirmDelete(true);">
+                            </li>
+    {/if}
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+{/if}
             </table>
-        </form>
-        {if $login->isAdmin() || $login->isStaff()}
-            <a id="checkAll" style="cursor: pointer;">
-                {_T string="OBJECTS LIST.CHECK"}
-            </a>
-            -
-            <a id="uncheckAll" style="cursor: pointer;">
-                {_T string="OBJECTS LIST.UNCHECK"}
-            </a>
-            -
-            <a id="invertAll" style="cursor: pointer;">
-                {_T string="OBJECTS LIST.INVERT"}
-            </a>
-        {/if}
         {*
         PAGINATION
         *}
         <p align="center">{$pagination}</p>
     {/if}
-    {*
-    BOUTON POUR AJOUTER UN NOUVEL OBJET
-    *}
-    <p>
-        &nbsp;
-    </p>
-    <form action="objects_edit.php?object_id=new" method="get">
-        <input type="hidden" name="actual_page" id="actual_page" value="{$page}">
-        <div class="button-container">
-            <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.PRINT"}" onclick="return printObjectList('{$tri}', '{$category_id}');">
-            {if $login->isAdmin() || $login->isStaff()}
-                <input type="submit" id="objects_record_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.SINGLE PRINT"}" onclick="return printObjectRecords();" style="display: none;">
-                <input type="submit" id="objects_take_away" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.MORE AWAY"}" style="display: none;">
-                <input type="submit" id="objects_give_back" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GIVE BACK"}" style="display: none;">
-                <input type="submit" id="objects_disable" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DISABLE"}" onclick="return confirmDelete(false);" style="display: none;">
-                <input type="submit" id="objects_delete" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DELETE"}" onclick="return confirmDelete(true);" style="display: none;">
-            {/if}
-        </div>
     </form>
-    <script>
+<script>
+{if $nb_results != 0}
+        var _is_checked = true;
+        var _bind_check = function(){
+            $('#checkall').click(function(){
+                $('table.listing :checkbox[name="object_ids"]').each(function(){
+                    this.checked = _is_checked;
+                });
+                _is_checked = !_is_checked;
+                return false;
+            });
+            $('#checkinvert').click(function(){
+                $('table.listing :checkbox[name="object_ids"]').each(function(){
+                    this.checked = !$(this).is(':checked');
+                });
+                return false;
+            });
+        }
+{/if}
+
+        {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
+        $(function(){
+{if $nb_results != 0}
+            $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string="(Un)Check all"}</a> | <a href="#" id="checkinvert">{_T string="Invert selection"}</a></span></td></tr>');
+            _bind_check();
+            $('#nbshow').change(function() {
+                this.form.submit();
+            });
+            {* No legend?
+            $('#checkboxes').after('<td class="right" colspan="3"><a href="#" id="show_legend">{_T string="Show legend"}</a></td>');
+            $('#legende h1').remove();
+            $('#legende').dialog({
+                autoOpen: false,
+                modal: true,
+                hide: 'fold',
+                width: '40%'
+            }).dialog('close');
+
+            $('#show_legend').click(function(){
+                $('#legende').dialog('open');
+                return false;
+            });*}
+            $('.selection_menu input[type="submit"], .selection_menu input[type="button"]').click(function(){
+                var _checkeds = $('table.listing').find('input[type=checkbox]:checked').length;
+                if ( _checkeds == 0 ) {
+                    var _el = $('<div id="pleaseselect" title="{_T string="No object selected" escape="js"}">{_T string="Please make sure to select at least one object from the list to perform this action." escape="js"}</div>');
+                    _el.appendTo('body').dialog({
+                        modal: true,
+                        buttons: {
+                            Ok: function() {
+                                $(this).dialog( "close" );
+                            }
+                        },
+                        close: function(event, ui){
+                            _el.remove();
+                        }
+                    });
+                    return false;
+                } else {
+
+                    if ( this.id == 'delete' ) {
+                        return confirm('{_T string="Do you really want to delete all selected accounts (and related contributions)?" escape="js"}');
+                    }
+                    return true;
+                }
+            });
+{/if}
+        });
         function printObjectList(tri, category_id) {
             var baseurl = 'objects_list_print.php';
 
@@ -455,9 +524,7 @@
             window.location = baseurl;
             return false;
         }
-    </script>
     {if $login->isAdmin() || $login->isStaff()}
-        <script>
             function confirmDelete(isDelete) {
                 var nbSelected = $(':checkbox:checked').length;
                 if (!nbSelected) {
@@ -499,15 +566,6 @@
                 return false;
             }
 
-            function enableButtons() {
-                var visible = $(':checkbox').is(':checked');
-                $('#objects_record_print').css('display', visible ? 'inline' : 'none');
-                $('#objects_disable').css('display', visible ? 'inline' : 'none');
-                $('#objects_delete').css('display', visible ? 'inline' : 'none');
-                $('#objects_give_back').css('display', visible ? 'inline' : 'none');
-                $('#objects_take_away').css('display', visible ? 'inline' : 'none');
-            }
-
             function printObjectRecords() {
                 var baseurl = 'objects_print.php';
 
@@ -522,27 +580,6 @@
                 }
                 return false;
             }
-
-            $('#checkAll').click(function () {
-                $(':checkbox').attr('checked', 'checked');
-                enableButtons();
-            });
-
-            $('#uncheckAll').click(function () {
-                $(':checkbox').removeAttr('checked');
-                enableButtons();
-            });
-
-            $('#invertAll').click(function () {
-                $(':checkbox').each(function () {
-                    if ($(this).is(':checked')) {
-                        $(this).removeAttr('checked');
-                    } else {
-                        $(this).attr('checked', 'checked');
-                    }
-                });
-                enableButtons();
-            });
-        </script>
     {/if}
+        </script>
 </div>
