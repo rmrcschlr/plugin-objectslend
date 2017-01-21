@@ -72,7 +72,7 @@ $pdf->AddPage('L');
 $category_id = array_key_exists(LEND_PREFIX . 'category_id', $session) ? $session[LEND_PREFIX . 'category_id'] : -1;
 $tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET, 'tri') : 'name';
 $search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';
-$ids = filter_has_var(INPUT_GET, 'ids') ? split(',', filter_input(INPUT_GET, 'ids')) : array();
+$ids = filter_has_var(INPUT_GET, 'ids') ? explode(',', filter_input(INPUT_GET, 'ids')) : array();
 
 if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY) && $category_id == 0) {
     $tri = 'category_name';

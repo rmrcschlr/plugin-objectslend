@@ -51,7 +51,7 @@ require_once '_config.inc.php';
 if (filter_has_var(INPUT_POST, 'yes')) {
     $objects_ids = filter_input(INPUT_POST, 'objects_id');
     if (filter_has_var(INPUT_POST, 'safe_objects_ids')) {
-        $objects_ids = split(',', filter_input(INPUT_POST, 'safe_objects_ids'));
+        $objects_ids = explode(',', filter_input(INPUT_POST, 'safe_objects_ids'));
     }
     foreach ($objects_ids as $o_id) {
         LendRent::closeAllRentsForObject($o_id, filter_input(INPUT_POST, 'comments'));
@@ -75,7 +75,7 @@ $tpl->assign('page_title', _T("BACK OBJECTS.PAGE TITLE"));
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
-$objects_ids = filter_has_var(INPUT_GET, 'objects_ids') ? split(',', filter_input(INPUT_GET, 'objects_ids')) : array();
+$objects_ids = filter_has_var(INPUT_GET, 'objects_ids') ? explode(',', filter_input(INPUT_GET, 'objects_ids')) : array();
 $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 'ajax' : false;
 
 /**

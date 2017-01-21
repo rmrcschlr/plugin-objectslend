@@ -102,7 +102,7 @@ $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 
 $search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';
 
 $nb_lines_list = array();
-$param_choices = split(';', LendParameter::getParameterValue(LendParameter::PARAM_OBJECTS_PER_PAGE_NUMBER_LIST));
+$param_choices = explode(';', LendParameter::getParameterValue(LendParameter::PARAM_OBJECTS_PER_PAGE_NUMBER_LIST));
 foreach ($param_choices as $choice) {
     if (is_numeric(trim($choice)) && !in_array(intval($choice), $nb_lines_list)) {
         $nb_lines_list[] = intval($choice);

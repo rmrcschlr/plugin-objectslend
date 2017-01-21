@@ -68,7 +68,7 @@ function addLine($pdf, $code_title, $value, $width) {
     $pdf->Cell($padding, 0, cut($title, $padding));
 
     $pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
-    $wrapped = split("\n", wordwrap($value, 150 - $padding - $width, "\n"));
+    $wrapped = explode("\n", wordwrap($value, 150 - $padding - $width, "\n"));
     $i = 0;
     foreach ($wrapped as $w) {
         if ($i++ > 0) {
@@ -88,7 +88,7 @@ $pdf->SetKeywords('');
 
 // Récupération id
 $object_id = filter_has_var(INPUT_GET, 'object_id') ? filter_input(INPUT_GET, 'object_id') : null;
-$ids = filter_has_var(INPUT_GET, 'ids') ? split(',', filter_input(INPUT_GET, 'ids')) : array();
+$ids = filter_has_var(INPUT_GET, 'ids') ? explode(',', filter_input(INPUT_GET, 'ids')) : array();
 
 if (count($ids) == 0 && is_numeric($object_id)) {
     $ids[] = $object_id;

@@ -49,7 +49,7 @@ $to_delete = array_key_exists('delete', $_GET) ? $_GET['delete'] == '1' : false;
 $to_disable = array_key_exists('disable', $_GET) ? $_GET['disable'] == '1' : false;
 
 if (array_key_exists('objects_ids', $_GET)) {
-    $ids = split(',', $_GET['objects_ids']);
+    $ids = explode(',', $_GET['objects_ids']);
     foreach ($ids as $obj_id) {
         if (is_numeric($obj_id)) {
             if ($to_disable) {

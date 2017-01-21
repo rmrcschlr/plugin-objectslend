@@ -66,7 +66,7 @@ if (filter_has_var(INPUT_POST, 'yes')) {
     $rent->date_forecast = null;
     $forecast = filter_input(INPUT_POST, 'expected_return');
     if (strlen($forecast) > 6) {
-        list($j, $m, $a) = split('/', $forecast);
+        list($j, $m, $a) = explode('/', $forecast);
         $rent->date_forecast = $a . '-' . $m . '-' . $j;
     }
     if (filter_has_var(INPUT_POST, 'id_adh') && ($login->isAdmin() || $login->isStaff())) {
