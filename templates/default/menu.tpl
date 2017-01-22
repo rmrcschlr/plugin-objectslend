@@ -12,34 +12,30 @@
            {_T string="Objects list"}
        </a>
    </li>
-{if $login->isAdmin() || $login->isStaff()}
+    {if $login->isAdmin() || $login->isStaff()}
     <li>
         <a href="objects_edit.php?object_id=new">{_T string="Create a new object"}</a>
     </li>
    <li{if $PAGENAME eq "status_list.php" || $PAGENAME eq "status_edit.php"} class="selected"{/if}>
        <a href="{$galette_base_path}{$lend_dir}status_list.php">
-           <img src="{$galette_base_path}{$lend_dir}picts/lock.png" alt="locked"/>
            {_T string="Borrow status"}
        </a>
    </li>
    <li{if $PAGENAME eq "categories_list.php" || $PAGENAME eq "category_edit.php"} class="selected"{/if}>
        <a href="{$galette_base_path}{$lend_dir}categories_list.php">
-           <img src="{$galette_base_path}{$lend_dir}picts/lock.png" alt="locked"/>
            {_T string="Object categories"}
        </a>
    </li>
    <li{if $PAGENAME eq "parameters.php"} class="selected"{/if}>
        <a href="{$galette_base_path}{$lend_dir}parameters.php">
-           <img src="{$galette_base_path}{$lend_dir}picts/lock.png" alt="locked"/>
-           {_T string="Parameters"}
+           {_T string="Preferences"}
        </a>
    </li>
    <li{if $PAGENAME eq "admin_picture.php"} class="selected"{/if}>
        <a href="{$galette_base_path}{$lend_dir}admin_picture.php">
-           <img src="{$galette_base_path}{$lend_dir}picts/lock.png" alt="locked"/>
            {_T string="Picture admin"}
        </a>
    </li>
-{/if}
+    {/if}
 </ul>
 {/if}

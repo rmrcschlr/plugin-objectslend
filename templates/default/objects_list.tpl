@@ -1,7 +1,4 @@
 <div id="lend_content">
-    {*
-    LISTE DES MESSAGES INFORMATIFS
-    *}
     {if $msg_taken}
         <div id="infobox">
             <h1>{_T string="OBJECTS LIST.TAKEN"}</h1>
@@ -60,20 +57,16 @@
                 $('#warningbox h1').css({ldelim}"background": "#CC0000"{rdelim});
         </script>
     {/if}
-    {*
-    TABLE DE RECHERCHE
-    *}
+
     <form id="filtre" method="post" action="objects_list.php">
         <div id="listfilter">
-            <label for="search">{_T string="OBJECTS LIST.SEARCH"}</label>
+            <label for="search">{_T string="Search:"}</label>
             <input id="search" name="search" type="text" placeholder="{_T string="Enter a value"}" value="{$search}" size="60">
             <input name="go_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="Filter"}">
             <input name="reset_search" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="Clear filter"}">
         </div>
     </form>
-    {*
-    TABLE DES CATEGORIES SI ELLES SONT AFFICHEES
-    *}
+
     {if $view_category}
         <div class="bigtable">
             <table class="details">
@@ -110,13 +103,8 @@
             </table>
         </div>
     {/if}
-    {*
-    TABLE DES OBJETS AVEC LEUR STATUT
-    *}
+
     {if !$view_category || ($view_category && $category_id ne -1)}
-        {*
-        NOMBRES DE RESULTATS PAR PAGE
-        *}
         <form action="objects_list.php" method="get">
             <table class="infoline">
                 <tr>
@@ -131,9 +119,7 @@
                 </tr>
             </table>
         </form>
-        {*
-        TABLE DES OBJETS
-        *}
+
         <form action="objects_edit.php?object_id=new" method="get" id="objects_list">
             <table class="listing">
                 <thead>
@@ -432,9 +418,6 @@
             </tfoot>
 {/if}
             </table>
-        {*
-        PAGINATION
-        *}
         <p align="center">{$pagination}</p>
     {/if}
     </form>

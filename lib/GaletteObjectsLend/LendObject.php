@@ -100,6 +100,8 @@ class LendObject
     private $_object_image_url;
     private $_draw_image;
 
+    private $currency = '€';
+
     /**
      * Construit un nouvel object d'emprunt à partir de la BDD (à partir de son ID) ou vierge
      *
@@ -672,5 +674,15 @@ class LendObject
     {
         $rname = '_' . $name;
         $this->$rname = $value;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }

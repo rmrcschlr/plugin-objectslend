@@ -48,7 +48,7 @@ if (!$login->isLogged()) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("OBJECTS LIST.PAGE TITLE"));
+$tpl->assign('page_title', _T("Managment of the assocation objects"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;

@@ -56,7 +56,7 @@
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="Borrow price (€):"}</span>
+                    <span class="bline">{_T string="Borrow price (%currency):" pattern="/%currency/" replace=$object->getCurrency()}</span>
                     <input type="text" name="rent_price" size="10" style="text-align: right" value="{$object->rent_price}">
                 </p>
             </div>
