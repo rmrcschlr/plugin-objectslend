@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS galette_lend_rents (
   rent_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   object_id int(10) unsigned NOT NULL,
   date_begin datetime NOT NULL,
+  date_forecast DATETIME NULL DEFAULT NULL;
   date_end datetime DEFAULT NULL,
   status_id int(10) unsigned NOT NULL,
   adherent_id int(10) unsigned DEFAULT NULL,
@@ -205,6 +206,16 @@ insert into galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
 values
 ('VIEW_LIST_PRICE_SUM', 0, 0, 1, 0, 0, NOW(), NOW());
+
+insert into galette_lend_parameters
+(code, is_date, is_text, is_numeric, value_text, date_creation, date_modification)
+values
+('OBJECTS_PER_PAGE_NUMBER_LIST', 0, 1, 0, '10;20;30;40;50;100;150;200;300;500', NOW(), NOW());
+
+insert into galette_lend_parameters
+(code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
+values
+('OBJECTS_PER_PAGE_DEFAULT', 0, 0, 1, 0, 30, NOW(), NOW());
 
 --
 -- Structure de la table galette_lend_category
