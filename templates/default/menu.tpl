@@ -26,8 +26,8 @@
            {_T string="Object categories"}
        </a>
    </li>
-   <li{if $PAGENAME eq "parameters.php"} class="selected"{/if}>
-       <a href="{$galette_base_path}{$lend_dir}parameters.php">
+   <li{if $PAGENAME eq "preferences.php"} class="selected"{/if}>
+       <a href="{$galette_base_path}{$lend_dir}preferences.php">
            {_T string="Preferences"}
        </a>
    </li>

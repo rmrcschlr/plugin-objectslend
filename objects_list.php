@@ -38,7 +38,7 @@
 
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -101,13 +101,13 @@ $category_id = array_key_exists(LEND_PREFIX . 'category_id', $session) ? $sessio
 $tri = array_key_exists(LEND_PREFIX . 'tri', $session) ? $session[LEND_PREFIX . 'tri'] : 'name';
 $direction = array_key_exists(LEND_PREFIX . 'direction', $session) ? $session[LEND_PREFIX . 'direction'] : 'asc';
 $page = array_key_exists(LEND_PREFIX . 'page', $session) ? $session[LEND_PREFIX . 'page'] : 1;
-$nb_lines = array_key_exists(LEND_PREFIX . 'nb_lines', $session) ? $session[LEND_PREFIX . 'nb_lines'] : LendParameter::getParameterValue(LendParameter::PARAM_OBJECTS_PER_PAGE_DEFAULT);
+$nb_lines = array_key_exists(LEND_PREFIX . 'nb_lines', $session) ? $session[LEND_PREFIX . 'nb_lines'] : Preferences::getParameterValue(Preferences::PARAM_OBJECTS_PER_PAGE_DEFAULT);
 $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 'ajax' : false;
 
 $search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';
 
 $nb_lines_list = array();
-$param_choices = explode(';', LendParameter::getParameterValue(LendParameter::PARAM_OBJECTS_PER_PAGE_NUMBER_LIST));
+$param_choices = explode(';', Preferences::getParameterValue(Preferences::PARAM_OBJECTS_PER_PAGE_NUMBER_LIST));
 foreach ($param_choices as $choice) {
     if (is_numeric(trim($choice)) && !in_array(intval($choice), $nb_lines_list)) {
         $nb_lines_list[] = intval($choice);
@@ -174,17 +174,17 @@ foreach ($objects as $obj) {
         $obj->tooltip_title .= '<img src=\'' . $obj->object_image_url . '\' style=\'max-width: 500px; max_height: 500px;\'/>';
     }
     $obj->tooltip_title .= '<br/><b>' . $obj->name . '</b>';
-    if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL) && strlen($obj->serial_number) > 0) {
+    if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL) && strlen($obj->serial_number) > 0) {
         $obj->tooltip_title .= ' (' . $obj->serial_number . ')';
     }
     $obj->tooltip_title .= '<br/>&nbsp;';
-    if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION) && strlen($obj->description) > 0) {
+    if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION) && strlen($obj->description) > 0) {
         $obj->tooltip_title .= '<br/>' . $obj->description;
     }
-    if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION) && strlen($obj->dimension) > 0) {
+    if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION) && strlen($obj->dimension) > 0) {
         $obj->tooltip_title .= '<br/>' . _T('OBJECTS LIST.DIMENSION') . ' : ' . $obj->dimension;
     }
-    if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_WEIGHT) && $obj->weight_bulk > 0) {
+    if (Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT) && $obj->weight_bulk > 0) {
         $obj->tooltip_title .= '<br/>' . _T('OBJECTS LIST.WEIGHT') . ' : ' . $obj->weight;
     }
     $obj->tooltip_title .= '</center>';
@@ -195,16 +195,16 @@ foreach ($objects as $obj) {
  */
 if (strlen($search) > 0) {
     foreach ($objects as $obj) {
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL)) {
             $obj->search_serial_number = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->serial_number);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_NAME)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME)) {
             $obj->search_name = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->name);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION)) {
             $obj->search_description = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->description);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION)) {
             $obj->search_dimension = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->dimension);
         }
     }
@@ -213,13 +213,13 @@ if (strlen($search) > 0) {
 /**
  * Calcul de la pagination
  */
-$pagination = LendParameter::paginate($page, $nb_objects, $nb_lines, '');
+$pagination = Preferences::paginate($page, $nb_objects, $nb_lines, '');
 
 /**
  * Récupération des catégories
  */
 $categories = array();
-if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY)) {
+if (Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY)) {
     if (strlen($search) < 1) {
         $categories = LendCategory::getActiveCategories();
     } else {
@@ -253,22 +253,22 @@ $tpl->assign('category_id', $category_id);
 $tpl->assign('sort_suffix', $category_id > 0 ? '&category_id=' . $category_id : '');
 $tpl->assign('search', $search);
 
-$tpl->assign('view_category', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY));
-$tpl->assign('view_serial', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL));
-$tpl->assign('view_thumbnail', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_THUMBNAIL));
-$tpl->assign('view_name', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_NAME));
-$tpl->assign('view_description', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION));
-$tpl->assign('view_price', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_PRICE));
-$tpl->assign('view_dimension', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION));
-$tpl->assign('view_weight', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_WEIGHT));
-$tpl->assign('view_lend_price', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_LEND_PRICE));
-$tpl->assign('view_date_forecast', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DATE_FORECAST));
-$tpl->assign('view_price_sum', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_LIST_PRICE_SUM));
-$tpl->assign('view_object_thumb', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_OBJECT_THUMB));
-$tpl->assign('thumb_max_width', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
-$tpl->assign('view_category_thumb', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY_THUMB));
-$tpl->assign('enable_member_take', LendParameter::getParameterValue(LendParameter::PARAM_ENABLE_MEMBER_RENT_OBJECT));
+$tpl->assign('view_category', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY));
+$tpl->assign('view_serial', Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL));
+$tpl->assign('view_thumbnail', Preferences::getParameterValue(Preferences::PARAM_VIEW_THUMBNAIL));
+$tpl->assign('view_name', Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME));
+$tpl->assign('view_description', Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION));
+$tpl->assign('view_price', Preferences::getParameterValue(Preferences::PARAM_VIEW_PRICE));
+$tpl->assign('view_dimension', Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION));
+$tpl->assign('view_weight', Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT));
+$tpl->assign('view_lend_price', Preferences::getParameterValue(Preferences::PARAM_VIEW_LEND_PRICE));
+$tpl->assign('view_date_forecast', Preferences::getParameterValue(Preferences::PARAM_VIEW_DATE_FORECAST));
+$tpl->assign('view_price_sum', Preferences::getParameterValue(Preferences::PARAM_VIEW_LIST_PRICE_SUM));
+$tpl->assign('view_object_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_OBJECT_THUMB));
+$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
+$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('view_category_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY_THUMB));
+$tpl->assign('enable_member_take', Preferences::getParameterValue(Preferences::PARAM_ENABLE_MEMBER_RENT_OBJECT));
 $tpl->assign('ajax', $ajax);
 
 if ($ajax) {

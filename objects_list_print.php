@@ -41,7 +41,7 @@
 
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendPDF;
 
 define('GALETTE_BASE_PATH', '../../');
@@ -82,7 +82,7 @@ $tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET, 'tri') : 'name
 $search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';
 $ids = filter_has_var(INPUT_GET, 'ids') ? explode(',', filter_input(INPUT_GET, 'ids')) : array();
 
-if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY) && $category_id == 0) {
+if (Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY) && $category_id == 0) {
     $tri = 'category_name';
 }
 
@@ -150,7 +150,7 @@ $grant_total = 0;
 $row = 0;
 
 foreach ($objects as $obj) {
-    if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY) && $old_category_name !== $obj->category_name) {
+    if (Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY) && $old_category_name !== $obj->category_name) {
         $pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
 
         if (($login->isAdmin() || $login->isStaff()) && $sum_price > 0) {

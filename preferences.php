@@ -3,8 +3,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * Display all parameters of the Plugin and allow the Admin to edit
- * the values of the parameters
+ * Manage plugin preferences
  *
  * PHP version 5
  *
@@ -47,7 +46,7 @@
  * @return string Date au format SQL 'aaaa-mm-jj'
  */
 
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 
 function dateIHMtoSQL($str)
 {
@@ -84,7 +83,7 @@ require_once '_config.inc.php';
 global $zdb;
 
 /**
- * Sauvegarde des paramètres envoyés
+ * Store preferences
  */
 $erreurs = false;
 $parametres_sauves = false;
@@ -104,9 +103,9 @@ if (filter_has_var(INPUT_POST, 'liste_codes')) {
                     'value_numeric' => filter_input(INPUT_POST, 'format_' . $code_param) == 'numeric' ? filter_input(INPUT_POST, 'valeur_' . $code_param) : new Zend\Db\Sql\Predicate\Expression('NULL'),
                     'date_modification' => date('Y-m-d H:i:s')
                 );
-                $update = $zdb->update(LEND_PREFIX . LendParameter::TABLE)
+                $update = $zdb->update(LEND_PREFIX . Preferences::TABLE)
                         ->set($values)
-                        ->where(array(LendParameter::PK => $code_param));
+                        ->where(array(Preferences::PK => $code_param));
                 $zdb->execute($update);
             } catch (Exception $e) {
                 $liste_erreurs[] = 'Sauvegarde du paramètre ' . $code_param . ' échouée.';
@@ -122,16 +121,16 @@ if (filter_has_var(INPUT_POST, 'liste_codes')) {
 }
 
 /**
- * Lecture de tous les paramètres en base pour leur affichage à l'écran
+ * Read preferences for display
  */
 $parametres = array();
 try {
-    $select = $zdb->select(LEND_PREFIX . LendParameter::TABLE)
-            ->order(LendParameter::PK);
+    $select = $zdb->select(LEND_PREFIX . Preferences::TABLE)
+            ->order(Preferences::PK);
     $rows = $zdb->execute($select);
 
     foreach ($rows as $r) {
-        $param = new LendParameter($r);
+        $param = new Preferences($r);
         if ($param->is_date) {
             $param->value_date = dateSQLtoIHM($param->value_date);
         }
@@ -149,7 +148,7 @@ try {
 /**
  * Le traitement est terminé, on affiche le template
  */
-$tpl->assign('page_title', _T("PARAMETER LEND.PAGE TITLE"));
+$tpl->assign('page_title', _T("ObjectsLend preferences"));
 
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
@@ -164,7 +163,7 @@ $tpl->assign('require_calendar', true);
 $tpl->assign('color_picker', true);
 $tpl->assign('require_tabs', true);
 
-$content = $tpl->fetch('parametres.tpl', LEND_SMARTY_PREFIX);
+$content = $tpl->fetch('preferences.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path to main Galette's template
 $tpl->template_dir = $orig_template_path;

@@ -39,7 +39,7 @@
  */
 
 use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -102,9 +102,9 @@ if (filter_has_var(INPUT_GET, 'category_id')) {
 }
 
 $tpl->assign('category', $category);
-$tpl->assign('view_category_thumb', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY_THUMB));
-$tpl->assign('thumb_max_width', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('view_category_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY_THUMB));
+$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
+$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
 
 $content = $tpl->fetch('category_edit.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);

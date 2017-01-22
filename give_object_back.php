@@ -39,7 +39,7 @@
  */
 
 use GaletteObjectsLend\LendObject;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendObjectPicture;
 use GaletteObjectsLend\LendRent;
 
@@ -105,17 +105,17 @@ $s = LendObjectPicture::getHeightWidthForObject($object);
 $object->tooltip_title = '<center>';
 $object->tooltip_title .= '<img src=\'picture.php?quick=1&object_id=' . $object->object_id . '\' width=\'' . $s->width . '\' height=\'' . $s->height . '\'/>';
 $object->tooltip_title .= '<br/><b>' . $object->name . '</b>';
-if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL) && strlen($object->serial_number) > 0) {
+if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL) && strlen($object->serial_number) > 0) {
     $object->tooltip_title .= ' (' . $object->serial_number . ')';
 }
 $object->tooltip_title .= '<br/>&nbsp;';
-if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION) && strlen($object->description) > 0) {
+if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION) && strlen($object->description) > 0) {
     $object->tooltip_title .= '<br/>' . $object->description;
 }
-if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION) && strlen($object->dimension) > 0) {
+if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION) && strlen($object->dimension) > 0) {
     $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.DIMENSION') . ' : ' . $object->dimension;
 }
-if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_WEIGHT) && $object->weight_bulk > 0) {
+if (Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT) && $object->weight_bulk > 0) {
     $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.WEIGHT') . ' : ' . $object->weight;
 }
 
@@ -124,9 +124,9 @@ $tpl->assign('statuses', LendStatus::getActiveHomeStatuses());
 $tpl->assign('last_rent', $last_rent);
 $tpl->assign('today', date('d/m/Y'));
 $tpl->assign('ajax', $ajax);
-$tpl->assign('view_object_thumb', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_OBJECT_THUMB));
-$tpl->assign('thumb_max_width', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('view_object_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_OBJECT_THUMB));
+$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
+$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
 
 if ($ajax) {
     $tpl->display('give_object_back.tpl', LEND_SMARTY_PREFIX);

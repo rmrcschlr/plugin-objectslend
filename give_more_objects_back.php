@@ -39,7 +39,7 @@
  */
 
 use GaletteObjectsLend\LendObject;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
 
@@ -103,18 +103,18 @@ $tpl->assign('statuses', LendStatus::getActiveHomeStatuses());
 /**
  * Paramètres de visibilité des colonnes
  */
-$tpl->assign('view_category', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY));
-$tpl->assign('view_serial', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL));
-$tpl->assign('view_thumbnail', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_THUMBNAIL));
-$tpl->assign('view_name', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_NAME));
-$tpl->assign('view_description', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION));
-$tpl->assign('view_price', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_PRICE));
-$tpl->assign('view_dimension', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION));
-$tpl->assign('view_weight', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_WEIGHT));
-$tpl->assign('view_lend_price', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_LEND_PRICE));
-$tpl->assign('view_object_thumb', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_OBJECT_THUMB));
-$tpl->assign('thumb_max_width', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('view_category', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY));
+$tpl->assign('view_serial', Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL));
+$tpl->assign('view_thumbnail', Preferences::getParameterValue(Preferences::PARAM_VIEW_THUMBNAIL));
+$tpl->assign('view_name', Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME));
+$tpl->assign('view_description', Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION));
+$tpl->assign('view_price', Preferences::getParameterValue(Preferences::PARAM_VIEW_PRICE));
+$tpl->assign('view_dimension', Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION));
+$tpl->assign('view_weight', Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT));
+$tpl->assign('view_lend_price', Preferences::getParameterValue(Preferences::PARAM_VIEW_LEND_PRICE));
+$tpl->assign('view_object_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_OBJECT_THUMB));
+$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
+$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
 $tpl->assign('ajax', $ajax);
 $tpl->assign('safe_objects_ids', join(',', $safe_objects_ids));
 

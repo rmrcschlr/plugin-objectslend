@@ -3,7 +3,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * Public Class LendParameter
+ * Public Class Preferences
  * Store the parameters of the Plugin
  *
  * PHP version 5
@@ -44,7 +44,7 @@ namespace GaletteObjectsLend;
 use Analog\Analog;
 use \Zend\Db\Sql\Predicate;
 
-class LendParameter
+class Preferences
 {
 
     const TABLE = 'parameters';
@@ -357,11 +357,11 @@ class LendParameter
         global $zdb;
 
         if (array_key_exists($code, self::$_parameters_values)) {
-            Analog::log('LendParameter::getParameterValue(' . $code . ') - from cache ;-)', Analog::DEBUG);
+            Analog::log('Preferences::getParameterValue(' . $code . ') - from cache ;-)', Analog::DEBUG);
             return self::$_parameters_values[$code];
         } else {
             try {
-                Analog::log('LendParameter::get all parameters from Database', Analog::DEBUG);
+                Analog::log('Preferences::get all parameters from Database', Analog::DEBUG);
                 $select = $zdb->select(LEND_PREFIX . self::TABLE);
                 $results = $zdb->execute($select);
                 foreach ($results as $row) {
@@ -471,7 +471,7 @@ class LendParameter
     /**
      * Met la valeur d'un paramètre en cache pour ne le lire qu'une fois par page.
      *
-     * @param LendParameter $parametre Le paramètre dont on veut avoir la valeur en cache.
+     * @param Preferences $parametre Le paramètre dont on veut avoir la valeur en cache.
      */
     private static function _cacheParameter($parametre)
     {

@@ -40,7 +40,7 @@
 
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendObjectPicture;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
@@ -203,9 +203,9 @@ $tpl->assign('saved', $saved);
 $tpl->assign('show_status', $show_status);
 $tpl->assign('statuses', $statuses);
 $tpl->assign('adherents', $adherents);
-$tpl->assign('view_category', LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY));
-$tpl->assign('thumb_max_width', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('view_category', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY));
+$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
+$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
 $tpl->assign('categories', LendCategory::getActiveCategories());
 $tpl->assign('msg_clone', filter_has_var(INPUT_GET, 'clone_object_id'));
 

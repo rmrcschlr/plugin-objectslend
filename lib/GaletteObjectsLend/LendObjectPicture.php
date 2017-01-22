@@ -65,8 +65,8 @@ class LendObjectPicture extends \Galette\Core\Picture
         $this->store_path = GALETTE_PHOTOS_PATH . 'objectslend/objects/';
         $this->tbl_prefix = LEND_PREFIX;
 
-        $this->thumb_max_height = intval(LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_HEIGHT));
-        $this->thumb_max_width = intval(LendParameter::getParameterValue(LendParameter::PARAM_THUMB_MAX_WIDTH));
+        $this->thumb_max_height = intval(Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+        $this->thumb_max_width = intval(Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
 
         parent::__construct($args);
     }

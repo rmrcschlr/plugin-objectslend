@@ -477,16 +477,16 @@ class LendObject
         }
 
         $or_where = array();
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL)) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.serial_number', '%' . $search . '%');
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_NAME)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME)) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.name', '%' . $search . '%');
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION)) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.description', '%' . $search . '%');
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION)) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.dimension', '%' . $search . '%');
         }
 

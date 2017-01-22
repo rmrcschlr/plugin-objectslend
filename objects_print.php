@@ -41,7 +41,7 @@
 
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendParameter;
+use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendPDF;
 use GaletteObjectsLend\LendObjectPicture;
 use GaletteObjectsLend\LendRent;
@@ -134,37 +134,37 @@ foreach ($ids as $object_id) {
         }
 
         $name = $object->name;
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_NAME)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME)) {
             addLine($pdf, 'OBJECT EDIT.NAME', $object->name, $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DESCRIPTION)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION)) {
             addLine($pdf, 'OBJECT EDIT.DESCRIPTION', $object->description, $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_CATEGORY)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY)) {
             $categ = new LendCategory(intval($object->category_id));
             addLine($pdf, 'OBJECT EDIT.CATEGORY', $categ->name, $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_SERIAL)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL)) {
             addLine($pdf, 'OBJECT EDIT.SERIAL', $object->serial_number, $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_PRICE)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_PRICE)) {
             addLine($pdf, 'OBJECT EDIT.PRICE', $object->price, $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_LEND_PRICE)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_LEND_PRICE)) {
             addLine($pdf, 'OBJECT EDIT.RENT PRICE', $object->rent_price, $width);
             addLine($pdf, 'OBJECT EDIT.PRICE PER DAY', $object->price_per_day ? '/j' : '', $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DIMENSION)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION)) {
             addLine($pdf, 'OBJECT EDIT.DIMENSION', $object->dimension, $width);
         }
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_WEIGHT)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT)) {
             addLine($pdf, 'OBJECT EDIT.WEIGHT', $object->weight, $width);
         }
         addLine($pdf, 'OBJECT EDIT.IS ACTIVE', $object->is_active ? 'X' : '', $width);
         addLine($pdf, 'OBJECT EDIT.1ST STATUS', $object->status_text, $width);
         addLine($pdf, 'OBJECTS LIST.DATE BEGIN', $object->date_begin_ihm, $width);
         addLine($pdf, 'OBJECTS LIST.ADHERENT', $object->nom_adh . ' ' . $object->prenom_adh, $width);
-        if (LendParameter::getParameterValue(LendParameter::PARAM_VIEW_DATE_FORECAST)) {
+        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DATE_FORECAST)) {
             addLine($pdf, 'OBJECTS LIST.DATE FORECAST', $object->date_forecast_ihm, $width);
         }
 
