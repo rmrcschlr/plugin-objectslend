@@ -54,6 +54,9 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 require_once '_config.inc.php';
 
 $tpl->assign('page_title', _T("Edit an object"));
+
+$lendsprefs = new Preferences($zdb);
+
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -203,9 +206,7 @@ $tpl->assign('saved', $saved);
 $tpl->assign('show_status', $show_status);
 $tpl->assign('statuses', $statuses);
 $tpl->assign('adherents', $adherents);
-$tpl->assign('view_category', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY));
-$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('categories', LendCategory::getActiveCategories());
 $tpl->assign('msg_clone', filter_has_var(INPUT_GET, 'clone_object_id'));
 

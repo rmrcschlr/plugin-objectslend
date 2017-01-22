@@ -50,6 +50,9 @@ class Preferences
     const TABLE = 'parameters';
     const PK = 'code';
 
+    private $zdb;
+    private $prefs;
+
     /**
      * Paramètre : voir la liste des catégories en en-têtes de la liste des objets
      * Valeur : 0 = false / 1 = true
@@ -213,54 +216,32 @@ class Preferences
     }
 
     /**
-     * Construit un paramètre vierge ou depuis son code
+     * Default constructor
      *
-     * @param string|object $args Nom du paramètre ou ligne de BDD
+     * @param Db      $zdb  Db instance
+     * @param boolean $load Automatically load preferences on load
      *
-     * @return PiloteParametre
+     * @return void
      */
-    public function __construct($args = null)
+    public function __construct($zdb, $load = true)
     {
-        global $zdb;
-
-        if (is_string($args) && strlen($args) > 0) {
-            try {
-                $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                        ->where(array('code' => $args));
-                $results = $zdb->execute($select);
-                if ($results->count() == 1) {
-                    $this->_loadFromRS($results->current());
-                }
-                $this->_code = $args;
-            } catch (\Exception $e) {
-                Analog::log("Erreur" . $e->getMessage(), Analog::ERROR);
-                return false;
-            }
-        } else if (is_object($args)) {
-            $this->_loadFromRS($args);
+        $this->zdb = $zdb;
+        if ($load) {
+            $this->load();
         }
     }
 
     /**
-     * Populate object from a resultset row
+     * Get preferences
      *
-     * @param ResultSet $r the resultset row
-     *
-     * @return void
+     * @return array
      */
-    private function _loadFromRS($r)
+    public function getpreferences()
     {
-        $this->_parameter_id = $r->parameter_id;
-        $this->_code = $r->code;
-        $this->_is_date = $r->is_date;
-        $this->_value_date = $r->value_date;
-        $this->_is_text = $r->is_text;
-        $this->_value_text = $r->value_text;
-        $this->_is_numeric = $r->is_numeric;
-        $this->_nb_digits = $r->nb_digits;
-        $this->_value_numeric = $r->value_numeric;
-        $this->_date_creation = $r->date_creation;
-        $this->_date_modification = $r->date_modification;
+        if (count($this->prefs) == 0) {
+            $this->load();
+        }
+        return $this->prefs;
     }
 
     /**
@@ -272,135 +253,106 @@ class Preferences
      */
     public function __get($name)
     {
-        $rname = '_' . $name;
-        if (substr($rname, 0, 3) == '___') {
-            return null;
-        }
-        switch ($name) {
-            default:
-                return $this->$rname;
-        }
-    }
+        $forbidden = array();
 
-    /**
-     * Global setter method
-     *
-     * @param string $name  name of the property we want to assign a value to
-     * @param object $value a relevant value for the property
-     *
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        $rname = '_' . $name;
-        $this->$rname = $value;
-    }
-
-    /**
-     * Enregistre l'élément en cours que ce soit en insert ou update
-     *
-     * @return bool False si l'enregistrement a échoué, true si aucune erreur
-     */
-    public function store()
-    {
-        global $zdb;
-
-        try {
-            $values = array();
-
-            foreach ($this->_fields as $k => $v) {
-                $values[substr($k, 1)] = $this->$k;
-            }
-
-            //an empty value will cause date to be set to 1901-01-01, a null
-            //will result in 0000-00-00. We want a database NULL value here.
-            if (!$this->_value_date || $this->_value_date == '') {
-                $values['value_date'] = new Predicate\Expression('NULL');
-            }
-
-            $values['date_modification'] = date('Y-m-d H:i:s');
-
-            if (!isset($this->_parametre_id) || $this->_parametre_id == '') {
-                $values['date_creation'] = date('Y-m-d H:i:s');
-                $insert = $zdb->db->insert(PILOTE_PREFIX . self::TABLE)
-                        ->values($values);
-                $add = $zdb->execute($insert);
-                if ($add > 0) {
-                    $this->_parametre_id = $zdb->driver->getLastGeneratedValue();
-                }
-            } else {
-                $update = $zdb->update(PILOTE_PREFIX . self::TABLE)
-                        ->set($values)
-                        ->where(array(self::PK => $this->_code));
-                $zdb->execute($update);
-            }
-            return true;
-        } catch (\Exception $e) {
+        if (!in_array($name, $forbidden) && isset($this->prefs[$name])) {
+            return $this->prefs[$name];
+        } else {
             Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(),
-                Analog::ERROR
+                'Preference `' . $name . '` is not set or is forbidden',
+                Analog::INFO
             );
             return false;
         }
     }
 
     /**
-     * Renvoie la valeur d'un paramètre à partir de son code
+     * Store preferences
      *
-     * @param string $code Code du paramètre
+     * @param array $data   Posted data
+     * @param array $errors Errors
      *
-     * @return type Peut être du texte, une date ou une valeur numérique
+     * @return boolean
      */
-    public static function getParameterValue($code)
+    public function store($data, &$errors)
     {
-        global $zdb;
-
-        if (array_key_exists($code, self::$_parameters_values)) {
-            Analog::log('Preferences::getParameterValue(' . $code . ') - from cache ;-)', Analog::DEBUG);
-            return self::$_parameters_values[$code];
-        } else {
-            try {
-                Analog::log('Preferences::get all parameters from Database', Analog::DEBUG);
-                $select = $zdb->select(LEND_PREFIX . self::TABLE);
-                $results = $zdb->execute($select);
-                foreach ($results as $row) {
-                    self::_cacheParameter($row);
-                }
-                return self::$_parameters_values[$code];
-            } catch (\Exception $e) {
-                Analog::log("Erreur" . $e->getMessage(), Analog::ERROR);
-                return false;
-            }
+        foreach ($data as $key => $value) {
+            $this->prefs[$key] = $value;
         }
-    }
 
-    /**
-     * Renvoie la liste des codes utilisés dans l'application
-     *
-     * @return array Tableau des codes utilisés pour les paramètres
-     */
-    public static function getAllParametersCodes()
-    {
-        global $zdb;
-
-        $liste_codes = array();
-        $code = self::PK;
         try {
-            $select = $zdb->select(PILOTE_PREFIX . self::TABLE)
-                    ->columns(array(self::PK))
-                    ->order('1');
-            $rows = $zdb->execute($select);
-            foreach ($rows as $row) {
-                $liste_codes[] = $row->$code;
+            $this->zdb->connection->beginTransaction();
+            $update = $this->zdb->update(LEND_PREFIX . self::TABLE);
+            $update->set(
+                array(
+                    'value_text'  => $data['GENERATED_CONTRIB_INFO_TEXT']
+                )
+            )->where->equalTo(self::PK, 'GENERATED_CONTRIB_INFO_TEXT');
+            $this->zdb->execute($update);
+
+            $update = $this->zdb->update(LEND_PREFIX . self::TABLE);
+            $update->set(
+                array(
+                    'value_numeric'     => ':value_numeric',
+                    'date_modification' => ':date_modification'
+                )
+            )->where->equalTo(self::PK, ':' . self::PK);
+            $stmt = $this->zdb->sql->prepareStatementForSqlObject($update);
+
+            foreach ($this->prefs as $key => $value) {
+                $stmt->execute(
+                    [
+                        'value_numeric'     => $value,
+                        'date_modification' => date('Y-m-d H:i:s'),
+                        'where1'            => $key
+                    ]
+                );
             }
-            return $liste_codes;
+
+            $this->zdb->connection->commit();
+            return true;
         } catch (\Exception $e) {
-            Analog::log('Erreur SQL ' . $e->getMessage(), Analog::ERROR);
+            $this->zdb->connection->rollBack();
+            throw $e;
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
+            );
+            $errors[] = _T("Unable to store preferences :(");
             return false;
         }
     }
 
+    /**
+     * Load current preferences from database.
+     *
+     * @return boolean
+     */
+    public function load()
+    {
+        $this->prefs = array();
+
+        try {
+            $result = $this->zdb->selectAll(LEND_PREFIX . self::TABLE);
+            foreach ($result as $pref) {
+                $pk_field = self::PK;
+                $value_field = 'value_numeric';
+                if ($pref->is_text == '1') {
+                    $value_field = 'value_text';
+                }
+                $this->prefs[$pref->$pk_field] = $pref->$value_field;
+            }
+            return true;
+        } catch (\Exception $e) {
+            Analog::log(
+                'ObjectsLend Preferences cannot be loaded. Plugin should not work without ' .
+                'it. Exiting. '  . $e->getMessage(),
+                Analog::URGENT
+            );
+            return false;
+        }
+    }
     /**
      * Ecrit la pagination d'une liste selon le nombre d'objets total dans la liste, le tri et
      * la direction définis. Renvoi la pagination au format HTML prêt à être inséré dans la page
@@ -466,22 +418,5 @@ class Preferences
                 '</table>';
 
         return $pagination;
-    }
-
-    /**
-     * Met la valeur d'un paramètre en cache pour ne le lire qu'une fois par page.
-     *
-     * @param Preferences $parametre Le paramètre dont on veut avoir la valeur en cache.
-     */
-    private static function _cacheParameter($parametre)
-    {
-        if ($parametre->is_date) {
-            $dt = date_create_from_format('Y-m-d', $parametre->value_date);
-            self::$_parameters_values[$parametre->code] = $dt->format('d/m/Y');
-        } else if ($parametre->is_text) {
-            self::$_parameters_values[$parametre->code] = $parametre->value_text;
-        } else if ($parametre->is_numeric) {
-            self::$_parameters_values[$parametre->code] = $parametre->value_numeric;
-        }
     }
 }

@@ -449,6 +449,8 @@ class LendObject
      */
     static function writeWhereQuery($admin_mode, $category_id, $search)
     {
+        global $lendsprefs;
+
         $where = new \Zend\Db\Sql\Where();
         if (!$admin_mode) {
             $where->addPredicate(
@@ -477,16 +479,16 @@ class LendObject
         }
 
         $or_where = array();
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.serial_number', '%' . $search . '%');
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.name', '%' . $search . '%');
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.description', '%' . $search . '%');
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION}) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.dimension', '%' . $search . '%');
         }
 

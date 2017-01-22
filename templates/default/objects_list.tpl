@@ -67,7 +67,7 @@
         </div>
     </form>
 
-    {if $view_category}
+    {if $lendsprefs.VIEW_CATEGORY}
         <div class="bigtable">
             <table class="details">
                 <caption class="ui-state-active ui-corner-top">{_T string="OBJECTS LIST.CHOICE"}</caption>
@@ -76,11 +76,11 @@
                         {if $categ->objects_nb gt 0}
                             <td style="text-align: center !important;{if $category_id eq $categ->category_id} background-color:SpringGreen;{/if}">
                                 <a href="?category_id={$categ->category_id}">
-                                    <img src="{$categ->categ_image_url}" {if $view_category_thumb}style="max-height: {$thumb_max_height}px; max-width: {$thumb_max_width}px;"{/if}
+                                    <img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}
                                          border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.CHOOSE THIS"} <i>''{$categ->name}''</i>"/>
                                     <br/>
                                     {$categ->name} ({$categ->objects_nb})
-                                    {if $view_price_sum && $view_price && ($login->isAdmin() || $login->isStaff())}
+                                    {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
                                         &middot;
                                         {$categ->objects_price_sum} &euro;
                                     {/if}
@@ -93,7 +93,7 @@
                             <img src="picts/all.png" border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.ALL OBJECTS"}"/>
                             <br/>
                             {_T string="OBJECTS LIST.ALL OBJECTS"} ({$nb_all_categories})
-                            {if $view_price_sum && $view_price && ($login->isAdmin() || $login->isStaff())}
+                            {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
                                 &middot;
                                 {$sum_all_categories} &euro;
                             {/if}
@@ -104,7 +104,7 @@
         </div>
     {/if}
 
-    {if !$view_category || ($view_category && $category_id ne -1)}
+    {if !$lendsprefs.VIEW_CATEGORY || ($lendsprefs.VIEW_CATEGORY && $category_id ne -1)}
         <form action="objects_list.php" method="get">
             <table class="infoline">
                 <tr>
@@ -128,14 +128,14 @@
                             <th>
                             </th>
                         {/if}
-                        {if $view_thumbnail}
+                        {if $lendsprefs.VIEW_THUMBNAIL}
                             <th>
                                 {_T string="Picture"}
                             </th>
                         {/if}
-                        {if $view_name || $view_description}
+                        {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                             <th>
-                                {if $view_name}
+                                {if $lendsprefs.VIEW_NAME}
                                     <a href="?tri=name{$sort_suffix}&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
                                         {_T string="Name"}
                                     </a>
@@ -145,10 +145,10 @@
                                         <img src="{$template_subdir}images/up.png"/>
                                     {/if}
                                 {/if}
-                                {if $view_name && $view_description}
+                                {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
                                     /
                                 {/if}
-                                {if $view_description}
+                                {if $lendsprefs.VIEW_DESCRIPTION}
                                     <a href="?tri=description{$sort_suffix}&direction={if $tri eq 'description' && $direction eq 'asc'}desc{else}asc{/if}">
                                         {_T string="Description"}
                                     </a>
@@ -160,7 +160,7 @@
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_serial}
+                        {if $lendsprefs.VIEW_SERIAL}
                             <th>
                                 <a href="?tri=serial_number{$sort_suffix}&direction={if $tri eq 'serial_number' && $direction eq 'asc'}desc{else}asc{/if}">
                                     {_T string="Serial"}
@@ -172,7 +172,7 @@
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_price}
+                        {if $lendsprefs.VIEW_PRICE}
                             <th>
                                 <a href="?tri=price{$sort_suffix}&direction={if $tri eq 'price' && $direction eq 'asc'}desc{else}asc{/if}">
                                     {_T string="Price"}
@@ -184,7 +184,7 @@
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_lend_price}
+                        {if $lendsprefs.VIEW_LEND_PRICE}
                             <th>
                                 <a href="?tri=rent_price{$sort_suffix}&direction={if $tri eq 'rent_price' && $direction eq 'asc'}desc{else}asc{/if}">
                                     {_T string="Borrow price"}
@@ -196,7 +196,7 @@
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_dimension}
+                        {if $lendsprefs.VIEW_DIMENSION}
                             <th>
                                 <a href="?tri=dimension{$sort_suffix}&direction={if $tri eq 'dimension' && $direction eq 'asc'}desc{else}asc{/if}">
                                     {_T string="Dimensions"}
@@ -208,7 +208,7 @@
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_weight }
+                        {if $lendsprefs.VIEW_WEIGHT}
                             <th>
                                 <a href="?tri=weight{$sort_suffix}&direction={if $tri eq 'weight' && $direction eq 'asc'}desc{else}asc{/if}">
                                     {_T string="Weight"}
@@ -250,7 +250,7 @@
                                 <img src="{$template_subdir}images/up.png"/>
                             {/if}
                         </th>
-                        {if $view_date_forecast}
+                        {if $lendsprefs.VIEW_DATE_FORECAST}
                             <th>
                                 <a href="?tri=forecast{$sort_suffix}&direction={if $tri eq 'forecast' && $direction eq 'asc'}desc{else}asc{/if}">
                                     {_T string="Return"}
@@ -282,39 +282,39 @@
                                     <input type="checkbox" name="object_ids" value="{$objt->object_id}">
                                 </td>
                             {/if}
-                            {if $view_thumbnail eq '1'}
+                            {if $lendsprefs.VIEW_THUMBNAIL eq '1'}
                                 <td align="center">
                                     {if $objt->draw_image}
                                         <img src="{$objt->object_image_url}" 
                                              class="tooltip_lend" title="{$objt->tooltip_title}"
-                                             {if $view_object_thumb}style="max-height: {$thumb_max_height}px; max-width: {$thumb_max_width}px;"{/if}/>
+                                             {if $lendsprefs.VIEW_OBJECT_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}/>
                                     {/if}
                                 </td>
                             {/if}
-                            {if $view_name || $view_description}
+                            {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                                 <td>
-                                    {if $view_name}
+                                    {if $lendsprefs.VIEW_NAME}
                                         <b>{$objt->search_name}</b>
                                     {/if}
-                                    {if $view_name && $view_description}
+                                    {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
                                         <br/>
                                     {/if}
-                                    {if $view_description}
+                                    {if $lendsprefs.VIEW_DESCRIPTION}
                                         {$objt->search_description}
-                                    {/if} 
+                                    {/if}
                                 </td>
                             {/if}
-                            {if $view_serial}
+                            {if $lendsprefs.VIEW_SERIAL}
                                 <td>
                                     {$objt->search_serial_number}
                                 </td>
                             {/if}
-                            {if $view_price}
+                            {if $lendsprefs.VIEW_PRICE}
                                 <td align="right">
                                     {$objt->price}&euro;
                                 </td>
                             {/if}
-                            {if $view_lend_price eq '1'}
+                            {if $lendsprefs.VIEW_LEND_PRICE eq '1'}
                                 <td align="right">
                                     {$objt->rent_price}&euro;
                                     {if $objt->price_per_day}
@@ -322,12 +322,12 @@
                                     {/if}
                                 </td>
                             {/if}
-                            {if $view_dimension}
+                            {if $lendsprefs.VIEW_DIMENSION}
                                 <td>
                                     {$objt->search_dimension}
                                 </td>
                             {/if}
-                            {if $view_weight eq '1'}
+                            {if $lendsprefs.VIEW_WEIGHT eq '1'}
                                 <td>
                                     {$objt->weight}
                                 </td>
@@ -343,14 +343,14 @@
                                     <a href="mailto:{$objt->email_adh}">{$objt->nom_adh} {$objt->prenom_adh}</a>
                                 {/if}
                             </td>
-                            {if $view_date_forecast}
+                            {if $lendsprefs.VIEW_DATE_FORECAST}
                                 <td align="center">
                                     <span style="white-space: nowrap">{$objt->date_forecast_ihm}</span>
                                 </td>
                             {/if}
                             <td align="center">
                                 {if $objt->is_home_location}
-                                    {if $enable_member_take || $login->isAdmin() || $login->isStaff()}
+                                    {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
                                         <a onclick="take_object({$objt->object_id});" style="cursor: pointer;" {*href="take_object.php?object_id={$objt->object_id}"*}>
                                             <img src="picts/bag.png" alt="{_T string="OBJECTS LIST.TAKE AWAY"}" class="tooltip_lend" title="{_T string="OBJECTS LIST.TAKE AWAY"}"/>
                                         </a>

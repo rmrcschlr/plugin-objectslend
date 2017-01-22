@@ -56,6 +56,8 @@ if (!$login->isLogged()) {
 // Import des classes de notre plugin
 require_once '_config.inc.php';
 
+$lendsprefs = new Preferences($zdb);
+
 function getNotHtmlText($code)
 {
     return html_entity_decode(_T($code));
@@ -134,37 +136,37 @@ foreach ($ids as $object_id) {
         }
 
         $name = $object->name;
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
             addLine($pdf, 'OBJECT EDIT.NAME', $object->name, $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
             addLine($pdf, 'OBJECT EDIT.DESCRIPTION', $object->description, $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
             $categ = new LendCategory(intval($object->category_id));
             addLine($pdf, 'OBJECT EDIT.CATEGORY', $categ->name, $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
             addLine($pdf, 'OBJECT EDIT.SERIAL', $object->serial_number, $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_PRICE)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_PRICE}) {
             addLine($pdf, 'OBJECT EDIT.PRICE', $object->price, $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_LEND_PRICE)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_LEND_PRICE}) {
             addLine($pdf, 'OBJECT EDIT.RENT PRICE', $object->rent_price, $width);
             addLine($pdf, 'OBJECT EDIT.PRICE PER DAY', $object->price_per_day ? '/j' : '', $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION}) {
             addLine($pdf, 'OBJECT EDIT.DIMENSION', $object->dimension, $width);
         }
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT}) {
             addLine($pdf, 'OBJECT EDIT.WEIGHT', $object->weight, $width);
         }
         addLine($pdf, 'OBJECT EDIT.IS ACTIVE', $object->is_active ? 'X' : '', $width);
         addLine($pdf, 'OBJECT EDIT.1ST STATUS', $object->status_text, $width);
         addLine($pdf, 'OBJECTS LIST.DATE BEGIN', $object->date_begin_ihm, $width);
         addLine($pdf, 'OBJECTS LIST.ADHERENT', $object->nom_adh . ' ' . $object->prenom_adh, $width);
-        if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DATE_FORECAST)) {
+        if ($lendsprefs->{Preferences::PARAM_VIEW_DATE_FORECAST}) {
             addLine($pdf, 'OBJECTS LIST.DATE FORECAST', $object->date_forecast_ihm, $width);
         }
 

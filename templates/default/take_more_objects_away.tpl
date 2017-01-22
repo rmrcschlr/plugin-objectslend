@@ -10,45 +10,45 @@
             <table class="listing">
                 <thead>
                     <tr>
-                        {if $view_thumbnail}
+                        {if $lendsprefs.VIEW_THUMBNAIL}
                             <th>
                                 {_T string="TAKE OBJECTS.THUMB"}
                             </th>
                         {/if}
-                        {if $view_name || $view_description}
+                        {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                             <th>
-                                {if $view_name}
+                                {if $lendsprefs.VIEW_NAME}
                                     {_T string="TAKE OBJECTS.NAME"}
                                 {/if}
-                                {if $view_name && $view_description}
+                                {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
                                     /
                                 {/if}
-                                {if $view_description}
+                                {if $lendsprefs.VIEW_DESCRIPTION}
                                     {_T string="TAKE OBJECTS.DESCRIPTION"}
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_serial}
+                        {if $lendsprefs.VIEW_SERIAL}
                             <th>
                                 {_T string="TAKE OBJECTS.SERIAL"}
                             </th>
                         {/if}
-                        {if $view_price}
+                        {if $lendsprefs.VIEW_PRICE}
                             <th>
                                 {_T string="TAKE OBJECTS.PRICE"}
                             </th>
                         {/if}
-                        {if $view_lend_price}
+                        {if $lendsprefs.VIEW_LEND_PRICE}
                             <th>
                                 {_T string="TAKE OBJECTS.RENT PRICE"}
                             </th>
                         {/if}
-                        {if $view_dimension}
+                        {if $lendsprefs.VIEW_DIMENSION}
                             <th>
                                 {_T string="TAKE OBJECTS.DIMENSION"}
                             </th>
                         {/if}
-                        {if $view_weight}
+                        {if $lendsprefs.VIEW_WEIGHT}
                             <th>
                                 {_T string="TAKE OBJECTS.WEIGHT"}
                             </th>
@@ -59,47 +59,47 @@
                     {foreach from=$objects item=objt}
                     <input type="hidden" name="objects_id[]" value="{$objt->object_id}">
                     <tr class="{if $objt@index is odd}even{else}odd{/if}">
-                        {if $view_thumbnail}
+                        {if $lendsprefs.VIEW_THUMBNAIL}
                             <td align="center">
                                 {if $objt->object_image_url ne ""}
-                                    <img src="{$objt->object_image_url}" {if $view_object_thumb}style="max-height: {$thumb_max_height}px; max-width: {$thumb_max_width}px;"{/if}/>
+                                    <img src="{$objt->object_image_url}" {if $lendsprefs.VIEW_OBJECT_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}/>
                                 {/if}
                             </td>
                         {/if}
-                        {if $view_name || $view_description}
+                        {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                             <td>
-                                {if $view_name}
+                                {if $lendsprefs.VIEW_NAME}
                                     <b>{$objt->search_name}</b>
                                 {/if}
-                                {if $view_name && $view_description}
+                                {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
                                     <br/>
                                 {/if}
-                                {if $view_description}
+                                {if $lendsprefs.VIEW_DIMENSION}
                                     {$objt->search_description}
                                 {/if}
                             </td>
                         {/if}
-                        {if $view_serial}
+                        {if $lendsprefs.VIEW_SERIAL}
                             <td>
                                 {$objt->search_serial_number}
                             </td>
                         {/if}
-                        {if $view_price}
+                        {if $lendsprefs.VIEW_PRICE}
                             <td align="right">
                                 {$objt->price}
                             </td>
                         {/if}
-                        {if $view_lend_price}
+                        {if $lendsprefs.VIEW_LEND_PRICE}
                             <td align="right">
                                 <input type="text" name="rent_price_{$objt->object_id}" value="{$objt->rent_price}" size="10" style="text-align: right">
                             </td>
                         {/if}
-                        {if $view_dimension}
+                        {if $lendsprefs.VIEW_DIMENSION}
                             <td>
                                 {$objt->search_dimension}
                             </td>
                         {/if}
-                        {if $view_weight}
+                        {if $lendsprefs.VIEW_WEIGHT}
                             <td align="right">
                                 {$objt->weight}
                             </td>
@@ -130,7 +130,7 @@
                     </select>
                 </p>
             </div>
-            {if $add_contribution}
+            {if $lendsprefs.AUTO_GENERATE_CONTRIBUTION}
                 <div>
                     <p>
                         <span class="bline">{_T string="TAKE OBJECTS.PAYMENT TYPE"}</span>

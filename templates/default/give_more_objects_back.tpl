@@ -10,45 +10,45 @@
             <table class="listing">
                 <thead>
                     <tr>
-                        {if $view_thumbnail}
+                        {if $lendsprefs.VIEW_THUMBNAIL}
                             <th>
                                 {_T string="BACK OBJECTS.THUMB"}
                             </th>
                         {/if}
-                        {if $view_name || $view_description}
+                        {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                             <th>
-                                {if $view_name}
+                                {if $lendsprefs.VIEW_NAME}
                                     {_T string="BACK OBJECTS.NAME"}
                                 {/if}
-                                {if $view_name && $view_description}
+                                {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
                                     /
                                 {/if}
-                                {if $view_description}
+                                {if $lendsprefs.VIEW_DESCRIPTION}
                                     {_T string="BACK OBJECTS.DESCRIPTION"}
                                 {/if}
                             </th>
                         {/if}
-                        {if $view_serial}
+                        {if $lendsprefs.VIEW_SERIAL}
                             <th>
                                 {_T string="BACK OBJECTS.SERIAL"}
                             </th>
                         {/if}
-                        {if $view_price}
+                        {if $lendsprefs.VIEW_PRICE}
                             <th>
                                 {_T string="BACK OBJECTS.PRICE"}
                             </th>
                         {/if}
-                        {if $view_lend_price}
+                        {if $lendsprefs.VIEW_LEND_PRICE}
                             <th>
                                 {_T string="BACK OBJECTS.RENT PRICE"}
                             </th>
                         {/if}
-                        {if $view_dimension}
+                        {if $lendsprefs.VIEW_DIMENSION}
                             <th>
                                 {_T string="BACK OBJECTS.DIMENSION"}
                             </th>
                         {/if}
-                        {if $view_weight}
+                        {if $lendsprefs.VIEW_WEIGHT}
                             <th>
                                 {_T string="BACK OBJECTS.WEIGHT"}
                             </th>
@@ -59,47 +59,47 @@
                     {foreach from=$objects item=objt}
                     <input type="hidden" name="objects_id[]" value="{$objt->object_id}">
                     <tr class="{if $objt@index is odd}even{else}odd{/if}">
-                        {if $view_thumbnail}
+                        {if $lendsprefs.VIEW_THUMBNAIL}
                             <td align="center">
                                 {if $objt->object_image_url ne ""}
-                                    <img src="{$objt->object_image_url}" {if $view_object_thumb}style="max-height: {$thumb_max_height}px; max-width: {$thumb_max_width}px;"{/if}/>
+                                    <img src="{$objt->object_image_url}" {if $lendsprefs.VIEW_OBJECT_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}/>
                                 {/if}
                             </td>
                         {/if}
-                        {if $view_name || $view_description}
+                        {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                             <td>
-                                {if $view_name}
+                                {if $lendsprefs.VIEW_NAME}
                                     <b>{$objt->search_name}</b>
                                 {/if}
-                                {if $view_name || $view_description}
+                                {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
                                     <br/>
                                 {/if}
-                                {if $view_description}
+                                {if $lendsprefs.VIEW_DESCRIPTION}
                                     {$objt->search_description}
                                 {/if}
                             </td>
                         {/if}
-                        {if $view_serial}
+                        {if $lendsprefs.VIEW_SERIAL}
                             <td>
                                 {$objt->search_serial_number}
                             </td>
                         {/if}
-                        {if $view_price}
+                        {if $lendsprefs.VIEW_PRICE}
                             <td align="right">
                                 {$objt->price}
                             </td>
                         {/if}
-                        {if $view_lend_price}
+                        {if $lendsprefs.VIEW_LEND_PRICE}
                             <td align="right">
                                 {$objt->rent_price}
                             </td>
                         {/if}
-                        {if $view_dimension}
+                        {if $lendsprefs.VIEW_DIMENSION}
                             <td>
                                 {$objt->search_dimension}
                             </td>
                         {/if}
-                        {if $view_weight}
+                        {if $lendsprefs.VIEW_WEIGHT}
                             <td align="right">
                                 {$objt->weight}
                             </td>

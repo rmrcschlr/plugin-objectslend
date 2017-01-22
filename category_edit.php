@@ -50,6 +50,9 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 require_once '_config.inc.php';
 
 $tpl->assign('page_title', _T("CATEGORY EDIT.PAGE TITLE"));
+
+$lendsprefs = new Preferences($zdb);
+
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -102,9 +105,7 @@ if (filter_has_var(INPUT_GET, 'category_id')) {
 }
 
 $tpl->assign('category', $category);
-$tpl->assign('view_category_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY_THUMB));
-$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 
 $content = $tpl->fetch('category_edit.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);

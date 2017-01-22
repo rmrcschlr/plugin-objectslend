@@ -53,6 +53,9 @@ if (!$login->isLogged()) {
 require_once '_config.inc.php';
 
 $tpl->assign('page_title', _T("TAKE OBJECT.PAGE TITLE"));
+
+$lendsprefs = new Preferences($zdb);
+
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -93,14 +96,14 @@ if (filter_has_var(INPUT_POST, 'yes')) {
     }
 
     // Ajout d'une contribution
-    if ($rentprice > 0 && Preferences::getParameterValue(Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION)) {
+    if ($rentprice > 0 && $lendsprefs->{Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION}) {
         $contrib = new Galette\Entity\Contribution();
 
-        $info = str_replace(array('{NAME}', '{DESCRIPTION}', '{SERIAL_NUMBER}', '{PRICE}', '{RENT_PRICE}', '{WEIGHT}', '{DIMENSION}'), array($object->name, $object->description, $object->serial_number, $object->price, $object->rent_price, $object->weight, $object->dimension), Preferences::getParameterValue(Preferences::PARAM_GENERATED_CONTRIB_INFO_TEXT));
+        $info = str_replace(array('{NAME}', '{DESCRIPTION}', '{SERIAL_NUMBER}', '{PRICE}', '{RENT_PRICE}', '{WEIGHT}', '{DIMENSION}'), array($object->name, $object->description, $object->serial_number, $object->price, $object->rent_price, $object->weight, $object->dimension), $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIB_INFO_TEXT});
 
         $values = array(
             'montant_cotis' => $rentprice,
-            \Galette\Entity\ContributionsTypes::PK => Preferences::getParameterValue(Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID),
+            \Galette\Entity\ContributionsTypes::PK => $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID},
             'date_enreg' => date(_T("Y-m-d")),
             'date_debut_cotis' => date(_T("Y-m-d")),
             'type_paiement_cotis' => intval(filter_input(input_, 'payment_type')),
@@ -144,7 +147,7 @@ if ($login->isAdmin() || $login->isStaff()) {
 }
 
 // Vérification que l'utilisateur a le droit de prendre l'objet
-if (!Preferences::getParameterValue(Preferences::PARAM_ENABLE_MEMBER_RENT_OBJECT) && !($login->isAdmin() || $login->isStaff())) {
+if (!$lendsprefs->{Preferences::PARAM_ENABLE_MEMBER_RENT_OBJECT} && !($login->isAdmin() || $login->isStaff())) {
     header('location: objects_list.php?msg=not_taken');
 }
 
@@ -169,27 +172,24 @@ $s = LendObjectPicture::getHeightWidthForObject($object);
 $object->tooltip_title = '<center>';
 $object->tooltip_title .= '<img src=\'picture.php?quick=1&object_id=' . $object->object_id . '\' width=\'' . $s->width . '\' height=\'' . $s->height . '\'/>';
 $object->tooltip_title .= '<br/><b>' . $object->name . '</b>';
-if (Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL) && strlen($object->serial_number) > 0) {
+if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL} && strlen($object->serial_number) > 0) {
     $object->tooltip_title .= ' (' . $object->serial_number . ')';
 }
 $object->tooltip_title .= '<br/>&nbsp;';
-if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION) && strlen($object->description) > 0) {
+if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION} && strlen($object->description) > 0) {
     $object->tooltip_title .= '<br/>' . $object->description;
 }
-if (Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION) && strlen($object->dimension) > 0) {
+if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION} && strlen($object->dimension) > 0) {
     $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.DIMENSION') . ' : ' . $object->dimension;
 }
-if (Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT) && $object->weight_bulk > 0) {
+if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT} && $object->weight_bulk > 0) {
     $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.WEIGHT') . ' : ' . $object->weight;
 }
 
 $tpl->assign('object', $object);
 $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());
 $tpl->assign('members', $members);
-$tpl->assign('add_contribution', Preferences::getParameterValue(Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION));
-$tpl->assign('view_object_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_OBJECT_THUMB));
-$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('ajax', $ajax);
 $tpl->assign('require_calendar', true);
 $tpl->assign('year', date('Y'));

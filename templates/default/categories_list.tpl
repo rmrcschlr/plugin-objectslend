@@ -46,7 +46,7 @@
                 <a href="?tri=is_active&direction={if $tri eq 'is_active' && $direction eq 'asc'}desc{else}asc{/if}">
                     {_T string="CATEGORIES LIST.IS ACTIVE"}
                 </a>
-                {if $tri eq 'is_active' && $direction eq 'asc'} 
+                {if $tri eq 'is_active' && $direction eq 'asc'}
                     <img src="{$template_subdir}images/down.png">
                 {elseif $tri eq 'is_active' && $direction eq 'desc'}
                     <img src="{$template_subdir}images/up.png">
@@ -68,7 +68,7 @@
                 </td>
                 <td>
                     {if $categ->categ_image_url ne ''}
-                        <img src="{$categ->categ_image_url}" {if $view_category_thumb}style="max-width: {$thumb_max_width}px; max-height: {$thumb_max_height}px;"{/if}/>
+                        <img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-width: {$lendsprefs.THUMB_MAX_WIDTH}px; max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px;"{/if}/>
                     {/if}
                 </td>
                 <td>

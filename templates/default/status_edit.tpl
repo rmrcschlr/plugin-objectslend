@@ -32,12 +32,11 @@
                     </label>
                     <input type="text" name="rent_day_number" size="5" maxlength="6" value="{$status->rent_day_number}">
                 </p>
-            </div>        
+            </div>
         </fieldset>
     </div>
     <div class="button-container">
-        <input type="submit" id="lend_save" name="save" value="{_T string="STATUS EDIT.SAVE"}">
-        <input type="submit" id="lend_cancel" name="cancel" value="{_T string="STATUS EDIT.CANCEL"}" onclick="document.location = 'status_list.php?msg=canceled';
-                return false;">
+        <input type="submit" id="btnsave" name="save" value="{_T string="Save"}">
+        <a href="status_list.php?msg=canceled" class="button" id="btncancel">{_T string="Cancel"}</a>
     </div>
 </form>

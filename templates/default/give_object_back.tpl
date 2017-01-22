@@ -10,11 +10,11 @@
             <div>
                 <p>
                     {if $object->draw_image}
-                        <img src="{$object->object_image_url}" 
-                             class="picture tooltip_lend" 
-                             align="right" 
-                             title="{$object->tooltip_title}" 
-                             {if $view_object_thumb}style="max-height: {$thumb_max_height}px; max-width: {$thumb_max_width}px;"{/if}/>
+                        <img src="{$object->object_image_url}"
+                             class="picture tooltip_lend"
+                             align="right"
+                             title="{$object->tooltip_title}"
+                             {if $lendsprefs.VIEW_OBJECT_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}/>
                     {/if}
                     <span class="bline">{_T string="GIVE OBJECT BACK.NAME"}</span>
                     {$object->name}

@@ -52,6 +52,9 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 require_once '_config.inc.php';
 
 $tpl->assign('page_title', _T("TAKE OBJECTS.PAGE TITLE"));
+
+$lendsprefs = new Preferences($zdb);
+
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -86,14 +89,14 @@ if (filter_has_var(INPUT_POST, 'yes')) {
         }
 
         // Ajout d'une contribution
-        if ($rent > 0 && Preferences::getParameterValue(Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION)) {
+        if ($rent > 0 && $lendsprefs->{Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION}) {
             $contrib = new Galette\Entity\Contribution();
 
-            $info = str_replace(array('{NAME}', '{DESCRIPTION}', '{SERIAL_NUMBER}', '{PRICE}', '{RENT_PRICE}', '{WEIGHT}', '{DIMENSION}'), array($object->name, $object->description, $object->serial_number, $object->price, $object->rent_price, $object->weight, $object->dimension), Preferences::getParameterValue(Preferences::PARAM_GENERATED_CONTRIB_INFO_TEXT));
+            $info = str_replace(array('{NAME}', '{DESCRIPTION}', '{SERIAL_NUMBER}', '{PRICE}', '{RENT_PRICE}', '{WEIGHT}', '{DIMENSION}'), array($object->name, $object->description, $object->serial_number, $object->price, $object->rent_price, $object->weight, $object->dimension), $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIB_INFO_TEXT});
 
             $values = array(
                 'montant_cotis' => $rentprice,
-                \Galette\Entity\ContributionsTypes::PK => Preferences::getParameterValue(Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID),
+                \Galette\Entity\ContributionsTypes::PK => $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID},
                 'date_enreg' => date(_T("Y-m-d")),
                 'date_debut_cotis' => date(_T("Y-m-d")),
                 'type_paiement_cotis' => intval(filter_input(INPUT_POST, 'payment_type')),
@@ -149,22 +152,7 @@ $tpl->assign('objects', $objects);
 $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());
 $tpl->assign('members', $members);
 
-/**
- * Paramètres de visibilité des colonnes
- */
-$tpl->assign('view_category', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY));
-$tpl->assign('view_serial', Preferences::getParameterValue(Preferences::PARAM_VIEW_SERIAL));
-$tpl->assign('view_thumbnail', Preferences::getParameterValue(Preferences::PARAM_VIEW_THUMBNAIL));
-$tpl->assign('view_name', Preferences::getParameterValue(Preferences::PARAM_VIEW_NAME));
-$tpl->assign('view_description', Preferences::getParameterValue(Preferences::PARAM_VIEW_DESCRIPTION));
-$tpl->assign('view_price', Preferences::getParameterValue(Preferences::PARAM_VIEW_PRICE));
-$tpl->assign('view_dimension', Preferences::getParameterValue(Preferences::PARAM_VIEW_DIMENSION));
-$tpl->assign('view_weight', Preferences::getParameterValue(Preferences::PARAM_VIEW_WEIGHT));
-$tpl->assign('view_lend_price', Preferences::getParameterValue(Preferences::PARAM_VIEW_LEND_PRICE));
-$tpl->assign('view_object_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_OBJECT_THUMB));
-$tpl->assign('add_contribution', Preferences::getParameterValue(Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION));
-$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('ajax', $ajax);
 $tpl->assign('safe_objects_ids', join(',', $safe_objects_ids));
 

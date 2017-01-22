@@ -49,6 +49,8 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
+$lendsprefs = new Preferences($zdb);
+
 $tpl->assign('page_title', _T("CATEGORIES LIST.PAGE TITLE"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
@@ -70,9 +72,7 @@ $tpl->assign('direction', $direction);
 $tpl->assign('msg_saved', $saved);
 $tpl->assign('msg_canceled', $canceled);
 $tpl->assign('msg_deleted', $deleted);
-$tpl->assign('view_category_thumb', Preferences::getParameterValue(Preferences::PARAM_VIEW_CATEGORY_THUMB));
-$tpl->assign('thumb_max_width', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
-$tpl->assign('thumb_max_height', Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 
 $content = $tpl->fetch('categories_list.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);

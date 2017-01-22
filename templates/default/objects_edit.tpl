@@ -117,7 +117,7 @@
                     <p>
                         <span class="bline">{_T string="OBJECT EDIT.THUMB"}</span>
                         <img src="{$object->object_image_url}"
-                             width="{$thumb_max_width}" height="{$thumb_max_height}"/>
+                             width="{$lendsprefs.THUMB_MAX_WIDTH}" height="{$lendsprefs.THUMB_MAX_HEIGHT}"/>
                     </p>
                 </div>
             {/if}

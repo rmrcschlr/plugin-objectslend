@@ -14,7 +14,7 @@
                              class="picture tooltip_lend" 
                              align="right" 
                              title="{$object->tooltip_title}" 
-                             {if $view_object_thumb}style="max-height: {$thumb_max_height}px; max-width: {$thumb_max_width}px;"{/if}/>
+                             {if $lendsprefs.VIEW_OBJECT_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}/>
                     {/if}
                     <span class="bline">{_T string="TAKE OBJECT.NAME"}</span>
                     {$object->name}
@@ -96,7 +96,7 @@
                     <input type="text" id="expected_return" name="expected_return" size="8">
                 </p>
             </div>
-            {if $add_contribution}                
+            {if $lendsprefs.AUTO_GENERATE_CONTRIBUTION}
                 <div>
                     <p>
                         <span class="bline">{_T string="TAKE OBJECT.PAYMENT TYPE"}</span>

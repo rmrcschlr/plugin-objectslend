@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-01-21 22:56+0100\n"
+"PO-Revision-Date: 2017-01-23 17:10+0100\n"
 "Last-Translator: Johan Cwiklinski <johan@x-tnd.be>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -19,6 +19,10 @@ msgstr ""
 #: ../templates/default/objects_edit.tpl:111
 msgid "OBJECT EDIT.DELETE PICTURE"
 msgstr ""
+
+#: ../templates/default/preferences.tpl:79
+msgid "View price sum:"
+msgstr "Voir la somme des prix&nbsp;:"
 
 #: ../templates/default/objects_list.tpl:396
 msgid "OBJECTS LIST.PRINT"
@@ -44,10 +48,6 @@ msgstr "Effacer le filtre"
 msgid "Status"
 msgstr "Statut"
 
-#: ../templates/default/category_edit.tpl:42
-msgid "CATEGORY EDIT.SAVE"
-msgstr ""
-
 #: ../templates/default/objects_list.tpl:39
 msgid "OBJECTS LIST.DELETED"
 msgstr ""
@@ -67,6 +67,10 @@ msgstr "Liste des objets"
 #: ../templates/default/take_more_objects_away.tpl:152
 msgid "TAKE OBJECTS.YES"
 msgstr ""
+
+#: ../templates/default/preferences.tpl:23
+msgid "Generate contribution:"
+msgstr "Générer une contribution&nbsp;:"
 
 #: ../templates/default/take_object.tpl:60
 msgid "TAKE OBJECT.WEIGHT"
@@ -88,13 +92,17 @@ msgstr ""
 msgid "GIVE OBJECT BACK.FROM"
 msgstr ""
 
-#: ../objects_list.php:51
+#: ../objects_list.php:53
 msgid "Managment of the assocation objects"
 msgstr "Gestion des objets de l'association"
 
 #: ../templates/default/objects_edit.tpl:66
 msgid "Price per rental day:"
 msgstr "Prix par jour de location&nbsp;:"
+
+#: ../templates/default/preferences.tpl:4
+msgid "Plugin preferences"
+msgstr "Préférences du plugin"
 
 #: ../templates/default/objects_list.tpl:406
 msgid "OBJECTS LIST.GIVE BACK"
@@ -117,9 +125,17 @@ msgstr ""
 msgid "GIVE OBJECT BACK.COMMENTS"
 msgstr ""
 
-#: ../templates/default/category_edit.tpl:14
-msgid "CATEGORY EDIT.IS ACTIVE"
-msgstr ""
+#: ../templates/default/preferences.tpl:48
+msgid "View category:"
+msgstr "Voir la catégorie&nbsp;:"
+
+#: ../templates/default/preferences.tpl:69
+msgid "View dimensions:"
+msgstr "Voir les dimensions&nbsp;:"
+
+#: ../templates/default/preferences.tpl:111
+msgid "View weight"
+msgstr "Voir le poids"
 
 #: ../templates/default/take_more_objects_away.tpl:115
 msgid "TAKE OBJECTS.SELECT MEMBER"
@@ -137,13 +153,17 @@ msgstr ""
 msgid "STATUS EDIT.TITLE"
 msgstr ""
 
-#: ../templates/default/parametres.tpl:6
-msgid "- ERROR -"
-msgstr "- ERREUR -"
+#: ../templates/default/preferences.tpl:30
+msgid "Contribution type:"
+msgstr "Type de contribution&nbsp;:"
 
 #: ../templates/default/take_more_objects_away.tpl:126
 msgid "TAKE OBJECTS.SELECT STATUS"
 msgstr ""
+
+#: ../templates/default/preferences.tpl:64
+msgid "View description"
+msgstr "Voir la description&nbsp;:"
 
 #: ../templates/default/category_edit.tpl:27
 msgid "CATEGORY EDIT.DELETE PICTURE"
@@ -189,6 +209,16 @@ msgstr "Actions"
 msgid "GIVE OBJECT BACK.REMAINING"
 msgstr ""
 
+#: ../templates/default/preferences.tpl:79
+#: ../templates/default/preferences.tpl:80
+msgid "View the objects buy price sum on the list under the category"
+msgstr ""
+"Voir la somme des prix d'achat des objets sur la liste sous la catégorie"
+
+#: ../templates/default/preferences.tpl:90
+msgid "Object thumbs:"
+msgstr "Voir les minatures&nbsp;:"
+
 #: ../templates/default/categories_list.tpl:3
 msgid "CATEGORIES LIST.SAVED"
 msgstr ""
@@ -198,6 +228,7 @@ msgid "Borrow"
 msgstr "Emprunter"
 
 #: ../templates/default/objects_list.tpl:140
+#: ../templates/default/category_edit.tpl:8
 msgid "Name"
 msgstr "Nom"
 
@@ -213,6 +244,10 @@ msgstr ""
 #: ../templates/default/take_object.tpl:109
 msgid "Paypal"
 msgstr "Paypal"
+
+#: ../templates/default/status_list.tpl:18
+msgid "STATUS LIST.GALETTE LOCATION NEEDED"
+msgstr ""
 
 #: ../templates/default/take_object.tpl:54
 msgid "TAKE OBJECT.DIMENSION"
@@ -230,13 +265,28 @@ msgstr ""
 msgid "OBJECT EDIT.COMMENTS"
 msgstr ""
 
+#: ../templates/default/preferences.tpl:74
+msgid "View borrow price:"
+msgstr "Voir le prix loc.&nbsp;:"
+
 #: ../templates/default/category_edit.tpl:21
 msgid "CATEGORY EDIT.PICTURE"
 msgstr ""
 
-#: ../lib/GaletteObjectsLend/LendParameter.php:460
-msgid "PAGINATE.LAST PAGE"
+#: ../templates/default/take_object.tpl:9
+msgid "TAKE OBJECT.TITLE"
 msgstr ""
+
+#: ../templates/default/take_more_objects_away.tpl:5
+#: ../templates/default/give_object_back.tpl:5
+#: ../templates/default/give_more_objects_back.tpl:5
+#: ../templates/default/take_object.tpl:5
+msgid "AJAX.CLOSE"
+msgstr ""
+
+#: ../templates/default/preferences.tpl:12
+msgid "Max thumb height (in px)"
+msgstr "Taille maxi miniature (en px)"
 
 #: ../templates/default/take_object.tpl:124
 msgid "TAKE OBJECT.RESPONSIBLE FOR"
@@ -255,11 +305,11 @@ msgstr ""
 msgid "Transfer"
 msgstr "Virement"
 
-#: ../templates/default/parametres.tpl:19
-msgid "PARAMETER LEND.CODE"
+#: ../templates/default/take_object.tpl:67
+msgid "TAKE OBJECT.MEMBERS"
 msgstr ""
 
-#: ../objects_edit.php:139
+#: ../objects_edit.php:142
 msgid "An SQL error has occured."
 msgstr "Une erreur SQL est survenue."
 
@@ -279,33 +329,47 @@ msgstr ""
 msgid "ADMIN PICTURE.PAGE TITLE"
 msgstr ""
 
+#: ../templates/default/preferences.tpl:53
+msgid "Category thumbs:"
+msgstr "Minature catégorie&nbsp;:"
+
 #: ../templates/default/give_more_objects_back.tpl:43
 msgid "BACK OBJECTS.RENT PRICE"
 msgstr ""
 
-#: ../templates/default/status_list.tpl:13
-msgid "STATUS LIST.DELETED"
-msgstr ""
+#: ../templates/default/menu.tpl:31
+msgid "Preferences"
+msgstr "Préférences"
 
-#: ../templates/default/take_object.tpl:102
-msgid "TAKE OBJECT.PAYMENT TYPE"
-msgstr ""
+#: ../templates/default/preferences.tpl:59
+msgid "View forecast return date:"
+msgstr "Voir la date de retour prévue&nbsp;:"
 
 #: ../templates/default/give_more_objects_back.tpl:33
 msgid "BACK OBJECTS.SERIAL"
 msgstr ""
 
-#: ../templates/default/status_list.tpl:18
-msgid "STATUS LIST.GALETTE LOCATION NEEDED"
+#: ../templates/default/preferences.tpl:6
+#: ../templates/default/preferences.tpl:7
+msgid ""
+"Allow a member (not staff neither admin) to borrow an object. If set to "
+"'No', only admin and staff members can access the 'Take object' page"
 msgstr ""
+"Autoriser les adhérents (qui ne sont pas membres du staff ni "
+"administrateurs) à emprunter un objet. Si à 'Non', seuls les administrateurs "
+"ou membres du staff pourront accéder à la page 'Emprunt d'objet'"
 
 #: ../templates/default/objects_edit.tpl:105
 msgid "Picture:"
 msgstr "Image&nbsp;:"
 
-#: ../templates/default/take_object.tpl:81
-msgid "TAKE OBJECT.SELECT STATUS"
+#: ../templates/default/objects_edit.tpl:173
+msgid "OBJECT EDIT.NEW COMMENT"
 msgstr ""
+
+#: ../templates/default/preferences.tpl:6
+msgid "Members can borrow:"
+msgstr "Les adhérents peuvent emprunter&nbsp;:"
 
 #: ../templates/default/objects_edit.tpl:150
 msgid "OBJECT EDIT.DATE FIN"
@@ -319,7 +383,11 @@ msgstr ""
 msgid "STATUS EDIT.TEXT"
 msgstr ""
 
-#: ../lib/GaletteObjectsLend/LendParameter.php:431
+#: ../preferences.php:71
+msgid "ObjectsLend preferences"
+msgstr "Préférences ObjectsLend"
+
+#: ../lib/GaletteObjectsLend/Preferences.php:383
 msgid "PAGINATE.FIRST PAGE"
 msgstr ""
 
@@ -353,6 +421,10 @@ msgstr "Chèque"
 msgid "Since"
 msgstr "Depuis"
 
+#: ../templates/default/preferences.tpl:101
+msgid "View serial number:"
+msgstr "Voir le numéro de série&nbsp;:"
+
 #: ../templates/default/objects_list.tpl:65
 msgid "Filter"
 msgstr "Filter"
@@ -373,10 +445,6 @@ msgstr "Autre"
 #: ../templates/default/objects_edit.tpl:34
 msgid "--- Select a category ---"
 msgstr "--- Choisissez une catégorie ---"
-
-#: ../templates/default/category_edit.tpl:43
-msgid "CATEGORY EDIT.CANCEL"
-msgstr ""
 
 #: ../templates/default/give_object_back.tpl:85
 msgid "GIVE OBJECT BACK.NO"
@@ -410,13 +478,14 @@ msgstr ""
 msgid "CATEGORIES LIST.DELETE"
 msgstr ""
 
-#: ../templates/default/parametres.tpl:38
-msgid "PARAMETER LEND.TEXT"
-msgstr ""
-
 #: ../templates/default/objects_list.tpl:112
 msgid "Records per page:"
 msgstr "Enregistrements par page&nbsp;:"
+
+#: ../templates/default/status_edit.tpl:40
+#: ../templates/default/category_edit.tpl:43
+msgid "Cancel"
+msgstr "Annuler"
 
 #: ../templates/default/objects_list.tpl:111
 msgid "objects"
@@ -450,7 +519,14 @@ msgstr ""
 msgid "STATUS LIST.RENT DAY NUMBER"
 msgstr ""
 
+#: ../templates/default/preferences.tpl:40
+msgid "Contribution text:"
+msgstr "Texte contributions&nbsp;:"
+
+#: ../templates/default/status_edit.tpl:39
 #: ../templates/default/objects_edit.tpl:127
+#: ../templates/default/preferences.tpl:118
+#: ../templates/default/category_edit.tpl:42
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -467,9 +543,13 @@ msgstr ""
 msgid "OBJECT EDIT.DUPLICATE"
 msgstr ""
 
-#: ../categories_list.php:52
+#: ../categories_list.php:54
 msgid "CATEGORIES LIST.PAGE TITLE"
 msgstr ""
+
+#: ../templates/default/preferences.tpl:96
+msgid "View buy price:"
+msgstr "Voir le prix d'achat&nbsp;:"
 
 #: ../templates/default/categories_list.tpl:13
 msgid "CATEGORIES LIST.DELETED"
@@ -483,9 +563,13 @@ msgstr ""
 msgid "For the selection:"
 msgstr "Pour la sélection&nbsp;:"
 
-#: ../templates/default/objects_list.tpl:111
-msgid "object"
-msgstr "objet"
+#: ../templates/default/preferences.tpl:85
+msgid "View name:"
+msgstr "Voir le nom&nbsp;:"
+
+#: ../templates/default/objects_list.tpl:34
+msgid "OBJECTS LIST.BAD LOCATION"
+msgstr ""
 
 #: ../templates/default/objects_edit.tpl:153
 msgid "OBJECT EDIT.ADH"
@@ -495,6 +579,24 @@ msgstr ""
 #: ../templates/default/objects_edit.tpl:135
 msgid "Back to objects list"
 msgstr "Retour à la liste des objets"
+
+#: ../templates/default/preferences.tpl:8
+#: ../templates/default/preferences.tpl:25
+#: ../templates/default/preferences.tpl:49
+#: ../templates/default/preferences.tpl:55
+#: ../templates/default/preferences.tpl:60
+#: ../templates/default/preferences.tpl:65
+#: ../templates/default/preferences.tpl:70
+#: ../templates/default/preferences.tpl:75
+#: ../templates/default/preferences.tpl:81
+#: ../templates/default/preferences.tpl:86
+#: ../templates/default/preferences.tpl:92
+#: ../templates/default/preferences.tpl:97
+#: ../templates/default/preferences.tpl:102
+#: ../templates/default/preferences.tpl:107
+#: ../templates/default/preferences.tpl:112
+msgid "Yes"
+msgstr "Oui"
 
 #: ../templates/default/status_edit.tpl:30
 msgid "STATUS EDIT.RENT DAY NUMBER"
@@ -512,10 +614,6 @@ msgstr ""
 msgid "Active"
 msgstr "Actif"
 
-#: ../templates/default/parametres.tpl:20
-msgid "PARAMETER LEND.FORMAT"
-msgstr ""
-
 #: ../templates/default/objects_edit.tpl:59
 msgid "Borrow price (%currency):"
 msgstr "Prix (%currency)&nbsp;:"
@@ -524,11 +622,12 @@ msgstr "Prix (%currency)&nbsp;:"
 msgid "TAKE OBJECTS.MEMBERS"
 msgstr ""
 
-#: ../templates/default/take_more_objects_away.tpl:5
-#: ../templates/default/give_object_back.tpl:5
-#: ../templates/default/give_more_objects_back.tpl:5
-#: ../templates/default/take_object.tpl:5
-msgid "AJAX.CLOSE"
+#: ../templates/default/preferences.tpl:106
+msgid "View thumnails:"
+msgstr "Voir les miniatures&nbsp;:"
+
+#: ../lib/GaletteObjectsLend/Preferences.php:412
+msgid "PAGINATE.LAST PAGE"
 msgstr ""
 
 #: ../templates/default/status_list.tpl:114
@@ -551,15 +650,24 @@ msgstr ""
 msgid "No object has been found"
 msgstr "Aucun objet trouvé"
 
-#: ../templates/default/parametres.tpl:42
-msgid "PARAMETER LEND.NUMERIC"
+#: ../templates/default/preferences.tpl:23
+#: ../templates/default/preferences.tpl:24
+msgid ""
+"Automatically generate a contribution for the member of the amount of the "
+"rental price of the object"
+msgstr ""
+"Générer automatiquement une contribution pour l'adhérent du montant de la "
+"location de cet objet"
+
+#: ../templates/default/status_list.tpl:13
+msgid "STATUS LIST.DELETED"
 msgstr ""
 
 #: ../templates/default/objects_edit.tpl:16
 msgid "Object"
 msgstr "Objet"
 
-#: ../objects_edit.php:135
+#: ../objects_edit.php:138
 msgid "Mime-Type not allowed"
 msgstr "Type mime non autorisé"
 
@@ -575,12 +683,12 @@ msgstr ""
 msgid "ADMIN PICTURE.SAVE CATEGORIES"
 msgstr ""
 
-#: ../templates/default/menu.tpl:34
-msgid "Parameters"
-msgstr "Paramètres"
+#: ../templates/default/preferences.tpl:32
+msgid "Choose a contribution type"
+msgstr "Choisissez un type de contribution"
 
-#: ../templates/default/category_edit.tpl:5
-msgid "CATEGORY EDIT.TITLE"
+#: ../templates/default/take_object.tpl:81
+msgid "TAKE OBJECT.SELECT STATUS"
 msgstr ""
 
 #: ../templates/default/take_object.tpl:25
@@ -615,7 +723,7 @@ msgstr ""
 msgid "BACK OBJECTS.PRICE"
 msgstr ""
 
-#: ../objects_edit.php:130
+#: ../objects_edit.php:133
 msgid "File is too big. Maximum allowed size is %d"
 msgstr ""
 
@@ -627,20 +735,16 @@ msgstr ""
 msgid "BACK OBJECTS.REMAINING"
 msgstr ""
 
-#: ../templates/default/take_object.tpl:67
-msgid "TAKE OBJECT.MEMBERS"
-msgstr ""
-
 #: ../templates/default/objects_list.tpl:355
 msgid "OBJECTS LIST.TAKE AWAY"
 msgstr ""
 
-#: ../lib/GaletteObjectsLend/LendParameter.php:455
+#: ../lib/GaletteObjectsLend/Preferences.php:407
 msgid "PAGINATE.NEXT PAGE"
 msgstr ""
 
-#: ../templates/default/status_list.tpl:136
-msgid "STATUS LIST.CONFIRM DELETE"
+#: ../templates/default/take_object.tpl:102
+msgid "TAKE OBJECT.PAYMENT TYPE"
 msgstr ""
 
 #: ../templates/default/status_list.tpl:131
@@ -660,6 +764,10 @@ msgstr ""
 msgid "Cash"
 msgstr "Espèces"
 
+#: ../templates/default/status_list.tpl:136
+msgid "STATUS LIST.CONFIRM DELETE"
+msgstr ""
+
 #: ../templates/default/give_object_back.tpl:9
 msgid "GIVE OBJECT BACK.TITLE"
 msgstr ""
@@ -678,10 +786,6 @@ msgstr ""
 
 #: ../templates/default/status_list.tpl:64
 msgid "STATUS LIST.IS ACTIVE"
-msgstr ""
-
-#: ../templates/default/status_edit.tpl:40
-msgid "STATUS EDIT.CANCEL"
 msgstr ""
 
 #: ../templates/default/take_object.tpl:19
@@ -704,15 +808,12 @@ msgstr ""
 msgid "GIVE OBJECT BACK.SELECT STATUS"
 msgstr ""
 
-#: ../parameters.php:152
-msgid "PARAMETER LEND.PAGE TITLE"
-msgstr ""
+#: ../templates/default/preferences.tpl:53
+#: ../templates/default/preferences.tpl:54
+msgid "View category pictures as thumb or in fulllsize"
+msgstr "Voir les images des catégories en miniature ou en pleine taille"
 
-#: ../templates/default/take_object.tpl:9
-msgid "TAKE OBJECT.TITLE"
-msgstr ""
-
-#: ../templates/default/menu.tpl:22
+#: ../templates/default/menu.tpl:21
 msgid "Borrow status"
 msgstr "Statuts de location"
 
@@ -725,16 +826,8 @@ msgstr ""
 msgid "Weight (kg):"
 msgstr "Poids (kg)&nbsp;:"
 
-#: ../templates/default/parametres.tpl:29
-msgid "PARAMETER LEND.LABEL {$parametre->code}"
-msgstr ""
-
 #: ../templates/default/status_list.tpl:3
 msgid "STATUS LIST.SAVED"
-msgstr ""
-
-#: ../templates/default/categories_list.tpl:37
-msgid "CATEGORIES LIST.TEXT"
 msgstr ""
 
 #: ../templates/default/objects_edit.tpl:161
@@ -749,15 +842,11 @@ msgstr "Créer un nouvel objet"
 msgid "OBJECT EDIT.CONFIRM DUPLICATE"
 msgstr ""
 
-#: ../templates/default/parametres.tpl:21
-msgid "PARAMETER LEND.VALUE"
-msgstr ""
-
 #: ../templates/default/objects_list.tpl:64
 msgid "Enter a value"
 msgstr "Entrer une valeur"
 
-#: ../templates/default/menu.tpl:28
+#: ../templates/default/menu.tpl:26
 msgid "Object categories"
 msgstr "Catégories d'objets"
 
@@ -765,9 +854,13 @@ msgstr "Catégories d'objets"
 msgid "TAKE OBJECTS.DESCRIPTION"
 msgstr ""
 
-#: ../templates/default/objects_list.tpl:34
-msgid "OBJECTS LIST.BAD LOCATION"
-msgstr ""
+#: ../templates/default/objects_list.tpl:111
+msgid "object"
+msgstr "objet"
+
+#: ../templates/default/preferences.tpl:16
+msgid "Max thumb width (in px)"
+msgstr "Taille max. minitaure (en px)"
 
 #: ../templates/default/take_object.tpl:31
 msgid "TAKE OBJECT.SERIAL"
@@ -777,7 +870,7 @@ msgstr ""
 msgid "Category:"
 msgstr "Catégorie"
 
-#: ../templates/default/menu.tpl:40
+#: ../templates/default/menu.tpl:36
 msgid "Picture admin"
 msgstr "Administration images"
 
@@ -806,16 +899,25 @@ msgstr ""
 msgid "TAKE OBJECT.DAYS"
 msgstr ""
 
-#: ../templates/default/status_list.tpl:27
-msgid "STATUS LIST.NB RESULT"
+#: ../templates/default/preferences.tpl:41
+msgid ""
+"Comment text to add on generated contribution. Automatically replaced values "
+"(put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: "
+"Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- "
+"RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"
 msgstr ""
+"Texte de commentaire à ajouter sur les contributions générées. Valeur "
+"remplacées automatiquement (mettre entre accolades)&nbsp;: <br/>- NAME : "
+"Nom<br/>- DESCRIPTION: Description<br/>- SERIAL_NUMBER : Numéro de série<br/"
+">- PRICE: Prix<br/>- RENT_PRICE : Prix d'emprunt<br/>- WEIGHT : Poids<br/>- "
+"DIMENSION : Dimensions"
 
 #: ../templates/default/objects_list.tpl:522
 msgid "OBJECTS LIST.CONFIRM DELETE"
 msgstr ""
 
-#: ../templates/default/status_edit.tpl:39
-msgid "STATUS EDIT.SAVE"
+#: ../templates/default/categories_list.tpl:37
+msgid "CATEGORIES LIST.TEXT"
 msgstr ""
 
 #: ../lib/GaletteObjectsLend/LendObject.php:207
@@ -829,6 +931,10 @@ msgstr ""
 #: ../templates/default/objects_list.tpl:447
 msgid "(Un)Check all"
 msgstr "Tout (dé)cocher"
+
+#: ../templates/default/preferences.tpl:46
+msgid "Display preferences"
+msgstr "Préférences d'affichage"
 
 #: ../templates/default/objects_edit.tpl:104
 #: ../templates/default/objects_edit.tpl:107
@@ -846,10 +952,6 @@ msgstr "État de l'objet&nbsp;:"
 msgid "RENT.AJOUT ECHEC"
 msgstr ""
 
-#: ../templates/default/category_edit.tpl:8
-msgid "CATEGORY EDIT.NAME"
-msgstr ""
-
 #: ../templates/default/give_more_objects_back.tpl:21
 msgid "BACK OBJECTS.NAME"
 msgstr ""
@@ -857,6 +959,10 @@ msgstr ""
 #: ../templates/default/objects_edit.tpl:74
 msgid "Dimensions (cm):"
 msgstr "Dimensions (cm)&nbsp;:"
+
+#: ../lib/GaletteObjectsLend/Preferences.php:322
+msgid "Unable to store preferences :("
+msgstr "Impossible d'enregistrer les préférences :("
 
 #: ../templates/default/objects_list.tpl:447
 msgid "Invert selection"
@@ -870,16 +976,16 @@ msgstr "Modification d'un objet"
 msgid "Borrow price"
 msgstr "Prix loc."
 
+#: ../templates/default/category_edit.tpl:14
+msgid "Is active"
+msgstr "Est actif"
+
 #: ../templates/default/take_more_objects_away.tpl:53
 msgid "TAKE OBJECTS.WEIGHT"
 msgstr ""
 
 #: ../templates/default/take_object.tpl:69
 msgid "TAKE OBJECT.SELECT MEMBER"
-msgstr ""
-
-#: ../templates/default/parametres.tpl:2
-msgid "PARAMETER LEND.PARAMETERS SAVED"
 msgstr ""
 
 #: ../templates/default/objects_list.tpl:412
@@ -890,9 +996,23 @@ msgstr ""
 msgid "BACK OBJECTS.WEIGHT"
 msgstr ""
 
-#: ../templates/default/parametres.tpl:55
-msgid "PARAMETER LEND.SAVE"
-msgstr ""
+#: ../templates/default/preferences.tpl:9
+#: ../templates/default/preferences.tpl:26
+#: ../templates/default/preferences.tpl:50
+#: ../templates/default/preferences.tpl:56
+#: ../templates/default/preferences.tpl:61
+#: ../templates/default/preferences.tpl:66
+#: ../templates/default/preferences.tpl:71
+#: ../templates/default/preferences.tpl:76
+#: ../templates/default/preferences.tpl:82
+#: ../templates/default/preferences.tpl:87
+#: ../templates/default/preferences.tpl:93
+#: ../templates/default/preferences.tpl:98
+#: ../templates/default/preferences.tpl:103
+#: ../templates/default/preferences.tpl:108
+#: ../templates/default/preferences.tpl:113
+msgid "No"
+msgstr "Non"
 
 #: ../templates/default/objects_edit.tpl:142
 msgid "History of object loans"
@@ -910,9 +1030,9 @@ msgstr ""
 msgid "OBJECTS LIST.NO RIGHT"
 msgstr ""
 
-#: ../templates/default/objects_edit.tpl:173
-msgid "OBJECT EDIT.NEW COMMENT"
-msgstr ""
+#: ../preferences.php:67
+msgid "Preferences have been successfully stored!"
+msgstr "Les préférences ont été sauvegardées avec succès&nbsp;!"
 
 #: ../templates/default/objects_edit.tpl:181
 msgid "OBJECT EDIT.NEW ADH"
@@ -928,6 +1048,10 @@ msgstr ""
 
 #: ../templates/default/take_object.tpl:79
 msgid "TAKE OBJECT.STATUS"
+msgstr ""
+
+#: ../templates/default/category_edit.tpl:5
+msgid "CATEGORY EDIT.TITLE"
 msgstr ""
 
 #: ../templates/default/objects_list.tpl:63
@@ -946,17 +1070,17 @@ msgstr "Dimensions"
 msgid "OBJECTS LIST.MORE AWAY"
 msgstr ""
 
-#: ../lib/GaletteObjectsLend/LendParameter.php:446
+#: ../lib/GaletteObjectsLend/Preferences.php:398
 msgid "PAGINATE.GO TO PAGE"
-msgstr ""
-
-#: ../templates/default/parametres.tpl:34
-msgid "PARAMETER LEND.DATE"
 msgstr ""
 
 #: ../templates/default/objects_list.tpl:245
 msgid "By"
 msgstr "Par"
+
+#: ../templates/default/preferences.tpl:21
+msgid "Contribution related"
+msgstr "Relatif aux contributions"
 
 #: ../templates/default/category_edit.tpl:20
 msgid "OBJECT EDIT.HELP UPLOAD PICTURE"
@@ -986,17 +1110,17 @@ msgstr ""
 msgid "STATUS LIST.CANCELED"
 msgstr ""
 
-#: ../give_object_back.php:54 ../give_more_objects_back.php:78
+#: ../give_object_back.php:54 ../give_more_objects_back.php:80
 msgid "BACK OBJECTS.PAGE TITLE"
-msgstr ""
-
-#: ../templates/default/parametres.tpl:16
-msgid "PARAMETER LEND.LIST"
 msgstr ""
 
 #: ../templates/default/objects_edit.tpl:86
 msgid "Active:"
 msgstr "Actif&nbsp;:"
+
+#: ../templates/default/preferences.tpl:40
+msgid "Comment text to add on generated contribution"
+msgstr "Texte de commentaire à ajouter aux contributions générées"
 
 #: ../templates/default/categories_list.tpl:17
 msgid "CATEGORIES LIST.NB RESULT"
@@ -1010,7 +1134,7 @@ msgstr ""
 msgid "TAKE OBJECT.YES"
 msgstr ""
 
-#: ../lib/GaletteObjectsLend/LendParameter.php:436
+#: ../lib/GaletteObjectsLend/Preferences.php:388
 msgid "PAGINATE.PREVIOUS PAGE"
 msgstr ""
 
@@ -1034,6 +1158,10 @@ msgstr "Prix"
 msgid "CATEGORIES LIST.CANCELED"
 msgstr ""
 
+#: ../templates/default/status_list.tpl:27
+msgid "STATUS LIST.NB RESULT"
+msgstr ""
+
 #: ../templates/default/objects_list.tpl:469
 msgid ""
 "Please make sure to select at least one object from the list to perform this "
@@ -1048,6 +1176,11 @@ msgstr ""
 msgid "Picture"
 msgstr "Image"
 
+#: ../templates/default/preferences.tpl:90
+#: ../templates/default/preferences.tpl:91
+msgid "View object pictures as thumb or in fulllsize"
+msgstr "Voir les images des objets en miniature ou en pleine taille"
+
 #: ../templates/default/give_object_back.tpl:37
 msgid "GIVE OBJECT BACK.PRICE"
 msgstr ""
@@ -1056,8 +1189,8 @@ msgstr ""
 msgid "Return"
 msgstr "Retour"
 
-#: ../take_object.php:104 ../take_object.php:105
-#: ../take_more_objects_away.php:97 ../take_more_objects_away.php:98
+#: ../take_object.php:107 ../take_object.php:108
+#: ../take_more_objects_away.php:100 ../take_more_objects_away.php:101
 msgid "Y-m-d"
 msgstr "d/m/Y"
 
@@ -1069,11 +1202,17 @@ msgstr "Description&nbsp;:"
 msgid "TAKE OBJECTS.PAYMENT TYPE"
 msgstr ""
 
-#: ../objects_edit.php:123
+#: ../objects_edit.php:126
 msgid ""
 "- Filename or extension is incorrect. Only %s files are allowed. File name "
 "should not contains any of: %t"
 msgstr ""
+
+#~ msgid "- ERROR -"
+#~ msgstr "- ERREUR -"
+
+#~ msgid "Parameters"
+#~ msgstr "Paramètres"
 
 #~ msgid "Borrow status list"
 #~ msgstr "Gestion des statuts d'emprunt"
