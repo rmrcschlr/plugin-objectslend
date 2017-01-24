@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Mon Jan 23 16:11:02 2017 (GMT)
+// This file was automatically generated on Tue Jan 24 05:03:30 2017 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -12,7 +12,7 @@ $lang['TAKE OBJECT.NO'] = '';
 // ../templates/default/objects_list.tpl:385 
 $lang['No object has been found'] = 'Aucun objet trouvé';
 
-// ../templates/default/objects_list.tpl:111 
+// ../objects_list_print.php:121 ../templates/default/objects_list.tpl:111 
 $lang['object'] = 'objet';
 
 // ../templates/default/objects_edit.tpl:208 
@@ -24,8 +24,11 @@ $lang['Category thumbs:'] = 'Minature catégorie&nbsp;:';
 // ../templates/default/preferences.tpl:40 
 $lang['Contribution text:'] = 'Texte contributions&nbsp;:';
 
-// ../templates/default/categories_list.tpl:8 
-$lang['CATEGORIES LIST.CANCELED'] = '';
+// ../objects_print.php:212 
+$lang['Comments'] = 'Commentaires';
+
+// ../templates/default/take_more_objects_away.tpl:140 ../templates/default/take_object.tpl:106 
+$lang['Credit card'] = 'Carte de crédit';
 
 // ../templates/default/give_object_back.tpl:57 
 $lang['GIVE OBJECT BACK.SELECT STATUS'] = '';
@@ -48,9 +51,6 @@ $lang['TAKE OBJECT.RENT PRICE'] = '';
 // ../templates/default/preferences.tpl:32 
 $lang['Choose a contribution type'] = 'Choisissez un type de contribution';
 
-// ../templates/default/objects_edit.tpl:80 
-$lang['Weight (kg):'] = 'Poids (kg)&nbsp;:';
-
 // ../lib/GaletteObjectsLend/Preferences.php:322 
 $lang['Unable to store preferences :('] = 'Impossible d\'enregistrer les préférences :(';
 
@@ -69,14 +69,17 @@ $lang['STATUS LIST.DELETE SHORT'] = '';
 // ../templates/default/objects_edit.tpl:16 
 $lang['Object'] = 'Objet';
 
+// ../objects_list_print.php:115 
+$lang['Selected category: %category'] = 'Catégorie sélectionnée&nbsp;: %category';
+
 // ../objects_edit.php:126 
 $lang['- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t'] = '';
 
 // ../templates/default/give_more_objects_back.tpl:43 
 $lang['BACK OBJECTS.RENT PRICE'] = '';
 
-// ../templates/default/take_object.tpl:86 
-$lang['TAKE OBJECT.DAYS'] = '';
+// ../templates/default/categories_list.tpl:17 
+$lang['CATEGORIES LIST.NB RESULT'] = '';
 
 // ../lib/GaletteObjectsLend/Preferences.php:388 
 $lang['PAGINATE.PREVIOUS PAGE'] = '';
@@ -87,11 +90,14 @@ $lang['Show legend'] = 'Afficher la légende';
 // ../templates/default/objects_list.tpl:447 
 $lang['Invert selection'] = 'Inverser la sélection';
 
-// ../take_object.php:107 ../take_object.php:108 ../take_more_objects_away.php:100 ../take_more_objects_away.php:101 
+// ../take_object.php:107 ../take_object.php:108 ../objects_list_print.php:111 ../take_more_objects_away.php:100 ../take_more_objects_away.php:101 
 $lang['Y-m-d'] = 'd/m/Y';
 
 // ../templates/default/give_object_back.tpl:43 
 $lang['GIVE OBJECT BACK.DIMENSION'] = '';
+
+// ../templates/default/take_more_objects_away.tpl:21 
+$lang['TAKE OBJECTS.NAME'] = '';
 
 // ../templates/default/categories_list.tpl:33 
 $lang['CATEGORIES LIST.IMAGE'] = '';
@@ -138,14 +144,17 @@ $lang['OBJECTS LIST.DISABLE'] = '';
 // ../templates/default/objects_edit.tpl:134 ../templates/default/objects_edit.tpl:135 
 $lang['Back to objects list'] = 'Retour à la liste des objets';
 
+// ../objects_print.php:171 
+$lang['Borrow price (%currency)'] = 'Prix d\'emprunt (%currency)';
+
 // ../templates/default/objects_edit.tpl:93 
-$lang['Where is the object?'] = 'État de l\'objet&nbsp;:';
+$lang['Where is the object?'] = 'Où se trouve l\'objet&nbsp;:';
 
 // ../lib/GaletteObjectsLend/Preferences.php:407 
 $lang['PAGINATE.NEXT PAGE'] = '';
 
-// ../templates/default/objects_list.tpl:412 
-$lang['OBJECTS LIST.DELETE'] = '';
+// ../objects_print.php:205 ../templates/default/objects_edit.tpl:142 
+$lang['History of object loans'] = 'Historique des emprunts de l\'objet';
 
 // ../templates/default/objects_list.tpl:66 
 $lang['Clear filter'] = 'Effacer le filtre';
@@ -155,6 +164,9 @@ $lang['TAKE OBJECTS.RENT PRICE'] = '';
 
 // ../templates/default/status_edit.tpl:8 
 $lang['STATUS EDIT.TEXT'] = '';
+
+// ../objects_print.php:175 
+$lang['Price per rental day'] = 'Prix par jour de location';
 
 // ../objects_edit.php:142 
 $lang['An SQL error has occured.'] = 'Une erreur SQL est survenue.';
@@ -186,8 +198,8 @@ $lang['BACK OBJECTS.PRICE'] = '';
 // ../templates/default/take_object.tpl:25 
 $lang['TAKE OBJECT.DESCRIPTION'] = '';
 
-// ../templates/default/objects_edit.tpl:154 
-$lang['OBJECT EDIT.COMMENTS'] = '';
+// ../templates/default/take_more_objects_away.tpl:48 
+$lang['TAKE OBJECTS.DIMENSION'] = '';
 
 // ../lib/GaletteObjectsLend/Preferences.php:412 
 $lang['PAGINATE.LAST PAGE'] = '';
@@ -198,11 +210,14 @@ $lang['Max thumb height (in px)'] = 'Taille maxi miniature (en px)';
 // ../templates/default/preferences.tpl:96 
 $lang['View buy price:'] = 'Voir le prix d\'achat&nbsp;:';
 
-// ../templates/default/objects_list.tpl:190 
+// ../objects_list_print.php:145 ../templates/default/objects_list.tpl:190 
 $lang['Borrow price'] = 'Prix loc.';
 
 // ../templates/default/objects_edit.tpl:161 
 $lang['OBJECT EDIT.NEW STATUS'] = '';
+
+// ../templates/default/status_list.tpl:114 
+$lang['STATUS LIST.EDIT'] = '';
 
 // ../templates/default/take_more_objects_away.tpl:141 ../templates/default/take_object.tpl:107 
 $lang['Check'] = 'Chèque';
@@ -231,7 +246,7 @@ $lang['TAKE OBJECTS.SELECT MEMBER'] = '';
 // ../templates/default/categories_list.tpl:84 
 $lang['CATEGORIES LIST.EDIT'] = '';
 
-// ../templates/default/objects_list.tpl:235 
+// ../objects_print.php:185 ../objects_list_print.php:149 ../templates/default/objects_list.tpl:235 
 $lang['Since'] = 'Depuis';
 
 // ../templates/default/objects_edit.tpl:130 
@@ -243,14 +258,17 @@ $lang['CATEGORIES LIST.DELETE'] = '';
 // ../templates/default/status_edit.tpl:29 
 $lang['STATUS EDIT.HELP RENT DAY NUMBER'] = '';
 
+// ../objects_print.php:163 ../objects_list_print.php:143 
+$lang['Serial number'] = 'Numéro de série';
+
 // ../templates/default/category_edit.tpl:27 
 $lang['CATEGORY EDIT.DELETE PICTURE'] = '';
 
 // ../templates/default/objects_list.tpl:400 
 $lang['OBJECTS LIST.SINGLE PRINT'] = '';
 
-// ../templates/default/objects_edit.tpl:185 
-$lang['OBJECT EDIT.NO ADH'] = '';
+// ../templates/default/menu.tpl:17 
+$lang['Create a new object'] = 'Créer un nouvel objet';
 
 // ../templates/default/give_more_objects_back.tpl:15 
 $lang['BACK OBJECTS.THUMB'] = '';
@@ -267,8 +285,8 @@ $lang['Dimensions (cm):'] = 'Dimensions (cm)&nbsp;:';
 // ../templates/default/take_more_objects_away.tpl:27 
 $lang['TAKE OBJECTS.DESCRIPTION'] = '';
 
-// ../templates/default/status_list.tpl:114 
-$lang['STATUS LIST.EDIT'] = '';
+// ../objects_list_print.php:219 
+$lang['Borrowed'] = 'Emrpunté';
 
 // ../templates/default/objects_list.tpl:133 
 $lang['Picture'] = 'Image';
@@ -276,11 +294,11 @@ $lang['Picture'] = 'Image';
 // ../templates/default/give_object_back.tpl:84 
 $lang['GIVE OBJECT BACK.YES'] = '';
 
-// ../templates/default/give_more_objects_back.tpl:9 
-$lang['BACK OBJECTS.TITLE'] = '';
+// ../templates/default/objects_list.tpl:80 
+$lang['OBJECTS LIST.CHOOSE THIS'] = '';
 
-// ../templates/default/take_more_objects_away.tpl:48 
-$lang['TAKE OBJECTS.DIMENSION'] = '';
+// ../templates/default/objects_edit.tpl:154 
+$lang['OBJECT EDIT.COMMENTS'] = '';
 
 // ../templates/default/objects_list.tpl:321 
 $lang['OBJECTS LIST.RENT PRICE PER DAY'] = '';
@@ -288,8 +306,8 @@ $lang['OBJECTS LIST.RENT PRICE PER DAY'] = '';
 // ../templates/default/give_object_back.tpl:37 
 $lang['GIVE OBJECT BACK.PRICE'] = '';
 
-// ../templates/default/objects_list.tpl:372 
-$lang['OBJECTS LIST.EDIT'] = '';
+// ../templates/default/objects_edit.tpl:80 
+$lang['Weight (kg):'] = 'Poids (kg)&nbsp;:';
 
 // ../templates/default/status_edit.tpl:15 
 $lang['STATUS EDIT.IS GALETTE LOCATION'] = '';
@@ -333,7 +351,7 @@ $lang['TAKE OBJECTS.PAYMENT TYPE'] = '';
 // ../templates/default/objects_list.tpl:403 
 $lang['OBJECTS LIST.MORE AWAY'] = '';
 
-// ../templates/default/menu.tpl:12 
+// ../objects_list_print.php:80 ../objects_list_print.php:107 ../templates/default/menu.tpl:12 
 $lang['Objects list'] = 'Liste des objets';
 
 // ../templates/default/objects_list.tpl:396 
@@ -345,13 +363,16 @@ $lang['BACK OBJECTS.STATUS'] = '';
 // ../templates/default/menu.tpl:3 
 $lang['Borrow'] = 'Emprunter';
 
+// ../templates/default/take_more_objects_away.tpl:139 ../templates/default/take_object.tpl:105 
+$lang['Cash'] = 'Espèces';
+
 // ../templates/default/give_more_objects_back.tpl:21 
 $lang['BACK OBJECTS.NAME'] = '';
 
 // ../templates/default/objects_list.tpl:29 
 $lang['OBJECTS LIST.NO RIGHT'] = '';
 
-// ../templates/default/objects_list.tpl:111 
+// ../objects_list_print.php:119 ../templates/default/objects_list.tpl:111 
 $lang['objects'] = 'objets';
 
 // ../templates/default/preferences.tpl:69 
@@ -381,20 +402,23 @@ $lang['TAKE OBJECT.SELECT PAYMENT TYPE'] = '';
 // ../templates/default/preferences.tpl:74 
 $lang['View borrow price:'] = 'Voir le prix loc.&nbsp;:';
 
-// ../templates/default/objects_list.tpl:378 
-$lang['OBJECTS LIST.PDF'] = '';
+// ../lib/GaletteObjectsLend/LendRent.php:153 
+$lang['RENT.AJOUT ECHEC'] = '';
 
 // ../templates/default/objects_list.tpl:355 
 $lang['OBJECTS LIST.TAKE AWAY'] = '';
 
-// ../templates/default/objects_list.tpl:214 
+// ../objects_print.php:181 ../objects_list_print.php:147 ../templates/default/objects_list.tpl:214 
 $lang['Weight'] = 'Poids';
 
 // ../templates/default/preferences.tpl:90 ../templates/default/preferences.tpl:91 
 $lang['View object pictures as thumb or in fulllsize'] = 'Voir les images des objets en miniature ou en pleine taille';
 
-// ../templates/default/menu.tpl:17 
-$lang['Create a new object'] = 'Créer un nouvel objet';
+// ../templates/default/objects_list.tpl:372 
+$lang['Edit the object'] = 'Modifier l\'objet';
+
+// ../templates/default/objects_list.tpl:14 
+$lang['OBJECTS LIST.GIVEN'] = '';
 
 // ../templates/default/objects_list.tpl:112 
 $lang['Records per page:'] = 'Enregistrements par page&nbsp;:';
@@ -411,8 +435,14 @@ $lang['--- Select a category ---'] = '--- Choisissez une catégorie ---';
 // ../templates/default/take_more_objects_away.tpl:126 
 $lang['TAKE OBJECTS.SELECT STATUS'] = '';
 
+// ../objects_print.php:207 
+$lang['Begin'] = 'Début';
+
 // ../templates/default/admin_picture.tpl:4 
 $lang['ADMIN PICTURE.SAVE OBJECTS'] = '';
+
+// ../templates/default/status_list.tpl:3 
+$lang['STATUS LIST.SAVED'] = '';
 
 // ../templates/default/give_object_back.tpl:78 
 $lang['GIVE OBJECT BACK.REMAINING'] = '';
@@ -426,13 +456,19 @@ $lang['STATUS LIST.CONFIRM DELETE'] = '';
 // ../templates/default/take_object.tpl:79 
 $lang['TAKE OBJECT.STATUS'] = '';
 
+// ../objects_print.php:160 
+$lang['Category'] = 'Catégorie';
+
 // ../templates/default/objects_list.tpl:245 
 $lang['By'] = 'Par';
+
+// ../templates/default/category_edit.tpl:21 
+$lang['CATEGORY EDIT.PICTURE'] = '';
 
 // ../templates/default/give_object_back.tpl:9 
 $lang['GIVE OBJECT BACK.TITLE'] = '';
 
-// ../templates/default/objects_list.tpl:202 
+// ../objects_print.php:178 ../objects_list_print.php:146 ../templates/default/objects_list.tpl:202 
 $lang['Dimensions'] = 'Dimensions';
 
 // ../templates/default/take_more_objects_away.tpl:113 
@@ -444,14 +480,14 @@ $lang['No'] = 'Non';
 // ../templates/default/objects_edit.tpl:150 
 $lang['OBJECT EDIT.DATE FIN'] = '';
 
-// ../templates/default/preferences.tpl:53 ../templates/default/preferences.tpl:54 
-$lang['View category pictures as thumb or in fulllsize'] = 'Voir les images des catégories en miniature ou en pleine taille';
-
 // ../templates/default/preferences.tpl:59 
 $lang['View forecast return date:'] = 'Voir la date de retour prévue&nbsp;:';
 
 // ../templates/default/take_more_objects_away.tpl:33 
 $lang['TAKE OBJECTS.SERIAL'] = '';
+
+// ../objects_print.php:186 ../objects_print.php:211 ../objects_list_print.php:150 
+$lang['Member'] = 'Adhérent';
 
 // ../templates/default/categories_list.tpl:47 
 $lang['CATEGORIES LIST.IS ACTIVE'] = '';
@@ -465,11 +501,11 @@ $lang['TAKE OBJECTS.WEIGHT'] = '';
 // ../templates/default/take_object.tpl:19 
 $lang['TAKE OBJECT.NAME'] = '';
 
-// ../templates/default/status_list.tpl:3 
-$lang['STATUS LIST.SAVED'] = '';
+// ../objects_print.php:208 
+$lang['End'] = 'Fin';
 
-// ../templates/default/objects_list.tpl:80 
-$lang['OBJECTS LIST.CHOOSE THIS'] = '';
+// ../templates/default/give_more_objects_back.tpl:9 
+$lang['BACK OBJECTS.TITLE'] = '';
 
 // ../templates/default/give_object_back.tpl:69 
 $lang['GIVE OBJECT BACK.TO'] = '';
@@ -480,7 +516,7 @@ $lang['Object categories'] = 'Catégories d\'objets';
 // ../categories_list.php:54 
 $lang['CATEGORIES LIST.PAGE TITLE'] = '';
 
-// ../templates/default/objects_list.tpl:225 
+// ../objects_print.php:209 ../objects_list_print.php:148 ../templates/default/objects_list.tpl:225 
 $lang['Status'] = 'Statut';
 
 // ../lib/GaletteObjectsLend/LendCategory.php:140 
@@ -492,14 +528,20 @@ $lang['View price sum:'] = 'Voir la somme des prix&nbsp;:';
 // ../templates/default/preferences.tpl:48 
 $lang['View category:'] = 'Voir la catégorie&nbsp;:';
 
+// ../templates/default/objects_edit.tpl:185 
+$lang['OBJECT EDIT.NO ADH'] = '';
+
 // ../status_edit.php:51 
 $lang['STATUS EDIT.PAGE TITLE'] = '';
+
+// ../templates/default/take_object.tpl:86 
+$lang['TAKE OBJECT.DAYS'] = '';
 
 // ../templates/default/status_list.tpl:8 
 $lang['STATUS LIST.CANCELED'] = '';
 
-// ../templates/default/objects_edit.tpl:32 
-$lang['Category:'] = 'Catégorie';
+// ../templates/default/objects_list.tpl:372 
+$lang['[mod]'] = '[mod]';
 
 // ../templates/default/status_edit.tpl:5 
 $lang['STATUS EDIT.TITLE'] = '';
@@ -513,7 +555,7 @@ $lang['GIVE OBJECT BACK.FROM'] = '';
 // ../templates/default/objects_list.tpl:469 
 $lang['No object selected'] = 'Aucun objet sélectionné';
 
-// ../templates/default/objects_list.tpl:270 
+// ../objects_print.php:183 ../templates/default/objects_list.tpl:270 
 $lang['Active'] = 'Actif';
 
 // ../objects_list.php:53 
@@ -524,6 +566,9 @@ $lang['OBJECTS LIST.DISABLED'] = '';
 
 // ../templates/default/give_more_objects_back.tpl:124 
 $lang['BACK OBJECTS.COMMENTS'] = '';
+
+// ../objects_print.php:111 
+$lang['Object card'] = 'Fiche de l\'objet';
 
 // ../templates/default/preferences.tpl:6 
 $lang['Members can borrow:'] = 'Les adhérents peuvent emprunter&nbsp;:';
@@ -550,7 +595,7 @@ $lang['BACK OBJECTS.WEIGHT'] = '';
 $lang['Filter'] = 'Filter';
 
 // ../templates/default/objects_edit.tpl:59 
-$lang['Borrow price (%currency):'] = 'Prix (%currency)&nbsp;:';
+$lang['Borrow price (%currency):'] = 'Prix d\'emprunt (%currency)&nbsp;:';
 
 // ../templates/default/take_more_objects_away.tpl:152 
 $lang['TAKE OBJECTS.YES'] = '';
@@ -564,14 +609,14 @@ $lang['TAKE OBJECT.PAYMENT TYPE'] = '';
 // ../templates/default/take_object.tpl:31 
 $lang['TAKE OBJECT.SERIAL'] = '';
 
-// ../templates/default/take_more_objects_away.tpl:21 
-$lang['TAKE OBJECTS.NAME'] = '';
+// ../objects_print.php:210 
+$lang['On site'] = 'Sur site';
 
-// ../templates/default/take_more_objects_away.tpl:140 ../templates/default/take_object.tpl:106 
-$lang['Credit card'] = 'Carte de crédit';
+// ../objects_list_print.php:111 
+$lang['Printed on %date'] = 'Imprimé le %date';
 
-// ../lib/GaletteObjectsLend/LendRent.php:153 
-$lang['RENT.AJOUT ECHEC'] = '';
+// ../templates/default/objects_list.tpl:378 
+$lang['OBJECTS LIST.PDF'] = '';
 
 // ../templates/default/objects_list.tpl:24 
 $lang['OBJECTS LIST.CANCELED'] = '';
@@ -588,8 +633,8 @@ $lang['TAKE OBJECT.EXPECTED RETURN'] = '';
 // ../templates/default/menu.tpl:36 
 $lang['Picture admin'] = 'Administration images';
 
-// ../templates/default/objects_edit.tpl:53 
-$lang['Price:'] = 'Prix&nbsp;:';
+// ../templates/default/objects_list.tpl:412 
+$lang['OBJECTS LIST.DELETE'] = '';
 
 // ../templates/default/preferences.tpl:64 
 $lang['View description'] = 'Voir la description&nbsp;:';
@@ -630,6 +675,9 @@ $lang['BACK OBJECTS.DESCRIPTION'] = '';
 // ../templates/default/give_object_back.tpl:49 
 $lang['GIVE OBJECT BACK.WEIGHT'] = '';
 
+// ../objects_print.php:184 ../objects_list_print.php:152 
+$lang['Location'] = 'Emplacement';
+
 // ../templates/default/give_object_back.tpl:75 
 $lang['GIVE OBJECT BACK.COMMENTS'] = '';
 
@@ -656,6 +704,9 @@ $lang['View weight'] = 'Voir le poids';
 
 // ../templates/default/status_list.tpl:13 
 $lang['STATUS LIST.DELETED'] = '';
+
+// ../templates/default/admin_picture.tpl:3 
+$lang['ADMIN PICTURE.SAVE CATEGORIES'] = '';
 
 // ../templates/default/take_more_objects_away.tpl:144 ../templates/default/take_object.tpl:110 
 $lang['Other'] = 'Autre';
@@ -690,14 +741,14 @@ $lang['OBJECTS LIST.DELETED'] = '';
 // ../templates/default/objects_list.tpl:522 
 $lang['OBJECTS LIST.CONFIRM DISABLE'] = '';
 
-// ../templates/default/objects_list.tpl:256 
+// ../objects_print.php:188 ../objects_list_print.php:151 ../templates/default/objects_list.tpl:256 
 $lang['Return'] = 'Retour';
 
-// ../templates/default/objects_list.tpl:153 
+// ../objects_print.php:156 ../objects_list_print.php:142 ../templates/default/objects_list.tpl:153 
 $lang['Description'] = 'Description';
 
-// ../templates/default/category_edit.tpl:21 
-$lang['CATEGORY EDIT.PICTURE'] = '';
+// ../templates/default/objects_edit.tpl:53 
+$lang['Price:'] = 'Prix&nbsp;:';
 
 // ../templates/default/preferences.tpl:16 
 $lang['Max thumb width (in px)'] = 'Taille max. minitaure (en px)';
@@ -705,7 +756,7 @@ $lang['Max thumb width (in px)'] = 'Taille max. minitaure (en px)';
 // ../templates/default/objects_edit.tpl:47 
 $lang['Serial number:'] = 'Numéro de série&nbsp;:';
 
-// ../templates/default/objects_list.tpl:178 
+// ../objects_print.php:166 ../objects_list_print.php:144 ../templates/default/objects_list.tpl:178 
 $lang['Price'] = 'Prix';
 
 // ../templates/default/take_more_objects_away.tpl:143 ../templates/default/take_object.tpl:109 
@@ -719,9 +770,6 @@ $lang['CATEGORY EDIT.TITLE'] = '';
 
 // ../templates/default/take_more_objects_away.tpl:38 
 $lang['TAKE OBJECTS.PRICE'] = '';
-
-// ../templates/default/objects_list.tpl:14 
-$lang['OBJECTS LIST.GIVEN'] = '';
 
 // ../templates/default/preferences.tpl:101 
 $lang['View serial number:'] = 'Voir le numéro de série&nbsp;:';
@@ -744,16 +792,16 @@ $lang['STATUS EDIT.IS ACTIVE'] = '';
 // ../templates/default/categories_list.tpl:101 
 $lang['CATEGORIES LIST.CREATE'] = '';
 
-// ../templates/default/admin_picture.tpl:3 
-$lang['ADMIN PICTURE.SAVE CATEGORIES'] = '';
+// ../objects_list_print.php:222 
+$lang['Available'] = 'Disponible';
 
-// ../templates/default/objects_edit.tpl:142 
-$lang['History of object loans'] = 'Historique des emprunts de l\'objet';
+// ../templates/default/categories_list.tpl:8 
+$lang['CATEGORIES LIST.CANCELED'] = '';
 
 // ../templates/default/objects_edit.tpl:173 
 $lang['OBJECT EDIT.NEW COMMENT'] = '';
 
-// ../templates/default/objects_list.tpl:140 ../templates/default/category_edit.tpl:8 
+// ../objects_print.php:153 ../objects_list_print.php:141 ../templates/default/objects_list.tpl:140 ../templates/default/category_edit.tpl:8 
 $lang['Name'] = 'Nom';
 
 // ../templates/default/status_list.tpl:74 
@@ -762,11 +810,8 @@ $lang['STATUS LIST.RENT DAY NUMBER'] = '';
 // ../templates/default/preferences.tpl:23 
 $lang['Generate contribution:'] = 'Générer une contribution&nbsp;:';
 
-// ../templates/default/take_more_objects_away.tpl:139 ../templates/default/take_object.tpl:105 
-$lang['Cash'] = 'Espèces';
-
-// ../templates/default/categories_list.tpl:17 
-$lang['CATEGORIES LIST.NB RESULT'] = '';
+// ../templates/default/objects_list.tpl:34 
+$lang['OBJECTS LIST.BAD LOCATION'] = '';
 
 // ../objects_edit.php:138 
 $lang['Mime-Type not allowed'] = 'Type mime non autorisé';
@@ -777,8 +822,8 @@ $lang['CATEGORIES LIST.SAVED'] = '';
 // ../templates/default/take_object.tpl:118 
 $lang['TAKE OBJECT.YES'] = '';
 
-// ../templates/default/objects_list.tpl:34 
-$lang['OBJECTS LIST.BAD LOCATION'] = '';
+// ../templates/default/preferences.tpl:53 ../templates/default/preferences.tpl:54 
+$lang['View category pictures as thumb or in fulllsize'] = 'Voir les images des catégories en miniature ou en pleine taille';
 
 // ../lib/GaletteObjectsLend/Preferences.php:398 
 $lang['PAGINATE.GO TO PAGE'] = '';
@@ -800,6 +845,9 @@ $lang['TAKE OBJECT.PAGE TITLE'] = '';
 
 // ../templates/default/give_more_objects_back.tpl:115 
 $lang['BACK OBJECTS.SELECT STATUS'] = '';
+
+// ../objects_list_print.php:211 
+$lang['Sum:'] = 'Somme&nbsp;:';
 
 // ../templates/default/objects_edit.tpl:153 
 $lang['OBJECT EDIT.ADH'] = '';
@@ -827,6 +875,9 @@ $lang['OBJECTS LIST.CHOICE'] = '';
 
 // ../templates/default/take_more_objects_away.tpl:138 
 $lang['TAKE OBJECTS.SELECT PAYMENT TYPE'] = '';
+
+// ../templates/default/objects_edit.tpl:32 
+$lang['Category:'] = 'Catégorie';
 
 // ../lib/GaletteObjectsLend/LendStatus.php:133 
 $lang['STATUS.AJOUT ECHEC'] = '';
