@@ -39,6 +39,7 @@
  * @since     Available since 0.7
  */
 
+use Galette\IO\Pdf;
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
@@ -58,11 +59,14 @@ require_once '_config.inc.php';
 
 $lendsprefs = new Preferences($zdb);
 
-function getNotHtmlText($code)
-{
-    return html_entity_decode(_T($code));
-}
-
+/**
+ * Cut a string?
+ *
+ * @param string  $str    Original string
+ * @param integer $length Max length
+ *
+ * @return string
+ */
 function cut($str, $length)
 {
     $l = intval($length / 1.8);
@@ -72,15 +76,24 @@ function cut($str, $length)
     return $str;
 }
 
-function addLine($pdf, $code_title, $value, $width)
+/**
+ * Add a line in the array
+ *
+ * @param LendPDF $pdf   Pdf instance
+ * @param string  $title Line title
+ * @param string  $value Line value
+ * @param integer $width Cell width
+ *
+ * @return void
+ */
+function addCell(LendPDF $pdf, $title, $value, $width)
 {
     $pdf->Cell($width, 0, '');
-    $title = getNotHtmlText($code_title);
-    $pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
+    $pdf->SetFont(Pdf::FONT, 'B', 9);
     $padding = 30;
     $pdf->Cell($padding, 0, cut($title, $padding));
 
-    $pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
+    $pdf->SetFont(Pdf::FONT, '', 9);
     $wrapped = explode("\n", wordwrap($value, 150 - $padding - $width, "\n"));
     $i = 0;
     foreach ($wrapped as $w) {
@@ -92,10 +105,10 @@ function addLine($pdf, $code_title, $value, $width)
     }
 }
 
-$pdf = new LendPDF();
+$pdf = new LendPDF($preferences);
 
 // Set document information
-$pdf->SetTitle(getNotHtmlText('OBJECT EDIT.PAGE TITLE'));
+$pdf->SetTitle(_T("Object card"));
 $pdf->SetSubject('');
 $pdf->SetKeywords('');
 
@@ -116,7 +129,7 @@ foreach ($ids as $object_id) {
 
     $name = '';
     if ($object_id != null) {
-        $object = new LendObject(intval($object_id));
+        $object = new LendObject((int)$object_id);
         LendObject::getStatusForObject($object);
         $size = LendObjectPicture::getHeightWidthForObject($object);
 
@@ -137,44 +150,49 @@ foreach ($ids as $object_id) {
 
         $name = $object->name;
         if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
-            addLine($pdf, 'OBJECT EDIT.NAME', $object->name, $width);
+            addCell($pdf, _T("Name"), $object->name, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
-            addLine($pdf, 'OBJECT EDIT.DESCRIPTION', $object->description, $width);
+            addCell($pdf, _T("Description"), $object->description, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
-            $categ = new LendCategory(intval($object->category_id));
-            addLine($pdf, 'OBJECT EDIT.CATEGORY', $categ->name, $width);
+            $categ = new LendCategory((int)$object->category_id);
+            addCell($pdf, _T("Category"), $categ->name, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
-            addLine($pdf, 'OBJECT EDIT.SERIAL', $object->serial_number, $width);
+            addCell($pdf, _T("Serial number"), $object->serial_number, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_PRICE}) {
-            addLine($pdf, 'OBJECT EDIT.PRICE', $object->price, $width);
+            addCell($pdf, _T("Price"), $object->price, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_LEND_PRICE}) {
-            addLine($pdf, 'OBJECT EDIT.RENT PRICE', $object->rent_price, $width);
-            addLine($pdf, 'OBJECT EDIT.PRICE PER DAY', $object->price_per_day ? '/j' : '', $width);
+            addCell(
+                $pdf,
+                str_replace('%currency', $object->getCurrency(), _T("Borrow price (%currency)")),
+                $object->rent_price,
+                $width
+            );
+            addCell($pdf, _T("Price per rental day"), $object->price_per_day, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION}) {
-            addLine($pdf, 'OBJECT EDIT.DIMENSION', $object->dimension, $width);
+            addCell($pdf, _T("Dimensions"), $object->dimension, $width);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT}) {
-            addLine($pdf, 'OBJECT EDIT.WEIGHT', $object->weight, $width);
+            addCell($pdf, _T("Weight"), $object->weight, $width);
         }
-        addLine($pdf, 'OBJECT EDIT.IS ACTIVE', $object->is_active ? 'X' : '', $width);
-        addLine($pdf, 'OBJECT EDIT.1ST STATUS', $object->status_text, $width);
-        addLine($pdf, 'OBJECTS LIST.DATE BEGIN', $object->date_begin_ihm, $width);
-        addLine($pdf, 'OBJECTS LIST.ADHERENT', $object->nom_adh . ' ' . $object->prenom_adh, $width);
+        addCell($pdf, _T("Active"), $object->is_active ? 'X' : '', $width);
+        addCell($pdf, _T("Location"), $object->status_text, $width);
+        addCell($pdf, _T("Since"), $object->date_begin_ihm, $width);
+        addCell($pdf, _T("Member"), $object->nom_adh . ' ' . $object->prenom_adh, $width);
         if ($lendsprefs->{Preferences::PARAM_VIEW_DATE_FORECAST}) {
-            addLine($pdf, 'OBJECTS LIST.DATE FORECAST', $object->date_forecast_ihm, $width);
+            addCell($pdf, _T("Return"), $object->date_forecast_ihm, $width);
         }
 
         do {
             $pdf->Ln();
         } while ($pdf->GetY() < $height + 10);
 
-        $rents = LendRent::getRentsForObjectId(intval($object_id));
+        $rents = LendRent::getRentsForObjectId((int)$object_id);
 
         $col_begin = 33;
         $col_end = 33;
@@ -183,17 +201,17 @@ foreach ($ids as $object_id) {
         $col_adh = 30;
         $col_comments = 40;
 
-        $pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
-        $pdf->Cell(0, 0, getNotHtmlText('OBJECT EDIT.ALL RENTS'));
+        $pdf->SetFont(Pdf::FONT, 'B', 9);
+        $pdf->Cell(0, 0, _T("History of object loans"));
         $pdf->Ln();
-        $pdf->Cell($col_begin, 0, cut(getNotHtmlText('OBJECT EDIT.DATE BEGIN'), $col_begin), 'B');
-        $pdf->Cell($col_end, 0, cut(getNotHtmlText('OBJECT EDIT.DATE FIN'), $col_end), 'B');
-        $pdf->Cell($col_status, 0, cut(getNotHtmlText('OBJECT EDIT.STATUS'), $col_status), 'B');
-        $pdf->Cell($col_home, 0, cut(getNotHtmlText('OBJECT EDIT.AT HOME'), $col_home), 'B');
-        $pdf->Cell($col_adh, 0, cut(getNotHtmlText('OBJECT EDIT.ADH'), $col_adh), 'B');
-        $pdf->Cell($col_comments, 0, cut(getNotHtmlText('OBJECT EDIT.COMMENTS'), $col_comments), 'B');
+        $pdf->Cell($col_begin, 0, cut(_T("Begin"), $col_begin), 'B');
+        $pdf->Cell($col_end, 0, cut(_T("End"), $col_end), 'B');
+        $pdf->Cell($col_status, 0, cut(_T("Status"), $col_status), 'B');
+        $pdf->Cell($col_home, 0, cut(_T("On site"), $col_home), 'B');
+        $pdf->Cell($col_adh, 0, cut(_T("Member"), $col_adh), 'B');
+        $pdf->Cell($col_comments, 0, cut(_T("Comments"), $col_comments), 'B');
         $pdf->Ln();
-        $pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
+        $pdf->SetFont(Pdf::FONT, '', 9);
 
         foreach ($rents as $rt) {
             $pdf->Cell($col_begin, 0, cut($rt->date_begin, $col_begin), 'B');

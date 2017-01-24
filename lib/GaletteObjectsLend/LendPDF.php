@@ -41,15 +41,19 @@
 
 namespace GaletteObjectsLend;
 
+use Galette\Core\Preferences;
+
 class LendPDF extends \Galette\IO\Pdf
 {
-
-    /**
-     * Construit un nouveau PDF
+   /**
+     * Main constructor, set creator and author
+     *
+     * @param Preferences $prefs Preferences
+     * @param PdfModel    $model Related model
      */
-    public function __construct()
+    public function __construct(Preferences $prefs, $model = null)
     {
-        parent::__construct();
+        parent::__construct($prefs, $model);
         $this->SetDisplayMode('real', 'OneColumn');
     }
 }

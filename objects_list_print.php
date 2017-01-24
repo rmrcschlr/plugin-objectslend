@@ -39,6 +39,7 @@
  * @since     Available since 0.7
  */
 
+use Galette\IO\Pdf;
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
@@ -56,6 +57,14 @@ require_once '_config.inc.php';
 
 $lendsprefs = new Preferences($zdb);
 
+/**
+ * Cut a string?
+ *
+ * @param string  $str    Original string
+ * @param integer $length Max length
+ *
+ * @return string
+ */
 function cut($str, $length)
 {
     $l = intval($length / 1.8);
@@ -65,15 +74,10 @@ function cut($str, $length)
     return $str;
 }
 
-function getNotHtmlText($code)
-{
-    return html_entity_decode(_T($code));
-}
-
-$pdf = new LendPDF();
+$pdf = new LendPDF($preferences);
 
 // Set document information
-$pdf->SetTitle(getNotHtmlText('OBJECTS LIST.PAGE TITLE'));
+$pdf->SetTitle(_T("Objects list"));
 $pdf->SetSubject('');
 $pdf->SetKeywords('');
 
@@ -99,23 +103,27 @@ if (count($ids) == 0) {
     $nb_objects = count($objects);
 }
 
-$pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 14);
-$pdf->Cell(275, 0, getNotHtmlText('OBJECTS LIST.PAGE TITLE'), '', 0, 'C');
+$pdf->SetFont(Pdf::FONT, 'B', 14);
+$pdf->Cell(275, 0, _T("Objects list"), '', 0, 'C');
 $pdf->Ln();
 
-$pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
-$pdf->Cell(0, 0, getNotHtmlText('OBJECTS LIST PDF.PRINTED') . date('d/m/Y'));
+$pdf->SetFont(Pdf::FONT, '', 9);
+$pdf->Cell(0, 0, str_replace('%date', date(_T("Y-m-d")), _T("Printed on %date")));
 $pdf->Ln();
 if ($category_id > 0) {
     $categ = new LendCategory(intval($category_id));
-    $pdf->Cell(0, 0, getNotHtmlText('OBJECTS LIST PDF.CATEGORY') . $categ->name);
+    $pdf->Cell(0, 0, str_replace('%category', $categ->name, _T("Selected category: %category")));
     $pdf->Ln();
 }
-$pdf->Cell(0, 0, $nb_objects . ' ' . getNotHtmlText('OBJECTS LIST.NB RESULTS'));
+if ($nb_objects > 1) {
+    $pdf->Cell(0, 0, $nb_objects . ' ' . _T("objects"));
+} else {
+    $pdf->Cell(0, 0, $nb_objects . ' ' . _T("object"));
+}
 $pdf->Ln();
 $pdf->Ln();
 
-$pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
+$pdf->SetFont(Pdf::FONT, 'B', 9);
 
 $w_checkbox = 5;
 $w_name = 33;
@@ -130,21 +138,21 @@ $w_adherent = 26;
 $w_location = 21;
 
 $pdf->Cell($w_checkbox, 0, '', 'B');
-$pdf->Cell($w_name, 0, cut(getNotHtmlText('OBJECTS LIST.NAME'), $w_name), 'B');
-$pdf->Cell($w_description, 0, cut(getNotHtmlText('OBJECTS LIST.DESCRIPTION'), $w_description), 'B');
-$pdf->Cell($w_serial, 0, cut(getNotHtmlText('OBJECTS LIST.SERIAL'), $w_serial), 'B');
-$pdf->Cell($w_price, 0, cut(getNotHtmlText('OBJECTS LIST.PRICE'), $w_price), 'B');
-$pdf->Cell($w_price, 0, cut(getNotHtmlText('OBJECTS LIST.RENT PRICE'), $w_price), 'B');
-$pdf->Cell($w_dimension, 0, cut(getNotHtmlText('OBJECTS LIST.DIMENSION'), $w_dimension), 'B');
-$pdf->Cell($w_weight, 0, cut(getNotHtmlText('OBJECTS LIST.WEIGHT'), $w_weight), 'B');
-$pdf->Cell($w_status, 0, cut(getNotHtmlText('OBJECTS LIST.STATUS TEXT'), $w_status), 'B');
-$pdf->Cell($w_date, 0, cut(getNotHtmlText('OBJECTS LIST.DATE BEGIN'), $w_date), 'B');
-$pdf->Cell($w_adherent, 0, cut(getNotHtmlText('OBJECTS LIST.ADHERENT'), $w_adherent), 'B');
-$pdf->Cell($w_location, 0, cut(getNotHtmlText('OBJECTS LIST.DATE FORECAST'), $w_location), 'B');
-//$pdf->Cell($w_location, 0, getNotHtmlText('OBJECTS LIST.GALETTE LOCATION'), 'B');
+$pdf->Cell($w_name, 0, cut(_T("Name"), $w_name), 'B');
+$pdf->Cell($w_description, 0, cut(_T("Description"), $w_description), 'B');
+$pdf->Cell($w_serial, 0, cut(_T("Serial number"), $w_serial), 'B');
+$pdf->Cell($w_price, 0, cut(_T("Price"), $w_price), 'B');
+$pdf->Cell($w_price, 0, cut(_T("Borrow price"), $w_price), 'B');
+$pdf->Cell($w_dimension, 0, cut(_T("Dimensions"), $w_dimension), 'B');
+$pdf->Cell($w_weight, 0, cut(_T("Weight"), $w_weight), 'B');
+$pdf->Cell($w_status, 0, cut(_T("Status"), $w_status), 'B');
+$pdf->Cell($w_date, 0, cut(_T("Since"), $w_date), 'B');
+$pdf->Cell($w_adherent, 0, cut(_T("Member"), $w_adherent), 'B');
+$pdf->Cell($w_location, 0, cut(_T("Return"), $w_location), 'B');
+//$pdf->Cell($w_location, 0, _T("Location"), 'B');
 $pdf->Ln();
 
-$pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
+$pdf->SetFont(Pdf::FONT, '', 9);
 
 $old_category_name = '';
 $sum_price = 0;
@@ -153,7 +161,7 @@ $row = 0;
 
 foreach ($objects as $obj) {
     if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY} && $old_category_name !== $obj->category_name) {
-        $pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
+        $pdf->SetFont(Pdf::FONT, 'B', 9);
 
         if (($login->isAdmin() || $login->isStaff()) && $sum_price > 0) {
             $pdf->Cell($w_checkbox + $w_name + $w_description + $w_serial + $w_price, 0, number_format($sum_price, 2, ',', ''), '', 0, 'R');
@@ -164,7 +172,7 @@ foreach ($objects as $obj) {
         $pdf->Cell($w_checkbox, 0, '', 'B');
         $pdf->Cell(0, 0, $obj->category_name, 'B');
         $pdf->Ln();
-        $pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
+        $pdf->SetFont(Pdf::FONT, '', 9);
     }
 
     if ($row++ % 2 == 0) {
@@ -178,7 +186,7 @@ foreach ($objects as $obj) {
     $pdf->Cell($w_description, 0, cut($obj->description, $w_description), 'B', 0, 'L', $obj->is_home_location);
     $pdf->Cell($w_serial, 0, cut($obj->serial_number, $w_serial), 'B', 0, 'L', $obj->is_home_location);
     $pdf->Cell($w_price, 0, cut($obj->price, $w_price), 'B', 0, 'R', $obj->is_home_location);
-    $pdf->Cell($w_price, 0, cut($obj->rent_price, $w_price), 'B', 0, 'R', $obj->is_home_location);
+    $pdf->Cell($w_price, 0, cut($obj->rent_price, $w_price).$obj->getCurrency(), 'B', 0, 'R', $obj->is_home_location);
     $pdf->Cell($w_dimension, 0, cut($obj->dimension, $w_dimension), 'B', 0, 'L', $obj->is_home_location);
     $pdf->Cell($w_weight, 0, cut($obj->weight, $w_weight), 'B', 0, 'R', $obj->is_home_location);
     $pdf->Cell($w_status, 0, cut($obj->status_text, $w_status), 'B', 0, 'L', $obj->is_home_location);
@@ -195,23 +203,23 @@ foreach ($objects as $obj) {
 }
 
 if ($login->isAdmin() || $login->isStaff()) {
-    $pdf->SetFont(Galette\IO\Pdf::FONT, 'B', 9);
+    $pdf->SetFont(Pdf::FONT, 'B', 9);
     $pdf->Cell($w_checkbox + $w_name + $w_description + $w_serial + $w_price, 0, number_format($sum_price, 2, ',', ''), '', 0, 'R');
     $pdf->Ln();
     $pdf->Ln();
 
-    $pdf->Cell($w_checkbox + $w_name + $w_description + $w_serial + $w_price, 0, getNotHtmlText('PDF.SUM') . ' ' . number_format($grant_total, 2, ',', ''), '', 0, 'R');
+    $pdf->Cell($w_checkbox + $w_name + $w_description + $w_serial + $w_price, 0, _T("Sum:") . ' ' . number_format($grant_total, 2, ',', ''), '', 0, 'R');
     $pdf->Ln();
 }
 
 $pdf->Ln();
 
-$pdf->SetFont(Galette\IO\Pdf::FONT, '', 9);
+$pdf->SetFont(Pdf::FONT, '', 9);
 $pdf->Cell($w_price, 0, '', 'LTRB');
-$pdf->Cell(0, 0, getNotHtmlText('PDF.OBJECT OUT'));
+$pdf->Cell(0, 0, _T("Borrowed"));
 $pdf->Ln();
 $pdf->Cell($w_price, 0, '', '', 0, 'L', true);
-$pdf->Cell(0, 0, getNotHtmlText('PDF.OBJECT IN'));
+$pdf->Cell(0, 0, _T("Available"));
 $pdf->Ln();
 
 $pdf->Output('objects_list_' . date('Ymd-Hi') . '.pdf', 'D');
