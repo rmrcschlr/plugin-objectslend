@@ -278,12 +278,12 @@
                     {foreach from=$objects item=objt}
                         <tr class="{if $objt@index is odd}even{else}odd{/if}">
                             {if $login->isAdmin() || $login->isStaff()}
-                                <td align="center">
+                                <td class="center">
                                     <input type="checkbox" name="object_ids" value="{$objt->object_id}">
                                 </td>
                             {/if}
                             {if $lendsprefs.VIEW_THUMBNAIL eq '1'}
-                                <td align="center">
+                                <td class="center">
                                     {if $objt->draw_image}
                                         <img src="{$objt->object_image_url}" 
                                              class="tooltip_lend" title="{$objt->tooltip_title}"
@@ -310,12 +310,12 @@
                                 </td>
                             {/if}
                             {if $lendsprefs.VIEW_PRICE}
-                                <td align="right">
+                                <td class="right">
                                     {$objt->price}&euro;
                                 </td>
                             {/if}
                             {if $lendsprefs.VIEW_LEND_PRICE eq '1'}
-                                <td align="right">
+                                <td class="right">
                                     {$objt->rent_price}&euro;
                                     {if $objt->price_per_day}
                                         {_T string="OBJECTS LIST.RENT PRICE PER DAY"}
@@ -335,7 +335,7 @@
                             <td>
                                 {$objt->status_text}
                             </td>
-                            <td align="center">
+                            <td class="center">
                                 <span style="white-space: nowrap">{$objt->date_begin_ihm}</span>
                             </td>
                             <td>
@@ -344,11 +344,11 @@
                                 {/if}
                             </td>
                             {if $lendsprefs.VIEW_DATE_FORECAST}
-                                <td align="center">
+                                <td class="center">
                                     <span style="white-space: nowrap">{$objt->date_forecast_ihm}</span>
                                 </td>
                             {/if}
-                            <td align="center">
+                            <td class="center">
                                 {if $objt->is_home_location}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
                                         <a onclick="take_object({$objt->object_id});" style="cursor: pointer;" {*href="take_object.php?object_id={$objt->object_id}"*}>
@@ -362,14 +362,14 @@
                                 {/if}
                             </td>
                             {if $login->isAdmin() || $login->isStaff()}
-                                <td align="center">
+                                <td class="center">
                                     {if $objt->is_active}
                                         <img src="picts/check.png" alt="{_T string="OBJECTS LIST.IS ACTIVE"}" title="{_T string="OBJECTS LIST.IS ACTIVE"}"/>
                                     {/if}
                                 </td>
-                                <td align="center">
+                                <td class="center nowrap">
                                     <a href="objects_edit.php?object_id={$objt->object_id}">
-                                        <img src="picts/edit.png" class="tooltip_lend" title="{_T string="OBJECTS LIST.EDIT"}" border="0"/>
+                                        <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object"}"/>
                                     </a>
                                     <a href="objects_edit.php?clone_object_id={$objt->object_id}">
                                         <img src="picts/copy.png" class="tooltip_lend" title="{_T string="OBJECTS LIST.COPY"}" border="0"/>
@@ -418,7 +418,7 @@
             </tfoot>
 {/if}
             </table>
-        <p align="center">{$pagination}</p>
+        <p class="center">{$pagination}</p>
     {/if}
     </form>
 <script>
