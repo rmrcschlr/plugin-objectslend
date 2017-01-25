@@ -44,6 +44,7 @@ $thumb = array_key_exists('thumb', $_GET) && $_GET['thumb'] == '1';
 $quick_mode = array_key_exists('quick', $_GET) && $_GET['quick'] == '1';
 
 if ($quick_mode) {
+    //FIXME: no ACLs on this mode? Photos visibles by everybody?
     $photo_path = '';
     $photo_name = '';
     if (array_key_exists('object_id', $_GET)) {
@@ -77,12 +78,12 @@ if ($quick_mode) {
         die();
     }
 
-    $thumb = $_GET['thumb'] == '1';
+    $thumb = (isset($_GET['thumb']) && $_GET['thumb'] == '1');
 
     if (array_key_exists('object_id', $_GET)) {
-        $picture = new LendObjectPicture($_GET['object_id']);
-    } else if (array_key_exists('category_id', $_GET)) {
-        $picture = new LendObjectPicture($_GET['category_id'], true);
+        $picture = new LendObjectPicture($plugins, $_GET['object_id']);
+    } elseif (array_key_exists('category_id', $_GET)) {
+        $picture = new LendObjectPicture($plugins, $_GET['category_id'], true);
     }
     if ($thumb) {
         $picture->displayThumb();

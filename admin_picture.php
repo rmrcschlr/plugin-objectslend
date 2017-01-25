@@ -70,7 +70,7 @@ if (filter_has_var(INPUT_POST, 'save_categories') || filter_has_var(INPUT_POST, 
 }
 
 if (filter_has_var(INPUT_POST, 'restore_objects')) {
-    $p = new LendObjectPicture(-1);
+    $p = new LendObjectPicture($plugins, -1);
     $tpl->assign('messages', $p->restoreObjectPictures());
 }
 

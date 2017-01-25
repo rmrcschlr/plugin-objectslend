@@ -42,33 +42,51 @@
 namespace GaletteObjectsLend;
 
 use Analog\Analog;
+use Galette\Core\Plugins;
 
 class LendObjectPicture extends \Galette\Core\Picture
 {
 
+    protected $tbl_prefix = LEND_PREFIX;
     const PK = 'object_id';
 
-    //path is relative to Picture class, not to LendObjectPicture
-    protected $store_path;
     protected $max_width = 350;
     protected $max_height = 350;
-    protected $thumb_max_width = 96;
-    protected $thumb_max_height = 96;
+
+    private $plugins;
 
     /**
-     * Construit une nouvelle image pour un objet ou une catégorie soit vierge, soit à partir de son ID
+     * Default constructor.
      *
-     * @param int $args ID de l'objet dont on cherche l'image
+     * @param Plugins $plugins  Plugins
+     * @param int     $objectid Object id
      */
-    public function __construct($args = null)
+    public function __construct(Plugins $plugins, $objectid = '')
     {
+        $this->plugins = $plugins;
         $this->store_path = GALETTE_PHOTOS_PATH . 'objectslend/objects/';
-        $this->tbl_prefix = LEND_PREFIX;
 
-        $this->thumb_max_height = intval(Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_HEIGHT));
-        $this->thumb_max_width = intval(Preferences::getParameterValue(Preferences::PARAM_THUMB_MAX_WIDTH));
+        if (!file_exists($this->store_path)) {
+            if (!mkdir($this->store_path, 0755, true)) {
+                Analog::log(
+                    'Unable to create photo dir `' . $this->store_path . '`.',
+                    Analog::ERROR
+                );
+            } else {
+                Analog::log(
+                    'New directory `' . $this->store_path . '` has been created',
+                    Analog::INFO
+                );
+            }
+        } elseif (!is_dir($this->store_path)) {
+            Analog::log(
+                'Unable to store plugin images, since `' . $this->store_path .
+                '` is not a directory.',
+                Analog::WARNING
+            );
+        }
 
-        parent::__construct($args);
+        parent::__construct($objectid);
     }
 
     /**
@@ -81,6 +99,8 @@ class LendObjectPicture extends \Galette\Core\Picture
     protected function getDefaultPicture()
     {
         $this->file_path = GALETTE_ROOT . 'plugins/ObjectsLend/picts/default.png';
+        $this->file_path = $this->plugins->getTemplatesPathFromName('Galette ObjectsLend') .
+            '/images/default.png';
         $this->format = 'png';
         $this->mime = 'image/png';
         $this->has_picture = false;
@@ -110,8 +130,11 @@ class LendObjectPicture extends \Galette\Core\Picture
         // Si la miniature n'existe pas, on la créé
         if (!is_file($nom_thumb)) {
             //$this->createthumb($this->file_path, $nom_thumb, 128, 128);
-            $w = round($this->getOptimalWidth() * $this->thumb_max_width / $this->max_width);
-            $h = round($this->getOptimalHeight() * $this->thumb_max_height / $this->max_height);
+            //TODO: retrieve from preferences
+            $thumb_max_width = 96;
+            $thumb_max_height = 96;
+            $w = round($this->getOptimalWidth() * $thumb_max_width / $this->max_width);
+            $h = round($this->getOptimalHeight() * $thumb_max_height / $this->max_height);
             $this->_createRoundThumb($this->file_path, $nom_thumb, $w, $h, 5, 10);
         }
         header('Content-type: ' . $this->mime);
@@ -200,20 +223,23 @@ class LendObjectPicture extends \Galette\Core\Picture
     /**
      * Deletes a picture, from both database and filesystem
      *
+     * @param boolean $transaction Whether to use a transaction here or not
+     *
      * @return boolean true if image was successfully deleted, false otherwise
      */
-    public function delete()
+    public function delete($transaction = true)
     {
-        $extension = strlen(pathinfo($this->file_path, PATHINFO_EXTENSION)) + 1;
-        $nom_fichier = substr($this->file_path, 0, strlen($this->file_path) - $extension);
+        //find and delete any thumb
+        $ext = strlen(pathinfo($this->file_path, PATHINFO_EXTENSION)) + 1;
+        $filename = substr($this->file_path, 0, strlen($this->file_path) - $ext);
 
-        $nom_thumb = $nom_fichier . '_th.png';
+        $thumb = $filename . '_th.png';
 
-        if (is_file($nom_thumb)) {
-            unlink($nom_thumb);
+        if (file_exists($thumb)) {
+            unlink($thumb);
         }
 
-        return parent::delete();
+        return parent::delete($transaction);
     }
 
     /**

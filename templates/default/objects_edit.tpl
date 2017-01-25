@@ -26,7 +26,7 @@
                     <input type="text" name="description" id="description" maxlength="500" size="80" value="{$object->description}" required>
                 </p>
             </div>
-            {if $view_category}
+            {if $lendsprefs.VIEW_CATEGORY}
                 <div>
                     <p>
                         <label for="category_id" class="bline">{_T string="Category:"}</label>
@@ -99,36 +99,22 @@
                     </p>
                 </div>
             {/if}
-            <div>
+        </fieldset>
+        <fieldset>
+            <legend class="ui-state-active ui-corner-top">{_T string="Object's photo"}</legend>
                 <p>
-                    <label for="object_picture" class="bline tooltip" title="{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}">
-                        {_T string="Picture:"}
-                    </label>
-                    <span class="tip">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</span>
+                    <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</div>
+                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}" class="picture" width="{$lendsprefs.THUMB_MAX_WIDTH}" height="{$lendsprefs.THUMB_MAX_HEIGHT}" alt="{_T string="Object's photo"}"/><br/>
+                    <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image"}</label></span><br/>
                     <input type="file" name="picture" id="object_picture">
-                    {if $object->object_id ne ''}
-                        <br/>
-                        <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="OBJECT EDIT.DELETE PICTURE"}</label></span><br/>
-                        {/if}
                 </p>
-            </div>
-            {if $object->draw_image}
-                <div>
-                    <p>
-                        <span class="bline">{_T string="OBJECT EDIT.THUMB"}</span>
-                        <img src="{$object->object_image_url}"
-                             width="{$lendsprefs.THUMB_MAX_WIDTH}" height="{$lendsprefs.THUMB_MAX_HEIGHT}"/>
-                    </p>
-                </div>
-            {/if}
         </fieldset>
     </div>
     <div class="button-container">
         <input type="submit" id="btnsave" name="save" value="{_T string="Save"}">
         {if $object->object_id ne ''}
-            <input type="submit" id="duplicate" name="duplicate" value="{_T string="OBJECT EDIT.DUPLICATE"}" onclick="return confirmClone({$object->object_id});">
-            <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECT EDIT.PRINT"}" onclick="window.location = 'objects_print.php?object_id={$object->object_id}';
-                    return false;">
+            <input type="submit" id="duplicate" name="duplicate" value="{_T string="Duplicate object"}" onclick="return confirmClone({$object->object_id});"/>
+            <a href="objects_print.php?object_id={$object->object_id}" id="objects_print" class="button">{_T string="Print object's card"}</a>
         {/if}
         <p>
             <a href="objects_list.php" class="button" id="btnback" title="{_T string="Back to objects list"}">

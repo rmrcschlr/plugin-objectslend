@@ -159,10 +159,11 @@ class LendObject
         $this->_nb_available = $r->nb_available;
         $this->_category_name = isset($r->category_name) ? $r->category_name : '';
 
+        //TODO: replace...
         $this->_draw_image = false;
         foreach ($extensions as $ext) {
-            if (file_exists('objects_pictures/' . $this->_object_id . $ext)) {
-                $this->_object_image_url = 'objects_pictures/' . $this->_object_id . $ext;
+            if (file_exists(GALETTE_PHOTOS_PATH . 'objectslend/objects/' . $this->_object_id . $ext)) {
+                //$this->_object_image_url = 'objects_pictures/' . $this->_object_id . $ext;
                 $this->_draw_image = true;
                 break;
             }

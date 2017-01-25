@@ -14,7 +14,7 @@
    </li>
     {if $login->isAdmin() || $login->isStaff()}
     <li>
-        <a href="objects_edit.php?object_id=new">{_T string="Create a new object"}</a>
+        <a href="objects_edit.php">{_T string="Create a new object"}</a>
     </li>
    <li{if $PAGENAME eq "status_list.php" || $PAGENAME eq "status_edit.php"} class="selected"{/if}>
        <a href="{$galette_base_path}{$lend_dir}status_list.php">

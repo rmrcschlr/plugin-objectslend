@@ -110,7 +110,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
     if (isset($_FILES['picture'])) {
         if ($_FILES['picture']['tmp_name'] != '') {
             if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
-                $objPicture = new LendObjectPicture($obj->object_id);
+                $objPicture = new LendObjectPicture($plugins, $obj->object_id);
                 $res = $objPicture->store($_FILES['picture']);
                 if ($res < 0) {
                     switch ($res) {
@@ -149,7 +149,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
 
     // Suppression de la photo
     if (filter_has_var(INPUT_POST, 'del_picture') && filter_input(INPUT_POST, 'del_picture') == '1') {
-        $pic = new LendObjectPicture($obj->object_id);
+        $pic = new LendObjectPicture($plugins, $obj->object_id);
         $pic->delete();
     }
 
