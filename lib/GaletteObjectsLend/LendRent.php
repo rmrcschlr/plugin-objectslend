@@ -43,6 +43,7 @@ namespace GaletteObjectsLend;
 
 use Analog\Analog;
 use Galette\Entity\Adherent;
+use Galette\Repository\Members;
 
 class LendRent
 {
@@ -257,18 +258,18 @@ class LendRent
      */
     public static function getAllActivesAdherents()
     {
-        global $zdb;
-
         try {
-            $select = $zdb->select(Adherent::TABLE)
-                    ->where(array('activite_adh' => 1))
-                    ->order('nom_adh');
-
-            $adherents = array();
-            $result = $zdb->execute($select);
-            foreach ($result as $row) {
-                $adherents[] = new Adherent($row);
-            }
+            $filters = new \Galette\Filters\MembersList();
+            $filters->account_status_filter = Members::ACTIVE_ACCOUNT;
+            $members = new Members($filters);
+            $adherents = $members->getMembersList(
+                true,
+                null,
+                false,
+                false,
+                false,
+                false
+            );
 
             return $adherents;
         } catch (\Exception $e) {
