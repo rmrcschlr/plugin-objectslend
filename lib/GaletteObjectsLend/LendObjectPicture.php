@@ -99,7 +99,7 @@ class LendObjectPicture extends \Galette\Core\Picture
     protected function getDefaultPicture()
     {
         $this->file_path = GALETTE_ROOT . 'plugins/ObjectsLend/picts/default.png';
-        $this->file_path = $this->plugins->getTemplatesPathFromName('Galette ObjectsLend') .
+        $this->file_path = $this->plugins->getTemplatesPathFromName('Galette Objects Lend') .
             '/images/default.png';
         $this->format = 'png';
         $this->mime = 'image/png';
