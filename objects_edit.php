@@ -53,7 +53,6 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("Edit an object"));
 
 $lendsprefs = new Preferences($zdb);
 
@@ -61,16 +60,30 @@ $lendsprefs = new Preferences($zdb);
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
-$saved = false;
 
 // Récupération id
-$object_id = filter_has_var(INPUT_GET, 'object_id') ? filter_input(INPUT_GET, 'object_id') : null;
+$object_id = null;
 
-/**
- * Annulation de l'enregistrement, on revient à la liste
- */
-if (filter_has_var(INPUT_POST, 'cancel')) {
-    header('Location: objects_list.php?msg=canceled');
+if (filter_has_var(INPUT_GET, 'object_id')) {
+    $object_id = (int)filter_input(INPUT_GET, 'object_id');
+} elseif (filter_has_var(INPUT_POST, 'object_id')) {
+    $object_id = (int)filter_input(INPUT_POST, 'object_id');
+}
+
+if ($object_id != null) {
+    $object = new LendObject($object_id);
+    $rents = LendRent::getRentsForObjectId($object_id);
+    $title = _T("Edit an object");
+} else {
+    if (filter_has_var(INPUT_GET, 'clone_object_id')) {
+        $object = new LendObject(intval(filter_input(INPUT_GET, 'clone_object_id')), true);
+        $title = _T("Clone an object");
+    } else {
+        $object = new LendObject();
+        $title = _T("Create an object");
+    }
+    $show_status = true;
+    $warning_detected[] = _T("You are cloning this object, not editing it!");
 }
 
 /**
@@ -78,30 +91,37 @@ if (filter_has_var(INPUT_POST, 'cancel')) {
  */
 if (filter_has_var(INPUT_POST, 'save')) {
     // Modification de l'objet
-    $obj = new LendObject(intval(filter_input(INPUT_POST, 'object_id')));
-    $obj->name = filter_input(INPUT_POST, 'name');
-    $obj->description = filter_input(INPUT_POST, 'description');
-    $obj->category_id = filter_has_var(INPUT_POST, 'category_id') ? filter_input(INPUT_POST, 'category_id') : null;
-    $obj->serial_number = filter_input(INPUT_POST, 'serial');
+    $object->name = filter_input(INPUT_POST, 'name');
+    $object->description = filter_input(INPUT_POST, 'description');
+    //TODO: check if category do exits?
+    $object->category_id = filter_has_var(INPUT_POST, 'category_id') ? filter_input(INPUT_POST, 'category_id') : null;
+    $object->serial_number = filter_input(INPUT_POST, 'serial');
     if (filter_input(INPUT_POST, 'price') != '') {
-        $obj->price = str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'price')));
+        //FIXME: better currency format handler
+        $object->price = str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'price')));
     }
     if (filter_input(INPUT_POST, 'rent_price') != '') {
-        $obj->rent_price = str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'rent_price')));
+        //FIXME: better currency format handler
+        $object->rent_price = str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'rent_price')));
     }
-    $obj->price_per_day = filter_input(INPUT_POST, 'price_per_day') == 'true';
-    $obj->dimension = filter_input(INPUT_POST, 'dimension');
+    $object->price_per_day = filter_input(INPUT_POST, 'price_per_day') == 'true';
+    $object->dimension = filter_input(INPUT_POST, 'dimension');
     if (filter_input(INPUT_POST, 'weight') != '') {
-        $obj->weight = str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'weight')));
+        //FIXME: better format handler
+        $object->weight = str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'weight')));
     }
-    $obj->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
-    $obj->store();
-    $saved = true;
+    $object->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
+
+    if ($object->store()) {
+        $success_detected[] = _('Object has been successfully stored!');
+    } else {
+        $error_detected[] = _('Something went wrong saveg object :(');
+    }
 
     // Enregistrement du 1er statut lors de la création
     if (filter_has_var(INPUT_POST, '1st_status')) {
         $rent = new LendRent();
-        $rent->object_id = $obj->object_id;
+        $rent->object_id = $object->object_id;
         $rent->status_id = filter_input(INPUT_POST, '1st_status');
         $rent->store();
     }
@@ -110,7 +130,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
     if (isset($_FILES['picture'])) {
         if ($_FILES['picture']['tmp_name'] != '') {
             if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
-                $objPicture = new LendObjectPicture($plugins, $obj->object_id);
+                $objPicture = new LendObjectPicture($plugins, $object->object_id);
                 $res = $objPicture->store($_FILES['picture']);
                 if ($res < 0) {
                     switch ($res) {
@@ -149,19 +169,17 @@ if (filter_has_var(INPUT_POST, 'save')) {
 
     // Suppression de la photo
     if (filter_has_var(INPUT_POST, 'del_picture') && filter_input(INPUT_POST, 'del_picture') == '1') {
-        $pic = new LendObjectPicture($plugins, $obj->object_id);
+        $pic = new LendObjectPicture($plugins, $object->object_id);
         $pic->delete();
     }
 
-    $object_id = $obj->object_id;
+    $object_id = $object->object_id;
 }
 
 /**
  * Modification du statut
  */
 if (filter_has_var(INPUT_POST, 'status')) {
-    $object_id = filter_input(INPUT_POST, 'object_id');
-
     LendRent::closeAllRentsForObject(intval($object_id), filter_input(INPUT_POST, 'new_comment'));
 
     $rent = new LendRent();
@@ -179,36 +197,24 @@ $statuses = LendStatus::getActiveStatuses();
 $adherents = LendRent::getAllActivesAdherents();
 
 /**
- * Lecture de l'objet à éditer
- */
-if ($object_id != null) {
-    $object = new LendObject(intval($object_id));
-    $rents = LendRent::getRentsForObjectId(intval($object_id));
-} else {
-    if (filter_has_var(INPUT_GET, 'clone_object_id')) {
-        $object = new LendObject(intval(filter_input(INPUT_GET, 'clone_object_id')), true);
-    } else {
-        $object = new LendObject();
-    }
-    $show_status = true;
-}
-
-/**
  * Récupération taille image
  */
 $size = LendObjectPicture::getHeightWidthForObject($object);
 $tpl->assign('pic_width', $size->width);
 $tpl->assign('pic_height', $size->height);
 
+$tpl->assign('page_title', $title);
 $tpl->assign('object', $object);
 $tpl->assign('rents', $rents);
-$tpl->assign('saved', $saved);
 $tpl->assign('show_status', $show_status);
 $tpl->assign('statuses', $statuses);
 $tpl->assign('adherents', $adherents);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('categories', LendCategory::getActiveCategories());
-$tpl->assign('msg_clone', filter_has_var(INPUT_GET, 'clone_object_id'));
+$tpl->assign('time', time());
+$tpl->assign('success_detected', $success_detected);
+$tpl->assign('error_detected', $error_detected);
+$tpl->assign('warning_detected', $warning_detected);
 
 $content = $tpl->fetch('objects_edit.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);

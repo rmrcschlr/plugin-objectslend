@@ -1,14 +1,3 @@
-{if $saved}
-    <div id="infobox">
-        <h1>{_T string="OBJECT EDIT.SAVED"}</h1>
-    </div>
-{/if}
-{if $msg_clone}
-    <div id="warningbox">
-        <h1>{_T string="OBJECT EDIT.WILL BE CLONED"}</h1>
-    </div>
-{/if}
-
 <form action="objects_edit.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="object_id" value="{$object->object_id}">
     <div class="bigtable">
