@@ -1,39 +1,16 @@
-{if $msg_saved}
-    <div id="infobox">
-        <h1>{_T string="STATUS LIST.SAVED"}</h1>
-    </div>
-{/if}
-{if $msg_canceled}
-    <div id="warningbox">
-        <h1>{_T string="STATUS LIST.CANCELED"}</h1>
-    </div>
-{/if}
-{if $msg_deleted}
-    <div id="errorbox">
-        <h1>{_T string="STATUS LIST.DELETED"}</h1>
-    </div>
-{/if}
-{if $msg_galette_location_needed}
-    <div id="errorbox">
-        <h1>{_T string="STATUS LIST.GALETTE LOCATION NEEDED"}</h1>
-    </div>
-{/if}
-{if $msg_away_needed}
-    <div id="errorbox">
-        <h1>{_T string="STATUS LIST.AWAY NEEDED"}</h1>
-    </div>
-{/if}
-<p>
-    {$nb_status} {_T string="STATUS LIST.NB RESULT"}
-</p>
+<table class="infoline">
+    <tr>
+        <td class="left">{$nb_status} {_T string="status"}</td>
+    </tr>
+</table>
 <table class="listing">
     <thead>
         <tr>
-            <th>
+            <th class="id_row">
                 <a href="?tri=status_id&direction={if $tri eq 'status_id' && $direction eq 'asc'}desc{else}asc{/if}">
                     #
                 </a>
-                {if $tri eq 'status_id' && $direction eq 'asc'} 
+                {if $tri eq 'status_id' && $direction eq 'asc'}
                     <img src="{$template_subdir}images/down.png"/>
                 {elseif $tri eq 'status_id' && $direction eq 'desc'}
                     <img src="{$template_subdir}images/up.png"/>
@@ -41,27 +18,17 @@
             </th>
             <th>
                 <a href="?tri=status_text&direction={if $tri eq 'status_text' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="STATUS LIST.TEXT"}
+                    {_T string="Status"}
                 </a>
-                {if $tri eq 'status_text' && $direction eq 'asc'} 
+                {if $tri eq 'status_text' && $direction eq 'asc'}
                     <img src="{$template_subdir}images/down.png"/>
                 {elseif $tri eq 'status_text' && $direction eq 'desc'}
                     <img src="{$template_subdir}images/up.png"/>
                 {/if}
             </th>
-            <th>
-                <a href="?tri=is_home_location&direction={if $tri eq 'is_home_location' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="STATUS LIST.IS GALETTE LOCATION"}
-                </a>
-                {if $tri eq 'is_home_location' && $direction eq 'asc'}
-                    <img src="{$template_subdir}images/down.png"/>
-                {elseif $tri eq 'is_home_location' && $direction eq 'desc'}
-                    <img src="{$template_subdir}images/up.png"/>
-                {/if}
-            </th>
-            <th>
+            <th class="id_row">
                 <a href="?tri=is_active&direction={if $tri eq 'is_active' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="STATUS LIST.IS ACTIVE"}
+                    {_T string="Active"}
                 </a>
                 {if $tri eq 'is_active' && $direction eq 'asc'}
                     <img src="{$template_subdir}images/down.png"/>
@@ -69,9 +36,9 @@
                     <img src="{$template_subdir}images/up.png"/>
                 {/if}
             </th>
-            <th>
+            <th class="id_row">
                 <a href="?tri=rent_day_number&direction={if $tri eq 'rent_day_number' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="STATUS LIST.RENT DAY NUMBER"}
+                    {_T string="Days for rent"}
                 </a>
                 {if $tri eq 'rent_day_number' && $direction eq 'asc'}
                     <img src="{$template_subdir}images/down.png"/>
@@ -79,12 +46,7 @@
                     <img src="{$template_subdir}images/up.png"/>
                 {/if}
             </th>
-            <th>
-                {_T string="STATUS LIST.EDIT SHORT"}
-            </th>
-            <th>
-                {_T string="STATUS LIST.DELETE SHORT"}
-            </th>
+            <th class="actions_row">{_T string="Actions"}</th>
         </tr>
     </thead>
     <tbody>
@@ -94,49 +56,32 @@
                     {$sttus->status_id}
                 </td>
                 <td>
+                    {if $sttus->is_home_location}
+                        <img src="{$template_subdir}images/icon-valid.png" alt="{_T string="At home"}" width="16" height="16"/>
+                    {else}
+                        <img src="{$template_subdir}images/icon-empty.png" alt="" width="16" height="16"/>
+                    {/if}
                     {$sttus->status_text}
                 </td>
                 <td align="center">
-                    {if $sttus->is_home_location}
-                        <img src="picts/check.png"/>
-                    {/if}
-                </td>
-                <td align="center">
                     {if $sttus->is_active}
-                        <img src="picts/check.png"/>
+                        <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" width="16" height="16"/>
                     {/if}
                 </td>
                 <td>
-                    {$sttus->rent_day_number}
+                    {if $sttus->rent_day_number}
+                        {_T string="%days days" pattern="/%days/" replace=$sttus->rent_day_number}
+                    {else}
+                        -
+                    {/if}
                 </td>
-                <td align="center">
+                <td class="center nowrap">
                     <a href="status_edit.php?status_id={$sttus->status_id}">
-                        <img src="picts/edit.png" title="{_T string="STATUS LIST.EDIT"}" border="0"/>
+                        <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit %status" pattern="/%status/" replace=$sttus->status_text}"/>
                     </a>
-                </td>
-                <td align="center">
-                    <a href="javascript:void(0)">
-                        <img src="picts/delete.png" title="{_T string="STATUS LIST.DELETE"}" border="0" onClick="confirmDelete('{$sttus->status_text}', '{$sttus->status_id}')"/>
-                    </a>
+                    <a onclick="return confirm('{_T string="Do you really want to delete this status from the base?" escape="js"}')" href="status_delete.php?status_id={$sttus->status_id}"><img src="{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %status from database" pattern="/%status/" replace=$sttus->status_text}"/></a>
                 </td>
             </tr>
         {/foreach}
     </tbody>
 </table>
-<p>
-    &nbsp;
-</p>
-<form action="status_edit.php?status_id=new" method="get">
-    <div class="button-container">
-        <input type="submit" id="status_create" value="{_T string="STATUS LIST.CREATE"}">
-    </div>
-</form>
-<script>
-    function confirmDelete(nom, status_id) {
-        var msg = $('<div/>').html('{_T string="STATUS LIST.CONFIRM DELETE"}').text();
-        if (confirm(msg + nom + ' ?')) {
-            window.location = 'status_delete.php?status_id=' + status_id;
-        }
-        return false;
-    }
-</script>

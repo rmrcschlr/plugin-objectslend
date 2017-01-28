@@ -51,7 +51,7 @@ require_once '_config.inc.php';
 
 $lendsprefs = new Preferences($zdb);
 
-$tpl->assign('page_title', _T("CATEGORIES LIST.PAGE TITLE"));
+$tpl->assign('page_title', _T("Categories list"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -59,9 +59,19 @@ $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
 $tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET, 'tri') : 'name';
 $direction = filter_has_var(INPUT_GET, 'direction') ? filter_input(INPUT_GET, 'direction') : 'asc';
-$saved = filter_has_var(INPUT_GET, 'msg') && filter_input(INPUT_GET, 'msg') == 'saved';
-$canceled = filter_has_var(INPUT_GET, 'msg') && filter_input(INPUT_GET, 'msg') == 'canceled';
-$deleted = filter_has_var(INPUT_GET, 'msg') && filter_input(INPUT_GET, 'msg') == 'deleted';
+if (isset($_GET['msg'])) {
+    switch ($_GET['msg']) {
+        case 'deleted':
+            $success_detected[] = _T("Category has been successfully deleted");
+            break;
+        case 'saved':
+            $success_detected[] = _T("Category has been saved");
+            break;
+        case 'canceled':
+            $warning_detected[] = _T("Category edition has been canceled");
+            break;
+    }
+}
 
 $categories = LendCategory::getAllCategories($tri, $direction);
 
@@ -69,9 +79,9 @@ $tpl->assign('categories', $categories);
 $tpl->assign('nb_categories', count($categories));
 $tpl->assign('tri', $tri);
 $tpl->assign('direction', $direction);
-$tpl->assign('msg_saved', $saved);
-$tpl->assign('msg_canceled', $canceled);
-$tpl->assign('msg_deleted', $deleted);
+$tpl->assign('success_detected', $success_detected);
+$tpl->assign('warning_detected', $warning_detected);
+$tpl->assign('error_detected', $error_detected);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 
 $content = $tpl->fetch('categories_list.tpl', LEND_SMARTY_PREFIX);

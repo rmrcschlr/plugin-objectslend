@@ -49,8 +49,6 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("CATEGORY EDIT.PAGE TITLE"));
-
 $lendsprefs = new Preferences($zdb);
 
 //Set the path to the current plugin's templates,
@@ -58,15 +56,16 @@ $lendsprefs = new Preferences($zdb);
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
-/**
- * Annulation de l'enregistrement, on revient à la liste
- */
-if (filter_has_var(INPUT_POST, 'cancel')) {
-    header('Location: categories_list.php?msg=canceled');
+if (filter_has_var(INPUT_GET, 'category_id')) {
+    $category = new LendCategory((int)filter_input(INPUT_GET, 'category_id'));
+    $title = _T("Edit category");
+} else {
+    $category = new LendCategory();
+    $title = _T("New category");
 }
 
 /**
- * Enregistrement des modifications
+ * Store changes
  */
 if (filter_has_var(INPUT_POST, 'save')) {
     $c = new LendCategory(intval(filter_input(INPUT_POST, 'category_id')));
@@ -75,7 +74,10 @@ if (filter_has_var(INPUT_POST, 'save')) {
     $c->store();
 
     // Enregistrement de la photo
-    if (isset($_FILES['picture']) && $_FILES['picture']['tmp_name'] != '' && is_uploaded_file($_FILES['picture']['tmp_name'])) {
+    if (isset($_FILES['picture'])
+        && $_FILES['picture']['tmp_name'] != ''
+        && is_uploaded_file($_FILES['picture']['tmp_name'])
+    ) {
         if ($c->categ_image_url != '' && file_exists($c->categ_image_url)) {
             unlink($c->categ_image_url);
         }
@@ -88,22 +90,17 @@ if (filter_has_var(INPUT_POST, 'save')) {
     }
 
     // Suppression de la photo
-    if (filter_has_var(INPUT_POST, 'del_picture') && filter_input(INPUT_POST, 'del_picture') == '1' && file_exists($c->categ_image_url)) {
+    if (filter_has_var(INPUT_POST, 'del_picture')
+        && filter_input(INPUT_POST, 'del_picture') == '1'
+        && file_exists($c->categ_image_url)
+    ) {
         unlink($c->categ_image_url);
     }
 
     header('Location: categories_list.php?msg=saved');
 }
 
-/**
- * Lecture des infos du statut
- */
-if (filter_has_var(INPUT_GET, 'category_id')) {
-    $category = new LendCategory(intval(filter_input(INPUT_GET, 'category_id')));
-} else {
-    $category = new LendCategory();
-}
-
+$tpl->assign('page_title', $title);
 $tpl->assign('category', $category);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 

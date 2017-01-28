@@ -2,7 +2,7 @@
     <input type="hidden" name="category_id" value="{$category->category_id}">
     <div class="bigtable">
         <fieldset class="cssform">
-            <legend class="ui-state-active ui-corner-top">{_T string="CATEGORY EDIT.TITLE"}</legend>
+            <legend class="ui-state-active ui-corner-top">{_T string="Category"}</legend>
             <div>
                 <p>
                     <span class="bline">{_T string="Name"}</span>
@@ -17,21 +17,21 @@
             </div>
             <div>
                 <p>
-                    <span class="bline tooltip_lend" title="{_T string="OBJECT EDIT.HELP UPLOAD PICTURE"}">
-                        {_T string="CATEGORY EDIT.PICTURE"}
-                        <img src="picts/help.png"/>
+                    <span class="bline tooltip" title="{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}">
+                        {_T string="Photo:"}
                     </span>
+                    <span class="tip">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</span>
                     <input type="file" name="picture">
                     {if $category->category_id ne ''}
                         <br/>
-                        <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="CATEGORY EDIT.DELETE PICTURE"}</label></span><br/>
+                        <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image"}</label></span>
                         {/if}
                 </p>
             </div>
             {if $category->categ_image_url ne ''}
                 <div>
                     <p>
-                        <span class="bline">{_T string="CATEGORY EDIT.THUMB"}</span>
+                        <span class="bline">{_T string="Thumbnail:"}</span>
                         <img src="{$category->categ_image_url}" class="picture" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-width: {$lendsprefs.THUMB_MAX_WIDTH}px; max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px;"{/if}/>
                     </p>
                 </div>

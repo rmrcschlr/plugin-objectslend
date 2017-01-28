@@ -1,25 +1,10 @@
-{if $msg_saved}
-    <div id="infobox">
-        <h1>{_T string="CATEGORIES LIST.SAVED"}</h1>
-    </div>
-{/if}
-{if $msg_canceled}
-    <div id="warningbox">
-        <h1>{_T string="CATEGORIES LIST.CANCELED"}</h1>
-    </div>
-{/if}
-{if $msg_deleted}
-    <div id="errorbox">
-        <h1>{_T string="CATEGORIES LIST.DELETED"}</h1>
-    </div>
-{/if}
 <p>
-    {$nb_categories} {_T string="CATEGORIES LIST.NB RESULT"}
+    {$nb_categories} {if $nb_categories > 1}{_T string="categories"}{else}{_T string="category"}{/if}
 </p>
 <table class="listing">
     <thead>
         <tr>
-            <th>
+            <th class="id_row">
                 <a href="?tri=category_id&direction={if $tri eq 'category_id' && $direction eq 'asc'}desc{else}asc{/if}">
                     #
                 </a>
@@ -30,11 +15,8 @@
                 {/if}
             </th>
             <th>
-                {_T string="CATEGORIES LIST.IMAGE"}
-            </th>
-            <th>
                 <a href="?tri=name&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="CATEGORIES LIST.TEXT"}
+                    {_T string="Category"}
                 </a>
                 {if $tri eq 'name' && $direction eq 'asc'} 
                     <img src="{$template_subdir}images/down.png">
@@ -42,9 +24,9 @@
                     <img src="{$template_subdir}images/up.png">
                 {/if}
             </th>
-            <th>
+            <th class="id_row">
                 <a href="?tri=is_active&direction={if $tri eq 'is_active' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="CATEGORIES LIST.IS ACTIVE"}
+                    {_T string="Active"}
                 </a>
                 {if $tri eq 'is_active' && $direction eq 'asc'}
                     <img src="{$template_subdir}images/down.png">
@@ -52,11 +34,8 @@
                     <img src="{$template_subdir}images/up.png">
                 {/if}
             </th>
-            <th>
-                {_T string="STATUS LIST.EDIT SHORT"}
-            </th>
-            <th>
-                {_T string="STATUS LIST.DELETE SHORT"}
+            <th class="actions_row">
+                {_T string="Actions"}
             </th>
         </tr>
     </thead>
@@ -70,43 +49,20 @@
                     {if $categ->categ_image_url ne ''}
                         <img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-width: {$lendsprefs.THUMB_MAX_WIDTH}px; max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px;"{/if}/>
                     {/if}
-                </td>
-                <td>
                     {$categ->name}
                 </td>
                 <td align="center">
                     {if $categ->is_active}
-                        <img src="picts/check.png"/>
+                        <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" width="16" height="16"/>
                     {/if}
                 </td>
-                <td align="center">
+                <td class="center nowrap">
                     <a href="category_edit.php?category_id={$categ->category_id}">
-                        <img src="picts/edit.png" title="{_T string="CATEGORIES LIST.EDIT"}" border="0"/>
+                        <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit %category" pattern="/%category/" replace=$categ->name}"/>
                     </a>
-                </td>
-                <td align="center">
-                    <a href="javascript:void(0)">
-                        <img src="picts/delete.png" title="{_T string="CATEGORIES LIST.DELETE"}" border="0" onClick="confirmDelete('{$categ->name}', '{$categ->category_id}')"/>
-                    </a>
+                    <a onclick="return confirm('{_T string="Do you really want to delete this category from the base?" escape="js"}')" href="category_delete.php?category_id={$categ->category_id}"><img src="{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %category from database" pattern="/%category/" replace=$categ->name}"/></a>
                 </td>
             </tr>
         {/foreach}
     </tbody>
 </table>
-<p>
-    &nbsp;
-</p>
-<form action="category_edit.php?status_id=new" method="get">
-    <div class="button-container">
-        <input type="submit" id="status_create" value="{_T string="CATEGORIES LIST.CREATE"}">
-    </div>
-</form>
-<script>
-    function confirmDelete(nom, categ_id) {
-        var msg = $('<div/>').html('{_T string="CATEGORIES LIST.CONFIRM DELETE"}').text();
-        if (confirm(msg + nom + ' ?')) {
-            window.location = 'category_delete.php?category_id=' + categ_id;
-        }
-        return false;
-    }
-</script>

@@ -48,24 +48,24 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("STATUS EDIT.PAGE TITLE"));
-//Set the path to the current plugin's templates,
-//but backup main Galette's template path before
-$orig_template_path = $tpl->template_dir;
-$tpl->template_dir = 'templates/' . $preferences->pref_theme;
-
-/**
- * Annulation de l'enregistrement, on revient à la liste
- */
-if (filter_has_var(INPUT_POST, 'cancel')) {
-    header('Location: status_list.php?msg=canceled');
+if (filter_has_var(INPUT_GET, 'status_id')) {
+    $status = new LendStatus((int)filter_input(INPUT_GET, 'status_id'));
+    $title = str_replace(
+        '%status',
+        $status->status_text,
+        _T("Edit status %status")
+    );
+} else {
+    $status = new LendStatus();
+    $title = _T("New status");
 }
 
+
 /**
- * Enregistrement des modifications
+ * Sotre changes
  */
 if (filter_has_var(INPUT_POST, 'save')) {
-    $s = new LendStatus(intval(filter_input(INPUT_POST, 'status_id')));
+    $s = new LendStatus((int)filter_input(INPUT_POST, 'status_id'));
     $s->status_text = filter_input(INPUT_POST, 'text');
     $s->is_home_location = filter_input(INPUT_POST, 'is_home_location') == 'true';
     $s->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
@@ -76,15 +76,12 @@ if (filter_has_var(INPUT_POST, 'save')) {
     header('Location: status_list.php?msg=saved');
 }
 
-/**
- * Lecture des infos du statut
- */
-if (filter_has_var(INPUT_GET, 'status_id')) {
-    $status = new LendStatus(intval(filter_input(INPUT_GET, 'status_id')));
-} else {
-    $status = new LendStatus();
-}
+//Set the path to the current plugin's templates,
+//but backup main Galette's template path before
+$orig_template_path = $tpl->template_dir;
+$tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
+$tpl->assign('page_title', $title);
 $tpl->assign('status', $status);
 
 $content = $tpl->fetch('status_edit.tpl', LEND_SMARTY_PREFIX);

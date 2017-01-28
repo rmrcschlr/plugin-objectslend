@@ -48,7 +48,7 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("STATUS LIST.PAGE TITLE"));
+$tpl->assign('page_title', _T("Status list"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -56,23 +56,37 @@ $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
 $tri = array_key_exists('tri', $_GET) ? $_GET['tri'] : 'status_text';
 $direction = array_key_exists('direction', $_GET) ? $_GET['direction'] : 'asc';
-$saved = array_key_exists('msg', $_GET) && $_GET['msg'] == 'saved';
-$canceled = array_key_exists('msg', $_GET) && $_GET['msg'] == 'canceled';
-$deleted = array_key_exists('msg', $_GET) && $_GET['msg'] == 'deleted';
+if (isset($_GET['msg'])) {
+    switch ($_GET['msg']) {
+        case 'deleted':
+            $success_detected[] = _T("Status has been successfully deleted");
+            break;
+        case 'saved':
+            $success_detected[] = _T("Status has been saved");
+            break;
+        case 'canceled':
+            $warning_detected[] = _T("Status edition has been canceled");
+            break;
+    }
+}
 
 $statuses = LendStatus::getAllStatuses($tri, $direction);
-$msg_galette_location_needed = count(LendStatus::getActiveHomeStatuses()) == 0;
-$msg_away_needed = count(LendStatus::getActiveTakeAwayStatuses()) == 0;
+if (count(LendStatus::getActiveHomeStatuses()) == 0) {
+    $error_detected[] = _T("You should add at last 1 status 'on site' to ensure the plugin works well!");
+}
+if (count(LendStatus::getActiveTakeAwayStatuses()) == 0) {
+    $error_detected[] = _T("You should add at last 1 status 'object borrowed' to ensure the plugin works well!");
+}
 
 $tpl->assign('statuses', $statuses);
 $tpl->assign('nb_status', count($statuses));
 $tpl->assign('tri', $tri);
 $tpl->assign('direction', $direction);
-$tpl->assign('msg_saved', $saved);
-$tpl->assign('msg_canceled', $canceled);
-$tpl->assign('msg_deleted', $deleted);
 $tpl->assign('msg_galette_location_needed', $msg_galette_location_needed);
 $tpl->assign('msg_away_needed', $msg_away_needed);
+$tpl->assign('success_detected', $success_detected);
+$tpl->assign('warning_detected', $warning_detected);
+$tpl->assign('error_detected', $error_detected);
 
 $content = $tpl->fetch('status_list.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);
