@@ -77,7 +77,7 @@ if ($object_id != null) {
 } else {
     if (filter_has_var(INPUT_GET, 'clone_object_id')) {
         $object = new LendObject(intval(filter_input(INPUT_GET, 'clone_object_id')), true);
-        $title = _T("Clone an object");
+        $title = _T("Duplicate object");
         $warning_detected[] = _T("You are cloning this object, not editing it!");
     } else {
         $object = new LendObject();
