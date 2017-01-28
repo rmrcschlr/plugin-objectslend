@@ -131,6 +131,13 @@
     background-image:url(../../../../templates/default/images/icon-save.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png");
 }
 
+.btnpdf {
+    background-image:url(../../../../templates/default/images/icon-pdf.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png");
+}
+.btnpdf.ui-state-hover {
+    background-image:url(../../../../templates/default/images/icon-pdf.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png");
+}
+
 .btnrefresh {
     background-image:url(../../../../templates/default/images/icon-refresh.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png");
 }

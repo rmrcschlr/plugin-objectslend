@@ -262,16 +262,14 @@
                                 {/if}
                             </th>
                         {/if}
-                        <th>
-                            {_T string="Actions"}
-                        </th>
                         {if $login->isAdmin() || $login->isStaff()}
                             <th>
                                 {_T string="Active"}
                             </th>
-                            <th>
-                            </th>
                         {/if}
+                        <th>
+                            {_T string="Actions"}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -349,10 +347,15 @@
                                 </td>
                             {/if}
                             <td class="center">
+                                {if $objt->is_active}
+                                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Object is active"}"/>
+                                {/if}
+                            </td>
+                            <td class="center nowrap">
                                 {if $objt->is_home_location}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
                                         <a onclick="take_object({$objt->object_id});" style="cursor: pointer;" {*href="take_object.php?object_id={$objt->object_id}"*}>
-                                            <img src="picts/bag.png" alt="{_T string="OBJECTS LIST.TAKE AWAY"}" class="tooltip_lend" title="{_T string="OBJECTS LIST.TAKE AWAY"}"/>
+                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="OBJECTS LIST.TAKE AWAY"}" class="tooltip_lend" title="{_T string="OBJECTS LIST.TAKE AWAY"}"/>
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $objt->id_adh}
@@ -360,25 +363,19 @@
                                         <img src="picts/cabinet.png" alt="{_T string="OBJECTS LIST.REPLACE"}" class="tooltip_lend" title="{_T string="OBJECTS LIST.REPLACE"}">
                                     </a>
                                 {/if}
+
+    {if $login->isAdmin() || $login->isStaff()}
+                                <a href="objects_edit.php?object_id={$objt->object_id}">
+                                    <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object"}"/>
+                                </a>
+                                <a href="objects_edit.php?clone_object_id={$objt->object_id}">
+                                    <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-dup.png" title="{_T string="Copy object"}" border="0"/>
+                                </a>
+                                <a href="objects_print.php?object_id={$objt->object_id}">
+                                    <img src="{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF"}" border="0"/>
+                                </a>
                             </td>
-                            {if $login->isAdmin() || $login->isStaff()}
-                                <td class="center">
-                                    {if $objt->is_active}
-                                        <img src="picts/check.png" alt="{_T string="OBJECTS LIST.IS ACTIVE"}" title="{_T string="OBJECTS LIST.IS ACTIVE"}"/>
-                                    {/if}
-                                </td>
-                                <td class="center nowrap">
-                                    <a href="objects_edit.php?object_id={$objt->object_id}">
-                                        <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object"}"/>
-                                    </a>
-                                    <a href="objects_edit.php?clone_object_id={$objt->object_id}">
-                                        <img src="picts/copy.png" class="tooltip_lend" title="{_T string="OBJECTS LIST.COPY"}" border="0"/>
-                                    </a>
-                                    <a href="objects_print.php?object_id={$objt->object_id}">
-                                        <img src="picts/pdf24.png" class="tooltip_lend" title="{_T string="OBJECTS LIST.PDF"}" border="0"/>
-                                    </a>
-                                </td>
-                            {/if}
+    {/if}
                         </tr>
                     {foreachelse}
                         {* FIXME: calculate colspan *}
@@ -393,23 +390,23 @@
                             <li>{_T string="For the selection:"}</li>
                             <li>
                                 <input type="hidden" name="actual_page" id="actual_page" value="{$page}">
-                                <input type="submit" id="objects_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.PRINT"}" onclick="return printObjectList('{$tri}', '{$category_id}');">
+                                <input type="submit" class="button btnpdf" value="{_T string="Print objects list"}" onclick="return printObjectList('{$tri}', '{$category_id}');">
                             </li>
     {if $login->isAdmin() || $login->isStaff()}
                             <li>
-                                <input type="submit" id="objects_record_print" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.SINGLE PRINT"}" onclick="return printObjectRecords();">
+                                <input type="submit" class="button btnpdf" value="{_T string="Print objects cards"}" onclick="return printObjectRecords();">
                             </li>
                             <li>
-                                <input type="submit" id="objects_take_away" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.MORE AWAY"}">
+                                <input type="submit" value="{_T string="Take out"}">
                             </li>
                             <li>
-                                <input type="submit" id="objects_give_back" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.GIVE BACK"}">
+                                <input type="submit" value="{_T string="Return"}">
                             </li>
                             <li>
-                                <input type="submit" id="objects_disable" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DISABLE"}" onclick="return confirmDelete(false);">
+                                <input type="submit" value="{_T string="Disable"}" onclick="return confirmDelete(false);">
                             </li>
                             <li>
-                                <input type="submit" id="objects_delete" class="ui-button ui-widget ui-state-default ui-corner-all" value="{_T string="OBJECTS LIST.DELETE"}" onclick="return confirmDelete(true);">
+                                <input type="submit" id="delete" value="{_T string="Delete"}" onclick="return confirmDelete(true);">
                             </li>
     {/if}
                         </ul>
