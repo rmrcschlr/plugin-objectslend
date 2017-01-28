@@ -32,7 +32,7 @@
  * @author    Mélissa Djebel <melissa.djebel@gmx.net>
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * @copyright 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -98,7 +98,6 @@ class LendObjectPicture extends \Galette\Core\Picture
      */
     protected function getDefaultPicture()
     {
-        $this->file_path = GALETTE_ROOT . 'plugins/ObjectsLend/picts/default.png';
         $this->file_path = $this->plugins->getTemplatesPathFromName('Galette Objects Lend') .
             '/images/default.png';
         $this->format = 'png';
@@ -135,7 +134,7 @@ class LendObjectPicture extends \Galette\Core\Picture
             $thumb_max_height = 96;
             $w = round($this->getOptimalWidth() * $thumb_max_width / $this->max_width);
             $h = round($this->getOptimalHeight() * $thumb_max_height / $this->max_height);
-            $this->_createRoundThumb($this->file_path, $nom_thumb, $w, $h, 5, 10);
+            $this->createRoundThumb($this->file_path, $nom_thumb, $w, $h, 5, 10);
         }
         header('Content-type: ' . $this->mime);
         readfile($nom_thumb);
@@ -153,7 +152,7 @@ class LendObjectPicture extends \Galette\Core\Picture
      *
      * @return void
      */
-    private function _createRoundThumb($img_src, $img_dest, $w_thumb, $h_thumb, $border = 10, $radial = 24)
+    private function createRoundThumb($img_src, $img_dest, $w_thumb, $h_thumb, $border = 10, $radial = 24)
     {
         $pic['destNormal']['name'] = $img_src; // nom du fichier normal
         // Récupération des infos de l'image source
@@ -286,33 +285,42 @@ class LendObjectPicture extends \Galette\Core\Picture
     }
 
     /**
-     * Restaure toutes les images des objects a partir du blob en base de donnée
+     * Restore objects images from database blob
      *
-     * @return Les messages de l'execution
+     * @param array $success Success messages
+     * @param array $error   Error messages
+     *
+     * @return void
      */
-    public function restoreObjectPictures()
+    public function restoreObjectPictures(&$success, &$error)
     {
         global $zdb;
-
-        $messages = array();
-
-        if (!file_exists('objects_pictures/')) {
-            mkdir('objects_pictures/');
-        }
 
         try {
             $select_all = $zdb->select($this->tbl_prefix . self::TABLE);
             $results = $zdb->execute($select_all);
-            $messages[] = 'Found ' . count($results) . ' objects pictures in database';
+            $success[] = str_replace(
+                '%count',
+                count($results),
+                _T("Found %count objects pictures in database")
+            );
             foreach ($results as $picture) {
-                $path = 'objects_pictures/' . $picture->object_id . '.' . $picture->format;
+                $path = realpath($this->store_path . $picture->object_id . '.' . $picture->format);
                 if (file_exists($path)) {
-                    $messages[] = 'Deleted picture \'' . $path . '\'';
                     unlink($path);
+                    $success[] = str_replace(
+                        '%path',
+                        $path,
+                        _T("Picture '%path' deleted")
+                    );
                 }
 
-                $messages[] = 'Writed object picture \'' . $path . '\'';
                 file_put_contents($path, $picture->picture);
+                $success[] = str_replace(
+                    '%path',
+                    $path,
+                    _T("Picture '%path' written")
+                );
             }
         } catch (\Exception $e) {
             Analog::log(
@@ -320,8 +328,7 @@ class LendObjectPicture extends \Galette\Core\Picture
                 $e->getTraceAsString(),
                 Analog::ERROR
             );
+            $error[] = _("An error occured :(");
         }
-
-        return $messages;
     }
 }

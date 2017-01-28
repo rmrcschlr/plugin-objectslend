@@ -48,7 +48,7 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("ADMIN PICTURE.PAGE TITLE"));
+$tpl->assign('page_title', _T("Pictures administration"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -71,8 +71,11 @@ if (filter_has_var(INPUT_POST, 'save_categories') || filter_has_var(INPUT_POST, 
 
 if (filter_has_var(INPUT_POST, 'restore_objects')) {
     $p = new LendObjectPicture($plugins, -1);
-    $tpl->assign('messages', $p->restoreObjectPictures());
+    $p->restoreObjectPictures($success_detected, $error_detected);
 }
+
+$tpl->assign('success_detected', $success_detected);
+$tpl->assign('error_detected', $error_detected);
 
 $content = $tpl->fetch('admin_picture.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);

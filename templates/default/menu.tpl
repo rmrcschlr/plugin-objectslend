@@ -31,7 +31,7 @@
         <a href="{$galette_base_path}{$lend_dir}preferences.php">{_T string="Preferences"}</a>
     </li>
     <li{if $PAGENAME eq "admin_picture.php"} class="selected"{/if}>
-        <a href="{$galette_base_path}{$lend_dir}admin_picture.php">{_T string="Picture admin"}</a>
+        <a href="{$galette_base_path}{$lend_dir}admin_picture.php">{_T string="Pictures administration"}</a>
     </li>
     {/if}
 </ul>
