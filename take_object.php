@@ -40,7 +40,7 @@
 
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\Preferences;
-use GaletteObjectsLend\LendObjectPicture;
+use GaletteObjectsLend\ObjectPicture;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
 
@@ -167,7 +167,7 @@ $object = new LendObject($object_id);
 /**
  * Tooltip de la photo
  */
-$s = LendObjectPicture::getHeightWidthForObject($object);
+$s = ObjectPicture::getHeightWidthForObject($object);
 
 $object->tooltip_title = '<center>';
 $object->tooltip_title .= '<img src=\'picture.php?quick=1&object_id=' . $object->object_id . '\' width=\'' . $s->width . '\' height=\'' . $s->height . '\'/>';

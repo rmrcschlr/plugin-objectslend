@@ -17,25 +17,23 @@
             </div>
             <div>
                 <p>
-                    <span class="bline tooltip" title="{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}">
-                        {_T string="Photo:"}
-                    </span>
-                    <span class="tip">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</span>
-                    <input type="file" name="picture">
-                    {if $category->category_id ne ''}
-                        <br/>
-                        <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image"}</label></span>
-                        {/if}
                 </p>
             </div>
-            {if $category->categ_image_url ne ''}
-                <div>
-                    <p>
-                        <span class="bline">{_T string="Thumbnail:"}</span>
-                        <img src="{$category->categ_image_url}" class="picture" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-width: {$lendsprefs.THUMB_MAX_WIDTH}px; max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px;"{/if}/>
-                    </p>
-                </div>
-            {/if}
+            <div>
+                <p>
+                    <span class="bline">{_T string="Picture:"}</span>
+                    <img src="picture.php?category_id={$category->category_id}&amp;rand={$time}&thumb=1"
+                        class="picture"
+                        width="{$category->picture->getOptimalThumbWidth()}"
+                        height="{$category->picture->getOptimalThumbHeight()}"
+                        alt="{_T string="Category photo"}"/><br/>
+    {if $category->picture->hasPicture()}
+                    <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image"}</label></span><br/>
+    {/if}
+
+                    <input class="labelalign" type="file" name="picture"/>
+                </p>
+            </div>
         </fieldset>
     </div>
     <div class="button-container">

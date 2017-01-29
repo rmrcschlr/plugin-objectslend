@@ -44,7 +44,7 @@ use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendPDF;
-use GaletteObjectsLend\LendObjectPicture;
+use GaletteObjectsLend\ObjectPicture;
 use GaletteObjectsLend\LendRent;
 
 define('GALETTE_BASE_PATH', '../../');
@@ -131,7 +131,7 @@ foreach ($ids as $object_id) {
     if ($object_id != null) {
         $object = new LendObject((int)$object_id);
         LendObject::getStatusForObject($object);
-        $size = LendObjectPicture::getHeightWidthForObject($object);
+        $size = ObjectPicture::getHeightWidthForObject($object);
 
         $width = 1;
         $height = 1;

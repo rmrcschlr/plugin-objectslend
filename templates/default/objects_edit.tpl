@@ -93,7 +93,11 @@
             <legend class="ui-state-active ui-corner-top">{_T string="Object's photo"}</legend>
                 <p>
                     <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</div>
-                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}" class="picture" width="{$lendsprefs.THUMB_MAX_WIDTH}" height="{$lendsprefs.THUMB_MAX_HEIGHT}" alt="{_T string="Object's photo"}"/><br/>
+                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=true"
+                        class="picture"
+                        width="{$object->picture->getOptimalThumbWidth()}"
+                        height="{$object->picture->getOptimalThumbHeight()}"
+                        alt="{_T string="Object's photo"}"/><br/>
                     <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image"}</label></span><br/>
                     <input type="file" name="picture" id="object_picture">
                 </p>

@@ -56,8 +56,15 @@ $lendsprefs = new Preferences($zdb);
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
-if (filter_has_var(INPUT_GET, 'category_id')) {
-    $category = new LendCategory((int)filter_input(INPUT_GET, 'category_id'));
+$id = null;
+if (filter_has_var(INPUT_POST, 'category_id')) {
+    $id = (int)$_POST['category_id'];
+} elseif (filter_has_var(INPUT_GET, 'category_id')) {
+    $id = (int)$_GET['category_id'];
+}
+
+if ($id !== null) {
+    $category = new LendCategory($id);
     $title = _T("Edit category");
 } else {
     $category = new LendCategory();
@@ -68,41 +75,56 @@ if (filter_has_var(INPUT_GET, 'category_id')) {
  * Store changes
  */
 if (filter_has_var(INPUT_POST, 'save')) {
-    $c = new LendCategory(intval(filter_input(INPUT_POST, 'category_id')));
-    $c->name = filter_input(INPUT_POST, 'name');
-    $c->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
-    $c->store();
+    //$c = new LendCategory(intval(filter_input(INPUT_POST, 'category_id')));
+    $category->name = filter_input(INPUT_POST, 'name');
+    $category->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
+    if ($category->store()) {
+        // picture upload
+        if (isset($_FILES['picture'])) {
+            if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+                if ($_FILES['picture']['tmp_name'] !='') {
+                    if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
+                        $res = $category->picture->store($_FILES['picture']);
+                        if ($res < 0) {
+                            $error_detected[]
+                                = $category->picture->getErrorMessage($res);
+                        }
+                    }
+                }
+            } elseif ($_FILES['picture']['error'] !== UPLOAD_ERR_NO_FILE) {
+                Analog::log(
+                    $category->picture->getPhpErrorMessage($_FILES['picture']['error']),
+                    Analog::WARNING
+                );
+                $error_detected[] = $category->picture->getPhpErrorMessage(
+                    $_FILES['picture']['error']
+                );
+            }
+        }
 
-    // Enregistrement de la photo
-    if (isset($_FILES['picture'])
-        && $_FILES['picture']['tmp_name'] != ''
-        && is_uploaded_file($_FILES['picture']['tmp_name'])
-    ) {
-        if ($c->categ_image_url != '' && file_exists($c->categ_image_url)) {
-            unlink($c->categ_image_url);
+        if (isset($_POST['del_picture'])) {
+            if (!$category->picture->delete($category->category_id)) {
+                $error_detected[] = _T("Delete failed");
+                Analog::log(
+                    'Unable to delete picture for member ' . $category->name,
+                    Analog::ERROR
+                );
+            }
         }
-        $ext = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
-        $destination = 'categories_pictures/' . $c->category_id . '.' . $ext;
-        if (file_exists($destination)) {
-            unlink($destination);
-        }
-        move_uploaded_file($_FILES['picture']['tmp_name'], $destination);
+    } else {
+        $error_detected[] = _T("An error occured while storing the category.");
     }
 
-    // Suppression de la photo
-    if (filter_has_var(INPUT_POST, 'del_picture')
-        && filter_input(INPUT_POST, 'del_picture') == '1'
-        && file_exists($c->categ_image_url)
-    ) {
-        unlink($c->categ_image_url);
+    if (count($error_detected) == 0) {
+        header('Location: categories_list.php?msg=saved');
     }
-
-    header('Location: categories_list.php?msg=saved');
 }
 
 $tpl->assign('page_title', $title);
 $tpl->assign('category', $category);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('time', time());
+$tpl->assign('error_detected', $error_detected);
 
 $content = $tpl->fetch('category_edit.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);

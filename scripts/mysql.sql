@@ -236,3 +236,13 @@ CREATE TABLE IF NOT EXISTS galette_lend_category (
 ALTER TABLE galette_lend_objects
   ADD CONSTRAINT FK_rent_category_1 FOREIGN KEY (category_id) REFERENCES galette_lend_category (category_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+--
+-- Structure de la table 'galette_lend_categories_pictures'
+--
+
+CREATE TABLE IF NOT EXISTS galette_lend_categories_pictures (
+  category_id int(11) NOT NULL,
+  picture mediumblob NOT NULL,
+  format varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  PRIMARY KEY (category_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;

@@ -38,7 +38,8 @@
  * @since     Available since 0.7
  */
 
-use GaletteObjectsLend\LendObjectPicture;
+use GaletteObjectsLend\ObjectPicture;
+use GaletteObjectsLend\CategoryPicture;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -70,8 +71,13 @@ if (filter_has_var(INPUT_POST, 'save_categories') || filter_has_var(INPUT_POST, 
 }
 
 if (filter_has_var(INPUT_POST, 'restore_objects')) {
-    $p = new LendObjectPicture($plugins, -1);
-    $p->restoreObjectPictures($success_detected, $error_detected);
+    $p = new ObjectPicture($plugins, -1);
+    $p->restorePictures($success_detected, $error_detected);
+}
+
+if (filter_has_var(INPUT_POST, 'restore_categories')) {
+    $p = new CategoryPicture($plugins, -1);
+    $p->restorePictures($success_detected, $error_detected);
 }
 
 $tpl->assign('success_detected', $success_detected);

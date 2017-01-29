@@ -3,7 +3,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * Display the picture of a plane if it exists
+ * Picture of a category
  *
  * PHP version 5
  *
@@ -31,46 +31,32 @@
  * @author    Mélissa Djebel <melissa.djebel@gmx.net>
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * @copyright 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
 
-use GaletteObjectsLend\Preferences;
+namespace GaletteObjectsLend;
 
-define('GALETTE_BASE_PATH', '../../');
-require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
-require_once '_config.inc.php';
+use Analog\Analog;
+use Galette\Core\Plugins;
 
-$lendsprefs = new Preferences($zdb);
+class CategoryPicture extends Picture
+{
+    const PK = 'category_id';
+    const TABLE = 'categories_pictures';
 
-$thumb = isset($_GET['thumb']) && $_GET['thumb'] == '1';
-$quick_mode = isset($_GET['quick']) && $_GET['quick'] == '1';
-
-$id = null;
-$class = null;
-
-if (isset($_GET['object_id'])) {
-    $id = (int)$_GET['object_id'];
-    $class = '\GaletteObjectsLend\ObjectPicture';
-}
-if (isset($_GET['category_id'])) {
-    $id = (int)$_GET['category_id'];
-    $class = '\GaletteObjectsLend\CategoryPicture';
-}
-
-//FIXME: what is quick mode?
-if (!$quick_mode && !$login->isLogged()) {
-    header('location: ' . GALETTE_BASE_PATH . 'index.php');
-    die();
-}
-
-$picture = new $class($plugins, $id);
-
-if ($thumb === true || $quick_mode === true) {
-    $picture->displayThumb($lendsprefs);
-} else {
-    $picture->display();
+    /**
+     * Default constructor.
+     *
+     * @param Plugins $plugins  Plugins
+     * @param int     $objectid Object id
+     */
+    public function __construct(Plugins $plugins, $objectid = '')
+    {
+        $this->store_path = GALETTE_PHOTOS_PATH . 'objectslend/categories/';
+        parent::__construct($plugins, $objectid);
+    }
 }

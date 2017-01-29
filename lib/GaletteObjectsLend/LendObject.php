@@ -51,56 +51,57 @@ class LendObject
     const TABLE = 'objects';
     const PK = 'object_id';
 
-    private $_fields = array(
-        '_object_id' => 'integer',
-        '_name' => 'varchar(100)',
-        '_description' => 'varchar(500)',
-        '_serial_number' => 'varchar(30)',
-        '_price' => 'decimal',
-        '_rent_price' => 'decimal',
-        '_price_per_day' => 'boolean',
-        '_dimension' => 'varchar(100)',
-        '_weight' => 'decimal',
-        '_is_active' => 'boolean',
-        '_category_id' => 'int',
-        '_nb_available' => 'int',
+    private $fields = array(
+        'object_id' => 'integer',
+        'name' => 'varchar(100)',
+        'description' => 'varchar(500)',
+        'serial_number' => 'varchar(30)',
+        'price' => 'decimal',
+        'rent_price' => 'decimal',
+        'price_per_day' => 'boolean',
+        'dimension' => 'varchar(100)',
+        'weight' => 'decimal',
+        'is_active' => 'boolean',
+        'category_id' => 'int',
+        'nb_available' => 'int',
     );
-    private $_object_id;
-    private $_name = '';
-    private $_description = '';
-    private $_serial_number;
-    private $_price = 0.0;
-    private $_rent_price = 0.0;
-    private $_price_per_day = false;
-    private $_dimension = '';
-    private $_weight = 0.0;
-    private $_is_active = true;
-    private $_category_id;
-    private $_nb_available = 1;
+    private $object_id;
+    private $name = '';
+    private $description = '';
+    private $serial_number;
+    private $price = 0.0;
+    private $rent_price = 0.0;
+    private $price_per_day = false;
+    private $dimension = '';
+    private $weight = 0.0;
+    private $is_active = true;
+    private $category_id;
+    private $nb_available = 1;
     // Nom de la catégorie
-    private $_category_name = '';
+    private $category_name = '';
     // Requête sur le dernier statut de l'objet
-    private $_date_begin;
-    private $_date_forecast;
-    private $_date_end;
-    private $_status_text;
-    private $_is_home_location;
+    private $date_begin;
+    private $date_forecast;
+    private $date_end;
+    private $status_text;
+    private $is_home_location;
     // Requête sur l'adhérent associé au statut
-    private $_nom_adh = '';
-    private $_prenom_adh = '';
-    private $_email_adh = '';
-    private $_id_adh;
+    private $nom_adh = '';
+    private $prenom_adh = '';
+    private $email_adh = '';
+    private $id_adh;
     // Propriétés pour la recherche
-    private $_search_serial_number = '';
-    private $_search_name = '';
-    private $_search_description = '';
-    private $_search_dimension = '';
+    private $search_serial_number = '';
+    private $search_name = '';
+    private $search_description = '';
+    private $search_dimension = '';
     // Propriétés pour la taille des images au survol
-    private $_tooltip_title = '';
-    private $_object_image_url;
-    private $_draw_image;
+    private $tooltip_title = '';
+    private $object_image_url;
+    private $draw_image;
 
     private $currency = '€';
+    private $picture;
 
     /**
      * Construit un nouvel object d'emprunt à partir de la BDD (à partir de son ID) ou vierge
@@ -117,10 +118,10 @@ class LendObject
                         ->where(array(self::PK => $args));
                 $results = $zdb->execute($select);
                 if ($results->count() == 1) {
-                    $this->_loadFromRS($results->current());
+                    $this->loadFromRS($results->current());
                 }
                 if ($cloned) {
-                    unset($this->_object_id);
+                    unset($this->object_id);
                 }
             } catch (\Exception $e) {
                 Analog::log(
@@ -129,8 +130,8 @@ class LendObject
                     Analog::ERROR
                 );
             }
-        } else if (is_object($args)) {
-            $this->_loadFromRS($args);
+        } elseif (is_object($args)) {
+            $this->loadFromRS($args);
         }
     }
 
@@ -141,30 +142,33 @@ class LendObject
      *
      * @return void
      */
-    private function _loadFromRS($r)
+    private function loadFromRS($r)
     {
-        $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
+        global $plugins;
 
-        $this->_object_id = $r->object_id;
-        $this->_search_name = $this->_name = self::protectQuote($r->name);
-        $this->_search_description = $this->_description = self::protectQuote($r->description);
-        $this->_search_serial_number = $this->_serial_number = self::protectQuote($r->serial_number);
-        $this->_price = is_numeric($r->price) ? floatval($r->price) : 0.0;
-        $this->_rent_price = is_numeric($r->rent_price) ? floatval($r->rent_price) : 0.0;
-        $this->_price_per_day = $r->price_per_day == '1';
-        $this->_search_dimension = $this->_dimension = self::protectQuote($r->dimension);
-        $this->_weight = is_numeric($r->weight) ? floatval($r->weight) : 0.0;
-        $this->_is_active = $r->is_active;
-        $this->_category_id = $r->category_id;
-        $this->_nb_available = $r->nb_available;
-        $this->_category_name = isset($r->category_name) ? $r->category_name : '';
+        $this->object_id = $r->object_id;
+        $this->search_name = $this->name = self::protectQuote($r->name);
+        $this->search_description = $this->description = self::protectQuote($r->description);
+        $this->search_serial_number = $this->serial_number = self::protectQuote($r->serial_number);
+        $this->price = is_numeric($r->price) ? floatval($r->price) : 0.0;
+        $this->rent_price = is_numeric($r->rent_price) ? floatval($r->rent_price) : 0.0;
+        $this->price_per_day = $r->price_per_day == '1';
+        $this->search_dimension = $this->dimension = self::protectQuote($r->dimension);
+        $this->weight = is_numeric($r->weight) ? floatval($r->weight) : 0.0;
+        $this->is_active = $r->is_active;
+        $this->category_id = $r->category_id;
+        $this->nb_available = $r->nb_available;
+        $this->category_name = isset($r->category_name) ? $r->category_name : '';
+
+        $this->picture = new ObjectPicture($plugins, (int)$this->object_id);
 
         //TODO: replace...
-        $this->_draw_image = false;
+        $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
+        $this->draw_image = false;
         foreach ($extensions as $ext) {
-            if (file_exists(GALETTE_PHOTOS_PATH . 'objectslend/objects/' . $this->_object_id . $ext)) {
-                //$this->_object_image_url = 'objects_pictures/' . $this->_object_id . $ext;
-                $this->_draw_image = true;
+            if (file_exists(GALETTE_PHOTOS_PATH . 'objectslend/objects/' . $this->object_id . $ext)) {
+                //$this->object_image_url = 'objects_pictures/' . $this->object_id . $ext;
+                $this->draw_image = true;
                 break;
             }
         }
@@ -194,23 +198,23 @@ class LendObject
         try {
             $values = array();
 
-            foreach ($this->_fields as $k => $v) {
-                $values[substr($k, 1)] = $this->$k;
+            foreach ($this->fields as $k => $v) {
+                $values[$k] = $this->$k;
             }
 
-            if (!isset($this->_object_id) || $this->_object_id == '') {
+            if (!isset($this->object_id) || $this->object_id == '') {
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
                 $add = $zdb->execute($insert);
                 if ($add > 0) {
-                    $this->_object_id = $zdb->driver->getLastGeneratedValue();
+                    $this->object_id = $zdb->driver->getLastGeneratedValue();
                 } else {
                     throw new \Exception(_T("OBJECT.AJOUT ECHEC"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
                         ->set($values)
-                        ->where(array(self::PK => $this->_object_id));
+                        ->where(array(self::PK => $this->object_id));
                 $zdb->execute($update);
             }
             return true;
@@ -398,15 +402,15 @@ class LendObject
         $results = $zdb->execute($select_rent);
         if ($results->count() == 1) {
             $rent = $results->current();
-            $object->_date_begin = $rent->date_begin;
-            $object->_date_forecast = $rent->date_forecast;
-            $object->_date_end = $rent->date_end;
-            $object->_status_text = $rent->status_text;
-            $object->_is_home_location = $rent->is_home_location == '1' ? true : false;
-            $object->_nom_adh = $rent->nom_adh;
-            $object->_prenom_adh = $rent->prenom_adh;
-            $object->_email_adh = $rent->email_adh;
-            $object->_id_adh = $rent->id_adh;
+            $object->date_begin = $rent->date_begin;
+            $object->date_forecast = $rent->date_forecast;
+            $object->date_end = $rent->date_end;
+            $object->status_text = $rent->status_text;
+            $object->is_home_location = $rent->is_home_location == '1' ? true : false;
+            $object->nom_adh = $rent->nom_adh;
+            $object->prenom_adh = $rent->prenom_adh;
+            $object->email_adh = $rent->email_adh;
+            $object->id_adh = $rent->id_adh;
         }
     }
 
@@ -611,57 +615,48 @@ class LendObject
      */
     public function __get($name)
     {
-        $rname = '_' . $name;
-        if (substr($rname, 0, 3) == '___') {
-            return false;
-        }
         switch ($name) {
             case 'date_begin_ihm':
-                if ($this->_date_begin == '' || $this->_date_begin == null) {
+                if ($this->date_begin == '' || $this->date_begin == null) {
                     return '';
                 }
-                $dtb = new \DateTime($this->_date_begin);
+                $dtb = new \DateTime($this->date_begin);
                 return $dtb->format('j M Y');
             case 'date_begin_short':
-                if ($this->_date_begin == '' || $this->_date_begin == null) {
+                if ($this->date_begin == '' || $this->date_begin == null) {
                     return '';
                 }
-                $dtb = new \DateTime($this->_date_begin);
+                $dtb = new \DateTime($this->date_begin);
                 return $dtb->format('d/m/Y');
             case 'date_end_ihm':
-                if ($this->_date_end == '' || $this->_date_end == null) {
+                if ($this->date_end == '' || $this->date_end == null) {
                     return '';
                 }
-                $dtb = new \DateTime($this->_date_end);
+                $dtb = new \DateTime($this->date_end);
                 return $dtb->format('j M Y');
             case 'date_forecast_ihm':
-                if ($this->_date_forecast == '' || $this->_date_forecast == null) {
+                if ($this->date_forecast == '' || $this->date_forecast == null) {
                     return '';
                 }
-                $dtb = new \DateTime($this->_date_forecast);
+                $dtb = new \DateTime($this->date_forecast);
                 return $dtb->format('j M Y');
             case 'date_forecast_short':
-                if ($this->_date_forecast == '' || $this->_date_forecast == null) {
+                if ($this->date_forecast == '' || $this->date_forecast == null) {
                     return '';
                 }
-                $dtb = new \DateTime($this->_date_forecast);
+                $dtb = new \DateTime($this->date_forecast);
                 return $dtb->format('d/m/Y');
-            case 'name':
-                return str_replace('\'', '’', $this->_name);
-            case 'description':
-                return str_replace('\'', '’', $this->_description);
             case 'price':
-                return number_format($this->_price, 2, ',', ' ');
             case 'rent_price':
-                return number_format($this->_rent_price, 2, ',', ' ');
+                return number_format($this->$name, 2, ',', ' ');
             case 'value_rent_price':
-                return $this->_rent_price;
+                return $this->rent_price;
             case 'weight_bulk':
-                return $this->_weight;
+                return $this->weight;
             case 'weight':
-                return number_format($this->_weight, 3, ',', ' ');
+                return number_format($this->weight, 3, ',', ' ');
             default:
-                return $this->$rname;
+                return $this->$name;
         }
     }
 
@@ -675,8 +670,10 @@ class LendObject
      */
     public function __set($name, $value)
     {
-        $rname = '_' . $name;
-        $this->$rname = $value;
+        $forbidden = ['currency'];
+        if (!in_array($name, $forbidden)) {
+            $this->$name = $value;
+        }
     }
 
     /**

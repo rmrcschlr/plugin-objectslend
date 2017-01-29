@@ -50,17 +50,18 @@ class LendCategory
     const PK = 'category_id';
 
     private $_fields = array(
-        '_category_id' => 'integer',
-        '_name' => 'varchar(100)',
-        '_is_active' => 'boolean'
+        'category_id' => 'integer',
+        'name' => 'varchar(100)',
+        'is_active' => 'boolean'
     );
-    private $_category_id;
-    private $_name = '';
-    private $_is_active = true;
-    private $_objects_nb = 0;
-    private $_objects_price_sum = 0;
+    private $category_id;
+    private $name = '';
+    private $is_active = true;
+    private $objects_nb = 0;
+    private $objects_price_sum = 0;
     // Used to have an url for the image
-    private $_categ_image_url = '';
+    private $categ_image_url = '';
+    private $picture;
 
     /**
      * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
@@ -77,7 +78,7 @@ class LendCategory
                         ->where(array(self::PK => $args));
                 $results = $zdb->execute($select);
                 if ($results->count() == 1) {
-                    $this->_loadFromRS($results->current());
+                    $this->loadFromRS($results->current());
                 }
             } catch (\Exception $e) {
                 Analog::log(
@@ -87,7 +88,7 @@ class LendCategory
                 );
             }
         } elseif (is_object($args)) {
-            $this->_loadFromRS($args);
+            $this->loadFromRS($args);
         }
     }
 
@@ -98,20 +99,23 @@ class LendCategory
      *
      * @return void
      */
-    private function _loadFromRS($r)
+    private function loadFromRS($r)
     {
-        $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
+        global $plugins;
 
-        $this->_category_id = $r->category_id;
-        $this->_name = $r->name;
-        $this->_is_active = $r->is_active == '1' ? true : false;
+        $this->category_id = $r->category_id;
+        $this->name = $r->name;
+        $this->is_active = $r->is_active == '1' ? true : false;
 
+        $this->picture = new CategoryPicture($plugins, (int)$this->category_id);
+
+        /*$extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
         foreach ($extensions as $ext) {
-            if (file_exists('categories_pictures/' . $this->_category_id . $ext)) {
-                $this->_categ_image_url = 'categories_pictures/' . $this->_category_id . $ext;
+            if (file_exists('categories_pictures/' . $this->category_id . $ext)) {
+                $this->categ_image_url = 'categories_pictures/' . $this->category_id . $ext;
                 break;
             }
-        }
+        }*/
     }
 
     /**
@@ -127,22 +131,22 @@ class LendCategory
             $values = array();
 
             foreach ($this->_fields as $k => $v) {
-                $values[substr($k, 1)] = $this->$k;
+                $values[$k] = $this->$k;
             }
 
-            if (!isset($this->_category_id) || $this->_category_id == '') {
+            if (!isset($this->category_id) || $this->category_id == '') {
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
                 $add = $zdb->execute($insert);
                 if ($add > 0) {
-                    $this->_category_id = $zdb->driver->getLastGeneratedValue();
+                    $this->category_id = $zdb->driver->getLastGeneratedValue();
                 } else {
                     throw new \Exception(_T("CATEGORY.AJOUT ECHEC"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
                         ->set($values)
-                        ->where(array(self::PK => $this->_category_id));
+                        ->where(array(self::PK => $this->category_id));
                 $zdb->execute($update);
             }
             return true;
@@ -232,9 +236,9 @@ class LendCategory
             $result = $zdb->execute($select);
             foreach ($result as $r) {
                 $cat = new LendCategory($r);
-                $cat->_objects_nb = $r->nb;
+                $cat->objects_nb = $r->nb;
                 if (is_numeric($r->sum)) {
-                    $cat->_objects_price_sum = $r->sum;
+                    $cat->objects_price_sum = $r->sum;
                 }
                 $categs[] = $cat;
             }
@@ -289,7 +293,7 @@ class LendCategory
             $result = $zdb->execute($select);
             foreach ($result as $r) {
                 $cat = new LendCategory($r);
-                $cat->_objects_nb = $r->nb;
+                $cat->objects_nb = $r->nb;
                 $categs[] = $cat;
             }
             return $categs;
@@ -349,15 +353,11 @@ class LendCategory
      */
     public function __get($name)
     {
-        $rname = '_' . $name;
-        if (substr($rname, 0, 3) == '___') {
-            return false;
-        }
         switch ($name) {
             case 'objects_price_sum':
-                return number_format($this->$rname, 2, ',', '');
+                return number_format($this->$name, 2, ',', '');
             default:
-                return $this->$rname;
+                return $this->$name;
         }
     }
 
@@ -371,7 +371,6 @@ class LendCategory
      */
     public function __set($name, $value)
     {
-        $rname = '_' . $name;
-        $this->$rname = $value;
+        $this->$name = $value;
     }
 }

@@ -46,9 +46,11 @@
                     {$categ->category_id}
                 </td>
                 <td>
-                    {if $categ->categ_image_url ne ''}
-                        <img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-width: {$lendsprefs.THUMB_MAX_WIDTH}px; max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px;"{/if}/>
-                    {/if}
+                    <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
+                        class="picture"
+                        width="{$categ->picture->getOptimalThumbWidth()}"
+                        height="{$categ->picture->getOptimalThumbHeight()}"
+                        alt=""/>
                     {$categ->name}
                 </td>
                 <td align="center">

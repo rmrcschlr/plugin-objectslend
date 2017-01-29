@@ -419,4 +419,24 @@ class Preferences
 
         return $pagination;
     }
+
+    /**
+     * Get thumbnail maximum with
+     *
+     * @return integer
+     */
+    public function getThumbWidth()
+    {
+        return $this->prefs['THUMB_MAX_WIDTH'];
+    }
+
+    /**
+     * Get thumbnail maximum height
+     *
+     * @return integer
+     */
+    public function getThumbHeight()
+    {
+        return $this->prefs['THUMB_MAX_HEIGHT'];
+    }
 }

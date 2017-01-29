@@ -41,7 +41,7 @@
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
-use GaletteObjectsLend\LendObjectPicture;
+use GaletteObjectsLend\ObjectPicture;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
 
@@ -130,11 +130,11 @@ if (filter_has_var(INPUT_POST, 'save')) {
     if (isset($_FILES['picture'])) {
         if ($_FILES['picture']['tmp_name'] != '') {
             if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
-                $objPicture = new LendObjectPicture($plugins, $object->object_id);
+                $objPicture = new ObjectPicture($plugins, $object->object_id);
                 $res = $objPicture->store($_FILES['picture']);
                 if ($res < 0) {
                     switch ($res) {
-                        case LendObjectPicture::INVALID_FILE:
+                        case ObjectPicture::INVALID_FILE:
                             $patterns = array('|%s|', '|%t|');
                             $replacements = array(
                                 $objPicture->getAllowedExts(),
@@ -146,19 +146,19 @@ if (filter_has_var(INPUT_POST, 'save')) {
                                 _T("- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t")
                             );
                             break;
-                        case LendObjectPicture::FILE_TOO_BIG:
+                        case ObjectPicture::FILE_TOO_BIG:
                             $error_detected[] = preg_replace(
                                 '|%d|',
-                                LendObjectPicture::MAX_FILE_SIZE,
+                                ObjectPicture::MAX_FILE_SIZE,
                                 _T("File is too big. Maximum allowed size is %d")
                             );
                             break;
-                        case LendObjectPicture::MIME_NOT_ALLOWED:
+                        case ObjectPicture::MIME_NOT_ALLOWED:
                             /** FIXME: should be more descriptive */
                             $error_detected[] = _T("Mime-Type not allowed");
                             break;
-                        case LendObjectPicture::SQL_ERROR:
-                        case LendObjectPicture::SQL_BLOB_ERROR:
+                        case ObjectPicture::SQL_ERROR:
+                        case ObjectPicture::SQL_BLOB_ERROR:
                             $error_detected[] = _T("An SQL error has occured.");
                             break;
                     }
@@ -169,7 +169,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
 
     // Suppression de la photo
     if (filter_has_var(INPUT_POST, 'del_picture') && filter_input(INPUT_POST, 'del_picture') == '1') {
-        $pic = new LendObjectPicture($plugins, $object->object_id);
+        $pic = new ObjectPicture($plugins, $object->object_id);
         $pic->delete();
     }
 
@@ -199,7 +199,7 @@ $adherents = LendRent::getAllActivesAdherents();
 /**
  * Récupération taille image
  */
-$size = LendObjectPicture::getHeightWidthForObject($object);
+$size = ObjectPicture::getHeightWidthForObject($object);
 $tpl->assign('pic_width', $size->width);
 $tpl->assign('pic_height', $size->height);
 
