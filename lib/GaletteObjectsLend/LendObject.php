@@ -672,7 +672,16 @@ class LendObject
     {
         $forbidden = ['currency'];
         if (!in_array($name, $forbidden)) {
-            $this->$name = $value;
+            switch ($name) {
+                case 'category_id':
+                    if ($value == '') {
+                        $value = null;
+                    }
+                    //no break for value to be set in default
+                default:
+                    $this->$name = $value;
+                    break;
+            }
         }
     }
 
