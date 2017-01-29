@@ -70,10 +70,10 @@
     {if $lendsprefs.VIEW_CATEGORY}
         <div class="bigtable">
             <table class="details">
-                <caption class="ui-state-active ui-corner-top">{_T string="OBJECTS LIST.CHOICE"}</caption>
+                <caption class="ui-state-active ui-corner-top">{_T string="Choose a category"}</caption>
                 <tr>
         {foreach from=$categories item=categ}
-                    <td class="center" style="{if $category_id eq $categ->category_id} background-color:SpringGreen;{/if}">
+                    <td class="center{if $category_id eq $categ->category_id} cotis-ok{/if}">
                         <a href="?category_id={$categ->category_id}">
                             <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
                                 class="picture"
@@ -91,11 +91,15 @@
                         </a>
                     </td>
         {/foreach}
-                    <td style="text-align: center !important;{if $category_id eq 0} background-color:SpringGreen;{/if}">
+                    <td class="center{if $category_id eq 0} cotis-ok{/if}">
                         <a href="?category_id=0">
-                            <img src="picts/all.png" border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.ALL OBJECTS"}"/>
+                            <img src="picture.php?category_id=0&amp;rand={$time}&thumb=1"
+                                class="picture"
+                                width="128"
+                                height="128"
+                                alt=""/>
                             <br/>
-                            {_T string="OBJECTS LIST.ALL OBJECTS"} ({$nb_all_categories})
+                            {_T string="All objects"} ({$nb_all_categories})
                             {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
                                 &middot;
                                 {$sum_all_categories} &euro;

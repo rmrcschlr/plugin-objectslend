@@ -145,3 +145,6 @@
     background-image:url(../../../../templates/default/images/icon-refresh.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png");
 }
 
+.bigtable td.center {
+    text-align: center;
+}
