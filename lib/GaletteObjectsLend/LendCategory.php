@@ -193,12 +193,13 @@ class LendCategory
     }
 
     /**
-     * Renvoi toutes les categories actives triés par nom avec le nombre
-     * d'objets qu'elles contiennent (propriété 'objects_nb')
+     * Get all active categories sort by name with number of objects associated
      *
-     * @return LendCategory[] La liste des categories actives triées
+     * @param boolean $noobjects Retrieve categories with no objects associated, defaults to true
+     *
+     * @return LendCategory[]
      */
-    public static function getActiveCategories()
+    public static function getActiveCategories($noobjects = true)
     {
         global $zdb;
 
@@ -221,6 +222,15 @@ class LendCategory
                     )
                 );
 
+            $where = ['is_active' => 1];
+            $having = [];
+            if ($noobjects === false) {
+                $having[] = new Predicate\Operator(
+                    'nb',
+                    '>',
+                    '0'
+                );
+            }
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                 ->columns(
                     array(
@@ -229,7 +239,8 @@ class LendCategory
                         'sum' => new Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_sum) . ')'),
                     )
                 )
-                ->where(array('is_active' => 1))
+                ->where($where)
+                ->having($having)
                 ->order('name');
 
             $categs = array();
@@ -323,8 +334,7 @@ class LendCategory
                     ->where(array('category_id' => $id));
             $results = $zdb->execute($select);
             if ($results->count() > 0) {
-                $values = array();
-                $values['category_id'] = new Predicate\Expression('NULL');
+                $values = ['category_id' => new Predicate\Expression('NULL')];
                 $update = $zdb->update(LEND_PREFIX . LendObject::TABLE)
                         ->set($values)
                         ->where(array('category_id' => $id));

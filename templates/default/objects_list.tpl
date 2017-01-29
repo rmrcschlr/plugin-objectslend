@@ -72,22 +72,25 @@
             <table class="details">
                 <caption class="ui-state-active ui-corner-top">{_T string="OBJECTS LIST.CHOICE"}</caption>
                 <tr>
-                    {foreach from=$categories item=categ}
-                        {if $categ->objects_nb gt 0}
-                            <td style="text-align: center !important;{if $category_id eq $categ->category_id} background-color:SpringGreen;{/if}">
-                                <a href="?category_id={$categ->category_id}">
-                                    <img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}
-                                         border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.CHOOSE THIS"} <i>''{$categ->name}''</i>"/>
-                                    <br/>
-                                    {$categ->name} ({$categ->objects_nb})
-                                    {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
-                                        &middot;
-                                        {$categ->objects_price_sum} &euro;
-                                    {/if}
-                                </a>
-                            </td>
-                        {/if}
-                    {/foreach}
+        {foreach from=$categories item=categ}
+                    <td class="center" style="{if $category_id eq $categ->category_id} background-color:SpringGreen;{/if}">
+                        <a href="?category_id={$categ->category_id}">
+                            <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
+                                class="picture"
+                                width="{$categ->picture->getOptimalThumbWidth()}"
+                                height="{$categ->picture->getOptimalThumbHeight()}"
+                                alt=""/>
+{*<img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}
+                                    border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.CHOOSE THIS"} <i>''{$categ->name}''</i>"/>*}
+                            <br/>
+                            {$categ->name} ({$categ->objects_nb})
+                            {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
+                                &middot;
+                                {$categ->objects_price_sum} &euro;
+                            {/if}
+                        </a>
+                    </td>
+        {/foreach}
                     <td style="text-align: center !important;{if $category_id eq 0} background-color:SpringGreen;{/if}">
                         <a href="?category_id=0">
                             <img src="picts/all.png" border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.ALL OBJECTS"}"/>

@@ -223,7 +223,7 @@ $pagination = Preferences::paginate($page, $nb_objects, $nb_lines, '');
 $categories = array();
 if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
     if (strlen($search) < 1) {
-        $categories = LendCategory::getActiveCategories();
+        $categories = LendCategory::getActiveCategories(false);
     } else {
         $categories = LendCategory::getActiveCategoriesWithSearchCriteria($search);
     }
