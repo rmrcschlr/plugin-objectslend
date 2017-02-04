@@ -46,15 +46,25 @@ use GaletteObjectsLend\LendStatus;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
+
 if (!$login->isLogged()) {
     header('location: ' . GALETTE_BASE_PATH . 'index.php');
     die();
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("TAKE OBJECT.PAGE TITLE"));
+$tpl->assign('page_title', _T("Borrow an object"));
 
 $lendsprefs = new Preferences($zdb);
+
+if (!$lendsprefs->{Preferences::PARAM_ENABLE_MEMBER_RENT_OBJECT} && !($login->isAdmin() || $login->isStaff())) {
+    Analog::log(
+        'Trying to take an object without appropriate rights! (Object ' .
+        $_GET['object_id'] . ', user ' . $login->login .')',
+        Analog::WARNING
+    );
+    header('location: objects_list.php');
+}
 
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
@@ -124,13 +134,6 @@ if (filter_has_var(INPUT_POST, 'yes')) {
 }
 
 /**
- * Annulation de l'emprunt
- */
-if (array_key_exists('cancel', $_POST)) {
-    header('location: objects_list.php?msg=not_taken');
-}
-
-/**
  * Récupération des adhérents actifs
  */
 $members = array();
@@ -146,11 +149,6 @@ if ($login->isAdmin() || $login->isStaff()) {
     $members = $m->getList(false, $required_fields);
 }
 
-// Vérification que l'utilisateur a le droit de prendre l'objet
-if (!$lendsprefs->{Preferences::PARAM_ENABLE_MEMBER_RENT_OBJECT} && !($login->isAdmin() || $login->isStaff())) {
-    header('location: objects_list.php?msg=not_taken');
-}
-
 $object_id = filter_has_var(INPUT_GET, 'object_id') ? intval(filter_input(INPUT_GET, 'object_id')) : -1;
 $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 'ajax' : false;
 
@@ -159,32 +157,11 @@ $rents = LendRent::getRentsForObjectId($object_id);
 if (count($rents) > 0) {
     $last_rent = $rents[0];
     if (!$last_rent->is_home_location) {
-        header('location: objects_list.php?msg=bad_location');
+        header('location: objects_list.php?msg=unavailable');
     }
 }
 
 $object = new LendObject($object_id);
-/**
- * Tooltip de la photo
- */
-$s = ObjectPicture::getHeightWidthForObject($object);
-
-$object->tooltip_title = '<center>';
-$object->tooltip_title .= '<img src=\'picture.php?quick=1&object_id=' . $object->object_id . '\' width=\'' . $s->width . '\' height=\'' . $s->height . '\'/>';
-$object->tooltip_title .= '<br/><b>' . $object->name . '</b>';
-if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL} && strlen($object->serial_number) > 0) {
-    $object->tooltip_title .= ' (' . $object->serial_number . ')';
-}
-$object->tooltip_title .= '<br/>&nbsp;';
-if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION} && strlen($object->description) > 0) {
-    $object->tooltip_title .= '<br/>' . $object->description;
-}
-if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION} && strlen($object->dimension) > 0) {
-    $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.DIMENSION') . ' : ' . $object->dimension;
-}
-if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT} && $object->weight_bulk > 0) {
-    $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.WEIGHT') . ' : ' . $object->weight;
-}
 
 $tpl->assign('object', $object);
 $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());
@@ -196,6 +173,7 @@ $tpl->assign('year', date('Y'));
 $tpl->assign('month', date('m'));
 $tpl->assign('day', date('d'));
 $tpl->assign('rent_price', str_replace(array( ',', ' '), array( '.', ''), $object->rent_price));
+$tpl->assign('time', time());
 
 if ($ajax) {
     $tpl->display('take_object.tpl');

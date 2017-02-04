@@ -118,21 +118,19 @@ foreach ($param_choices as $choice) {
 sort($nb_lines_list);
 
 $msg_taken = false;
-$msg_not_taken = false;
 $msg_given = false;
 $msg_not_given = false;
 $msg_canceled = false;
 $msg_no_right = false;
-$msg_bad_location = false;
 $msg_deleted = false;
 $msg_disabled = false;
 if (filter_has_var(INPUT_GET, 'msg')) {
     switch (filter_input(INPUT_GET, 'msg')) {
+        case 'unavailable':
+            $error_detected[] = _T("The object is not available!");
+            break;
         case 'taken':
             $msg_taken = true;
-            break;
-        case 'not_taken':
-            $msg_not_taken = true;
             break;
         case 'given':
             $msg_given = true;
@@ -145,9 +143,6 @@ if (filter_has_var(INPUT_GET, 'msg')) {
             break;
         case 'no_right':
             $msg_no_right = true;
-            break;
-        case 'bad_location':
-            $msg_bad_location = true;
             break;
         case 'deleted':
             $msg_deleted = true;
@@ -238,15 +233,14 @@ $tpl->assign('nb_results', $nb_objects);
 $tpl->assign('nb_lines', $nb_lines);
 $tpl->assign('nb_lines_list', $nb_lines_list);
 $tpl->assign('msg_taken', $msg_taken);
-$tpl->assign('msg_not_taken', $msg_not_taken);
 $tpl->assign('msg_given', $msg_given);
 $tpl->assign('msg_not_given', $msg_not_given);
 $tpl->assign('msg_canceled', $msg_canceled);
 $tpl->assign('msg_no_right', $msg_no_right);
-$tpl->assign('msg_bad_location', $msg_bad_location);
 $tpl->assign('msg_deleted', $msg_deleted);
 $tpl->assign('msg_disabled', $msg_disabled);
 $tpl->assign('require_calendar', true);
+$tpl->assign('require_dialog', true);
 
 $tpl->assign('categories', $categories);
 $tpl->assign('nb_all_categories', $nb_objects_no_category);
@@ -257,6 +251,8 @@ $tpl->assign('search', $search);
 
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('ajax', $ajax);
+
+$tpl->assign('error_detected', $error_detected);
 
 if ($ajax) {
     $tpl->display('objects_list.tpl');

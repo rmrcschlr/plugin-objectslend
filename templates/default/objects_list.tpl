@@ -4,11 +4,6 @@
             <h1>{_T string="OBJECTS LIST.TAKEN"}</h1>
         </div>
     {/if}
-    {if $msg_not_taken}
-        <div id="warningbox">
-            <h1>{_T string="OBJECTS LIST.NOT TAKEN"}</h1>
-        </div>
-    {/if}
     {if $msg_given}
         <div id="infobox">
             <h1>{_T string="OBJECTS LIST.GIVEN"}</h1>
@@ -27,11 +22,6 @@
     {if $msg_no_right}
         <div id="errorbox">
             <h1>{_T string="OBJECTS LIST.NO RIGHT"}</h1>
-        </div>
-    {/if}
-    {if $msg_bad_location}
-        <div id="errorbox">
-            <h1>{_T string="OBJECTS LIST.BAD LOCATION"}</h1>
         </div>
     {/if}
     {if $msg_deleted}
@@ -80,8 +70,6 @@
                                 width="{$categ->picture->getOptimalThumbWidth()}"
                                 height="{$categ->picture->getOptimalThumbHeight()}"
                                 alt=""/>
-{*<img src="{$categ->categ_image_url}" {if $lendsprefs.VIEW_CATEGORY_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}
-                                    border="0" class="tooltip_lend" title="{_T string="OBJECTS LIST.CHOOSE THIS"} <i>''{$categ->name}''</i>"/>*}
                             <br/>
                             {$categ->name} ({$categ->objects_nb})
                             {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
@@ -132,15 +120,14 @@
                 <thead>
                     <tr>
                         {if $login->isAdmin() || $login->isStaff()}
-                            <th>
-                            </th>
+                            <th  class="id_row">&nbsp;</th>
                         {/if}
                         {if $lendsprefs.VIEW_THUMBNAIL}
-                            <th>
+                            <th class="id_row">
                                 {_T string="Picture"}
                             </th>
                         {/if}
-                        {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
+                        {if $lendsprefs.VIEW_NAME}
                             <th>
                                 {if $lendsprefs.VIEW_NAME}
                                     <a href="?tri=name{$sort_suffix}&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
@@ -149,19 +136,6 @@
                                     {if $tri eq 'name' && $direction eq 'asc'}
                                         <img src="{$template_subdir}images/down.png"/>
                                     {elseif $tri eq 'name' && $direction eq 'desc'}
-                                        <img src="{$template_subdir}images/up.png"/>
-                                    {/if}
-                                {/if}
-                                {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
-                                    /
-                                {/if}
-                                {if $lendsprefs.VIEW_DESCRIPTION}
-                                    <a href="?tri=description{$sort_suffix}&direction={if $tri eq 'description' && $direction eq 'asc'}desc{else}asc{/if}">
-                                        {_T string="Description"}
-                                    </a>
-                                    {if $tri eq 'description' && $direction eq 'asc'} 
-                                        <img src="{$template_subdir}images/down.png"/>
-                                    {elseif $tri eq 'description' && $direction eq 'desc'}
                                         <img src="{$template_subdir}images/up.png"/>
                                     {/if}
                                 {/if}
@@ -270,11 +244,11 @@
                             </th>
                         {/if}
                         {if $login->isAdmin() || $login->isStaff()}
-                            <th>
+                            <th class="id_row">
                                 {_T string="Active"}
                             </th>
                         {/if}
-                        <th>
+                        <th class="action_row">
                             {_T string="Actions"}
                         </th>
                     </tr>
@@ -289,6 +263,12 @@
                             {/if}
                             {if $lendsprefs.VIEW_THUMBNAIL eq '1'}
                                 <td class="center">
+
+                                    <img src="picture.php?object_id={$objt->object_id}&amp;rand={$time}&amp;thumb=1"
+                                        class="picture"
+                                        width="{$objt->picture->getOptimalThumbWidth()}"
+                                        height="{$objt->picture->getOptimalThumbHeight()}"
+                                        alt="{_T string="Object's photo"}"/>
                                     {if $objt->draw_image}
                                         <img src="{$objt->object_image_url}" 
                                              class="tooltip_lend" title="{$objt->tooltip_title}"
@@ -299,13 +279,10 @@
                             {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                                 <td>
                                     {if $lendsprefs.VIEW_NAME}
-                                        <b>{$objt->search_name}</b>
-                                    {/if}
-                                    {if $lendsprefs.VIEW_NAME && $lendsprefs.VIEW_DESCRIPTION}
-                                        <br/>
+                                        <strong>{$objt->search_name}</strong>
                                     {/if}
                                     {if $lendsprefs.VIEW_DESCRIPTION}
-                                        {$objt->search_description}
+                                        {if $lendsprefs.VIEW_NAME}<br/>{/if}{$objt->search_description}
                                     {/if}
                                 </td>
                             {/if}
@@ -319,7 +296,7 @@
                                     {$objt->price}&euro;
                                 </td>
                             {/if}
-                            {if $lendsprefs.VIEW_LEND_PRICE eq '1'}
+                            {if $lendsprefs.VIEW_LEND_PRICE}
                                 <td class="right">
                                     {$objt->rent_price}&euro;
                                     {if $objt->price_per_day}
@@ -332,7 +309,7 @@
                                     {$objt->search_dimension}
                                 </td>
                             {/if}
-                            {if $lendsprefs.VIEW_WEIGHT eq '1'}
+                            {if $lendsprefs.VIEW_WEIGHT}
                                 <td>
                                     {$objt->weight}
                                 </td>
@@ -361,8 +338,8 @@
                             <td class="center nowrap">
                                 {if $objt->is_home_location}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
-                                        <a onclick="take_object({$objt->object_id});" style="cursor: pointer;" {*href="take_object.php?object_id={$objt->object_id}"*}>
-                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="OBJECTS LIST.TAKE AWAY"}" class="tooltip_lend" title="{_T string="OBJECTS LIST.TAKE AWAY"}"/>
+                                        <a id="take_object" href="take_object.php?object_id={$objt->object_id}">
+                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="Take away"}" title="{_T string="Take object away"}"/>
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $objt->id_adh}
@@ -491,6 +468,51 @@
                     return true;
                 }
             });
+
+
+            $('#take_object').on('click', function(e) {
+                e.preventDefault();
+                var _this = $(this);
+
+                $.ajax({
+                    url: _this.attr('href') + '&mode=ajax',
+                    type: 'GET',
+                    datatype: 'html',
+                    {include file="../../../../templates/default/js_loader.tpl"},
+                    success: function(res){
+                        var _el = $('<div id="lend_window" title="{_T string="Take object" escape="js"}"></div>');
+                        _el.appendTo('body').dialog({
+                            modal: true,
+                            hide: 'fold',
+                            width: '60%',
+                            height: 450,
+                            close: function(event, ui){
+                                _el.remove();
+                            }
+                        }).append(res);
+
+                        $('#lend_window input:submit, #lend_window .button, #lend_window input:reset' ).button({
+                            create: function(event, ui) {
+                                if ( $(event.target).hasClass('disabled') ) {
+                                    $(event.target).button('disable');
+                                }
+                            }
+                        });
+
+                        $('#btncancel').on('click', function(e) {
+                            e.preventDefault();
+                            $('#lend_window').dialog('close');
+                        });
+
+                        _init_takeobject_js();
+
+                    },
+                    error: function(){
+                        alert("{_T string="An error occured loading 'Take away' display :(" escape="js"}")
+                    }
+                });
+            });
+
 {/if}
         });
         function printObjectList(tri, category_id) {

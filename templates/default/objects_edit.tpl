@@ -93,7 +93,7 @@
             <legend class="ui-state-active ui-corner-top">{_T string="Object's photo"}</legend>
                 <p>
                     <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</div>
-                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=true"
+                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=1"
                         class="picture"
                         width="{$object->picture->getOptimalThumbWidth()}"
                         height="{$object->picture->getOptimalThumbHeight()}"

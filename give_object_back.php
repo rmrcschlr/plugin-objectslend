@@ -42,6 +42,7 @@ use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\ObjectPicture;
 use GaletteObjectsLend\LendRent;
+use GaletteObjectsLend\LendStatus;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
