@@ -87,7 +87,7 @@ msgstr "Prix d'emprunt (%currency)"
 
 #: ../objects_list_print.php:115
 msgid "Selected category: %category"
-msgstr "Catégorie sélectionnée&nbsp;: %category"
+msgstr "Catégorie sélectionnée : %category"
 
 #: ../templates/default/status_list.tpl:73
 msgid "%days days"
@@ -1070,7 +1070,7 @@ msgstr "Inverser la sélection"
 
 #: ../objects_list_print.php:211
 msgid "Sum:"
-msgstr "Somme&nbsp;:"
+msgstr "Somme :"
 
 #: ../objects_list_print.php:145 ../templates/default/objects_list.tpl:190
 msgid "Borrow price"

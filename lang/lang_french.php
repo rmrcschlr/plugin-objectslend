@@ -79,7 +79,7 @@ $lang['TAKE OBJECTS.MEMBERS'] = '';
 $lang['Object'] = 'Objet';
 
 // ../objects_list_print.php:115 
-$lang['Selected category: %category'] = 'Catégorie sélectionnée&nbsp;: %category';
+$lang['Selected category: %category'] = 'Catégorie sélectionnée : %category';
 
 // ../templates/default/objects_list.tpl:393 
 $lang['Print objects list'] = 'Imprimer la liste des objets';
@@ -829,7 +829,7 @@ $lang['TAKE OBJECT.PAGE TITLE'] = '';
 $lang['Picture \'%path\' deleted'] = 'Photo \'%path\' supprimée';
 
 // ../objects_list_print.php:211 
-$lang['Sum:'] = 'Somme&nbsp;:';
+$lang['Sum:'] = 'Somme :';
 
 // ../templates/default/objects_edit.tpl:128 
 $lang['OBJECT EDIT.ADH'] = '';

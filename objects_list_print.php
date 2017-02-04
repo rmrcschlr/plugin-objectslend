@@ -140,7 +140,7 @@ $w_location = 21;
 $pdf->Cell($w_checkbox, 0, '', 'B');
 $pdf->Cell($w_name, 0, cut(_T("Name"), $w_name), 'B');
 $pdf->Cell($w_description, 0, cut(_T("Description"), $w_description), 'B');
-$pdf->Cell($w_serial, 0, cut(_T("Serial number"), $w_serial), 'B');
+$pdf->Cell($w_serial, 0, cut(_T("Serial"), $w_serial), 'B');
 $pdf->Cell($w_price, 0, cut(_T("Price"), $w_price), 'B');
 $pdf->Cell($w_price, 0, cut(_T("Borrow price"), $w_price), 'B');
 $pdf->Cell($w_dimension, 0, cut(_T("Dimensions"), $w_dimension), 'B');
