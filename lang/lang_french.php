@@ -289,7 +289,7 @@ $lang['[del]'] = '[del]';
 $lang['TAKE OBJECTS.DESCRIPTION'] = '';
 
 // ../objects_list_print.php:219 
-$lang['Borrowed'] = 'Emrpunté';
+$lang['Borrowed'] = 'Emprunté';
 
 // ../templates/default/objects_list.tpl:133 
 $lang['Picture'] = 'Image';
@@ -307,7 +307,7 @@ $lang['TAKE OBJECTS.DIMENSION'] = '';
 $lang['Object\'s photo'] = 'Photo de l\'objet';
 
 // ../objects_edit.php:81 
-$lang['You are cloning this object, not editing it!'] = 'Vous dupliquez cet objet, vos ne le modifiez pas !';
+$lang['You are cloning this object, not editing it!'] = 'Vous dupliquez cet objet, vous ne le modifiez pas !';
 
 // ../templates/default/admin_picture.tpl:4 
 $lang['Backup objects pictures'] = 'Sauvegarde des images des objets';

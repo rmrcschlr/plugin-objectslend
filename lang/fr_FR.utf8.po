@@ -254,7 +254,7 @@ msgstr "Imprimé le %date"
 
 #: ../objects_list_print.php:219
 msgid "Borrowed"
-msgstr "Emrpunté"
+msgstr "Emprunté"
 
 #: ../templates/default/take_more_objects_away.tpl:143
 #: ../templates/default/take_object.tpl:109
@@ -496,7 +496,7 @@ msgstr "Numéro de série"
 
 #: ../objects_edit.php:81
 msgid "You are cloning this object, not editing it!"
-msgstr "Vous dupliquez cet objet, vos ne le modifiez pas !"
+msgstr "Vous dupliquez cet objet, vous ne le modifiez pas !"
 
 #: ../templates/default/status_edit.tpl:15
 msgid "At home:"
