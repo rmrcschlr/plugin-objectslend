@@ -115,7 +115,7 @@ class Picture extends \Galette\Core\Picture
      */
     public function displayThumb(Preferences $prefs)
     {
-        $thumb = $this->getThumbName();
+        $thumb = $this->getThumbPath();
 
         // Create if missing
         if (!is_file($thumb)) {
@@ -344,11 +344,11 @@ class Picture extends \Galette\Core\Picture
     }
 
     /**
-     * Get thumbnail filename
+     * Get thumbnail file path
      *
      * @return string
      */
-    private function getThumbName()
+    public function getThumbPath()
     {
         if ($this->has_picture) {
             $ext = pathinfo($this->file_path, PATHINFO_EXTENSION);
@@ -369,7 +369,7 @@ class Picture extends \Galette\Core\Picture
      */
     private function setThumbSizes()
     {
-        list($width, $height) = getimagesize($this->getThumbName());
+        list($width, $height) = getimagesize($this->getThumbPath());
         $this->thumb_optimal_height = $height;
         $this->thumb_optimal_width = $width;
     }

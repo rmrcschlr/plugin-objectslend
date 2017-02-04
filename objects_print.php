@@ -90,7 +90,7 @@ function addCell(LendPDF $pdf, $title, $value, $width)
 {
     $pdf->Cell($width, 0, '');
     $pdf->SetFont(Pdf::FONT, 'B', 9);
-    $padding = 30;
+    $padding = 50;
     $pdf->Cell($padding, 0, cut($title, $padding));
 
     $pdf->SetFont(Pdf::FONT, '', 9);
@@ -133,64 +133,75 @@ foreach ($ids as $object_id) {
         LendObject::getStatusForObject($object);
         $size = ObjectPicture::getHeightWidthForObject($object);
 
-        $width = 1;
-        $height = 1;
-        if ($object->draw_image && $size->width > 0 && $size->height > 0) {
-            $width = 80;
-            $height = 80;
-            if ($size->width > $size->height) {
-                $delta = $size->width / $size->height;
-                $height = $height / $delta;
+        $wpic = 0;
+        $hpic = 0;
+        if ($object->picture->hasPicture()) {
+            $pic = $object->picture;
+            // Set picture size to max width 30 mm or max height 30 mm
+            $ratio = $pic->getOptimalThumbWidth()/$pic->getOptimalThumbHeight();
+            if ($ratio < 1) {
+                if ($pic->getOptimalThumbHeight() > 16) {
+                    $hpic = 30;
+                } else {
+                    $hpic = $pic->getOptimalThumbHeight();
+                }
+                $wpic = round($hpic*$ratio);
             } else {
-                $delta = $size->height / $size->width;
-                $width = $width / $delta;
+                if ($pic->getOptimalThumbWidth() > 16) {
+                    $wpic = 30;
+                } else {
+                    $wlogo = $pic->getOptimalThumbWidth();
+                }
+                $hpic = round($wpic/$ratio);
             }
-            $pdf->Image($object->object_image_url, 10, 10, $width, $height);
+
+            $pdf->Image($object->picture->getThumbPath(), 10, 10, $wpic, $hpic);
         }
 
         $name = $object->name;
         if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
-            addCell($pdf, _T("Name"), $object->name, $width);
+            addCell($pdf, _T("Name"), $object->name, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
-            addCell($pdf, _T("Description"), $object->description, $width);
+            addCell($pdf, _T("Description"), $object->description, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
             $categ = new LendCategory((int)$object->category_id);
-            addCell($pdf, _T("Category"), $categ->name, $width);
+            addCell($pdf, _T("Category"), $categ->name, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
-            addCell($pdf, _T("Serial number"), $object->serial_number, $width);
+            addCell($pdf, _T("Serial number"), $object->serial_number, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_PRICE}) {
-            addCell($pdf, _T("Price"), $object->price, $width);
+            addCell($pdf, _T("Price"), $object->price, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_LEND_PRICE}) {
             addCell(
                 $pdf,
                 str_replace('%currency', $object->getCurrency(), _T("Borrow price (%currency)")),
                 $object->rent_price,
-                $width
+                $wpic
             );
-            addCell($pdf, _T("Price per rental day"), $object->price_per_day, $width);
+            addCell($pdf, _T("Price per rental day"), $object->price_per_day, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION}) {
-            addCell($pdf, _T("Dimensions"), $object->dimension, $width);
+            addCell($pdf, _T("Dimensions"), $object->dimension, $wpic);
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT}) {
-            addCell($pdf, _T("Weight"), $object->weight, $width);
+            addCell($pdf, _T("Weight"), $object->weight, $wpic);
         }
-        addCell($pdf, _T("Active"), $object->is_active ? 'X' : '', $width);
-        addCell($pdf, _T("Location"), $object->status_text, $width);
-        addCell($pdf, _T("Since"), $object->date_begin_ihm, $width);
-        addCell($pdf, _T("Member"), $object->nom_adh . ' ' . $object->prenom_adh, $width);
+        addCell($pdf, _T("Active"), $object->is_active ? 'X' : '', $wpic);
+        addCell($pdf, _T("Location"), $object->status_text, $wpic);
+        addCell($pdf, _T("Since"), $object->date_begin_ihm, $wpic);
+        addCell($pdf, _T("Member"), $object->nom_adh . ' ' . $object->prenom_adh, $wpic);
         if ($lendsprefs->{Preferences::PARAM_VIEW_DATE_FORECAST}) {
-            addCell($pdf, _T("Return"), $object->date_forecast_ihm, $width);
+            addCell($pdf, _T("Return"), $object->date_forecast_ihm, $wpic);
         }
 
-        do {
-            $pdf->Ln();
-        } while ($pdf->GetY() < $height + 10);
+        if ($pdf->GetY() < $hpic) {
+            $pdf->SetY($hpic);
+        }
+        $pdf->Ln();
 
         $rents = LendRent::getRentsForObjectId((int)$object_id);
 
