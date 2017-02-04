@@ -145,6 +145,14 @@
     background-image:url(../../../../templates/default/images/icon-refresh.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png");
 }
 
+#btnduplicate {
+    background-image:url(images/icon-dup.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png");
+}
+#btnduplicate.ui-state-hover {
+    background-image:url(images/icon-dup.png), url("../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png");
+}
+
+
 .bigtable td.center {
     text-align: center;
 }

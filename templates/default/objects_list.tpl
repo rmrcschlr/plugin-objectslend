@@ -353,10 +353,10 @@
                                     <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object"}"/>
                                 </a>
                                 <a href="objects_edit.php?clone_object_id={$objt->object_id}">
-                                    <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-dup.png" title="{_T string="Duplicate object"}" border="0"/>
+                                    <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-dup.png" title="{_T string="Duplicate object"}"/>
                                 </a>
                                 <a href="objects_print.php?object_id={$objt->object_id}">
-                                    <img src="{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF"}" border="0"/>
+                                    <img src="{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF"}"/>
                                 </a>
                             </td>
     {/if}

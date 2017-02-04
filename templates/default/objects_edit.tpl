@@ -106,12 +106,14 @@
     <div class="button-container">
         <input type="submit" id="btnsave" name="save" value="{_T string="Save"}">
         {if $object->object_id ne ''}
-            <input type="submit" id="duplicate" name="duplicate" value="{_T string="Duplicate object"}" onclick="return confirmClone({$object->object_id});"/>
-            <a href="objects_print.php?object_id={$object->object_id}" id="objects_print" class="button">{_T string="Print object's card"}</a>
+            <a href="objects_edit.php?clone_object_id={$object->object_id}" class="button" id="btnduplicate">
+                {_T string="Duplicate"}
+            </a>
+            <a href="objects_print.php?object_id={$object->object_id}" id="btnlabels" class="button">{_T string="Print card"}</a>
         {/if}
         <p>
-            <a href="objects_list.php" class="button" id="btnback" title="{_T string="Back to objects list"}">
-                {_T string="Back to objects list"}
+            <a href="objects_list.php" class="button" id="btnback">
+                {_T string="Back to list"}
             </a>
         </p>
     </div>
@@ -125,21 +127,24 @@
     <table class="listing">
         <thead>
             <tr>
-                <th>{_T string="OBJECT EDIT.DATE BEGIN"}</th>
-                <th>{_T string="OBJECT EDIT.DATE FIN"}</th>
-                <th>{_T string="OBJECT EDIT.STATUS"}</th>
-                <th>{_T string="OBJECT EDIT.AT HOME"}</th>
-                <th>{_T string="OBJECT EDIT.ADH"}</th>
-                <th>{_T string="OBJECT EDIT.COMMENTS"}</th>
+                <th>{_T string="Begin date"}</th>
+                <th>{_T string="End date"}</th>
+                <th>{_T string="Status"}</th>
+                <th>{_T string="At home"}</th>
+                <th>{_T string="Member"}</th>
+                <th>{_T string="Comments"}</th>
             </tr>
         </thead>
-        <tbody>
             {if $object->object_id ne ''}
+        <tfoot>
                 <tr>
-                    <td style="background-color: #CCFECC " colspan="2">
-                        {_T string="OBJECT EDIT.NEW STATUS"}
-                    </td>
-                    <td style="background-color: #CCFECC " colspan="4">
+                    <th colspan="6" class="center">{_T string="Change status"}</th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        {_T string="Status:"}
+                    </th>
+                    <td colspan="4">
                         <select name="new_status">
                             {foreach from=$statuses item=sta}
                                 <option value="{$sta->status_id}"{if $sta->is_home_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_home_location} (@Galette){/if}</option>
@@ -148,51 +153,59 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="background-color: #CCFECC " colspan="2">
-                        {_T string="OBJECT EDIT.NEW COMMENT"}
-                    </td>
-                    <td style="background-color: #CCFECC " colspan="4">
+                    <th colspan="2">
+                        {_T string="Comment:"}
+                    </th>
+                    <td colspan="4">
                         <input type="text" name="new_comment" maxlength="200" size="60">
                     </td>
                 </tr>
                 <tr>
-                    <td style="background-color: #CCFECC " colspan="2">
-                        {_T string="OBJECT EDIT.NEW ADH"}
-                    </td>
-                    <td style="background-color: #CCFECC " colspan="4">
+                    <th colspan="2">
+                        {_T string="Member:"}
+                    </th>
+                    <td colspan="4">
                         <select name="new_adh">
-                            <option value="null">{_T string="OBJECT EDIT.NO ADH"}</option>
+                            <option value="null">{_T string="No member"}</option>
                             {foreach from=$adherents item=adh}
                                 <option value="{$adh->id}">{$adh->name} {$adh->surname}</option>
                             {/foreach}
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="6" class="center">
+                        <input type="submit" id="status_create" name="status" value="{_T string="Change status"}">
+                    </td>
+                </tr>
+        </tfoot>
             {/if}
+        <tbody>
             {foreach from=$rents item=rt name=rent}
                 <tr>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_begin}</td>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_end}</td>
                     <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->status_text}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}" align="center">{if $rt->is_home_location}<img src="picts/check.png"/>{/if}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{if $rt->nom_adh ne ''}<a href="mailto:{$rt->email_adh}">{$rt->nom_adh} {$rt->prenom_adh}</a>{/if}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->comments}</td>                
+                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if} center">
+                        {if $rt->is_home_location}
+                            <img src="{$template_subdir}images/icon-on.png" alt="{_T string="At home"}"/>
+                        {/if}
+                    </td>
+                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">
+                        {if $rt->nom_adh ne ''}
+                            {if $rt->email_adh ne ''}
+                                <a href="mailto:{$rt->email_adh}">{$rt->nom_adh} {$rt->prenom_adh}</a>
+                            {else}
+                                {$rt->nom_adh} {$rt->prenom_adh}
+                            {/if}
+                        {else}
+                            -
+                        {/if}
+                    </td>
+                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->comments}</td>
                 </tr>
             {/foreach}
         </tbody>
     </table>
-    <p>
-    </p>
-    <div class="button-container">
-        <input type="submit" id="status_create" name="status" value="{_T string="OBJECT EDIT.CHANGE STATUS"}">
-    </div>
 </form>
 {/if}
-<script>
-    function confirmClone(object_id) {
-        if (confirm('{_T string="OBJECT EDIT.CONFIRM DUPLICATE"}')) {
-            window.location = 'objects_edit.php?clone_object_id=' + object_id;
-        }
-        return false;
-    }
-</script>

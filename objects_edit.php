@@ -70,6 +70,7 @@ if (filter_has_var(INPUT_GET, 'object_id')) {
     $object_id = (int)filter_input(INPUT_POST, 'object_id');
 }
 
+$rents = array();
 if ($object_id != null) {
     $object = new LendObject($object_id);
     $rents = LendRent::getRentsForObjectId($object_id);
@@ -191,7 +192,6 @@ if (filter_has_var(INPUT_POST, 'status')) {
     $rent->store();
 }
 
-$rents = array();
 $show_status = false;
 $statuses = LendStatus::getActiveStatuses();
 $adherents = LendRent::getAllActivesAdherents();
