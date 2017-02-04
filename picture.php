@@ -47,6 +47,10 @@ require_once '_config.inc.php';
 $lendsprefs = new Preferences($zdb);
 
 $thumb = isset($_GET['thumb']) && $_GET['thumb'] == '1';
+if (!$lendsprefs->showFullsize()) {
+    //force thumbnail display from preferences
+    $thumb = true;
+}
 $quick_mode = isset($_GET['quick']) && $_GET['quick'] == '1';
 
 $id = null;

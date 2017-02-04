@@ -84,6 +84,7 @@ $tpl->assign('warning_detected', $warning_detected);
 $tpl->assign('error_detected', $error_detected);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('olendsprefs', $lendsprefs);
+$tpl->assign('time', time());
 
 $content = $tpl->fetch('categories_list.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);
