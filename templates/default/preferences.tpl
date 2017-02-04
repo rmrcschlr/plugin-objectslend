@@ -8,17 +8,7 @@
                 <input type="radio" name="ENABLE_MEMBER_RENT_OBJECT" id="yes_memberborrow" value="1" {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT eq '1'}checked="checked"{/if}/><label for="yes_memberborrow">{_T string="Yes"}</label>
                 <input type="radio" name="ENABLE_MEMBER_RENT_OBJECT" id="no_memberborrow" value="0" {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT eq '0'}checked="checked"{/if}/><label for="no_memberborrow">{_T string="No"}</label>
             </p>
-            <p>
-                <label for="max_thumb_height" class="bline">{_T string="Max thumb height (in px)"}</label>
-                <input type="text" name="THUMB_MAX_HEIGHT" id="max_thumb_height" value="{$lendsprefs.THUMB_MAX_HEIGHT}"/>
-            </p>
-            <p>
-                <label for="max_thumb_width" class="bline">{_T string="Max thumb width (in px)"}</label>
-                <input type="text" name="THUMB_MAX_WIDTH" id="max_thumb_width" value="{$lendsprefs.THUMB_MAX_WIDTH}"/>
-            </p>
-        </fieldset>
-        <fieldset class="cssform" id="objectslendicontribs">
-            <legend class="ui-state-active ui-corner-top">{_T string="Contribution related"}</legend>
+            {* TODO: hide this one if ENABLE_MEMBER_RENT_OBJECT is off *}
             <p>
                 <span class="bline tooltip" title="{_T string="Automatically generate a contribution for the member of the amount of the rental price of the object"}">{_T string="Generate contribution:"}</span>
                 <span class="tip">{_T string="Automatically generate a contribution for the member of the amount of the rental price of the object"}</span>
@@ -41,6 +31,30 @@
                 <span class="tip">{_T string="Comment text to add on generated contribution. Automatically replaced values (put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"}</span>
                 <input type="text" size="100" name="GENERATED_CONTRIB_INFO_TEXT" id="contrib_text" value="{$lendsprefs.GENERATED_CONTRIB_INFO_TEXT}"/>
             </p>
+
+        </fieldset>
+        <fieldset class="cssform" id="objectslendimages">
+            <legend class="ui-state-active ui-corner-top">{_T string="Images related"}</legend>
+            <p>
+                <label for="max_thumb_height" class="bline">{_T string="Max thumb height (in px)"}</label>
+                <input type="text" name="THUMB_MAX_HEIGHT" id="max_thumb_height" value="{$lendsprefs.THUMB_MAX_HEIGHT}"/>
+            </p>
+            <p>
+                <label for="max_thumb_width" class="bline">{_T string="Max thumb width (in px)"}</label>
+                <input type="text" name="THUMB_MAX_WIDTH" id="max_thumb_width" value="{$lendsprefs.THUMB_MAX_WIDTH}"/>
+            </p>
+            <p>
+                <span class="bline tooltip" title="{_T string="Display images in objects and categories lists"}">{_T string="Images in lists:"}</span>
+                <span class="tip">{_T string="Display images in objects and categories lists"}</span>
+                <input type="radio" name="VIEW_THUMBNAIL" id="yes_view_thumb" value="1" {if $lendsprefs.VIEW_THUMBNAIL eq '1'}checked="checked"{/if}/><label for="yes_view_thumb">{_T string="Yes"}</label>
+                <input type="radio" name="VIEW_THUMBNAIL" id="no_view_thumb" value="0" {if $lendsprefs.VIEW_THUMBNAIL eq '0'}checked="checked"{/if}/><label for="no_view_thumb">{_T string="No"}</label>
+            </p>
+            <p>
+                <span class="bline tooltip" title="{_T string="Show fullsize image or just thumbs"}">{_T string="Enable fullsize:"}</span>
+                <span class="tip">{_T string="Will permit to see fullesize image clicking on list thumb (if active) and will display it on objects edition if enabled.<br/>If disabled, only thumbnails will be displayed, but full images are still kept."}</span>
+                <input type="radio" name="VIEW_FULLSIZE" id="yes_view_fullsize" value="1" {if $lendsprefs.VIEW_FULLSIZE eq '1'}checked="checked"{/if}/><label for="yes_view_fullsize">{_T string="Yes"}</label>
+                <input type="radio" name="VIEW_FULLSIZE" id="no_view_fullsize" value="0" {if $lendsprefs.VIEW_FULLSIZE eq '0'}checked="checked"{/if}/><label for="no_view_fullsize">{_T string="No"}</label>
+            </p>
         </fieldset>
         <fieldset class="cssform" id="objectslend">
             <legend class="ui-state-active ui-corner-top">{_T string="Display preferences"}</legend>
@@ -48,12 +62,6 @@
                 <span class="bline">{_T string="View category:"}</span>
                 <input type="radio" name="VIEW_CATEGORY" id="yes_view_category" value="1" {if $lendsprefs.VIEW_CATEGORY eq '1'}checked="checked"{/if}/><label for="yes_view_category">{_T string="Yes"}</label>
                 <input type="radio" name="VIEW_CATEGORY" id="no_view_category" value="0" {if $lendsprefs.VIEW_CATEGORY eq '0'}checked="checked"{/if}/><label for="no_view_category">{_T string="No"}</label>
-            </p>
-            <p>
-                <span class="bline tooltip" title="{_T string="View category pictures as thumb or in fulllsize"}">{_T string="Category thumbs:"}</span>
-                <span class="tip">{_T string="View category pictures as thumb or in fulllsize"}</span>
-                <input type="radio" name="VIEW_CATEGORY_THUMB" id="yes_view_catthumb" value="1" {if $lendsprefs.VIEW_CATEGORY_THUMB eq '1'}checked="checked"{/if}/><label for="yes_view_catthumb">{_T string="Yes"}</label>
-                <input type="radio" name="VIEW_CATEGORY_THUMB" id="no_view_catthumb" value="0" {if $lendsprefs.VIEW_CATEGORY_THUMB eq '0'}checked="checked"{/if}/><label for="no_view_catthumb">{_T string="No"}</label>
             </p>
             <p>
                 <span class="bline">{_T string="View forecast return date:"}</span>
@@ -87,12 +95,6 @@
                 <input type="radio" name="VIEW_NAME" id="no_view_name" value="0" {if $lendsprefs.VIEW_NAME eq '0'}checked="checked"{/if}/><label for="no_view_name">{_T string="No"}</label>
             </p>
             <p>
-                <span class="bline tooltip" title="{_T string="View object pictures as thumb or in fulllsize"}">{_T string="Object thumbs:"}</span>
-                <span class="tip">{_T string="View object pictures as thumb or in fulllsize"}</span>
-                <input type="radio" name="VIEW_OBJECT_THUMB" id="yes_view_objthumb" value="1" {if $lendsprefs.VIEW_OBJECT_THUMB eq '1'}checked="checked"{/if}/><label for="yes_view_objthumb">{_T string="Yes"}</label>
-                <input type="radio" name="VIEW_OBJECT_THUMB" id="no_view_objthumb" value="0" {if $lendsprefs.VIEW_OBJECT_THUMB eq '0'}checked="checked"{/if}/><label for="no_view_objthumb">{_T string="No"}</label>
-            </p>
-            <p>
                 <span class="bline">{_T string="View buy price:"}</span>
                 <input type="radio" name="VIEW_PRICE" id="yes_view_price" value="1" {if $lendsprefs.VIEW_PRICE eq '1'}checked="checked"{/if}/><label for="yes_view_price">{_T string="Yes"}</label>
                 <input type="radio" name="VIEW_PRICE" id="no_view_price" value="0" {if $lendsprefs.VIEW_PRICE eq '0'}checked="checked"{/if}/><label for="no_view_price">{_T string="No"}</label>
@@ -101,11 +103,6 @@
                 <span class="bline">{_T string="View serial number:"}</span>
                 <input type="radio" name="VIEW_SERIAL" id="yes_view_serial" value="1" {if $lendsprefs.VIEW_SERIAL eq '1'}checked="checked"{/if}/><label for="yes_view_serial">{_T string="Yes"}</label>
                 <input type="radio" name="VIEW_SERIAL" id="no_view_serial" value="0" {if $lendsprefs.VIEW_SERIAL eq '0'}checked="checked"{/if}/><label for="no_view_serial">{_T string="No"}</label>
-            </p>
-            <p>
-                <span class="bline">{_T string="View thumnails:"}</span>
-                <input type="radio" name="VIEW_THUMBNAIL" id="yes_view_" value="1" {if $lendsprefs.VIEW_THUMBNAIL eq '1'}checked="checked"{/if}/><label for="yes_view_">{_T string="Yes"}</label>
-                <input type="radio" name="VIEW_THUMBNAIL" id="no_view_" value="0" {if $lendsprefs.VIEW_THUMBNAIL eq '0'}checked="checked"{/if}/><label for="no_view_">{_T string="No"}</label>
             </p>
             <p>
                 <span class="bline">{_T string="View weight"}</span>

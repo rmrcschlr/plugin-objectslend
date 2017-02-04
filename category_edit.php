@@ -123,6 +123,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
 $tpl->assign('page_title', $title);
 $tpl->assign('category', $category);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('time', time());
 $tpl->assign('error_detected', $error_detected);
 

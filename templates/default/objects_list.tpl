@@ -122,7 +122,7 @@
                         {if $login->isAdmin() || $login->isStaff()}
                             <th  class="id_row">&nbsp;</th>
                         {/if}
-                        {if $lendsprefs.VIEW_THUMBNAIL}
+                        {if $olendsprefs->imagesInLists()}
                             <th class="id_row">
                                 {_T string="Picture"}
                             </th>
@@ -261,21 +261,15 @@
                                     <input type="checkbox" name="object_ids" value="{$objt->object_id}">
                                 </td>
                             {/if}
-                            {if $lendsprefs.VIEW_THUMBNAIL eq '1'}
-                                <td class="center">
-
-                                    <img src="picture.php?object_id={$objt->object_id}&amp;rand={$time}&amp;thumb=1"
-                                        class="picture"
-                                        width="{$objt->picture->getOptimalThumbWidth()}"
-                                        height="{$objt->picture->getOptimalThumbHeight()}"
-                                        alt="{_T string="Object's photo"}"/>
-                                    {if $objt->draw_image}
-                                        <img src="{$objt->object_image_url}" 
-                                             class="tooltip_lend" title="{$objt->tooltip_title}"
-                                             {if $lendsprefs.VIEW_OBJECT_THUMB}style="max-height: {$lendsprefs.THUMB_MAX_HEIGHT}px; max-width: {$lendsprefs.THUMB_MAX_WIDTH}px;"{/if}/>
-                                    {/if}
-                                </td>
-                            {/if}
+    {if $olendsprefs->imagesInLists()}
+                            <td class="center">
+                                <img src="picture.php?object_id={$objt->object_id}&amp;rand={$time}&amp;thumb=1"
+                                    class="picture"
+                                    width="{$objt->picture->getOptimalThumbWidth()}"
+                                    height="{$objt->picture->getOptimalThumbHeight()}"
+                                    alt="{_T string="Object's photo"}"/>
+                            </td>
+    {/if}
                             {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
                                 <td>
                                     {if $lendsprefs.VIEW_NAME}
@@ -402,6 +396,9 @@
         <p class="center">{$pagination}</p>
     {/if}
     </form>
+{if $olendsprefs->showFullsize()}
+<script type="text/javascript" src="{$galette_base_path}{$lendc_dir}/featherlight-1.7.0/featherlight.min.js"></script>
+{/if}
 <script>
 {if $nb_results != 0}
         var _is_checked = true;
@@ -420,11 +417,9 @@
                 return false;
             });
         }
-{/if}
 
         {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
         $(function(){
-{if $nb_results != 0}
             $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string="(Un)Check all"}</a> | <a href="#" id="checkinvert">{_T string="Invert selection"}</a></span></td></tr>');
             _bind_check();
             $('#nbshow').change(function() {
@@ -513,7 +508,17 @@
                 });
             });
 
-{/if}
+    {if $olendsprefs->showFullsize()}
+            $('.picture').featherlight({
+                targetAttr: 'data-fullsrc',
+                type: 'image',
+                beforeOpen: function(p) {
+                    var _img = $(p.currentTarget);
+                    _img.attr('data-fullsrc', _img.attr('src').replace(/&thumb=1/, ''));
+                }
+            });
+    {/if}
+
         });
         function printObjectList(tri, category_id) {
             var baseurl = 'objects_list_print.php';
@@ -591,5 +596,6 @@
                 return false;
             }
     {/if}
+{/if}
         </script>
 </div>

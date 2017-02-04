@@ -46,11 +46,13 @@
                     {$categ->category_id}
                 </td>
                 <td>
+    {if $olendsprefs->imagesInLists()}
                     <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
                         class="picture"
                         width="{$categ->picture->getOptimalThumbWidth()}"
                         height="{$categ->picture->getOptimalThumbHeight()}"
                         alt=""/>
+    {/if}
                     {$categ->name}
                 </td>
                 <td align="center">
@@ -68,3 +70,19 @@
         {/foreach}
     </tbody>
 </table>
+
+{if $olendsprefs->showFullsize()}
+<script type="text/javascript" src="{$galette_base_path}{$lendc_dir}/featherlight-1.7.0/featherlight.min.js"></script>
+<script>
+    $(function(){
+        $('.picture').featherlight({
+            targetAttr: 'data-fullsrc',
+            type: 'image',
+            beforeOpen: function(p) {
+                var _img = $(p.currentTarget);
+                _img.attr('data-fullsrc', _img.attr('src').replace(/&thumb=1/, ''));
+            }
+        });
+    });
+</script>
+{/if}

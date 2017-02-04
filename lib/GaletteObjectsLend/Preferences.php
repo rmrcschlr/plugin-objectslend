@@ -179,42 +179,6 @@ class Preferences
      */
     const PARAM_OBJECTS_PER_PAGE_DEFAULT = 'OBJECTS_PER_PAGE_DEFAULT';
 
-    private $_fields = array(
-        '_parameter_id' => 'int',
-        '_code' => 'string',
-        '_is_date' => 'bool',
-        '_value_date' => 'date',
-        '_is_text' => 'bool',
-        '_value_text' => 'string',
-        '_is_numeric' => 'bool',
-        '_nb_digits' => 'int',
-        '_value_numeric' => 'double',
-        '_date_creation' => 'datetime',
-        '_date_modification' => 'datetime'
-    );
-    private $_parameter_id;
-    private $_code;
-    private $_is_date;
-    private $_value_date;
-    private $_is_text;
-    private $_value_text;
-    private $_is_numeric;
-    private $_nb_digits;
-    private $_value_numeric;
-    private $_date_creation;
-    private $_date_modification;
-    private static $_parameters_values = array();
-
-    /**
-     * Indique si le paramètre est un paramètre de couleur
-     *
-     * @return bool
-     */
-    public function isColor()
-    {
-        return substr($this->_valeur_texte, 0, 1) == '#';
-    }
-
     /**
      * Default constructor
      *
@@ -438,5 +402,28 @@ class Preferences
     public function getThumbHeight()
     {
         return $this->prefs['THUMB_MAX_HEIGHT'];
+    }
+
+    /**
+     * Whether to display images (as thumbnails) in lists
+     *
+     * @return boolean
+     */
+    public function imagesInLists()
+    {
+        return $this->prefs['VIEW_THUMBNAIL'];
+    }
+
+    /**
+     * Shall we show fullsize images?
+     *
+     * Would appear editing object, and on thumbnails click
+     *
+     * @return boolean
+     */
+    public function showFullsize()
+    {
+        //TODO: would replace VIEW_OBJECT_THUMB and VIEW_CATEGORY_THUMB (I guess)
+        return $this->prefs['VIEW_FULLSIZE'];
     }
 }

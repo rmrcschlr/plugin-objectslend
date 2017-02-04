@@ -163,31 +163,6 @@ $nb_objects_no_category = LendObject::getObjectsNumberWithoutCategory($search);
 $sum_objects_no_category = LendObject::getSumPriceObjectsWithoutCategory($search);
 
 /**
- * Récupération des images associées aux objets
- */
-foreach ($objects as $obj) {
-    $obj->tooltip_title = '<center>';
-    if ($obj->draw_image) {
-        $obj->tooltip_title .= '<img src=\'' . $obj->object_image_url . '\' style=\'max-width: 500px; max_height: 500px;\'/>';
-    }
-    $obj->tooltip_title .= '<br/><b>' . $obj->name . '</b>';
-    if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL} && strlen($obj->serial_number) > 0) {
-        $obj->tooltip_title .= ' (' . $obj->serial_number . ')';
-    }
-    $obj->tooltip_title .= '<br/>&nbsp;';
-    if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION} && strlen($obj->description) > 0) {
-        $obj->tooltip_title .= '<br/>' . $obj->description;
-    }
-    if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION} && strlen($obj->dimension) > 0) {
-        $obj->tooltip_title .= '<br/>' . _T('OBJECTS LIST.DIMENSION') . ' : ' . $obj->dimension;
-    }
-    if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT} && $obj->weight_bulk > 0) {
-        $obj->tooltip_title .= '<br/>' . _T('OBJECTS LIST.WEIGHT') . ' : ' . $obj->weight;
-    }
-    $obj->tooltip_title .= '</center>';
-}
-
-/**
  * Mise en forme des résultats
  */
 if (strlen($search) > 0) {
@@ -250,7 +225,9 @@ $tpl->assign('sort_suffix', $category_id > 0 ? '&category_id=' . $category_id : 
 $tpl->assign('search', $search);
 
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('ajax', $ajax);
+$tpl->assign('time', time());
 
 $tpl->assign('error_detected', $error_detected);
 
