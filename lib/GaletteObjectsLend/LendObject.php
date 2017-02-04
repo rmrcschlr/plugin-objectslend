@@ -104,13 +104,16 @@ class LendObject
     private $picture;
 
     /**
-     * Construit un nouvel object d'emprunt à partir de la BDD (à partir de son ID) ou vierge
+     * Default constructor
      *
-     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
+     * @param int|object $args   Maybe null, an RS object or an id from database
+     * @param boolean    $cloned Ask to clone specified object
      */
     public function __construct($args = null, $cloned = false)
     {
-        global $zdb;
+        global $zdb, $plugins;
+
+        $this->picture = new ObjectPicture($plugins);
 
         if (is_int($args)) {
             try {
@@ -119,9 +122,6 @@ class LendObject
                 $results = $zdb->execute($select);
                 if ($results->count() == 1) {
                     $this->loadFromRS($results->current());
-                }
-                if ($cloned) {
-                    unset($this->object_id);
                 }
             } catch (\Exception $e) {
                 Analog::log(
@@ -132,6 +132,11 @@ class LendObject
             }
         } elseif (is_object($args)) {
             $this->loadFromRS($args);
+        }
+
+        if ($args !== null && $cloned) {
+            unset($this->object_id);
+            $this->picture = new ObjectPicture($plugins);
         }
     }
 
