@@ -115,7 +115,7 @@
             </table>
         </form>
 
-        <form action="objects_edit.php?object_id=new" method="get" id="objects_list">
+        <form action="objects_list.php" method="get" id="objects_list">
             <table class="listing">
                 <thead>
                     <tr>
@@ -396,9 +396,6 @@
         <p class="center">{$pagination}</p>
     {/if}
     </form>
-{if $olendsprefs->showFullsize()}
-<script type="text/javascript" src="{$galette_base_path}{$lendc_dir}/featherlight-1.7.0/featherlight.min.js"></script>
-{/if}
 <script>
 {if $nb_results != 0}
         var _is_checked = true;
@@ -550,19 +547,6 @@
                     }
                 });
             });
-
-
-    {if $olendsprefs->showFullsize()}
-            $('.picture').featherlight({
-                targetAttr: 'data-fullsrc',
-                type: 'image',
-                beforeOpen: function(p) {
-                    var _img = $(p.currentTarget);
-                    _img.attr('data-fullsrc', _img.attr('src').replace(/&thumb=1/, ''));
-                }
-            });
-    {/if}
-
         });
         function printObjectList(tri, category_id) {
             var baseurl = 'objects_list_print.php';
