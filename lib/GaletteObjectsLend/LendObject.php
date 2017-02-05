@@ -490,12 +490,9 @@ class LendObject
             );
         }
 
-        $or_where = array();
+        $or_where = [new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.name', '%' . $search . '%')];
         if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.serial_number', '%' . $search . '%');
-        }
-        if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
-            $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.name', '%' . $search . '%');
         }
         if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
             $or_where[] = new Predicate\Like(PREFIX_DB . LEND_PREFIX . self::TABLE . '.description', '%' . $search . '%');

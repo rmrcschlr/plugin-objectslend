@@ -159,9 +159,7 @@ foreach ($ids as $object_id) {
         }
 
         $name = $object->name;
-        if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
-            addCell($pdf, _T("Name"), $object->name, $wpic);
-        }
+        addCell($pdf, _T("Name"), $object->name, $wpic);
         if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
             addCell($pdf, _T("Description"), $object->description, $wpic);
         }

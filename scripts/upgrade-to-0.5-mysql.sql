@@ -19,3 +19,4 @@ DELETE FROM galette_lend_parameters WHERE code='VIEW_CATEGORY_THUMB';
 DELETE FROM galette_lend_parameters WHERE code='VIEW_OBJECT_THUMB';
 DELETE FROM galette_lend_parameters WHERE code='OBJECTS_PER_PAGE_NUMBER_LIST';
 DELETE FROM galette_lend_parameters WHERE code='OBJECTS_PER_PAGE_DEFAULT';
+DELETE FROM galette_lend_parameters WHERE code='VIEW_NAME';

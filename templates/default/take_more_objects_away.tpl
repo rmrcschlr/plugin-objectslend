@@ -10,11 +10,9 @@
                                 {_T string="Picture"}
                             </th>
                         {/if}
-                        {if $lendsprefs.VIEW_NAME}
                             <th>
                                 {_T string="Name"}
                             </th>
-                        {/if}
                         {if $lendsprefs.VIEW_SERIAL}
                             <th>
                                 {_T string="Serial"}

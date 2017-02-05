@@ -170,9 +170,7 @@ if (strlen($search) > 0) {
         if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
             $obj->search_serial_number = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->serial_number);
         }
-        if ($lendsprefs->{Preferences::PARAM_VIEW_NAME}) {
-            $obj->search_name = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->name);
-        }
+        $obj->search_name = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->name);
         if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
             $obj->search_description = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->description);
         }

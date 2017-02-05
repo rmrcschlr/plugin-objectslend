@@ -6,7 +6,7 @@
             <div>
                 <p>
                     <label for="name" class="bline">{_T string="Name:"}</label>
-                    <input type="text" name="name" id="name" maxlength="100" size="60" value="{$object->name}" required>
+                    <input type="text" name="name" id="name" maxlength="100" size="60" value="{$object->name}" required="required">
                 </p>
             </div>
             <div>

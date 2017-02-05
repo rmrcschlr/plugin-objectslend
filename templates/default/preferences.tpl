@@ -90,11 +90,6 @@
                 <input type="radio" name="VIEW_LIST_PRICE_SUM" id="no_view_pricesum" value="0" {if $lendsprefs.VIEW_LIST_PRICE_SUM eq '0'}checked="checked"{/if}/><label for="no_view_pricesum">{_T string="No"}</label>
             </p>
             <p>
-                <span class="bline">{_T string="View name:"}</span>
-                <input type="radio" name="VIEW_NAME" id="yes_view_name" value="1" {if $lendsprefs.VIEW_NAME eq '1'}checked="checked"{/if}/><label for="yes_view_name">{_T string="Yes"}</label>
-                <input type="radio" name="VIEW_NAME" id="no_view_name" value="0" {if $lendsprefs.VIEW_NAME eq '0'}checked="checked"{/if}/><label for="no_view_name">{_T string="No"}</label>
-            </p>
-            <p>
                 <span class="bline">{_T string="View buy price:"}</span>
                 <input type="radio" name="VIEW_PRICE" id="yes_view_price" value="1" {if $lendsprefs.VIEW_PRICE eq '1'}checked="checked"{/if}/><label for="yes_view_price">{_T string="Yes"}</label>
                 <input type="radio" name="VIEW_PRICE" id="no_view_price" value="0" {if $lendsprefs.VIEW_PRICE eq '0'}checked="checked"{/if}/><label for="no_view_price">{_T string="No"}</label>

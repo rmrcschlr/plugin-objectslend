@@ -127,20 +127,16 @@
                                 {_T string="Picture"}
                             </th>
                         {/if}
-                        {if $lendsprefs.VIEW_NAME}
                             <th>
-                                {if $lendsprefs.VIEW_NAME}
-                                    <a href="?tri=name{$sort_suffix}&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
-                                        {_T string="Name"}
-                                    </a>
-                                    {if $tri eq 'name' && $direction eq 'asc'}
-                                        <img src="{$template_subdir}images/down.png"/>
-                                    {elseif $tri eq 'name' && $direction eq 'desc'}
-                                        <img src="{$template_subdir}images/up.png"/>
-                                    {/if}
+                                <a href="?tri=name{$sort_suffix}&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
+                                    {_T string="Name"}
+                                </a>
+                                {if $tri eq 'name' && $direction eq 'asc'}
+                                    <img src="{$template_subdir}images/down.png"/>
+                                {elseif $tri eq 'name' && $direction eq 'desc'}
+                                    <img src="{$template_subdir}images/up.png"/>
                                 {/if}
                             </th>
-                        {/if}
                         {if $lendsprefs.VIEW_SERIAL}
                             <th>
                                 <a href="?tri=serial_number{$sort_suffix}&direction={if $tri eq 'serial_number' && $direction eq 'asc'}desc{else}asc{/if}">
@@ -270,16 +266,12 @@
                                     alt="{_T string="Object's photo"}"/>
                             </td>
     {/if}
-                            {if $lendsprefs.VIEW_NAME || $lendsprefs.VIEW_DESCRIPTION}
-                                <td>
-                                    {if $lendsprefs.VIEW_NAME}
-                                        <strong>{$objt->search_name}</strong>
-                                    {/if}
-                                    {if $lendsprefs.VIEW_DESCRIPTION}
-                                        {if $lendsprefs.VIEW_NAME}<br/>{/if}{$objt->search_description}
-                                    {/if}
-                                </td>
-                            {/if}
+                            <td>
+                                <strong>{$objt->search_name}</strong>
+                                {if $lendsprefs.VIEW_DESCRIPTION}
+                                    <br/>{$objt->search_description}
+                                {/if}
+                            </td>
                             {if $lendsprefs.VIEW_SERIAL}
                                 <td>
                                     {$objt->search_serial_number}

@@ -72,12 +72,6 @@ class Preferences
     const PARAM_VIEW_THUMBNAIL = 'VIEW_THUMBNAIL';
 
     /**
-     * Paramètre : voir la colonne "nom"
-     * Valeur : 0 = false / 1 = true
-     */
-    const PARAM_VIEW_NAME = 'VIEW_NAME';
-
-    /**
      * Paramètre : voir la colonne "description"
      * Valeur : 0 = false / 1 = true
      */

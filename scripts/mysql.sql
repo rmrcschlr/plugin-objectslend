@@ -135,11 +135,6 @@ values
 insert into galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
 values
-('VIEW_NAME', 0, 0, 1, 0, 1, NOW(), NOW());
-
-insert into galette_lend_parameters
-(code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
 ('VIEW_DESCRIPTION', 0, 0, 1, 0, 1, NOW(), NOW());
 
 insert into galette_lend_parameters
