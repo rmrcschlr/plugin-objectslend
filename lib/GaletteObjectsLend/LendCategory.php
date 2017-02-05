@@ -49,7 +49,7 @@ class LendCategory
     const TABLE = 'category';
     const PK = 'category_id';
 
-    private $_fields = array(
+    private $fields = array(
         'category_id' => 'integer',
         'name' => 'varchar(100)',
         'is_active' => 'boolean'
@@ -70,7 +70,9 @@ class LendCategory
      */
     public function __construct($args = null)
     {
-        global $zdb;
+        global $zdb, $plugins;
+
+        $this->picture = new CategoryPicture($plugins);
 
         if (is_int($args)) {
             try {
@@ -108,14 +110,6 @@ class LendCategory
         $this->is_active = $r->is_active == '1' ? true : false;
 
         $this->picture = new CategoryPicture($plugins, (int)$this->category_id);
-
-        /*$extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
-        foreach ($extensions as $ext) {
-            if (file_exists('categories_pictures/' . $this->category_id . $ext)) {
-                $this->categ_image_url = 'categories_pictures/' . $this->category_id . $ext;
-                break;
-            }
-        }*/
     }
 
     /**
@@ -130,7 +124,7 @@ class LendCategory
         try {
             $values = array();
 
-            foreach ($this->_fields as $k => $v) {
+            foreach ($this->fields as $k => $v) {
                 $values[$k] = $this->$k;
             }
 
@@ -141,7 +135,7 @@ class LendCategory
                 if ($add > 0) {
                     $this->category_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new \Exception(_T("CATEGORY.AJOUT ECHEC"));
+                    throw new \RuntimeException('Unable to add catagory!');
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
@@ -209,7 +203,10 @@ class LendCategory
                 ->where(
                     array(
                         'is_active' => 1,
-                        new Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
+                        new Predicate\Expression(
+                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
+                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
+                        )
                     )
                 );
 
@@ -218,7 +215,10 @@ class LendCategory
                 ->where(
                     array(
                         'is_active' => 1,
-                        new Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
+                        new Predicate\Expression(
+                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
+                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
+                        )
                     )
                 );
 
@@ -235,8 +235,12 @@ class LendCategory
                 ->columns(
                     array(
                         '*',
-                        'nb' => new Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'),
-                        'sum' => new Predicate\Expression('(' . $zdb->sql->getSqlStringForSqlObject($select_sum) . ')'),
+                        'nb' => new Predicate\Expression(
+                            '(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'
+                        ),
+                        'sum' => new Predicate\Expression(
+                            '(' . $zdb->sql->getSqlStringForSqlObject($select_sum) . ')'
+                        ),
                     )
                 )
                 ->where($where)
@@ -286,7 +290,10 @@ class LendCategory
                     array(
                         'is_active' => 1,
                         LendObject::writeWhereQuery($search),
-                        new Predicate\Expression(PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK)
+                        new Predicate\Expression(
+                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
+                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
+                        )
                     )
                 );
 
@@ -294,7 +301,9 @@ class LendCategory
                 ->columns(
                     array(
                         '*',
-                        'nb' => new Predicate\Expression(('(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'))
+                        'nb' => new Predicate\Expression(
+                            '(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'
+                        )
                     )
                 )
                 ->where(array('is_active' => 1))
