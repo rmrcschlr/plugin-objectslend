@@ -134,7 +134,7 @@
             <div>
                 <p>
                     <span class="bline">{_T string="Status:"}</span>
-                    <select name="status" id="status" onchange="validStatus()">
+                    <select name="status" id="status">
                         <option value="null">{_T string="--- Select a status ---"}</option>
                         {foreach from=$statuses item=sta}
                             <option value="{$sta->status_id}">{$sta->status_text}</option>
@@ -145,9 +145,9 @@
             <div>
                 <p>
                     <span class="bline">{_T string="Comments:"}</span>
-                    <textarea name="comments" id="comments" onkeyup="countRemainting()" style="font-family: Cantarell,Verdana,sans-serif; font-size: 0.85em; width: 400px; height: 60px;"></textarea>
+                    <textarea name="comments" id="comments" style="font-family: Cantarell,Verdana,sans-serif; font-size: 0.85em; width: 400px; height: 60px;"></textarea>
                     <br/><span id="remaining">200</span>
-                    {_T string="characters remaining"}
+                    {_T string="remaining characters"}
                 </p>
             </div>
 {/if}
