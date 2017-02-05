@@ -337,9 +337,9 @@
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $objt->id_adh}
-                                    <a onclick="give_object_back({$objt->object_id});" style="cursor: pointer;" {*href="give_object_back.php?object_id={$objt->object_id}"*}>
-                                        <img src="picts/cabinet.png" alt="{_T string="OBJECTS LIST.REPLACE"}" class="tooltip_lend" title="{_T string="OBJECTS LIST.REPLACE"}">
-                                    </a>
+                                        <a id="give_object" href="give_object_back.php?object_id={$objt->object_id}">
+                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-giveback.png" alt="{_T string="Give back"}" title="{_T string="Give object back"}"/>
+                                        </a>
                                 {/if}
 
     {if $login->isAdmin() || $login->isStaff()}
@@ -507,6 +507,50 @@
                     }
                 });
             });
+
+            $('#give_object').on('click', function(e) {
+                e.preventDefault();
+                var _this = $(this);
+
+                $.ajax({
+                    url: _this.attr('href') + '&mode=ajax',
+                    type: 'GET',
+                    datatype: 'html',
+                    {include file="../../../../templates/default/js_loader.tpl"},
+                    success: function(res){
+                        var _el = $('<div id="lend_window" title="{_T string="Give object" escape="js"}"></div>');
+                        _el.appendTo('body').dialog({
+                            modal: true,
+                            hide: 'fold',
+                            width: '60%',
+                            height: 450,
+                            close: function(event, ui){
+                                _el.remove();
+                            }
+                        }).append(res);
+
+                        $('#lend_window input:submit, #lend_window .button, #lend_window input:reset' ).button({
+                            create: function(event, ui) {
+                                if ( $(event.target).hasClass('disabled') ) {
+                                    $(event.target).button('disable');
+                                }
+                            }
+                        });
+
+                        $('#btncancel').on('click', function(e) {
+                            e.preventDefault();
+                            $('#lend_window').dialog('close');
+                        });
+
+                        _init_giveobject_js();
+
+                    },
+                    error: function(){
+                        alert("{_T string="An error occured loading 'Give back' display :(" escape="js"}")
+                    }
+                });
+            });
+
 
     {if $olendsprefs->showFullsize()}
             $('.picture').featherlight({

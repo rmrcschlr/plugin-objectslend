@@ -1,26 +1,3 @@
-function take_object(id) {
-    show_ajax();
-
-    $.get('take_object.php?mode=ajax&object_id=' + id, function (data) {
-        $('#ajax_lend').html(data);
-        $('.tooltip_lend').tooltipster({
-            position: 'bottom-right',
-            theme: '.tooltipster-lend'
-        });
-    });
-}
-
-function ajax_take_object() {
-    $('#button_container').html('<img src="picts/wait.png" alt="Loading / Chargement en cours ..." height="32" width="32"/>');
-    $.ajax({
-        type: "POST",
-        url: "take_object.php",
-        data: $('#form_take_object').serialize() + "&yes=1",
-        success: success_take_object
-    });
-    return false;
-}
-
 function success_take_object(post_data) {
     var page = $('#actual_page').val();
     if (post_data === "OK") {
@@ -69,27 +46,6 @@ function ajax_take_more_objects_away() {
     return false;
 }
 
-function give_object_back(id) {
-    show_ajax();
-    $.get('give_object_back.php?mode=ajax&object_id=' + id, function (data) {
-        $('#ajax_lend').html(data);
-        $('.tooltip_lend').tooltipster({
-            position: 'bottom-right',
-            theme: '.tooltipster-lend'
-        });
-    });
-}
-
-function ajax_give_object_back() {
-    $('#button_container').html('<img src="picts/wait.png" alt="Loading / Chargement en cours ..." height="32" width="32"/>');
-    $.ajax({
-        type: "POST",
-        url: "give_object_back.php",
-        data: $('#form_give_object_back').serialize() + "&yes=1",
-        success: success_give_object_back
-    });
-    return false;
-}
 
 function success_give_object_back(post_data) {
     var page = $('#actual_page').val();
