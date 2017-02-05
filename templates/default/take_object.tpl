@@ -66,6 +66,7 @@
                 </p>
             </div>
     {/if}
+    {if $takeorgive eq 'take'}
             {if $login->isAdmin() || $login->isStaff()}
                 <div>
                     <p>
@@ -117,17 +118,48 @@
                     </p>
                 </div>
             {/if}
+    {/if}
+    {if $takeorgive eq 'give'}
+            <div>
+                <p>
+                    <span class="bline">{_T string="Status:"}</span>
+                    <select name="status" id="status">
+                        <option value="null">{_T string="--- Select a status ---"}</option>
+                        {foreach from=$statuses item=sta}
+                            <option value="{$sta->status_id}">{$sta->status_text}</option>
+                        {/foreach}
+                    </select>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span class="bline">{_T string="Time:"}</span>
+                    {_T string="From"} {$last_rent->date_begin_short} {_T string="to"} {$today}
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span class="bline">{_T string="Comments:"}</span>
+                    <textarea name="comments" id="comments" style="font-family: Cantarell,Verdana,sans-serif; font-size: 0.85em; width: 400px; height: 60px;"></textarea>
+                    <br/><span class="exemple"><span id="remaining">200</span>
+                    {_T string="remaining characters"}</span>
+                </p>
+            </div>
+    {/if}
         </fieldset>
     </div>
+    {if $takeorgive eq 'take'}
     <div class="disclaimer">
         {_T string="The items offered for rent are in good condition and verification rental contradictory to their status is at the time of withdrawal. No claims will be accepted after the release of the object. Writing by the store a list of reservation does not exempt the customer checking his retrait. The payment of rent entitles the purchaser to make normal use of the loaned object. If the object is rendered in a degraded state, the seller reserves the right to collect all or part of the security deposit. In case of deterioration of the rented beyond the standard object, a financial contribution will be required for additional cleaning caused. In case of damage, loss or theft of the rented property, the deposit will not be refunded automatically to 'the company as damages pursuant to Article 1152 of the Civil Code and without that it need for any other judicial or extra-judicial formality. In some other cases not listed above and at the discretion of the seller, the deposit check may also be collected in whole or party."}
     </div>
+    {/if}
     <div class="button-container" id="button_container">
         <input type="submit" id="btnsave" name="yes" value="{_T string="Take away"}">
         <a href="objects_list.php" class="button" id="btncancel">{_T string="Cancel"}</a>
     </div>
 </form>
 <script>
+{if $takeorgive eq 'take'}
     var _init_takeobject_js = function() {
         $('#btnsave').button('disable');
         $('#expected_return').datepicker({
@@ -159,7 +191,6 @@
 
     function validStatus() {
         var _disabled = false;
-        var visibility = 'visible';
         if ($('#status').val() === 'null') {
             _disabled = true;
         }
@@ -200,4 +231,37 @@
             $('#rent_price_label').html(text);
         }
     }
+{/if}
+{if $takeorgive eq 'give'}
+    var _init_giveobject_js = function() {
+        $('#btnsave').button('disable');
+
+        $('#comments').keyup(function() {
+            if ($('#comments').val().length > 200) {
+                $('#comments').val($('#comments').val().substr(0, 200));
+            }
+            $('#remaining').text(200 - $('#comments').val().length);
+        });
+
+        $('#status').on('change',function() {
+            validStatus()
+        });
+    }
+
+    {if not $ajax}
+    $(function () {
+        _init_giveobject_js();
+    });
+    {/if}
+
+    function validStatus() {
+        var _lyes = $('#btnsave');
+        if ($('#status').val() === 'null') {
+            _lyes.button('disable');
+        } else {
+            _lyes.button('enable');
+        }
+    }
+
+{/if}
 </script>

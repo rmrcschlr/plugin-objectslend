@@ -52,7 +52,7 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("BACK OBJECTS.PAGE TITLE"));
+$tpl->assign('page_title', _T("Give back object"));
 
 $lendsprefs = new Preferences($zdb);
 
@@ -106,34 +106,19 @@ $object = new LendObject($object_id);
  */
 $s = ObjectPicture::getHeightWidthForObject($object);
 
-$object->tooltip_title = '<center>';
-$object->tooltip_title .= '<img src=\'picture.php?quick=1&object_id=' . $object->object_id . '\' width=\'' . $s->width . '\' height=\'' . $s->height . '\'/>';
-$object->tooltip_title .= '<br/><b>' . $object->name . '</b>';
-if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL} && strlen($object->serial_number) > 0) {
-    $object->tooltip_title .= ' (' . $object->serial_number . ')';
-}
-$object->tooltip_title .= '<br/>&nbsp;';
-if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION} && strlen($object->description) > 0) {
-    $object->tooltip_title .= '<br/>' . $object->description;
-}
-if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION} && strlen($object->dimension) > 0) {
-    $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.DIMENSION') . ' : ' . $object->dimension;
-}
-if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT} && $object->weight_bulk > 0) {
-    $object->tooltip_title .= '<br/>' . _T('OBJECTS LIST.WEIGHT') . ' : ' . $object->weight;
-}
-
 $tpl->assign('object', $object);
 $tpl->assign('statuses', LendStatus::getActiveHomeStatuses());
 $tpl->assign('last_rent', $last_rent);
 $tpl->assign('today', date('d/m/Y'));
 $tpl->assign('ajax', $ajax);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('takeorgive', 'give');
+$tpl->assign('time', time());
 
 if ($ajax) {
-    $tpl->display('give_object_back.tpl', LEND_SMARTY_PREFIX);
+    $tpl->display('take_object.tpl', LEND_SMARTY_PREFIX);
 } else {
-    $content = $tpl->fetch('give_object_back.tpl', LEND_SMARTY_PREFIX);
+    $content = $tpl->fetch('take_object.tpl', LEND_SMARTY_PREFIX);
     $tpl->assign('content', $content);
     //Set path to main Galette's template
     $tpl->template_dir = $orig_template_path;

@@ -174,6 +174,7 @@ $tpl->assign('month', date('m'));
 $tpl->assign('day', date('d'));
 $tpl->assign('rent_price', str_replace(array( ',', ' '), array( '.', ''), $object->rent_price));
 $tpl->assign('time', time());
+$tpl->assign('takeorgive', 'take');
 
 if ($ajax) {
     $tpl->display('take_object.tpl');
