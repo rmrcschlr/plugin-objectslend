@@ -53,7 +53,7 @@
     {if $lendsprefs.VIEW_DIMENSION}
             <div>
                 <p>
-                    <span class="bline">{_T string="Dimensions:"}</span>
+                    <span class="bline">{_T string="Dimensions (cm):"}</span>
                     {$object->dimension}
                 </p>
             </div>
@@ -61,7 +61,7 @@
     {if $lendsprefs.VIEW_WEIGHT}
             <div>
                 <p>
-                    <span class="bline">{_T string="Weight:"}</span>
+                    <span class="bline">{_T string="Weight (kg):"}</span>
                     {$object->weight}
                 </p>
             </div>

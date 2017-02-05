@@ -51,7 +51,7 @@
             </p>
             <p>
                 <span class="bline tooltip" title="{_T string="Show fullsize image or just thumbs"}">{_T string="Enable fullsize:"}</span>
-                <span class="tip">{_T string="Will permit to see fullesize image clicking on list thumb (if active) and will display it on objects edition if enabled.<br/>If disabled, only thumbnails will be displayed, but full images are still kept."}</span>
+                <span class="tip">{_T string="Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, only thumbnails will be displayed, but full images are still kept."}</span>
                 <input type="radio" name="VIEW_FULLSIZE" id="yes_view_fullsize" value="1" {if $lendsprefs.VIEW_FULLSIZE eq '1'}checked="checked"{/if}/><label for="yes_view_fullsize">{_T string="Yes"}</label>
                 <input type="radio" name="VIEW_FULLSIZE" id="no_view_fullsize" value="0" {if $lendsprefs.VIEW_FULLSIZE eq '0'}checked="checked"{/if}/><label for="no_view_fullsize">{_T string="No"}</label>
             </p>
