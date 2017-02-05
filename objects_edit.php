@@ -210,6 +210,7 @@ $tpl->assign('show_status', $show_status);
 $tpl->assign('statuses', $statuses);
 $tpl->assign('adherents', $adherents);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('categories', LendCategory::getActiveCategories());
 $tpl->assign('time', time());
 $tpl->assign('success_detected', $success_detected);

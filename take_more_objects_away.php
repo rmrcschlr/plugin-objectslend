@@ -153,8 +153,10 @@ $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());
 $tpl->assign('members', $members);
 
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('ajax', $ajax);
 $tpl->assign('safe_objects_ids', join(',', $safe_objects_ids));
+$tpl->assign('takeorgive', 'take');
 
 if ($ajax) {
     $tpl->display('take_more_objects_away.tpl', LEND_SMARTY_PREFIX);

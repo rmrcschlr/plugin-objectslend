@@ -77,7 +77,7 @@ if (filter_has_var(INPUT_POST, 'yes')) {
     }
 }
 
-$tpl->assign('page_title', _T("BACK OBJECTS.PAGE TITLE"));
+$tpl->assign('page_title', _T("Give back objects"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -105,11 +105,14 @@ $tpl->assign('statuses', LendStatus::getActiveHomeStatuses());
 $tpl->assign('ajax', $ajax);
 $tpl->assign('safe_objects_ids', join(',', $safe_objects_ids));
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
+$tpl->assign('takeorgive', 'give');
+$tpl->assign('time', time());
 
 if ($ajax) {
-    $tpl->display('give_more_objects_back.tpl', LEND_SMARTY_PREFIX);
+    $tpl->display('take_more_objects_away.tpl', LEND_SMARTY_PREFIX);
 } else {
-    $content = $tpl->fetch('give_more_objects_back.tpl', LEND_SMARTY_PREFIX);
+    $content = $tpl->fetch('take_more_objects_away.tpl', LEND_SMARTY_PREFIX);
     $tpl->assign('content', $content);
     //Set path to main Galette's template
     $tpl->template_dir = $orig_template_path;

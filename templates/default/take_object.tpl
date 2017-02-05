@@ -105,9 +105,9 @@
             {if $lendsprefs.AUTO_GENERATE_CONTRIBUTION}
                 <div>
                     <p>
-                        <span class="bline">{_T string="TAKE OBJECT.PAYMENT TYPE"}</span>
+                        <span class="bline">{_T string="Payment type:"}</span>
                         <select name="payment_type" id="payment_type">
-                            <option value="null">{_T string="TAKE OBJECT.SELECT PAYMENT TYPE"}</option>
+                            <option value="null">{_T string="--- Select a payment type ---"}</option>
                             <option value="{php}echo Galette\Entity\Contribution::PAYMENT_CASH;{/php}">{_T string="Cash"}</option>
                             <option value="{php}echo Galette\Entity\Contribution::PAYMENT_CREDITCARD;{/php}">{_T string="Credit card"}</option>
                             <option value="{php}echo Galette\Entity\Contribution::PAYMENT_CHECK;{/php}">{_T string="Check"}</option>
@@ -173,6 +173,10 @@
             showOtherMonths: false,
             showWeek: true,
         });
+
+    {if $olendsprefs->showFullsize()}
+        _init_fullimage();
+    {/if}
 
         $('#id_adh, #status, #payment_type').on('change',function() {
             validStatus()

@@ -32,9 +32,9 @@
 }
 
 #status_create, #lend_cancel, #lend_save, #lend_yes, #duplicate,
-#objects_delete, #objects_disable, #objects_give_back,
-#objects_take_away, #objects_print, #objects_record_print, #save_categories,
-#save_objects, #restore_objects ,.button {
+#objects_delete, #objects_disable,
+#objects_print, #objects_record_print, #save_categories,
+#save_objects, #restore_objects {
     background-position: 10px 50%, 50% 50% !important;
     background-repeat: no-repeat, repeat !important;
     padding-left: 2em !important;
@@ -89,20 +89,6 @@
     background-image: url(../../picts/disable_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
 }
 
-#objects_give_back {
-    background-image: url(../../picts/cabinet_16.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
-}
-#objects_give_back.ui-state-hover {
-    background-image: url(../../picts/cabinet_16_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
-}
-
-#objects_take_away {
-    background-image: url(../../picts/bag_16.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
-}
-#objects_take_away.ui-state-hover {
-    background-image: url(../../picts/bag_16_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
-}
-
 #objects_print, #objects_record_print {
     background-image: url(../../picts/pdf.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
 }
@@ -122,6 +108,22 @@
 }
 #restore_objects.ui-state-hover {
     background-image: url(../../picts/database_w.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+
+
+#objects_give_back {
+    background-image: url(../../templates/default/images/icon-giveback.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#objects_give_back.ui-state-hover {
+    background-image: url(../../templates/default/images/icon-giveback.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
+}
+
+#objects_take_away {
+    background-image: url(../../templates/default/images/icon-takeaway.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+#objects_take_away.ui-state-hover {
+    background-image: url(../../templates/default/images/icon-takeaway.png), url(../../../../templates/default/jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png);
 }
 
 .btnsave {

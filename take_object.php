@@ -167,6 +167,7 @@ $tpl->assign('object', $object);
 $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());
 $tpl->assign('members', $members);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('ajax', $ajax);
 $tpl->assign('require_calendar', true);
 $tpl->assign('year', date('Y'));

@@ -375,10 +375,10 @@
                                 <input type="submit" class="button btnpdf" value="{_T string="Print objects cards"}" onclick="return printObjectRecords();">
                             </li>
                             <li>
-                                <input type="submit" value="{_T string="Take out"}">
+                                <input type="submit" value="{_T string="Take out"}" id="objects_take_away" class="button">
                             </li>
                             <li>
-                                <input type="submit" value="{_T string="Return"}">
+                                <input type="submit" value="{_T string="Return"}" id="objects_give_back" class="button">
                             </li>
                             <li>
                                 <input type="submit" value="{_T string="Disable"}" onclick="return confirmDelete(false);">
@@ -603,14 +603,96 @@
                 return false;
             }
 
-            $('#objects_take_away').click(function () {
-                take_more_objects();
-                return false;
+            $('#objects_take_away').click(function (e) {
+                e.preventDefault();
+                var _this = $(this);
+
+                $.ajax({
+                    url: 'take_more_objects_away.php?mode=ajax',
+                    type: 'GET',
+                    data: {
+                        objects_ids: get_checked_objets_ids()
+                    },
+                    datatype: 'html',
+                    {include file="../../../../templates/default/js_loader.tpl"},
+                    success: function(res){
+                        var _el = $('<div id="lend_window" title="{_T string="Take objects" escape="js"}"></div>');
+                        _el.appendTo('body').dialog({
+                            modal: true,
+                            hide: 'fold',
+                            width: '60%',
+                            height: 450,
+                            close: function(event, ui){
+                                _el.remove();
+                            }
+                        }).append(res);
+
+                        $('#lend_window input:submit, #lend_window .button, #lend_window input:reset' ).button({
+                            create: function(event, ui) {
+                                if ( $(event.target).hasClass('disabled') ) {
+                                    $(event.target).button('disable');
+                                }
+                            }
+                        });
+
+                        $('#btncancel').on('click', function(e) {
+                            e.preventDefault();
+                            $('#lend_window').dialog('close');
+                        });
+
+                        _init_takeobject_js();
+
+                    },
+                    error: function(){
+                        alert("{_T string="An error occured loading 'Take away' display :(" escape="js"}")
+                    }
+                });
             });
 
-            $('#objects_give_back').click(function () {
-                give_more_objects_back();
-                return false;
+            $('#objects_give_back').click(function (e) {
+                e.preventDefault();
+                var _this = $(this);
+
+                $.ajax({
+                    url: 'give_more_objects_back.php?mode=ajax',
+                    type: 'GET',
+                    data: {
+                        objects_ids: get_checked_objets_ids()
+                    },
+                    datatype: 'html',
+                    {include file="../../../../templates/default/js_loader.tpl"},
+                    success: function(res){
+                        var _el = $('<div id="lend_window" title="{_T string="Give back objects" escape="js"}"></div>');
+                        _el.appendTo('body').dialog({
+                            modal: true,
+                            hide: 'fold',
+                            width: '60%',
+                            height: 450,
+                            close: function(event, ui){
+                                _el.remove();
+                            }
+                        }).append(res);
+
+                        $('#lend_window input:submit, #lend_window .button, #lend_window input:reset' ).button({
+                            create: function(event, ui) {
+                                if ( $(event.target).hasClass('disabled') ) {
+                                    $(event.target).button('disable');
+                                }
+                            }
+                        });
+
+                        $('#btncancel').on('click', function(e) {
+                            e.preventDefault();
+                            $('#lend_window').dialog('close');
+                        });
+
+                        _init_giveobject_js();
+
+                    },
+                    error: function(){
+                        alert("{_T string="An error occured loading 'Give back' display :(" escape="js"}")
+                    }
+                });
             });
 
             function statusObjects(isAway) {

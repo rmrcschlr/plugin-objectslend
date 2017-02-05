@@ -112,6 +112,7 @@ $tpl->assign('last_rent', $last_rent);
 $tpl->assign('today', date('d/m/Y'));
 $tpl->assign('ajax', $ajax);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('takeorgive', 'give');
 $tpl->assign('time', time());
 
