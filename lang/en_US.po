@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-02-05 06:08+0100\n"
+"PO-Revision-Date: 2017-02-05 08:24+0100\n"
 "Last-Translator: Johan Cwiklinski <johan@x-tnd.be>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -15,10 +15,6 @@ msgstr ""
 #: ../templates/default/take_more_objects_away.tpl:43
 msgid "TAKE OBJECTS.RENT PRICE"
 msgstr "TAKE OBJECTS.RENT PRICE"
-
-#: ../templates/default/give_object_back.tpl:25
-msgid "GIVE OBJECT BACK.DESCRIPTION"
-msgstr "GIVE OBJECT BACK.DESCRIPTION"
 
 #: ../templates/default/preferences.tpl:87
 msgid "View price sum:"
@@ -33,7 +29,7 @@ msgid "Object card"
 msgstr "Object card"
 
 #: ../templates/default/take_more_objects_away.tpl:140
-#: ../templates/default/take_object.tpl:111
+#: ../templates/default/take_object.tpl:112
 msgid "Credit card"
 msgstr "Credit card"
 
@@ -57,10 +53,6 @@ msgstr "Delete failed"
 msgid "OBJECTS LIST.DELETED"
 msgstr "OBJECTS LIST.DELETED"
 
-#: ../templates/default/give_object_back.tpl:49
-msgid "GIVE OBJECT BACK.WEIGHT"
-msgstr "GIVE OBJECT BACK.WEIGHT"
-
 #: ../objects_print.php:166 ../objects_list_print.php:142
 msgid "Description"
 msgstr "Description"
@@ -69,7 +61,7 @@ msgstr "Description"
 msgid "Picture '%path' written"
 msgstr "Picture '%path' written"
 
-#: ../templates/default/take_object.tpl:123
+#: ../templates/default/take_object.tpl:153
 msgid ""
 "The items offered for rent are in good condition and verification rental "
 "contradictory to their status is at the time of withdrawal. No claims will "
@@ -113,27 +105,15 @@ msgstr "Borrow price (%currency)"
 msgid "Selected category: %category"
 msgstr "Selected category: %category"
 
-#: ../templates/default/take_object.tpl:91
+#: ../templates/default/take_object.tpl:92
 #: ../templates/default/status_list.tpl:73
 msgid "%days days"
 msgstr "%days days"
-
-#: ../templates/default/give_object_back.tpl:55
-msgid "GIVE OBJECT BACK.STATUS"
-msgstr "GIVE OBJECT BACK.STATUS"
-
-#: ../templates/default/preferences.tpl:37
-msgid "Images related"
-msgstr "Images related"
 
 #: ../objects_print.php:191 ../objects_list_print.php:147
 #: ../templates/default/objects_list.tpl:195
 msgid "Weight"
 msgstr "Weight"
-
-#: ../templates/default/give_object_back.tpl:66
-msgid "GIVE OBJECT BACK.TIME"
-msgstr "GIVE OBJECT BACK.TIME"
 
 #: ../templates/default/objects_list.tpl:371
 msgid "Print objects list"
@@ -147,13 +127,13 @@ msgstr "Managment of the assocation objects"
 msgid "Create an object"
 msgstr "Create an object"
 
-#: ../templates/default/give_object_back.tpl:19
-msgid "GIVE OBJECT BACK.NAME"
-msgstr "GIVE OBJECT BACK.NAME"
+#: ../templates/default/take_object.tpl:136
+msgid "Time:"
+msgstr "Time:"
 
-#: ../templates/default/give_object_back.tpl:75
-msgid "GIVE OBJECT BACK.COMMENTS"
-msgstr "GIVE OBJECT BACK.COMMENTS"
+#: ../templates/default/objects_list.tpl:341
+msgid "Give back"
+msgstr "Give back"
 
 #: ../templates/default/preferences.tpl:62
 msgid "View category:"
@@ -171,9 +151,9 @@ msgstr "View weight"
 msgid "TAKE OBJECTS.SELECT MEMBER"
 msgstr "TAKE OBJECTS.SELECT MEMBER"
 
-#: ../templates/default/objects_list.tpl:341
-msgid "OBJECTS LIST.REPLACE"
-msgstr "OBJECTS LIST.REPLACE"
+#: ../templates/default/preferences.tpl:98
+msgid "View buy price:"
+msgstr "View buy price:"
 
 #: ../templates/default/take_more_objects_away.tpl:15
 msgid "TAKE OBJECTS.THUMB"
@@ -220,7 +200,7 @@ msgstr "Member"
 msgid "TAKE OBJECTS.PRICE"
 msgstr "TAKE OBJECTS.PRICE"
 
-#: ../templates/default/take_object.tpl:109
+#: ../templates/default/take_object.tpl:110
 msgid "TAKE OBJECT.SELECT PAYMENT TYPE"
 msgstr "TAKE OBJECT.SELECT PAYMENT TYPE"
 
@@ -233,10 +213,6 @@ msgstr "TAKE OBJECTS.STATUS"
 #: ../templates/default/status_list.tpl:49
 msgid "Actions"
 msgstr "Actions"
-
-#: ../templates/default/give_object_back.tpl:78
-msgid "GIVE OBJECT BACK.REMAINING"
-msgstr "GIVE OBJECT BACK.REMAINING"
 
 #: ../templates/default/preferences.tpl:47
 #: ../templates/default/preferences.tpl:48
@@ -266,16 +242,16 @@ msgstr "Name"
 msgid "Available"
 msgstr "Available"
 
+#: ../give_object_back.php:55
+msgid "Give back object"
+msgstr "Give back object"
+
 #: ../objects_list_print.php:111
 msgid "Printed on %date"
 msgstr "Printed on %date"
 
-#: ../objects_list_print.php:219
-msgid "Borrowed"
-msgstr "Borrowed"
-
 #: ../templates/default/take_more_objects_away.tpl:143
-#: ../templates/default/take_object.tpl:114
+#: ../templates/default/take_object.tpl:115
 msgid "Paypal"
 msgstr "Paypal"
 
@@ -286,6 +262,10 @@ msgstr "The object is not available!"
 #: ../category_edit.php:68
 msgid "Edit category"
 msgstr "Edit category"
+
+#: ../templates/default/take_object.tpl:137
+msgid "to"
+msgstr "to"
 
 #: ../templates/default/category_edit.tpl:29
 msgid "Category photo"
@@ -312,7 +292,6 @@ msgid "Do you really want to delete this status from the base?"
 msgstr "Do you really want to delete this status from the base?"
 
 #: ../templates/default/take_more_objects_away.tpl:5
-#: ../templates/default/give_object_back.tpl:5
 #: ../templates/default/give_more_objects_back.tpl:5
 msgid "AJAX.CLOSE"
 msgstr "AJAX.CLOSE"
@@ -335,10 +314,6 @@ msgstr "[mod]"
 msgid "BACK OBJECTS.REMAINING"
 msgstr "BACK OBJECTS.REMAINING"
 
-#: ../templates/default/give_object_back.tpl:84
-msgid "GIVE OBJECT BACK.YES"
-msgstr "GIVE OBJECT BACK.YES"
-
 #: ../templates/default/objects_list.tpl:19
 msgid "OBJECTS LIST.CANCELED"
 msgstr "OBJECTS LIST.CANCELED"
@@ -348,12 +323,12 @@ msgid "Contribution type:"
 msgstr "Contribution type:"
 
 #: ../templates/default/take_more_objects_away.tpl:142
-#: ../templates/default/take_object.tpl:113
+#: ../templates/default/take_object.tpl:114
 msgid "Transfer"
 msgstr "Transfer"
 
 #: ../templates/default/take_more_objects_away.tpl:144
-#: ../templates/default/take_object.tpl:115
+#: ../templates/default/take_object.tpl:116
 msgid "Other"
 msgstr "Other"
 
@@ -385,7 +360,7 @@ msgstr ""
 msgid "No member"
 msgstr "No member"
 
-#: ../templates/default/take_object.tpl:107
+#: ../templates/default/take_object.tpl:108
 msgid "TAKE OBJECT.PAYMENT TYPE"
 msgstr "TAKE OBJECT.PAYMENT TYPE"
 
@@ -402,7 +377,8 @@ msgstr "Weight (kg):"
 msgid "View forecast return date:"
 msgstr "View forecast return date:"
 
-#: ../templates/default/take_object.tpl:86
+#: ../templates/default/take_object.tpl:87
+#: ../templates/default/take_object.tpl:127
 msgid "--- Select a status ---"
 msgstr "--- Select a status ---"
 
@@ -448,7 +424,8 @@ msgstr "Status has been saved"
 
 #: ../templates/default/status_edit.tpl:8
 #: ../templates/default/objects_edit.tpl:145
-#: ../templates/default/take_object.tpl:84
+#: ../templates/default/take_object.tpl:85
+#: ../templates/default/take_object.tpl:125
 msgid "Status:"
 msgstr "Status:"
 
@@ -456,16 +433,8 @@ msgstr "Status:"
 msgid "Contribution text:"
 msgstr "Contribution text:"
 
-#: ../templates/default/give_object_back.tpl:69
-msgid "GIVE OBJECT BACK.TO"
-msgstr "GIVE OBJECT BACK.TO"
-
-#: ../templates/default/give_object_back.tpl:37
-msgid "GIVE OBJECT BACK.PRICE"
-msgstr "GIVE OBJECT BACK.PRICE"
-
 #: ../templates/default/take_more_objects_away.tpl:141
-#: ../templates/default/take_object.tpl:112
+#: ../templates/default/take_object.tpl:113
 msgid "Check"
 msgstr "Check"
 
@@ -527,10 +496,6 @@ msgstr "You are cloning this object, not editing it!"
 msgid "At home:"
 msgstr "At home:"
 
-#: ../templates/default/give_object_back.tpl:85
-msgid "GIVE OBJECT BACK.NO"
-msgstr "GIVE OBJECT BACK.NO"
-
 #: ../templates/default/objects_list.tpl:445
 msgid "No object selected"
 msgstr "No object selected"
@@ -558,7 +523,7 @@ msgstr "Records per page:"
 
 #: ../templates/default/status_edit.tpl:40
 #: ../templates/default/category_edit.tpl:41
-#: ../templates/default/take_object.tpl:127
+#: ../templates/default/take_object.tpl:158
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -582,9 +547,9 @@ msgstr "BACK OBJECTS.STATUS"
 msgid "TAKE OBJECTS.DIMENSION"
 msgstr "TAKE OBJECTS.DIMENSION"
 
-#: ../templates/default/give_more_objects_back.tpl:48
-msgid "BACK OBJECTS.DIMENSION"
-msgstr "BACK OBJECTS.DIMENSION"
+#: ../templates/default/objects_list.tpl:521
+msgid "Give object"
+msgstr "Give object"
 
 #: ../templates/default/admin_picture.tpl:4
 msgid "Backup objects pictures"
@@ -622,7 +587,11 @@ msgstr "Create a new category"
 msgid "Max thumb width (in px)"
 msgstr "Max thumb width (in px)"
 
-#: ../templates/default/take_object.tpl:100
+#: ../objects_list_print.php:219
+msgid "Borrowed"
+msgstr "Borrowed"
+
+#: ../templates/default/take_object.tpl:101
 msgid "Expected return:"
 msgstr "Expected return:"
 
@@ -633,10 +602,6 @@ msgstr "Categories list"
 #: ../templates/default/preferences.tpl:13
 msgid "Generate contribution:"
 msgstr "Generate contribution:"
-
-#: ../templates/default/preferences.tpl:98
-msgid "View buy price:"
-msgstr "View buy price:"
 
 #: ../objects_print.php:170 ../templates/default/categories_list.tpl:19
 #: ../templates/default/category_edit.tpl:5
@@ -652,14 +617,6 @@ msgstr ""
 #: ../templates/default/objects_list.tpl:368
 msgid "For the selection:"
 msgstr "For the selection:"
-
-#: ../templates/default/preferences.tpl:54
-msgid ""
-"Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, "
-"only thumbnails will be displayed, but full images are still kept."
-msgstr ""
-"Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, "
-"only thumbnails will be displayed, but full images are still kept."
 
 #: ../templates/default/preferences.tpl:93
 msgid "View name:"
@@ -702,9 +659,9 @@ msgstr "Active"
 msgid "Comment:"
 msgstr "Comment:"
 
-#: ../templates/default/give_object_back.tpl:67
-msgid "GIVE OBJECT BACK.FROM"
-msgstr "GIVE OBJECT BACK.FROM"
+#: ../templates/default/status_list.tpl:3
+msgid "status"
+msgstr "status"
 
 #: ../templates/default/status_edit.tpl:14
 msgid "Is object at home or borrowed"
@@ -745,7 +702,7 @@ msgstr "Object"
 msgid "Mime-Type not allowed"
 msgstr "Mime-Type not allowed"
 
-#: ../templates/default/objects_list.tpl:553
+#: ../templates/default/objects_list.tpl:597
 msgid "OBJECTS LIST.CONFIRM DISABLE"
 msgstr "OBJECTS LIST.CONFIRM DISABLE"
 
@@ -778,9 +735,9 @@ msgstr "Price:"
 msgid "Pictures administration"
 msgstr "Pictures administration"
 
-#: ../lib/GaletteObjectsLend/LendCategory.php:144
-msgid "CATEGORY.AJOUT ECHEC"
-msgstr "CATEGORY.AJOUT ECHEC"
+#: ../templates/default/take_object.tpl:142
+msgid "Comments:"
+msgstr "Comments:"
 
 #: ../templates/default/status_list.tpl:82
 msgid "Remove %status from database"
@@ -815,16 +772,16 @@ msgid "STATUS.AJOUT ECHEC"
 msgstr "STATUS.AJOUT ECHEC"
 
 #: ../templates/default/take_more_objects_away.tpl:139
-#: ../templates/default/take_object.tpl:110
+#: ../templates/default/take_object.tpl:111
 msgid "Cash"
 msgstr "Cash"
 
-#: ../templates/default/give_object_back.tpl:9
-msgid "GIVE OBJECT BACK.TITLE"
-msgstr "GIVE OBJECT BACK.TITLE"
+#: ../templates/default/give_more_objects_back.tpl:48
+msgid "BACK OBJECTS.DIMENSION"
+msgstr "BACK OBJECTS.DIMENSION"
 
 #: ../templates/default/objects_list.tpl:336
-#: ../templates/default/take_object.tpl:126
+#: ../templates/default/take_object.tpl:157
 msgid "Take away"
 msgstr "Take away"
 
@@ -865,7 +822,7 @@ msgstr "Edit %category"
 msgid "BACK OBJECTS.YES"
 msgstr "BACK OBJECTS.YES"
 
-#: ../templates/default/objects_list.tpl:553
+#: ../templates/default/objects_list.tpl:597
 msgid "OBJECTS LIST.CONFIRM DELETE"
 msgstr "OBJECTS LIST.CONFIRM DELETE"
 
@@ -881,9 +838,9 @@ msgstr "TAKE OBJECTS.NO"
 msgid "Remove %category from database"
 msgstr "Remove %category from database"
 
-#: ../templates/default/give_object_back.tpl:57
-msgid "GIVE OBJECT BACK.SELECT STATUS"
-msgstr "GIVE OBJECT BACK.SELECT STATUS"
+#: ../templates/default/preferences.tpl:37
+msgid "Images related"
+msgstr "Images related"
 
 #: ../templates/default/objects_list.tpl:270
 #: ../templates/default/objects_edit.tpl:93
@@ -895,6 +852,10 @@ msgstr "Object's photo"
 #: ../templates/default/menu.tpl:19
 msgid "Borrow status"
 msgstr "Borrow status"
+
+#: ../templates/default/objects_list.tpl:341
+msgid "Give object back"
+msgstr "Give object back"
 
 #: ../status_list.php:51
 msgid "Status list"
@@ -940,10 +901,6 @@ msgstr "Status has been successfully deleted"
 msgid "object"
 msgstr "object"
 
-#: ../templates/default/status_list.tpl:3
-msgid "status"
-msgstr "status"
-
 #: ../templates/default/objects_edit.tpl:101
 #: ../templates/default/category_edit.tpl:31
 msgid "Delete image"
@@ -952,6 +909,10 @@ msgstr "Delete image"
 #: ../templates/default/objects_edit.tpl:21
 msgid "Category:"
 msgstr "Category:"
+
+#: ../templates/default/take_object.tpl:145
+msgid "remaining characters"
+msgstr "remaining characters"
 
 #: ../templates/default/menu.tpl:16
 msgid "Create a new object"
@@ -977,6 +938,10 @@ msgstr "TAKE OBJECTS.PAGE TITLE"
 #: ../templates/default/give_more_objects_back.tpl:27
 msgid "BACK OBJECTS.DESCRIPTION"
 msgstr "BACK OBJECTS.DESCRIPTION"
+
+#: ../templates/default/objects_list.tpl:549
+msgid "An error occured loading 'Give back' display :("
+msgstr "An error occured loading 'Give back' display :("
 
 #: ../categories_list.php:71
 msgid "Category edition has been canceled"
@@ -1041,7 +1006,7 @@ msgid "Dimensions (cm):"
 msgstr "Dimensions (cm):"
 
 #: ../templates/default/objects_edit.tpl:165
-#: ../templates/default/take_object.tpl:72
+#: ../templates/default/take_object.tpl:73
 msgid "Member:"
 msgstr "Member:"
 
@@ -1061,6 +1026,10 @@ msgstr "Sum:"
 msgid "Borrow price"
 msgstr "Borrow price"
 
+#: ../templates/default/take_object.tpl:137
+msgid "From"
+msgstr "From"
+
 #: ../take_object.php:56
 msgid "Borrow an object"
 msgstr "Borrow an object"
@@ -1077,7 +1046,7 @@ msgstr "Images in lists:"
 msgid "Restore categories pictures from database"
 msgstr "Restore categories pictures from database"
 
-#: ../templates/default/take_object.tpl:74
+#: ../templates/default/take_object.tpl:75
 msgid "--- Select a member ---"
 msgstr "--- Select a member ---"
 
@@ -1092,10 +1061,6 @@ msgstr "Delete"
 #: ../objects_print.php:216 ../templates/default/objects_edit.tpl:123
 msgid "History of object loans"
 msgstr "History of object loans"
-
-#: ../templates/default/give_object_back.tpl:43
-msgid "GIVE OBJECT BACK.DIMENSION"
-msgstr "GIVE OBJECT BACK.DIMENSION"
 
 #: ../templates/default/objects_list.tpl:24
 msgid "OBJECTS LIST.NO RIGHT"
@@ -1184,7 +1149,7 @@ msgstr "Serial"
 msgid "View the objects buy price sum on the list under the category"
 msgstr "View the objects buy price sum on the list under the category"
 
-#: ../give_object_back.php:55 ../give_more_objects_back.php:80
+#: ../give_more_objects_back.php:80
 msgid "BACK OBJECTS.PAGE TITLE"
 msgstr "BACK OBJECTS.PAGE TITLE"
 
@@ -1234,9 +1199,13 @@ msgstr "Price"
 msgid "TAKE OBJECTS.PAYMENT TYPE"
 msgstr "TAKE OBJECTS.PAYMENT TYPE"
 
-#: ../templates/default/give_object_back.tpl:31
-msgid "GIVE OBJECT BACK.SERIAL"
-msgstr "GIVE OBJECT BACK.SERIAL"
+#: ../templates/default/preferences.tpl:54
+msgid ""
+"Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, "
+"only thumbnails will be displayed, but full images are still kept."
+msgstr ""
+"Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, "
+"only thumbnails will be displayed, but full images are still kept."
 
 #: ../templates/default/objects_list.tpl:127
 msgid "Picture"
@@ -1274,6 +1243,60 @@ msgid ""
 msgstr ""
 "- Filename or extension is incorrect. Only %s files are allowed. File name "
 "should not contains any of: %t"
+
+#~ msgid "GIVE OBJECT BACK.DESCRIPTION"
+#~ msgstr "GIVE OBJECT BACK.DESCRIPTION"
+
+#~ msgid "GIVE OBJECT BACK.WEIGHT"
+#~ msgstr "GIVE OBJECT BACK.WEIGHT"
+
+#~ msgid "GIVE OBJECT BACK.STATUS"
+#~ msgstr "GIVE OBJECT BACK.STATUS"
+
+#~ msgid "GIVE OBJECT BACK.TIME"
+#~ msgstr "GIVE OBJECT BACK.TIME"
+
+#~ msgid "GIVE OBJECT BACK.NAME"
+#~ msgstr "GIVE OBJECT BACK.NAME"
+
+#~ msgid "GIVE OBJECT BACK.COMMENTS"
+#~ msgstr "GIVE OBJECT BACK.COMMENTS"
+
+#~ msgid "OBJECTS LIST.REPLACE"
+#~ msgstr "OBJECTS LIST.REPLACE"
+
+#~ msgid "GIVE OBJECT BACK.REMAINING"
+#~ msgstr "GIVE OBJECT BACK.REMAINING"
+
+#~ msgid "GIVE OBJECT BACK.YES"
+#~ msgstr "GIVE OBJECT BACK.YES"
+
+#~ msgid "GIVE OBJECT BACK.TO"
+#~ msgstr "GIVE OBJECT BACK.TO"
+
+#~ msgid "GIVE OBJECT BACK.PRICE"
+#~ msgstr "GIVE OBJECT BACK.PRICE"
+
+#~ msgid "GIVE OBJECT BACK.NO"
+#~ msgstr "GIVE OBJECT BACK.NO"
+
+#~ msgid "GIVE OBJECT BACK.FROM"
+#~ msgstr "GIVE OBJECT BACK.FROM"
+
+#~ msgid "CATEGORY.AJOUT ECHEC"
+#~ msgstr "CATEGORY.AJOUT ECHEC"
+
+#~ msgid "GIVE OBJECT BACK.TITLE"
+#~ msgstr "GIVE OBJECT BACK.TITLE"
+
+#~ msgid "GIVE OBJECT BACK.SELECT STATUS"
+#~ msgstr "GIVE OBJECT BACK.SELECT STATUS"
+
+#~ msgid "GIVE OBJECT BACK.DIMENSION"
+#~ msgstr "GIVE OBJECT BACK.DIMENSION"
+
+#~ msgid "GIVE OBJECT BACK.SERIAL"
+#~ msgstr "GIVE OBJECT BACK.SERIAL"
 
 #~ msgid "Weight:"
 #~ msgstr "Weight:"
