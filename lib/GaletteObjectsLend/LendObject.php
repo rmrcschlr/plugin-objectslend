@@ -416,6 +416,8 @@ class LendObject
             $object->prenom_adh = $rent->prenom_adh;
             $object->email_adh = $rent->email_adh;
             $object->id_adh = $rent->id_adh;
+        } else {
+            $object->is_home_location = true;
         }
     }
 
