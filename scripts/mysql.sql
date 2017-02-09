@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS galette_lend_rents (
   rent_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   object_id int(10) unsigned NOT NULL,
   date_begin datetime NOT NULL,
-  date_forecast DATETIME NULL DEFAULT NULL;
+  date_forecast DATETIME NULL DEFAULT NULL,
   date_end datetime DEFAULT NULL,
   status_id int(10) unsigned NOT NULL,
   adherent_id int(10) unsigned DEFAULT NULL,
@@ -89,7 +89,7 @@ INSERT INTO galette_lend_status (status_text, is_home_location, is_active) VALUE
 -- Contraintes pour la table galette_lend_rents
 --
 ALTER TABLE galette_lend_rents
-  ADD CONSTRAINT FK_rent_adherent_1 FOREIGN KEY (adherent_id) REFERENCES galette_adherents (id_adh) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT FK_rent_adherent_1 FOREIGN KEY (adherent_id) REFERENCES galette_adherents (id_adh) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT FK_rent_object_1 FOREIGN KEY (object_id) REFERENCES galette_lend_objects (object_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT FK_rent_status_1 FOREIGN KEY (status_id) REFERENCES galette_lend_status (status_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

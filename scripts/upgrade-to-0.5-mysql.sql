@@ -20,3 +20,6 @@ DELETE FROM galette_lend_parameters WHERE code='VIEW_OBJECT_THUMB';
 DELETE FROM galette_lend_parameters WHERE code='OBJECTS_PER_PAGE_NUMBER_LIST';
 DELETE FROM galette_lend_parameters WHERE code='OBJECTS_PER_PAGE_DEFAULT';
 DELETE FROM galette_lend_parameters WHERE code='VIEW_NAME';
+
+ALTER TABLE galette_lend_rents DROP FOREIGN KEY FK_rent_adherent_1;
+ALTER TABLE galette_lend_rents ADD CONSTRAINT FK_rent_adherent_1 FOREIGN KEY (adherent_id) REFERENCES galette_adherents (id_adh) ON DELETE CASCADE ON UPDATE CASCADE;
