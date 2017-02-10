@@ -68,7 +68,7 @@ class LendObject
     private $object_id;
     private $name = '';
     private $description = '';
-    private $serial_number;
+    private $serial_number = '';
     private $price = 0.0;
     private $rent_price = 0.0;
     private $price_per_day = false;
@@ -210,8 +210,8 @@ class LendObject
             if (!isset($this->object_id) || $this->object_id == '') {
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $add = $zdb->execute($insert);
-                if ($add > 0) {
+                $result = $zdb->execute($insert);
+                if ($result->count() > 0) {
                     $this->object_id = $zdb->driver->getLastGeneratedValue();
                 } else {
                     throw new \Exception(_T("OBJECT.AJOUT ECHEC"));
