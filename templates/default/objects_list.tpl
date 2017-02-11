@@ -1,19 +1,4 @@
 <div id="lend_content">
-    {if $msg_given}
-        <div id="infobox">
-            <h1>{_T string="OBJECTS LIST.GIVEN"}</h1>
-        </div>
-    {/if}
-    {if $msg_not_given}
-        <div id="warningbox">
-            <h1>{_T string="OBJECTS LIST.NOT GIVEN"}</h1>
-        </div>
-    {/if}
-    {if $msg_no_right}
-        <div id="errorbox">
-            <h1>{_T string="OBJECTS LIST.NO RIGHT"}</h1>
-        </div>
-    {/if}
     <form id="filtre" method="get" action="objects_list.php">
         <div id="listfilter">
             <label for="filter_str">{_T string="Search:"}&nbsp;</label>

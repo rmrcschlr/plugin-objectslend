@@ -51,8 +51,6 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("TAKE OBJECTS.PAGE TITLE"));
-
 $lendsprefs = new Preferences($zdb);
 
 //Set the path to the current plugin's templates,
@@ -147,6 +145,8 @@ if ($login->isAdmin() || $login->isStaff()) {
     );
     $members = $m->getList(false, $required_fields);
 }
+
+$tpl->assign('page_title', _T("Take out several objects at once"));
 
 $tpl->assign('objects', $objects);
 $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());

@@ -135,8 +135,6 @@ if (!$login->isAdmin() && !$login->isStaff()) {
 $objects = new Objects($zdb, $lendsprefs, $filters);
 $list = $objects->getObjectsList(true);
 
-$msg_given = false;
-$msg_not_given = false;
 $msg_no_right = false;
 if (filter_has_var(INPUT_GET, 'msg')) {
     switch (filter_input(INPUT_GET, 'msg')) {
@@ -147,16 +145,16 @@ if (filter_has_var(INPUT_GET, 'msg')) {
             $success_detected[] = _T("Object has been took");
             break;
         case 'given':
-            $msg_given = true;
+            $success_detected[] = _T("Object has been returned!");
             break;
         case 'not_given':
-            $msg_not_given = true;
+            $warning_detected[] = _T("Object has not been returned! Don't forget it!");
             break;
         case 'canceled':
             $warning_detected[] = _T("Action has been canceled!");
             break;
         case 'no_right':
-            $msg_no_right = true;
+            $error_detected[] = _T("You can't return an object that you don't borrow!");
             break;
         case 'deleted':
             $success_detected[] = _T("Objects have been disabled!");
@@ -228,8 +226,6 @@ $tpl->assign('error_detected', $error_detected);
 $tpl->assign('success_detected', $success_detected);
 $tpl->assign('warning_detected', $warning_detected);
 
-$tpl->assign('msg_given', $msg_given);
-$tpl->assign('msg_not_given', $msg_not_given);
 $tpl->assign('msg_no_right', $msg_no_right);
 $tpl->assign('categories', $categories);
 $tpl->assign('nb_all_categories', $nb_objects_no_category);
