@@ -1,9 +1,4 @@
 <div id="lend_content">
-    {if $msg_taken}
-        <div id="infobox">
-            <h1>{_T string="OBJECTS LIST.TAKEN"}</h1>
-        </div>
-    {/if}
     {if $msg_given}
         <div id="infobox">
             <h1>{_T string="OBJECTS LIST.GIVEN"}</h1>
@@ -12,11 +7,6 @@
     {if $msg_not_given}
         <div id="warningbox">
             <h1>{_T string="OBJECTS LIST.NOT GIVEN"}</h1>
-        </div>
-    {/if}
-    {if $msg_canceled}
-        <div id="warningbox">
-            <h1>{_T string="OBJECTS LIST.CANCELED"}</h1>
         </div>
     {/if}
     {if $msg_no_right}

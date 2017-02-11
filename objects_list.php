@@ -178,10 +178,8 @@ $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 
 $search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';*/
 
 
-$msg_taken = false;
 $msg_given = false;
 $msg_not_given = false;
-$msg_canceled = false;
 $msg_no_right = false;
 $msg_deleted = false;
 $msg_disabled = false;
@@ -191,7 +189,7 @@ if (filter_has_var(INPUT_GET, 'msg')) {
             $error_detected[] = _T("The object is not available!");
             break;
         case 'taken':
-            $msg_taken = true;
+            $success_detected[] = _T("Object has been took");
             break;
         case 'given':
             $msg_given = true;
@@ -200,7 +198,7 @@ if (filter_has_var(INPUT_GET, 'msg')) {
             $msg_not_given = true;
             break;
         case 'canceled':
-            $msg_canceled = true;
+            $warning_detected[] = _T("Action has been canceled!");
             break;
         case 'no_right':
             $msg_no_right = true;
@@ -276,10 +274,8 @@ $tpl->assign('error_detected', $error_detected);
 $tpl->assign('success_detected', $success_detected);
 $tpl->assign('warning_detected', $warning_detected);
 
-$tpl->assign('msg_taken', $msg_taken);
 $tpl->assign('msg_given', $msg_given);
 $tpl->assign('msg_not_given', $msg_not_given);
-$tpl->assign('msg_canceled', $msg_canceled);
 $tpl->assign('msg_no_right', $msg_no_right);
 $tpl->assign('msg_deleted', $msg_deleted);
 $tpl->assign('msg_disabled', $msg_disabled);
