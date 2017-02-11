@@ -826,7 +826,7 @@ msgstr "Liste des catégories"
 
 #: ../status_list.php:62
 msgid "Status has been successfully deleted"
-msgstr "Le status a été sauvegardé avec succès"
+msgstr "Le status a été supprimé avec succès"
 
 #: ../objects_list_print.php:121 ../templates/default/objects_list.tpl:106
 msgid "object"

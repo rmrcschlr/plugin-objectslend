@@ -227,7 +227,7 @@
                         <tr class="{if $object@index is odd}even{else}odd{/if}">
                             {if $login->isAdmin() || $login->isStaff()}
                                 <td class="center">
-                                    <input type="checkbox" name="object_ids" value="{$object->object_id}">
+                                    <input type="checkbox" name="object_ids[]" value="{$object->object_id}">
                                 </td>
                             {/if}
     {if $olendsprefs->imagesInLists()}
