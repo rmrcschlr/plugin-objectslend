@@ -54,14 +54,14 @@
                         {/if}
                         <td>
                             <input type="hidden" name="objects_id[]" value="{$objt->object_id}">
-                            <b>{$objt->search_name}</b>
+                            <b>{$objt->name}</b>
                             {if $lendsprefs.VIEW_DIMENSION}
-                                <br/>{$objt->search_description}
+                                <br/>{$objt->description}
                             {/if}
                         </td>
                         {if $lendsprefs.VIEW_SERIAL}
                             <td>
-                                {$objt->search_serial_number}
+                                {$objt->serial_number}
                             </td>
                         {/if}
                         {if $lendsprefs.VIEW_PRICE}
@@ -76,7 +76,7 @@
                         {/if}
                         {if $lendsprefs.VIEW_DIMENSION}
                             <td>
-                                {$objt->search_dimension}
+                                {$objt->dimension}
                             </td>
                         {/if}
                         {if $lendsprefs.VIEW_WEIGHT}
