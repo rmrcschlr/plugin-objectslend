@@ -44,6 +44,8 @@ namespace GaletteObjectsLend;
 use Analog\Analog;
 use \Zend\Db\Sql\Predicate;
 use Galette\Entity\Adherent;
+use GaletteObjectsLend\Filters\ObjectsList;
+use GaletteObjectsLend\Repository\Objects;
 
 class LendObject
 {
@@ -89,11 +91,6 @@ class LendObject
     private $prenom_adh = '';
     private $email_adh = '';
     private $id_adh;
-    // Propriétés pour la recherche
-    private $search_serial_number = '';
-    private $search_name = '';
-    private $search_description = '';
-    private $search_dimension = '';
 
     private $currency = '€';
     private $picture;
@@ -177,13 +174,13 @@ class LendObject
         global $plugins;
 
         $this->object_id = $r->object_id;
-        $this->search_name = $this->name = self::protectQuote($r->name);
-        $this->search_description = $this->description = self::protectQuote($r->description);
-        $this->search_serial_number = $this->serial_number = self::protectQuote($r->serial_number);
+        $this->name = self::protectQuote($r->name);
+        $this->description = self::protectQuote($r->description);
+        $this->serial_number = self::protectQuote($r->serial_number);
         $this->price = is_numeric($r->price) ? floatval($r->price) : 0.0;
         $this->rent_price = is_numeric($r->rent_price) ? floatval($r->rent_price) : 0.0;
         $this->price_per_day = $r->price_per_day == '1';
-        $this->search_dimension = $this->dimension = self::protectQuote($r->dimension);
+        $this->dimension = self::protectQuote($r->dimension);
         $this->weight = is_numeric($r->weight) ? floatval($r->weight) : 0.0;
         $this->is_active = $r->is_active;
         if (property_exists($r, 'cat_active') && ($r->cat_active == 1 || $r->cat_active === null)) {
@@ -599,5 +596,105 @@ class LendObject
     public function isActive()
     {
         return $this->is_active && $this->cat_active;
+    }
+
+    /**
+     * Get highlighted string
+     *
+     * @param ObjectsList $filters Filters
+     * @param string      $field   Field name
+     *
+     * @return string
+     */
+    private function getHighlighted(ObjectsList $filters, $field)
+    {
+        //check if search concerns field
+        $process = false;
+        switch ($field) {
+            case 'description':
+            case 'name':
+                if ($filters->field_filter == Objects::FILTER_NAME) {
+                    $process = true;
+                    continue;
+                }
+                break;
+            case 'serial_number':
+                if ($filters->field_filter == Objects::FILTER_SERIAL) {
+                    $process = true;
+                    continue;
+                }
+                break;
+            case 'dimension':
+                if ($filters->field_filter == Objects::FILTER_DIM) {
+                    $process = true;
+                    continue;
+                }
+                break;
+            case 'object_id':
+                if ($filters->field_filter === Objects::FILTER_ID) {
+                    $process = true;
+                    continue;
+                }
+                break;
+        }
+
+        if ($process === false) {
+            return $this->$field;
+        }
+
+        $untokenized = trim($filters->filter_str, '%');
+        return preg_replace(
+            '/(' . $untokenized . ')/i',
+            '<span class="search">$1</span>',
+            $this->$field
+        );
+    }
+
+    /**
+     * Displays name, with search terms highlighted
+     *
+     * @param ObjectsList $filters Filters
+     *
+     * @return string
+     */
+    public function displayName(ObjectsList $filters)
+    {
+        return $this->getHighlighted($filters, 'name');
+    }
+
+    /**
+     * Displays description, with search terms highlighted
+     *
+     * @param ObjectsList $filters Filters
+     *
+     * @return string
+     */
+    public function displayDescription(ObjectsList $filters)
+    {
+        return $this->getHighlighted($filters, 'description');
+    }
+
+    /**
+     * Displays serial number, with search terms highlighted
+     *
+     * @param ObjectsList $filters Filters
+     *
+     * @return string
+     */
+    public function displaySerial(ObjectsList $filters)
+    {
+        return $this->getHighlighted($filters, 'serial_number');
+    }
+
+    /**
+     * Displays dimension, with search terms highlighted
+     *
+     * @param ObjectsList $filters Filters
+     *
+     * @return string
+     */
+    public function displayDimension(ObjectsList $filters)
+    {
+        return $this->getHighlighted($filters, 'dimension');
     }
 }

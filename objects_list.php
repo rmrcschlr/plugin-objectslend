@@ -165,26 +165,9 @@ if (filter_has_var(INPUT_GET, 'msg')) {
     }
 }
 
+$search = '';
 $nb_objects_no_category = LendObject::getObjectsNumberWithoutCategory($search);
 $sum_objects_no_category = LendObject::getSumPriceObjectsWithoutCategory($search);
-
-/**
- * Mise en forme des résultats
- */
-/*if (strlen($search) > 0) {
-    foreach ($objects as $obj) {
-        if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
-            $obj->search_serial_number = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->serial_number);
-        }
-        $obj->search_name = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->name);
-        if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
-            $obj->search_description = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->description);
-        }
-        if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION}) {
-            $obj->search_dimension = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->dimension);
-        }
-    }
-}*/
 
 /**
  * Récupération des catégories

@@ -214,14 +214,14 @@
                             </td>
     {/if}
                             <td>
-                                <strong>{$object->search_name}</strong>
+                                <strong>{$object->displayName($filters)}</strong>
                                 {if $lendsprefs.VIEW_DESCRIPTION}
-                                    <br/>{$object->search_description}
+                                    <br/>{$object->displayDescription($filters)}
                                 {/if}
                             </td>
                             {if $lendsprefs.VIEW_SERIAL}
                                 <td>
-                                    {$object->search_serial_number}
+                                    {$object->displaySerial($filters)}
                                 </td>
                             {/if}
                             {if $lendsprefs.VIEW_PRICE}
@@ -236,7 +236,7 @@
                             {/if}
                             {if $lendsprefs.VIEW_DIMENSION}
                                 <td>
-                                    {$object->search_dimension}
+                                    {$object->displayDimension($filters)}
                                 </td>
                             {/if}
                             {if $lendsprefs.VIEW_WEIGHT}
