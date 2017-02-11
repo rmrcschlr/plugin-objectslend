@@ -124,7 +124,8 @@ class Objects
         $as_objects = false,
         $fields = null,
         $count = true,
-        $limit = true
+        $limit = true,
+        $all_rents = false
     ) {
         try {
             $select = $this->buildSelect($fields, false, $count);
@@ -141,6 +142,9 @@ class Objects
             if ($as_objects) {
                 foreach ($rows as $row) {
                     $deps = ['last_rent' => true];
+                    if ($all_rents === true) {
+                        $deps['rents'] = true;
+                    }
                     $objects[] = new LendObject($row, false, $deps);
                 }
             } else {

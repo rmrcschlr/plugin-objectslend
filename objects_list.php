@@ -59,13 +59,17 @@ if (isset($session['filters']['objectslend_objects'])) {
     $filters = new ObjectsList();
 }
 
-if (isset($_POST['print_list'])) {
+if (isset($_POST['print_list'])
+    || isset($_POST['print_objects'])
+) {
     if (isset($_POST['object_ids'])) {
         $filters->selected = $_POST['object_ids'];
         $session['filters']['objectslend_print_objects'] = serialize($filters);
 
         if (isset($_POST['print_list'])) {
             $qstring = 'objects_list_print.php';
+        } elseif (isset($_POST['print_objects'])) {
+            $qstring = 'objects_print.php';
         }
         header('location: '.$qstring);
         die();

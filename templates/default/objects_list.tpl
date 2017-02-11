@@ -334,7 +334,7 @@
                             </li>
     {if $login->isAdmin() || $login->isStaff()}
                             <li>
-                                <input type="submit" class="button btnpdf" value="{_T string="Print objects cards"}" onclick="return printObjectRecords();">
+                                <input type="submit" name="print_objects" class="button btnpdf" value="{_T string="Print objects cards"}">
                             </li>
                             <li>
                                 <input type="submit" value="{_T string="Take out"}" id="objects_take_away" class="button">
@@ -427,7 +427,6 @@
                 }
             });
 
-
             $('#take_object').on('click', function(e) {
                 e.preventDefault();
                 var _this = $(this);
@@ -518,25 +517,7 @@
                 e.preventDefault();
             });
         });
-        function printObjectList(tri, category_id) {
-            var baseurl = 'objects_list_print.php';
 
-            if ($(':checkbox:checked').length > 0) {
-                var objectsIds = '';
-                $(':checkbox:checked').each(function () {
-                    objectsIds += $(this).val() + ',';
-                });
-                baseurl += '?ids=' + objectsIds;
-            } else {
-                baseurl += '?tri=' + tri;
-                if (category_id.length > 0 || category_id > 0) {
-                    baseurl += '&category_id=' + category_id;
-                }
-            }
-
-            window.location = baseurl;
-            return false;
-        }
     {if $login->isAdmin() || $login->isStaff()}
             function confirmDelete(isDelete) {
                 var nbSelected = $(':checkbox:checked').length;
@@ -658,21 +639,6 @@
                     objectsIds += $(this).val() + ',';
                 });
                 window.location = (isAway ? 'take_more_objects_away' : 'give_more_objects_back') + '.php?objects_ids=' + objectsIds;
-                return false;
-            }
-
-            function printObjectRecords() {
-                var baseurl = 'objects_print.php';
-
-                if ($(':checkbox:checked').length > 0) {
-                    var objectsIds = '';
-                    $(':checkbox:checked').each(function () {
-                        objectsIds += $(this).val() + ',';
-                    });
-                    baseurl += '?ids=' + objectsIds;
-
-                    window.location = baseurl;
-                }
                 return false;
             }
     {/if}
