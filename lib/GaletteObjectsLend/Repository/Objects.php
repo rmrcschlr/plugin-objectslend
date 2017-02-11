@@ -337,7 +337,7 @@ class Objects
             $select->join(
                 array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
                 'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
-                array(),
+                array('cat_active' => 'is_active'),
                 $select::JOIN_LEFT
             );
 
@@ -482,10 +482,10 @@ class Objects
             }
 
             if ($this->filters->active_filter == self::ACTIVE_OBJECTS) {
-                $select->where('o.is_active = true');
+                $select->where('o.is_active = true AND (c.is_active IS NULL OR c.is_active = true)');
             }
             if ($this->filters->active_filter == self::INACTIVE_OBJECTS) {
-                $select->where('o.is_active = false');
+                $select->where('o.is_active = false OR (c.is_active IS NOT NULL AND c.is_active = false)');
             }
 
             if ($this->filters->category_filter != 'all' && $this->filters->category_filter !== null) {

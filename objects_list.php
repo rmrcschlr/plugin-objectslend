@@ -135,53 +135,6 @@ if (!$login->isAdmin() && !$login->isStaff()) {
 $objects = new Objects($zdb, $lendsprefs, $filters);
 $list = $objects->getObjectsList(true);
 
-/**
- * Valeurs de la session
- */
-/*if (filter_has_var(INPUT_GET, 'category_id')) {
-    unset($session[LEND_PREFIX . 'page']);
-    $session[LEND_PREFIX . 'category_id'] = filter_input(INPUT_GET, 'category_id');
-}
-
-if (filter_has_var(INPUT_GET, 'search')) {
-    unset($session[LEND_PREFIX . 'page']);
-    $session[LEND_PREFIX . 'search'] = filter_input(INPUT_GET, 'search');
-}
-
-if (filter_has_var(INPUT_GET, 'tri')) {
-    $session[LEND_PREFIX . 'tri'] = filter_input(INPUT_GET, 'tri');
-}
-
-if (filter_has_var(INPUT_GET, 'direction')) {
-    $session[LEND_PREFIX . 'direction'] = filter_input(INPUT_GET, 'direction');
-}
-
-if (filter_has_var(INPUT_GET, 'page')) {
-    $session[LEND_PREFIX . 'page'] = filter_input(INPUT_GET, 'page');
-}*/
-
-/*
- * Récupération de la recherche
- */
-/*if (filter_has_var(INPUT_POST, 'go_search')) {
-    unset($session[LEND_PREFIX . 'page']);
-    $session[LEND_PREFIX . 'search'] = filter_input(INPUT_POST, 'search');
-}
-
-if (filter_has_var(INPUT_POST, 'reset_search')) {
-    unset($session[LEND_PREFIX . 'page']);
-    $session[LEND_PREFIX . 'search'] = '';
-}*/
-
-/*$category_id = array_key_exists(LEND_PREFIX . 'category_id', $session) ? $session[LEND_PREFIX . 'category_id'] : -1;
-$tri = array_key_exists(LEND_PREFIX . 'tri', $session) ? $session[LEND_PREFIX . 'tri'] : 'name';
-$direction = array_key_exists(LEND_PREFIX . 'direction', $session) ? $session[LEND_PREFIX . 'direction'] : 'asc';
-$page = array_key_exists(LEND_PREFIX . 'page', $session) ? $session[LEND_PREFIX . 'page'] : 1;
-$ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 'ajax' : false;
-
-$search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';*/
-
-
 $msg_given = false;
 $msg_not_given = false;
 $msg_no_right = false;
@@ -262,7 +215,6 @@ $tpl->assign('page_title', _T("Objects managment"));
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
-
 
 $tpl->assign('objects', $list);
 $tpl->assign('nb_objects', $objects->getCount());

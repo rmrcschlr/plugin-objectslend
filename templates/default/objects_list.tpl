@@ -288,7 +288,7 @@
                                 </td>
                             {/if}
                             <td class="center">
-                                {if $object->is_active}
+                                {if $object->isActive()}
                                     <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Object is active"}"/>
                                 {/if}
                             </td>

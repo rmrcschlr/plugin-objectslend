@@ -97,6 +97,7 @@ class LendObject
 
     private $currency = '€';
     private $picture;
+    private $cat_active = true;
 
     private $deps = [
         'picture'   => true,
@@ -185,6 +186,11 @@ class LendObject
         $this->search_dimension = $this->dimension = self::protectQuote($r->dimension);
         $this->weight = is_numeric($r->weight) ? floatval($r->weight) : 0.0;
         $this->is_active = $r->is_active;
+        if (property_exists($r, 'cat_active') && ($r->cat_active == 1 || $r->cat_active === null)) {
+            $this->cat_active = true;
+        } else {
+            $this->cat_active = false;
+        }
         $this->category_id = $r->category_id;
         $this->nb_available = $r->nb_available;
         $this->category_name = isset($r->category_name) ? $r->category_name : '';
@@ -624,5 +630,17 @@ class LendObject
         if (is_array($this->rents) && count($this->rents) > 0) {
             return $this->rents[0];
         }
+    }
+
+    /**
+     * Is current object active?
+     *
+     * Check for activity from object and from its parent category if any
+     *
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->is_active && $this->cat_active;
     }
 }
