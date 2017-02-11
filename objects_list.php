@@ -39,6 +39,8 @@
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
+use GaletteObjectsLend\Repository\Objects;
+use GaletteObjectsLend\Filters\ObjectsList;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -50,16 +52,89 @@ require_once '_config.inc.php';
 
 $lendsprefs = new Preferences($zdb);
 
-$tpl->assign('page_title', _T("Managment of the assocation objects"));
-//Set the path to the current plugin's templates,
-//but backup main Galette's template path before
-$orig_template_path = $tpl->template_dir;
-$tpl->template_dir = 'templates/' . $preferences->pref_theme;
+
+if (isset($session['filters']['objectslend_objects'])) {
+    $filters = unserialize($session['filters']['objectslend_objects']);
+} else {
+    $filters = new ObjectsList();
+}
+
+if (isset($_POST['print_list'])) {
+    if (isset($_POST['object_ids'])) {
+        $filters->selected = $_POST['object_ids'];
+        $session['filters']['objectslend_print_objects'] = serialize($filters);
+
+        if (isset($_POST['print_list'])) {
+            $qstring = 'objects_list_print.php';
+        }
+        header('location: '.$qstring);
+        die();
+    } else {
+        $error_detected[]
+            = _T("No object was selected, please check at least one name.");
+    }
+}
+
+// Simple filters
+if (isset($_GET['page'])) {
+    $filters->current_page = (int)$_GET['page'];
+}
+
+if (isset($_GET['clear_filter'])) {
+    $filters->reinit();
+} else {
+    //string to filter
+    if (isset($_GET['filter_str'])) { //filter search string
+        $filters->filter_str = stripslashes(
+            htmlspecialchars($_GET['filter_str'], ENT_QUOTES)
+        );
+    }
+
+    //field to filter
+    if (isset($_GET['field_filter'])) {
+        if (is_numeric($_GET['field_filter'])) {
+            $filters->field_filter = $_GET['field_filter'];
+        }
+    }
+
+    //category to filter
+    if (isset($_GET['category_filter'])) {
+        if (is_numeric($_GET['category_filter'])) {
+            $filters->category_filter = $_GET['category_filter'];
+        } elseif ($_GET['category_filter'] == 'all') {
+            $filters->category_filter = null;
+        }
+    }
+
+    //activity to filter
+    if (isset($_GET['active_filter'])) {
+        if (is_numeric($_GET['active_filter'])) {
+            $filters->active_filter = $_GET['active_filter'];
+        }
+    }
+}
+
+//numbers of rows to display
+if (isset($_GET['nbshow']) && is_numeric($_GET['nbshow'])) {
+    $filters->show = $_GET['nbshow'];
+}
+
+// Sorting
+if (isset($_GET['tri'])) {
+    $filters->orderby = $_GET['tri'];
+}
+
+if (!$login->isAdmin() && !$login->isStaff()) {
+    $filters->active_filter = false;
+}
+
+$objects = new Objects($zdb, $lendsprefs, $filters);
+$list = $objects->getObjectsList(true);
 
 /**
  * Valeurs de la session
  */
-if (filter_has_var(INPUT_GET, 'category_id')) {
+/*if (filter_has_var(INPUT_GET, 'category_id')) {
     unset($session[LEND_PREFIX . 'page']);
     $session[LEND_PREFIX . 'category_id'] = filter_input(INPUT_GET, 'category_id');
 }
@@ -67,11 +142,6 @@ if (filter_has_var(INPUT_GET, 'category_id')) {
 if (filter_has_var(INPUT_GET, 'search')) {
     unset($session[LEND_PREFIX . 'page']);
     $session[LEND_PREFIX . 'search'] = filter_input(INPUT_GET, 'search');
-}
-
-if (filter_has_var(INPUT_GET, 'nb_lines') && $session[LEND_PREFIX . 'nb_lines'] != filter_input(INPUT_GET, 'nb_lines')) {
-    unset($session[LEND_PREFIX . 'page']);
-    $session[LEND_PREFIX . 'nb_lines'] = filter_input(INPUT_GET, 'nb_lines');
 }
 
 if (filter_has_var(INPUT_GET, 'tri')) {
@@ -84,12 +154,12 @@ if (filter_has_var(INPUT_GET, 'direction')) {
 
 if (filter_has_var(INPUT_GET, 'page')) {
     $session[LEND_PREFIX . 'page'] = filter_input(INPUT_GET, 'page');
-}
+}*/
 
 /*
  * Récupération de la recherche
  */
-if (filter_has_var(INPUT_POST, 'go_search')) {
+/*if (filter_has_var(INPUT_POST, 'go_search')) {
     unset($session[LEND_PREFIX . 'page']);
     $session[LEND_PREFIX . 'search'] = filter_input(INPUT_POST, 'search');
 }
@@ -97,25 +167,16 @@ if (filter_has_var(INPUT_POST, 'go_search')) {
 if (filter_has_var(INPUT_POST, 'reset_search')) {
     unset($session[LEND_PREFIX . 'page']);
     $session[LEND_PREFIX . 'search'] = '';
-}
+}*/
 
-$category_id = array_key_exists(LEND_PREFIX . 'category_id', $session) ? $session[LEND_PREFIX . 'category_id'] : -1;
+/*$category_id = array_key_exists(LEND_PREFIX . 'category_id', $session) ? $session[LEND_PREFIX . 'category_id'] : -1;
 $tri = array_key_exists(LEND_PREFIX . 'tri', $session) ? $session[LEND_PREFIX . 'tri'] : 'name';
 $direction = array_key_exists(LEND_PREFIX . 'direction', $session) ? $session[LEND_PREFIX . 'direction'] : 'asc';
 $page = array_key_exists(LEND_PREFIX . 'page', $session) ? $session[LEND_PREFIX . 'page'] : 1;
-$nb_lines = array_key_exists(LEND_PREFIX . 'nb_lines', $session) ? $session[LEND_PREFIX . 'nb_lines'] : $lendsprefs->{Preferences::PARAM_OBJECTS_PER_PAGE_DEFAULT};
 $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 'ajax' : false;
 
-$search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';
+$search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';*/
 
-$nb_lines_list = array();
-$param_choices = explode(';', $lendsprefs->{Preferences::PARAM_OBJECTS_PER_PAGE_NUMBER_LIST});
-foreach ($param_choices as $choice) {
-    if (is_numeric(trim($choice)) && !in_array(intval($choice), $nb_lines_list)) {
-        $nb_lines_list[] = intval($choice);
-    }
-}
-sort($nb_lines_list);
 
 $msg_taken = false;
 $msg_given = false;
@@ -153,19 +214,13 @@ if (filter_has_var(INPUT_GET, 'msg')) {
     }
 }
 
-/**
- * Récupération des objets
- */
-$objects = LendObject::getPaginatedObjects($tri, $direction, $search, intval($category_id), $login->isStaff() || $login->isAdmin(), $page - 1, $nb_lines);
-$nb_objects = LendObject::getNbObjects($category_id, $search, $login->isStaff() || $login->isAdmin());
-
 $nb_objects_no_category = LendObject::getObjectsNumberWithoutCategory($search);
 $sum_objects_no_category = LendObject::getSumPriceObjectsWithoutCategory($search);
 
 /**
  * Mise en forme des résultats
  */
-if (strlen($search) > 0) {
+/*if (strlen($search) > 0) {
     foreach ($objects as $obj) {
         if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
             $obj->search_serial_number = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->serial_number);
@@ -178,12 +233,7 @@ if (strlen($search) > 0) {
             $obj->search_dimension = preg_replace('/(' . $search . ')/i', '<span class="search">$1</span>', $obj->dimension);
         }
     }
-}
-
-/**
- * Calcul de la pagination
- */
-$pagination = Preferences::paginate($page, $nb_objects, $nb_lines, '');
+}*/
 
 /**
  * Récupération des catégories
@@ -197,14 +247,35 @@ if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
     }
 }
 
-$tpl->assign('objects', $objects);
-$tpl->assign('tri', $tri);
-$tpl->assign('direction', $direction);
-$tpl->assign('pagination', $pagination);
-$tpl->assign('page', $page);
-$tpl->assign('nb_results', $nb_objects);
-$tpl->assign('nb_lines', $nb_lines);
-$tpl->assign('nb_lines_list', $nb_lines_list);
+
+//store current filters in session
+$session['filters']['objectslend_objects'] = serialize($filters);
+
+//assign pagination variables to the template and add pagination links
+$filters->setSmartyPagination($tpl, false);
+
+$tpl->assign('page_title', _T("Objects managment"));
+
+//Set the path to the current plugin's templates,
+//but backup main Galette's template path before
+$orig_template_path = $tpl->template_dir;
+$tpl->template_dir = 'templates/' . $preferences->pref_theme;
+
+
+$tpl->assign('objects', $list);
+$tpl->assign('nb_objects', $objects->getCount());
+$tpl->assign('filters', $filters);
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
+$tpl->assign('require_calendar', true);
+$tpl->assign('require_dialog', true);
+$tpl->assign('ajax', $ajax);
+$tpl->assign('time', time());
+
+$tpl->assign('error_detected', $error_detected);
+$tpl->assign('success_detected', $success_detected);
+$tpl->assign('warning_detected', $warning_detected);
+
 $tpl->assign('msg_taken', $msg_taken);
 $tpl->assign('msg_given', $msg_given);
 $tpl->assign('msg_not_given', $msg_not_given);
@@ -212,22 +283,12 @@ $tpl->assign('msg_canceled', $msg_canceled);
 $tpl->assign('msg_no_right', $msg_no_right);
 $tpl->assign('msg_deleted', $msg_deleted);
 $tpl->assign('msg_disabled', $msg_disabled);
-$tpl->assign('require_calendar', true);
-$tpl->assign('require_dialog', true);
-
 $tpl->assign('categories', $categories);
 $tpl->assign('nb_all_categories', $nb_objects_no_category);
 $tpl->assign('sum_all_categories', number_format($sum_objects_no_category, 2, ',', ''));
 $tpl->assign('category_id', $category_id);
-$tpl->assign('sort_suffix', $category_id > 0 ? '&category_id=' . $category_id : '');
-$tpl->assign('search', $search);
 
-$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
-$tpl->assign('olendsprefs', $lendsprefs);
-$tpl->assign('ajax', $ajax);
-$tpl->assign('time', time());
-
-$tpl->assign('error_detected', $error_detected);
+$filters->setTplCommonsFilters($lendsprefs, $tpl);
 
 if ($ajax) {
     $tpl->display('objects_list.tpl');

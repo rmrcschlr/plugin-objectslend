@@ -47,7 +47,6 @@ use Galette\Entity\Adherent;
 
 class LendObject
 {
-
     const TABLE = 'objects';
     const PK = 'object_id';
 
@@ -103,17 +102,44 @@ class LendObject
     private $currency = '€';
     private $picture;
 
+    private $deps = [
+        'picture'   => true,
+        'rents'     => false,
+        'last_rent' => false
+    ];
+
+    /**
+     * @var LendRent[]
+     * Rents list for the object
+     */
+    private $rents;
+
     /**
      * Default constructor
      *
      * @param int|object $args   Maybe null, an RS object or an id from database
      * @param boolean    $cloned Ask to clone specified object
+     * @param array      $deps   Dependencies configuration, see LendOb::$deps
      */
-    public function __construct($args = null, $cloned = false)
+    public function __construct($args = null, $cloned = false, $deps = null)
     {
         global $zdb, $plugins;
 
-        $this->picture = new ObjectPicture($plugins);
+        if ($deps !== null && is_array($deps)) {
+            $this->deps = array_merge(
+                $this->deps,
+                $deps
+            );
+        } elseif ($deps !== null) {
+            Analog::log(
+                '$deps shoud be an array, ' . gettype($deps) . ' given!',
+                Analog::WARNING
+            );
+        }
+
+        if ($this->deps['picture'] === true) {
+            $this->picture = new ObjectPicture($plugins);
+        }
 
         if (is_int($args)) {
             try {
@@ -136,7 +162,9 @@ class LendObject
 
         if ($args !== null && $cloned) {
             unset($this->object_id);
-            $this->picture = new ObjectPicture($plugins);
+            if ($this->deps['picture'] === true) {
+                $this->picture = new ObjectPicture($plugins);
+            }
         }
     }
 
@@ -165,7 +193,17 @@ class LendObject
         $this->nb_available = $r->nb_available;
         $this->category_name = isset($r->category_name) ? $r->category_name : '';
 
-        $this->picture = new ObjectPicture($plugins, (int)$this->object_id);
+        if ($this->object_id) {
+            $only_last = false;
+            if ($this->deps['rents'] === false && $this->deps['last_rent'] === true) {
+                $only_last = true;
+            }
+            $this->rents = LendRent::getRentsForObjectId($this->object_id, $only_last);
+        }
+
+        if ($this->deps['picture'] === true) {
+            $this->picture = new ObjectPicture($plugins, (int)$this->object_id);
+        }
 
         //TODO: replace...
         $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
@@ -274,114 +312,6 @@ class LendObject
             );
             return false;
         }
-    }
-
-    /**
-     * Renvoi tous les objets avec leur dernier historique d'emprunt triés par la propriété
-     * donnée
-     *
-     * @param string $tri Nom de propriété surlaquelle faire le tri
-     * @param string $direction Sens de tri 'asc' ou 'desc'
-     * @param string $search Recherche pour l'objet
-     * @param int $category_id Affiche seulement les objets appartenant à la catégorie donnée
-     * @param bool $admin_mode Permet d'afficher aussi les objets "supprimés" (= inactifs) si mis à true
-     * @param int $page No de la page à afficher (index 1)
-     * @param int $rows_per_page Nombre de lignes par page
-     * @return LendObject[] Tableau des objets
-     */
-    public static function getPaginatedObjects($tri, $direction, $search = '', $category_id = null, $admin_mode = false, $page = 0, $rows_per_page = 10)
-    {
-        global $zdb;
-
-        $objs = array();
-
-        try {
-            $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->where(self::writeWhereQuery($admin_mode, $category_id, $search))
-                    ->join(PREFIX_DB . LEND_PREFIX . LendCategory::TABLE, PREFIX_DB . LEND_PREFIX . self::TABLE . '.category_id = ' . PREFIX_DB . LEND_PREFIX . LendCategory::TABLE . '.category_id', array('category_name' => 'name'), 'left');
-
-            switch ($tri) {
-                case 'name':
-                case 'category_name':
-                case 'description':
-                case 'serial_number':
-                case 'price':
-                case 'rent_price':
-                case 'dimension':
-                case 'weight':
-                    $select->order($tri . ' ' . $direction);
-                    break;
-            }
-
-            if ($rows_per_page > 0) {
-                $select->limit($rows_per_page);
-                $select->offset($page * $rows_per_page);
-            }
-
-            $results = $zdb->execute($select);
-            foreach ($results as $r) {
-                $obj = new self($r);
-
-                self::getStatusForObject($obj);
-
-                $objs[] = $obj;
-            }
-
-            switch ($tri) {
-                case 'status_text':
-                    if ($direction == 'asc') {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($a->status_text, $b->status_text);
-                        });
-                    } else {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($b->status_text, $a->status_text);
-                        });
-                    }
-                    break;
-                case 'date_begin':
-                    if ($direction == 'asc') {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($a->date_begin, $b->date_begin);
-                        });
-                    } else {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($b->date_begin, $a->date_begin);
-                        });
-                    }
-                    break;
-                case 'forecast':
-                    if ($direction == 'asc') {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($a->date_forecast, $b->date_forecast);
-                        });
-                    } else {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($b->date_forecast, $a->date_forecast);
-                        });
-                    }
-                    break;
-                case 'nom_adh':
-                    if ($direction == 'asc') {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($a->nom_adh, $b->nom_adh);
-                        });
-                    } else {
-                        usort($objs, function ($a, $b) {
-                            return strcmp($b->nom_adh, $a->nom_adh);
-                        });
-                    }
-                    break;
-            }
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            //throw $e;
-        }
-        return $objs;
     }
 
     /**
@@ -697,5 +627,17 @@ class LendObject
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    /**
+     * Get current rent
+     *
+     * @return LendRent
+     */
+    public function getCurrentRent()
+    {
+        if (is_array($this->rents) && count($this->rents) > 0) {
+            return $this->rents[0];
+        }
     }
 }

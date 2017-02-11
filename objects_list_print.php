@@ -32,7 +32,7 @@
  * @author    Mélissa Djebel <melissa.djebel@gmx.net>
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * @copyright 2017 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   0.7
  * @link      http://galette.tuxfamily.org
@@ -44,6 +44,8 @@ use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\LendPDF;
+use GaletteObjectsLend\Filters\ObjectsList;
+use GaletteObjectsLend\Repository\Objects;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -56,6 +58,12 @@ if (!$login->isLogged()) {
 require_once '_config.inc.php';
 
 $lendsprefs = new Preferences($zdb);
+
+if (isset($session['filters']['objectslend_print_objects'])) {
+    $filters = unserialize($session['filters']['objectslend_print_objects']);
+} else {
+    $filters = new ObjectsList();
+}
 
 /**
  * Cut a string?
@@ -83,25 +91,8 @@ $pdf->SetKeywords('');
 
 $pdf->AddPage('L');
 
-$category_id = array_key_exists(LEND_PREFIX . 'category_id', $session) ? $session[LEND_PREFIX . 'category_id'] : -1;
-$tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET, 'tri') : 'name';
-$search = array_key_exists(LEND_PREFIX . 'search', $session) ? $session[LEND_PREFIX . 'search'] : '';
-$ids = filter_has_var(INPUT_GET, 'ids') ? explode(',', filter_input(INPUT_GET, 'ids')) : array();
-
-if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY} && $category_id == 0) {
-    $tri = 'category_name';
-}
-
-/**
- * Récupération des objets
- */
-if (count($ids) == 0) {
-    $objects = LendObject::getPaginatedObjects($tri, 'asc', $search, intval($category_id), $login->isStaff() || $login->isAdmin(), 0, 5000);
-    $nb_objects = LendObject::getNbObjects($category_id, $search, $login->isStaff() || $login->isAdmin());
-} else {
-    $objects = LendObject::getMoreObjectsByIds($ids);
-    $nb_objects = count($objects);
-}
+$objects = new Objects($zdb, $lendsprefs, $filters);
+$list = $objects->getObjectsList(true, null, true, false);
 
 $pdf->SetFont(Pdf::FONT, 'B', 14);
 $pdf->Cell(275, 0, _T("Objects list"), '', 0, 'C');
@@ -110,16 +101,18 @@ $pdf->Ln();
 $pdf->SetFont(Pdf::FONT, '', 9);
 $pdf->Cell(0, 0, str_replace('%date', date(_T("Y-m-d")), _T("Printed on %date")));
 $pdf->Ln();
-if ($category_id > 0) {
-    $categ = new LendCategory(intval($category_id));
+if ($filters->category_filter > 0) {
+    $categ = new LendCategory(intval($filters->category_filter));
     $pdf->Cell(0, 0, str_replace('%category', $categ->name, _T("Selected category: %category")));
     $pdf->Ln();
 }
-if ($nb_objects > 1) {
-    $pdf->Cell(0, 0, $nb_objects . ' ' . _T("objects"));
+
+if (count($list) > 1) {
+    $pdf->Cell(0, 0, count($list) . ' ' . _T("objects"));
 } else {
-    $pdf->Cell(0, 0, $nb_objects . ' ' . _T("object"));
+    $pdf->Cell(0, 0, count($list) . ' ' . _T("object"));
 }
+
 $pdf->Ln();
 $pdf->Ln();
 
@@ -159,7 +152,7 @@ $sum_price = 0;
 $grant_total = 0;
 $row = 0;
 
-foreach ($objects as $obj) {
+foreach ($list as $obj) {
     if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY} && $old_category_name !== $obj->category_name) {
         $pdf->SetFont(Pdf::FONT, 'B', 9);
 

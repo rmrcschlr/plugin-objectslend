@@ -147,8 +147,8 @@ class LendRent
             if (!isset($this->_rent_id) || $this->_rent_id == '') {
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $add = $zdb->execute($insert);
-                if ($add > 0) {
+                $result = $zdb->execute($insert);
+                if ($result->count() > 0) {
                     $this->_rent_id = $zdb->driver->getLastGeneratedValue();
                 } else {
                     throw new \Exception(_T("RENT.AJOUT ECHEC"));
@@ -174,11 +174,12 @@ class LendRent
      * Retourne tous les historiques d'emprunts pour un objet donné trié par date de début
      * les plus récents en 1er.
      *
-     * @param int $object_id ID de l'objet dont on souhaite l'historique d'emprunt
+     * @param integer $object_id ID de l'objet dont on souhaite l'historique d'emprunt
+     * @param boolean $only_last Only retrieve last rent (for list display)
      *
      * @return LendRent[] Tableau d'objects emprunts
      */
-    public static function getRentsForObjectId($object_id)
+    public static function getRentsForObjectId($object_id, $only_last = false)
     {
         global $zdb;
 
@@ -188,6 +189,11 @@ class LendRent
                     ->join(PREFIX_DB . LEND_PREFIX . LendStatus::TABLE, PREFIX_DB . LEND_PREFIX . LendStatus::TABLE . '.status_id = ' . PREFIX_DB . LEND_PREFIX . self::TABLE . '.status_id')
                     ->where(array('object_id' => $object_id))
                     ->order('date_begin desc');
+
+            if ($only_last === true) {
+                $select->offset(0)->limit(1);
+            }
+
             $rents = array();
             $rows = $zdb->execute($select);
 
