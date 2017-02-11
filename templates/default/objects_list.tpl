@@ -99,21 +99,20 @@
         </div>
     {/if}
 
-    {if !$lendsprefs.VIEW_CATEGORY || ($lendsprefs.VIEW_CATEGORY && $category_id ne -1)}
-        <form action="objects_list.php" method="get">
-            <table class="infoline">
-                <tr>
-                    <td class="left">{$nb_objects} {if $nb_objects gt 1}{_T string="objects"}{else}{_T string="object"}{/if}</td>
-                    <td class="right">
-                        <label for="nbshow">{_T string="Records per page:"}</label>
-                        <select name="nbshow" id="nbshow">
-                            {html_options options=$nbshow_options selected=$numrows}
-                        </select>
-                        <noscript> <span><input type="submit" value="{_T string="Change"}" /></span></noscript>
-                    </td>
-                </tr>
-            </table>
-        </form>
+    <form action="objects_list.php" method="get">
+        <table class="infoline">
+            <tr>
+                <td class="left">{$nb_objects} {if $nb_objects gt 1}{_T string="objects"}{else}{_T string="object"}{/if}</td>
+                <td class="right">
+                    <label for="nbshow">{_T string="Records per page:"}</label>
+                    <select name="nbshow" id="nbshow">
+                        {html_options options=$nbshow_options selected=$numrows}
+                    </select>
+                    <noscript> <span><input type="submit" value="{_T string="Change"}" /></span></noscript>
+                </td>
+            </tr>
+        </table>
+    </form>
 
         <form action="objects_list.php" method="post" id="objects_list">
             <table class="listing">
@@ -372,7 +371,6 @@
             </tfoot>
 {/if}
             </table>
-    {/if}
     </form>
 <script>
 {if $nb_objects != 0}

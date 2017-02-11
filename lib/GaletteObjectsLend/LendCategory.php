@@ -155,38 +155,6 @@ class LendCategory
     }
 
     /**
-     * Renvoi toutes les categories triées par le tri indiqué
-     *
-     * @param string $tri       Colonne de tri
-     * @param string $direction asc ou desc
-     *
-     * @return LendCategory[] La liste des statuts triés par le tri donné
-     */
-    public static function getAllCategories($tri, $direction)
-    {
-        global $zdb;
-
-        try {
-            $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->order($tri . ' ' . $direction);
-
-            $categs = array();
-            $result = $zdb->execute($select);
-            foreach ($result as $r) {
-                $categs[] = new LendCategory($r);
-            }
-            return $categs;
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
      * Get all active categories sort by name with number of objects associated
      *
      * @param boolean $noobjects Retrieve categories with no objects associated, defaults to true

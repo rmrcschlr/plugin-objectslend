@@ -1,44 +1,68 @@
-<p>
-    {$nb_categories} {if $nb_categories > 1}{_T string="categories"}{else}{_T string="category"}{/if}
-</p>
+    <form id="filtre" method="get" action="categories_list.php">
+        <div id="listfilter">
+            <label for="filter_str">{_T string="Search:"}&nbsp;</label>
+            <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
+            {if $login->isAdmin() or $login->isStaff()}
+                {_T string="Active:"}
+                <input type="radio" name="active_filter" id="filter_dc_active" value="{php}echo GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES')} checked="checked"{/if}>
+                <label for="filter_dc_active" >{_T string="Don't care"}</label>
+                <input type="radio" name="active_filter" id="filter_yes_active" value="{php}echo GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES')} checked="checked"{/if}>
+                <label for="filter_yes_active" >{_T string="Yes"}</label>
+                <input type="radio" name="active_filter" id="filter_no_active" value="{php}echo GaletteObjectsLend\Repository\Categories::INACTIVE_CATEGORIES;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::INACTIVE_CATEGORIES')} checked="checked"{/if}>
+                <label for="filter_no_active" >{_T string="No"}</label>
+            {/if}
+            <input type="submit" class="inline" value="{_T string="Filter"}"/>
+            <input name="clear_filter" type="submit" value="{_T string="Clear filter"}">
+        </div>
+    </form>
+
+    <form action="categories_list.php" method="get">
+        <table class="infoline">
+            <tr>
+                <td class="left">{$nb_categories} {if $nb_categories gt 1}{_T string="categories"}{else}{_T string="category"}{/if}</td>
+                <td class="right">
+                    <label for="nbshow">{_T string="Records per page:"}</label>
+                    <select name="nbshow" id="nbshow">
+                        {html_options options=$nbshow_options selected=$numrows}
+                    </select>
+                    <noscript> <span><input type="submit" value="{_T string="Change"}" /></span></noscript>
+                </td>
+            </tr>
+        </table>
+    </form>
+
 <table class="listing">
     <thead>
         <tr>
-            <th class="id_row">
-                <a href="?tri=category_id&direction={if $tri eq 'category_id' && $direction eq 'asc'}desc{else}asc{/if}">
-                    #
-                </a>
-                {if $tri eq 'category_id' && $direction eq 'asc'} 
-                    <img src="{$template_subdir}images/down.png">
-                {elseif $tri eq 'category_id' && $direction eq 'desc'} 
-                    <img src="{$template_subdir}images/up.png">
-                {/if}
-            </th>
+            <th class="id_row">&nbsp;</th>
             <th>
-                <a href="?tri=name&direction={if $tri eq 'name' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="Category"}
+                <a href="{$galette_base_path}{$lend_dir}categories_list.php?tri={php}echo GaletteObjectsLend\Repository\Categories::ORDERBY_NAME;{/php}">
+                    {_T string="Name"}
+                    {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Categories::ORDERBY_NAME')}
+                        {if $filters->ordered eq constant('GaletteObjectsLend\Filters\CategoriesList::ORDER_ASC')}
+                    <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                        {else}
+                    <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                        {/if}
+                    {/if}
                 </a>
-                {if $tri eq 'name' && $direction eq 'asc'} 
-                    <img src="{$template_subdir}images/down.png">
-                {elseif $tri eq 'name' && $direction eq 'desc'} 
-                    <img src="{$template_subdir}images/up.png">
-                {/if}
             </th>
             <th class="id_row">
-                <a href="?tri=is_active&direction={if $tri eq 'is_active' && $direction eq 'asc'}desc{else}asc{/if}">
-                    {_T string="Active"}
-                </a>
-                {if $tri eq 'is_active' && $direction eq 'asc'}
-                    <img src="{$template_subdir}images/down.png">
-                {elseif $tri eq 'is_active' && $direction eq 'desc'}
-                    <img src="{$template_subdir}images/up.png">
-                {/if}
+                {_T string="Active"}
             </th>
             <th class="actions_row">
                 {_T string="Actions"}
             </th>
         </tr>
     </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="center">
+                {_T string="Pages:"}<br/>
+                <ul class="pages">{$pagination}</ul>
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
         {foreach from=$categories item=categ}
             <tr class="{if $categ@index is odd}even{else}odd{/if}">
@@ -70,4 +94,3 @@
         {/foreach}
     </tbody>
 </table>
-{/if}

@@ -40,6 +40,8 @@
 
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
+use GaletteObjectsLend\Repository\Categories;
+use GaletteObjectsLend\Filters\CategoriesList;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -51,14 +53,53 @@ require_once '_config.inc.php';
 
 $lendsprefs = new Preferences($zdb);
 
-$tpl->assign('page_title', _T("Categories list"));
-//Set the path to the current plugin's templates,
-//but backup main Galette's template path before
-$orig_template_path = $tpl->template_dir;
-$tpl->template_dir = 'templates/' . $preferences->pref_theme;
+if (isset($session['filters']['objectslend_categories'])) {
+    $filters = unserialize($session['filters']['objectslend_categories']);
+} else {
+    $filters = new CategoriesList();
+}
 
-$tri = filter_has_var(INPUT_GET, 'tri') ? filter_input(INPUT_GET, 'tri') : 'name';
-$direction = filter_has_var(INPUT_GET, 'direction') ? filter_input(INPUT_GET, 'direction') : 'asc';
+// Simple filters
+if (isset($_GET['page'])) {
+    $filters->current_page = (int)$_GET['page'];
+}
+
+if (isset($_GET['clear_filter'])) {
+    $filters->reinit();
+} else {
+    //string to filter
+    if (isset($_GET['filter_str'])) { //filter search string
+        $filters->filter_str = stripslashes(
+            htmlspecialchars($_GET['filter_str'], ENT_QUOTES)
+        );
+    }
+
+    //activity to filter
+    if (isset($_GET['active_filter'])) {
+        if (is_numeric($_GET['active_filter'])) {
+            $filters->active_filter = $_GET['active_filter'];
+        }
+    }
+}
+
+//numbers of rows to display
+if (isset($_GET['nbshow']) && is_numeric($_GET['nbshow'])) {
+    $filters->show = $_GET['nbshow'];
+}
+
+// Sorting
+if (isset($_GET['tri'])) {
+    $filters->orderby = $_GET['tri'];
+}
+
+if (!$login->isAdmin() && !$login->isStaff()) {
+    $filters->active_filter = false;
+}
+
+$categories = new Categories($zdb, $filters);
+$list = $categories->getCategoriesList(true);
+
+
 if (isset($_GET['msg'])) {
     switch ($_GET['msg']) {
         case 'deleted':
@@ -73,18 +114,28 @@ if (isset($_GET['msg'])) {
     }
 }
 
-$categories = LendCategory::getAllCategories($tri, $direction);
+//store current filters in session
+$session['filters']['objectslend_categories'] = serialize($filters);
 
-$tpl->assign('categories', $categories);
-$tpl->assign('nb_categories', count($categories));
-$tpl->assign('tri', $tri);
-$tpl->assign('direction', $direction);
+//assign pagination variables to the template and add pagination links
+$filters->setSmartyPagination($tpl, false);
+
+$tpl->assign('page_title', _T("Categories list"));
+
+$tpl->assign('categories', $list);
+$tpl->assign('nb_categories', count($list));
+$tpl->assign('filters', $filters);
 $tpl->assign('success_detected', $success_detected);
 $tpl->assign('warning_detected', $warning_detected);
 $tpl->assign('error_detected', $error_detected);
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('time', time());
+
+//Set the path to the current plugin's templates,
+//but backup main Galette's template path before
+$orig_template_path = $tpl->template_dir;
+$tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
 $content = $tpl->fetch('categories_list.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);
