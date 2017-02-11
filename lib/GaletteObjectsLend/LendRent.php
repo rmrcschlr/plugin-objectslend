@@ -151,7 +151,7 @@ class LendRent
                 if ($result->count() > 0) {
                     $this->_rent_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new \Exception(_T("RENT.AJOUT ECHEC"));
+                    throw new \Exception(_T("Rent has not been added"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)

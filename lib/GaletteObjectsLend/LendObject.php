@@ -243,7 +243,7 @@ class LendObject
                 if ($result->count() > 0) {
                     $this->object_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new \Exception(_T("OBJECT.AJOUT ECHEC"));
+                    throw new \Exception(_T("Object has not been added :("));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)

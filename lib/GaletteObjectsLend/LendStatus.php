@@ -130,7 +130,7 @@ class LendStatus
                 if ($add > 0) {
                     $this->_status_id = $zdb->driver->getLastGeneratedValue();
                 } else {
-                    throw new \Exception(_T("STATUS.AJOUT ECHEC"));
+                    throw new \Exception(_T("Status has not been added :("));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)
