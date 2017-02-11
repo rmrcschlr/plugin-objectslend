@@ -196,13 +196,6 @@ $show_status = false;
 $statuses = LendStatus::getActiveStatuses();
 $adherents = LendRent::getAllActivesAdherents();
 
-/**
- * Récupération taille image
- */
-$size = ObjectPicture::getHeightWidthForObject($object);
-$tpl->assign('pic_width', $size->width);
-$tpl->assign('pic_height', $size->height);
-
 $tpl->assign('page_title', $title);
 $tpl->assign('object', $object);
 $tpl->assign('rents', $rents);

@@ -101,10 +101,6 @@ if (count($rents) > 0) {
 }
 
 $object = new LendObject($object_id);
-/**
- * Tooltip de la photo
- */
-$s = ObjectPicture::getHeightWidthForObject($object);
 
 $tpl->assign('object', $object);
 $tpl->assign('statuses', LendStatus::getActiveHomeStatuses());

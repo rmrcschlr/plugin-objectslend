@@ -274,28 +274,6 @@ class Picture extends \Galette\Core\Picture
     }
 
     /**
-     * Renvoi la taille en pixels d'une image
-     *
-     * @param LendObject $object Lend object instance
-     *
-     * @return stdClass Un objet avec 2 propriétés width et height
-     */
-    public static function getHeightWidthForObject($object)
-    {
-        $result = new \stdClass();
-        $result->width = 0;
-        $result->height = 0;
-
-        if ($object->draw_image && file_exists($object->object_image_url)) {
-            $size = getimagesize($object->object_image_url);
-            $result->width = $size[0];
-            $result->height = $size[1];
-        }
-
-        return $result;
-    }
-
-    /**
      * Restore objects images from database blob
      *
      * @param array $success Success messages

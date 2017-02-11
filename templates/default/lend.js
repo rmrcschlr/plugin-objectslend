@@ -4,10 +4,6 @@ function success_take_object(post_data) {
         $.get("objects_list.php?mode=ajax&msg=taken&page=" + page, function (get_data) {
             close_ajax();
             $('#lend_content').html(get_data);
-            $('.tooltip_lend').tooltipster({
-                position: 'bottom-right',
-                theme: '.tooltipster-lend'
-            });
         });
     }
 }
@@ -28,10 +24,6 @@ function take_more_objects() {
     var ids = get_checked_objets_ids();
     $.get('take_more_objects_away.php?mode=ajax&objects_ids=' + ids, function (data) {
         $('#ajax_lend').html(data);
-        $('.tooltip_lend').tooltipster({
-            position: 'bottom-right',
-            theme: '.tooltipster-lend'
-        });
     });
 }
 
@@ -53,10 +45,6 @@ function success_give_object_back(post_data) {
         $.get("objects_list.php?mode=ajax&msg=given&page=" + page, function (get_data) {
             close_ajax();
             $('#lend_content').html(get_data);
-            $('.tooltip_lend').tooltipster({
-                position: 'bottom-right',
-                theme: '.tooltipster-lend'
-            });
         });
     }
 }
@@ -67,10 +55,6 @@ function give_more_objects_back() {
     var ids = get_checked_objets_ids();
     $.get('give_more_objects_back.php?mode=ajax&objects_ids=' + ids, function (data) {
         $('#ajax_lend').html(data);
-        $('.tooltip_lend').tooltipster({
-            position: 'bottom-right',
-            theme: '.tooltipster-lend'
-        });
     });
 }
 

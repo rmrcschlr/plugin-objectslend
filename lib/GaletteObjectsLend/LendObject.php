@@ -94,10 +94,6 @@ class LendObject
     private $search_name = '';
     private $search_description = '';
     private $search_dimension = '';
-    // Propriétés pour la taille des images au survol
-    private $tooltip_title = '';
-    private $object_image_url;
-    private $draw_image;
 
     private $currency = '€';
     private $picture;
@@ -203,17 +199,6 @@ class LendObject
 
         if ($this->deps['picture'] === true) {
             $this->picture = new ObjectPicture($plugins, (int)$this->object_id);
-        }
-
-        //TODO: replace...
-        $extensions = array('.png', '.PNG', '.gif', '.GIF', '.jpg', '.JPG', '.jpeg', '.JPEG');
-        $this->draw_image = false;
-        foreach ($extensions as $ext) {
-            if (file_exists(GALETTE_PHOTOS_PATH . 'objectslend/objects/' . $this->object_id . $ext)) {
-                //$this->object_image_url = 'objects_pictures/' . $this->object_id . $ext;
-                $this->draw_image = true;
-                break;
-            }
         }
     }
 
