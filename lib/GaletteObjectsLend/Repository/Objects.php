@@ -160,131 +160,71 @@ class Objects
     }
 
     /**
-     * Remove specified objects
+     * Remove specified objects, and thier full history
      *
-     * @param integer|array $ids Objects identifiers to delete
+     * @param array $ids Objects identifiers to delete
      *
      * @return boolean
      */
-    public function removeObjects($ids)
+    public function removeObjects(array $ids)
     {
-        /*global $zdb, $hist;
+        try {
+            $this->zdb->connection->beginTransaction();
 
-        $list = array();
-        if ( is_numeric($ids) ) {
-            //we've got only one identifier
-            $list[] = $ids;
-        } else {
-            $list = $ids;
-        }
-
-        if ( is_array($list) ) {
-            try {
-                $zdb->connection->beginTransaction();
-
-                //Retrieve some informations
-                $select = $zdb->select(self::TABLE);
-                $select->columns(
-                    array(self::PK, 'nom_adh', 'prenom_adh')
-                )->where->in(self::PK, $list);
-
-                $results = $zdb->execute($select);
-
-                $infos = null;
-                foreach ($results as $member ) {
-                    $str_adh = $member->id_adh . ' (' . $member->nom_adh . ' ' .
-                        $member->prenom_adh . ')';
-                    $infos .=  $str_adh . "\n";
-
-                    $p = new Picture($member->id_adh);
-                    if ( $p->hasPicture() ) {
-                        if ( !$p->delete(false) ) {
-                            Analog::log(
-                                'Unable to delete picture for member ' . $str_adh,
-                                Analog::ERROR
-                            );
-                            throw new \Exception(
-                                'Unable to delete picture for member ' .
-                                $str_adh
-                            );
-                        } else {
-                            $hist->add(
-                                _T("Member Picture deleted"),
-                                $str_adh
-                            );
-                        }
-                    }
-                }
-
-                //delete contributions
-                $del_qry = $zdb->delete(Contribution::TABLE);
-                $del_qry->where->in(
-                    self::PK, $list
-                );
-                $del = $zdb->execute($del_qry);
-
-                //delete transactions
-                $del_qry = $zdb->delete(Transaction::TABLE);
-                $del_qry->where->in(self::PK, $list);
-                $del = $zdb->execute($del_qry);
-
-                //delete groups membership/mamagmentship
-                $del = Groups::removeMemberFromGroups((int)$member->id_adh);
-
-                //delete reminders
-                $del_qry = $zdb->delete(Reminder::TABLE);
-                $del_qry->where->in(
-                    'reminder_dest', $list
-                );
-                $del = $zdb->execute($del_qry);
-
-                //delete members
-                $del_qry = $zdb->delete(self::TABLE);
-                $del_qry->where->in(
-                    self::PK, $list
-                );
-                $del = $zdb->execute($del_qry);
-
-                //commit all changes
-                $zdb->connection->commit();
-
-                //add an history entry
-                $hist->add(
-                    _T("Delete members cards, transactions and dues"),
-                    $infos
-                );
-
-                return true;
-            } catch (\Exception $e) {
-                $zdb->connection->rollBack();
-                if ( $e instanceof \Zend_Db_Statement_Exception
-                    && $e->getCode() == 23000
-                ) {
-                    Analog::log(
-                        'Member still have existing dependencies in the ' .
-                        'database, maybe a mailing or some content from a ' .
-                        'plugin. Please remove dependencies before trying ' .
-                        'to remove him.',
-                        Analog::ERROR
-                    );
-                    $this->errors[] = _T("Cannot remove a member who still have dependencies (mailings, ...)");
-                } else {
-                    Analog::log(
-                        'Unable to delete selected member(s) |' .
-                        $e->getMessage(),
-                        Analog::ERROR
-                    );
-                }
-                return false;
-            }
-        } else {
-            //not numeric and not an array: incorrect.
-            Analog::log(
-                'Asking to remove members, but without providing an array or a single numeric value.',
-                Analog::WARNING
+            $delete = $this->zdb->delete(LEND_PREFIX . LendRent::TABLE);
+            $delete->where->in(
+                self::PK,
+                $ids
             );
-            return false;
-        }*/
+            $result = $this->zdb->execute($delete);
+
+            $delete = $this->zdb->delete(LEND_PREFIX . self::TABLE);
+            $delete->where->in(
+                self::PK,
+                $ids
+            );
+            $result = $this->zdb->execute($delete);
+            $this->zdb->connection->commit();
+        } catch (\Exception $e) {
+            $this->zdb->connection->rollBack();
+
+            if ($e instanceof \Zend_Db_Statement_Exception
+                && $e->getCode() == 23000
+            ) {
+                Analog::log(
+                    'Object mays still have existing dependencies in the ' .
+                    'database.' .
+                    'Please remove dependencies before trying ' .
+                    'to remove it.',
+                    Analog::ERROR
+                );
+            } else {
+                Analog::log(
+                    'Unable to delete selected object(s) |' .
+                    $e->getMessage(),
+                    Analog::ERROR
+                );
+            }
+        }
+    }
+
+    /**
+     * Disable selected objects
+     *
+     * @param array $ids List of objects id to disable
+     *
+     * @return boolean
+     */
+    public function disableObjects(array $ids)
+    {
+        $update = $this->zdb->update(LEND_PREFIX . self::TABLE);
+        $update->set(['is_active' => false]);
+        $update->where->in(
+            self::PK,
+            $ids
+        );
+        $result = $this->zdb->execute($update);
+        return $results;
     }
 
     /**

@@ -39,6 +39,8 @@
  */
 
 use GaletteObjectsLend\LendObject;
+use GaletteObjectsLend\Preferences;
+use GaletteObjectsLend\Repository\Objects;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -52,17 +54,14 @@ $to_delete = array_key_exists('delete', $_GET) ? $_GET['delete'] == '1' : false;
 $to_disable = array_key_exists('disable', $_GET) ? $_GET['disable'] == '1' : false;
 
 if (array_key_exists('objects_ids', $_GET)) {
-    $ids = explode(',', $_GET['objects_ids']);
-    foreach ($ids as $obj_id) {
-        if (is_numeric($obj_id)) {
-            if ($to_disable) {
-                LendObject::setInactiveObject($obj_id);
-            }
+    $lendsprefs = new Preferences($zdb);
+    $objects = new Objects($zdb, $lendsprefs);
 
-            if ($to_delete) {
-                LendObject::removeObject($obj_id);
-            }
-        }
+    $ids = explode(',', trim($_GET['objects_ids'], ','));
+    if ($to_disable) {
+        $objects->disableObjects($ids);
+    } elseif ($to_delete) {
+        $objects->removeObjects($ids);
     }
 }
 

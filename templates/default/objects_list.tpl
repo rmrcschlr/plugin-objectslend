@@ -14,17 +14,6 @@
             <h1>{_T string="OBJECTS LIST.NO RIGHT"}</h1>
         </div>
     {/if}
-    {if $msg_deleted}
-        <div id="errorbox">
-            <h1>{_T string="OBJECTS LIST.DELETED"}</h1>
-        </div>
-    {/if}
-    {if $msg_disabled}
-        <div id="errorbox">
-            <h1>{_T string="OBJECTS LIST.DISABLED"}</h1>
-        </div>
-    {/if}
-
     <form id="filtre" method="get" action="objects_list.php">
         <div id="listfilter">
             <label for="filter_str">{_T string="Search:"}&nbsp;</label>
@@ -419,10 +408,6 @@
                     });
                     return false;
                 } else {
-
-                    if ( this.id == 'delete' ) {
-                        return confirm('{_T string="Do you really want to delete all selected accounts (and related contributions)?" escape="js"}');
-                    }
                     return true;
                 }
             });
@@ -529,9 +514,9 @@
                     objectsIds += $(this).val() + ',';
                 });
 
-                var msg = isDelete ? '{_T string="OBJECTS LIST.CONFIRM DELETE"}' : '{_T string="OBJECTS LIST.CONFIRM DISABLE"}';
-                msg = $('<div/>').html(msg).text();
-                msg = msg.replace('$0', nbSelected);
+                var msg = isDelete ? '{_T string="Are you sure you want to delete %count objects? This cannot be undone." escape="js"}'
+                    : '{_T string="Are you sure you want to disable %count objects?" escape="js"}';
+                msg = msg.replace('%count', nbSelected);
                 if (nbSelected > 0 && confirm(msg)) {
                     window.location = 'objects_delete.php?' + (isDelete ? 'delete' : 'disable') + '=1&objects_ids=' + objectsIds;
                 }

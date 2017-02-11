@@ -138,8 +138,6 @@ $list = $objects->getObjectsList(true);
 $msg_given = false;
 $msg_not_given = false;
 $msg_no_right = false;
-$msg_deleted = false;
-$msg_disabled = false;
 if (filter_has_var(INPUT_GET, 'msg')) {
     switch (filter_input(INPUT_GET, 'msg')) {
         case 'unavailable':
@@ -161,10 +159,10 @@ if (filter_has_var(INPUT_GET, 'msg')) {
             $msg_no_right = true;
             break;
         case 'deleted':
-            $msg_deleted = true;
+            $success_detected[] = _T("Objects have been disabled!");
             break;
         case 'disabled':
-            $msg_disabled = true;
+            $success_detected[] = _T("Objects have been disabled!");
             break;
     }
 }
@@ -233,8 +231,6 @@ $tpl->assign('warning_detected', $warning_detected);
 $tpl->assign('msg_given', $msg_given);
 $tpl->assign('msg_not_given', $msg_not_given);
 $tpl->assign('msg_no_right', $msg_no_right);
-$tpl->assign('msg_deleted', $msg_deleted);
-$tpl->assign('msg_disabled', $msg_disabled);
 $tpl->assign('categories', $categories);
 $tpl->assign('nb_all_categories', $nb_objects_no_category);
 $tpl->assign('sum_all_categories', number_format($sum_objects_no_category, 2, ',', ''));

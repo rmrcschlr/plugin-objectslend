@@ -263,49 +263,6 @@ class LendObject
     }
 
     /**
-     * Supprime logiquement un object (passe son statut IsActive à false)
-     *
-     * @param int $object_id ID de l'objet à rendre inactif
-     *
-     * @return boolean Renvoi true quand tout s'est bien déroulé
-     */
-    public static function setInactiveObject($object_id)
-    {
-        $o = new self(intval($object_id));
-        $o->is_active = false;
-        $o->store();
-        return true;
-    }
-
-    /**
-     * Supprime physiquement un objet de la BDD ainsi que son historique d'emprunts
-     *
-     * @param int $object_id ID de l'objet à supprimer
-     *
-     * @return boolean Renvoi true quand tout s'est bien déroulé
-     */
-    public static function removeObject($object_id)
-    {
-        global $zdb;
-
-        try {
-            $delete_history = $zdb->delete(LEND_PREFIX . LendRent::TABLE)
-                    ->where(array('object_id' => $object_id));
-            $zdb->execute($delete_history);
-            $delete_object = $zdb->delete(LEND_PREFIX . self::TABLE)
-                    ->where(array(self::PK => $object_id));
-            $zdb->execute($delete_object);
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
      * Exécute une requête SQL pour récupérer le statut de location d'un objet, ainsi que l'utilisateur
      * qui loue l'objet.
      * Ne retourne rien.
