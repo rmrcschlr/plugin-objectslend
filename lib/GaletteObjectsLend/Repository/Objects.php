@@ -83,6 +83,7 @@ class Objects
     const ORDERBY_STATUS = 5;
 
     const SHOW_LIST = 0;
+    const SHOW_CATEGORIES = 1;
 
     private $filters = false;
     private $count = null;
@@ -107,7 +108,6 @@ class Objects
             $this->filters = $filters;
         }
     }
-
 
     /**
      * Get objects list
@@ -163,7 +163,54 @@ class Objects
     }
 
     /**
-     * Remove specified objects, and thier full history
+     * Get categories list
+     *
+     * @param boolean $as_objects return the results as an array of
+     *                               Object object.
+     * @param array   $fields     field(s) name(s) to get. Should be a string or
+     *                               an array. If null, all fields will be
+     *                               returned
+     * @param boolean $count      true if we want to count members
+     * @param boolean $limit      true if we want records pagination
+     *
+     * @return LendCategory[]|ResultSet
+     */
+    public function getCategoriesList(
+        $as_objects = true,
+        $fields = null,
+        $count = false,
+        $limit = false
+    ) {
+        try {
+            $select = $this->buildSelect(self::SHOW_CATEGORIES, $fields, $count);
+
+            //add limits to retrieve only relevant rows
+            if ($limit === true) {
+                $this->filters->setLimit($select);
+            }
+
+            $rows = $this->zdb->execute($select);
+            var_dump($this->zdb->query_string);
+
+            $categories = array();
+            if ($as_objects) {
+                foreach ($rows as $row) {
+                    $categories[] = new LendCategory($row, false);
+                }
+            } else {
+                $categories = $rows;
+            }
+            return $categories;
+        } catch (\Exception $e) {
+            Analog::log(
+                'Cannot list categories | ' . $e->getMessage(),
+                Analog::WARNING
+            );
+        }
+    }
+
+    /**
+     * Remove specified objects, and their full history
      *
      * @param array $ids Objects identifiers to delete
      *
@@ -267,43 +314,79 @@ class Objects
         global $zdb, $login;
 
         try {
-            $fieldsList = ( $fields != null )
-                            ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
-                            : $fields) : (array)'*';
-
             $select = $zdb->select(LEND_PREFIX . self::TABLE, 'o');
-            $select->columns($fieldsList);
 
-            $select->quantifier('DISTINCT');
+            if ($mode === self::SHOW_LIST) {
+                $fieldsList = ( $fields != null )
+                                ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
+                                : $fields) : (array)'*';
 
-            $select->join(
-                array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
-                'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
-                array('cat_active' => 'is_active'),
-                $select::JOIN_LEFT
-            );
+                $select->columns($fieldsList);
+                $cat_cols = ['cat_active' => 'is_active'];
+                $select->quantifier('DISTINCT');
 
-            $select->join(
-                array('r' => PREFIX_DB . LEND_PREFIX . LendRent::TABLE),
-                'o.' . LendObject::PK . '=r.' . LendObject::PK,
-                array(),
-                $select::JOIN_LEFT
-            );
+                $select->join(
+                    array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
+                    'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
+                    $cat_cols,
+                    ($mode === self::SHOW_CATEGORIES ? $select::JOIN_INNER : $select::JOIN_LEFT)
+                );
 
-            $select->join(
-                array('s' => PREFIX_DB . LEND_PREFIX . LendStatus::TABLE),
-                'r.' . LendStatus::PK . '=s.' . LendStatus::PK,
-                array(LendStatus::PK, 'status_text'),
-                $select::JOIN_LEFT
-            );
+                $select->join(
+                    array('r' => PREFIX_DB . LEND_PREFIX . LendRent::TABLE),
+                    'o.' . LendObject::PK . '=r.' . LendObject::PK,
+                    array(),
+                    $select::JOIN_LEFT
+                );
 
-            if ($this->filters !== false) {
-                $this->buildWhereClause($select);
+                $select->join(
+                    array('s' => PREFIX_DB . LEND_PREFIX . LendStatus::TABLE),
+                    'r.' . LendStatus::PK . '=s.' . LendStatus::PK,
+                    array(LendStatus::PK, 'status_text'),
+                    $select::JOIN_LEFT
+                );
+
+                if ($this->filters !== false) {
+                    $this->buildWhereClause($select);
+                }
+
+                $select->order($this->buildOrderClause($fields));
+
+                if ($count) {
+                    $this->proceedCount($select);
+                }
             }
-            $select->order($this->buildOrderClause($fields));
 
-            if ($count) {
-                $this->proceedCount($select);
+            if ($mode === self::SHOW_CATEGORIES) {
+                $fieldsList = [
+                    LendCategory::PK,
+                    '*',
+                    'objects_count'     => new Expression('COUNT(DISTINCT o.' . self::PK . ')'),
+                    'objects_price_sum' => new Expression('SUM(o.price)')
+                ];
+
+                if ($fields !== null && is_array($fields)) {
+                    array_merge($fieldsList, $fields);
+                }
+                $cat_cols = $fieldsList;
+                $select->columns([]);
+
+                $select->join(
+                    array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
+                    'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
+                    $cat_cols,
+                    $select::JOIN_LEFT
+                );
+
+                if ($this->filters !== false) {
+                    $this->buildWhereClause($select);
+                }
+
+                $select->order(['c.name']);
+
+                $select->group(
+                    'o.category_id'
+                );
             }
 
             return $select;

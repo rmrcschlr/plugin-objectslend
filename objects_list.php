@@ -165,22 +165,7 @@ if (filter_has_var(INPUT_GET, 'msg')) {
     }
 }
 
-$search = '';
-$nb_objects_no_category = LendObject::getObjectsNumberWithoutCategory($search);
-$sum_objects_no_category = LendObject::getSumPriceObjectsWithoutCategory($search);
-
-/**
- * Récupération des catégories
- */
-$categories = array();
-if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
-    if (strlen($search) < 1) {
-        $categories = LendCategory::getActiveCategories(false);
-    } else {
-        $categories = LendCategory::getActiveCategoriesWithSearchCriteria($search);
-    }
-}
-
+$categories = $objects->getCategoriesList();
 
 //store current filters in session
 $session['filters']['objectslend_objects'] = serialize($filters);
@@ -211,8 +196,6 @@ $tpl->assign('warning_detected', $warning_detected);
 
 $tpl->assign('msg_no_right', $msg_no_right);
 $tpl->assign('categories', $categories);
-$tpl->assign('nb_all_categories', $nb_objects_no_category);
-$tpl->assign('sum_all_categories', number_format($sum_objects_no_category, 2, ',', ''));
 $tpl->assign('category_id', $category_id);
 
 $filters->setTplCommonsFilters($lendsprefs, $tpl);

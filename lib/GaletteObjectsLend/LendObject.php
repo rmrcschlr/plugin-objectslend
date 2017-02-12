@@ -384,64 +384,6 @@ class LendObject
     }
 
     /**
-     * Renvoit le nombre total d'objets correspondant à la recherche (si pas de recherche,
-     * renvoit juste le nombre total d'objets)
-     *
-     * @param string $search Chaîne cherchée (peut être vide et renvoit le nombre total d'objets)
-     *
-     * @return int Nombre d'objets
-     */
-    public static function getObjectsNumberWithoutCategory($search = '')
-    {
-        global $zdb;
-
-        try {
-            $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('nb' => new Predicate\Expression('count(*)')))
-                    ->where(self::writeWhereQuery(false, null, $search));
-
-            $results = $zdb->execute($select);
-            return $results->current()->nb;
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
-     * Renvoit la somme des prix des objets correspondant a la recherche (si pas de recherche,
-     * renvoit juste la somme des prix des objets)
-     *
-     * @param string $search Chaine cherchee (peut etre vide et renvoit la somme des prix des objets)
-     *
-     * @return boolean
-     */
-    public static function getSumPriceObjectsWithoutCategory($search = '')
-    {
-        global $zdb;
-
-        try {
-            $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->columns(array('sum' => new Predicate\Expression('SUM(price)')))
-                    ->where(self::writeWhereQuery(false, null, $search));
-
-            $results = $zdb->execute($select);
-            return $results->current()->sum;
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
      * Renvoit tous les objects correspondant aux IDs donnés.
      *
      * @param array $ids Tableau des IDs pour lequels on souhaite avoir les objects

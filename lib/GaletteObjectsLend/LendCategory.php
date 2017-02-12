@@ -267,65 +267,6 @@ class LendCategory
     }
 
     /**
-     * Renvoi toutes les categories actives triés par nom avec le nombre
-     * d'objet qui correspond à la chaine recherchée
-     *
-     * @param string $search Chaine de recherche
-     * @return LendCategory[] La liste des categories actives triées
-     */
-    public static function getActiveCategoriesWithSearchCriteria($search)
-    {
-        if (strlen($search) < 1) {
-            return self::getActiveCategories();
-        }
-
-        global $zdb;
-
-        try {
-            $select_count = $zdb->select(LEND_PREFIX . LendObject::TABLE)
-                ->columns(array(new Predicate\Expression('count(*)')))
-                ->where(
-                    array(
-                        'is_active' => 1,
-                        LendObject::writeWhereQuery($search),
-                        new Predicate\Expression(
-                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
-                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
-                        )
-                    )
-                );
-
-            $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                ->columns(
-                    array(
-                        '*',
-                        'nb' => new Predicate\Expression(
-                            '(' . $zdb->sql->getSqlStringForSqlObject($select_count) . ')'
-                        )
-                    )
-                )
-                ->where(array('is_active' => 1))
-                ->order('name');
-
-            $categs = array();
-            $result = $zdb->execute($select);
-            foreach ($result as $r) {
-                $cat = new LendCategory($r);
-                $cat->objects_nb = $r->nb;
-                $categs[] = $cat;
-            }
-            return $categs;
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
      * Supprime une catégorie et assigne les objets de cette catégorie à "aucune catégorie"
      *
      * @param int $id Id de la catégorie à supprimer

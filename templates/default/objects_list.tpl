@@ -21,13 +21,13 @@
         </div>
     </form>
 
-    {if $lendsprefs.VIEW_CATEGORY}
+    {if $lendsprefs.VIEW_CATEGORY and $categories|@count gt 0}
         <div class="bigtable">
             <table class="details">
                 <caption class="ui-state-active ui-corner-top">{_T string="Choose a category"}</caption>
                 <tr>
         {foreach from=$categories item=categ}
-                    <td class="center{if $category_id eq $categ->category_id} cotis-ok{/if}">
+                    <td class="center{if $filters->category_filter eq $categ->category_id} cotis-ok{/if}">
                         <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={$categ->category_id}">
                             <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
                                 class="picture"
@@ -39,25 +39,15 @@
                             {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
                                 &middot;
                                 {$categ->objects_price_sum} &euro;
+
+                                {if $categ->is_active || $categ->category_id eq null}
+                                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
+                                {/if}
+
                             {/if}
                         </a>
                     </td>
         {/foreach}
-                    <td class="center{if $category_id eq 0} cotis-ok{/if}">
-                        <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter=all">
-                            <img src="picture.php?category_id=0&amp;rand={$time}&thumb=1"
-                                class="picture"
-                                width="128"
-                                height="128"
-                                alt=""/>
-                            <br/>
-                            {_T string="All objects"} ({$nb_all_categories})
-                            {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
-                                &middot;
-                                {$sum_all_categories} &euro;
-                            {/if}
-                        </a>
-                    </td>
                 </tr>
             </table>
         </div>
