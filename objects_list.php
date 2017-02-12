@@ -105,8 +105,8 @@ if (isset($_GET['clear_filter'])) {
     if (isset($_GET['category_filter'])) {
         if (is_numeric($_GET['category_filter'])) {
             $filters->category_filter = $_GET['category_filter'];
-        } elseif ($_GET['category_filter'] == 'all') {
-            $filters->category_filter = null;
+        } elseif ($_GET['category_filter'] == 'none') {
+            $filters->category_filter = 'none';
         }
     }
 
@@ -196,7 +196,6 @@ $tpl->assign('warning_detected', $warning_detected);
 
 $tpl->assign('msg_no_right', $msg_no_right);
 $tpl->assign('categories', $categories);
-$tpl->assign('category_id', $category_id);
 
 $filters->setTplCommonsFilters($lendsprefs, $tpl);
 

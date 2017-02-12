@@ -174,7 +174,7 @@ class ObjectsList extends Pagination
                     $this->$name = $value;
                     break;
                 case 'category_filter':
-                    if (is_numeric($value) || $value === null) {
+                    if (is_numeric($value) || $value === 'none') {
                         $this->$name = $value;
                     } elseif ($value !== null) {
                         Analog::log(

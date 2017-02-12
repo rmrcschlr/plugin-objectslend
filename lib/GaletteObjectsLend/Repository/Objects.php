@@ -512,7 +512,9 @@ class Objects
                 $select->where('(o.is_active = false OR (c.is_active IS NOT NULL AND c.is_active = false))');
             }
 
-            if ($this->filters->category_filter != 'all' && $this->filters->category_filter !== null) {
+            if ($this->filters->category_filter == 'none') {
+                $select->where('o.' . LendCategory::PK . ' IS NULL');
+            } elseif ($this->filters->category_filter !== null) {
                 $select->where('o.' . LendCategory::PK . '=' . $this->filters->category_filter);
             }
 

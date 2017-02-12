@@ -28,14 +28,14 @@
                 <tr>
         {foreach from=$categories item=categ}
                     <td class="center{if $filters->category_filter eq $categ->category_id} cotis-ok{/if}">
-                        <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={$categ->category_id}">
+                        <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={if $categ->category_id neq null}{$categ->category_id}{else}none{/if}">
                             <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
                                 class="picture"
                                 width="{$categ->picture->getOptimalThumbWidth()}"
                                 height="{$categ->picture->getOptimalThumbHeight()}"
                                 alt=""/>
                             <br/>
-                            {$categ->name} ({$categ->objects_nb})
+                            {if $categ->name neq null}{$categ->name}{else}{_T string="No category"}{/if} ({$categ->objects_nb})
                             {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
                                 &middot;
                                 {$categ->objects_price_sum} &euro;
