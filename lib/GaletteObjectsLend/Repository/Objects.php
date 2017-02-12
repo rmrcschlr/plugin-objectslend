@@ -82,6 +82,8 @@ class Objects
     const ORDERBY_WEIGHT = 4;
     const ORDERBY_STATUS = 5;
 
+    const SHOW_LIST = 0;
+
     private $filters = false;
     private $count = null;
     private $errors = array();
@@ -108,7 +110,7 @@ class Objects
 
 
     /**
-     * Get members list
+     * Get objects list
      *
      * @param boolean $as_objects return the results as an array of
      *                               Object object.
@@ -117,6 +119,7 @@ class Objects
      *                               returned
      * @param boolean $count      true if we want to count members
      * @param boolean $limit      true if we want records pagination
+     * @param boolean $all_rents  true to load rents along with objects
      *
      * @return LendObject[]|ResultSet
      */
@@ -128,7 +131,7 @@ class Objects
         $all_rents = false
     ) {
         try {
-            $select = $this->buildSelect($fields, false, $count);
+            $select = $this->buildSelect(self::SHOW_LIST, $fields, $count);
 
             //add limits to retrieve only relevant rows
             if ($limit === true) {
@@ -253,14 +256,13 @@ class Objects
     /**
      * Builds the SELECT statement
      *
+     * @param int   $mode   the current mode (see self::SHOW_*)
      * @param array $fields fields list to retrieve
-     * @param bool  $photos true if we want to get only members with photos
-     *                      Default to false, only relevant for SHOW_PUBLIC_LIST
      * @param bool  $count  true if we want to count members, defaults to false
      *
      * @return Select SELECT statement
      */
-    private function buildSelect($fields, $photos, $count = false)
+    private function buildSelect($mode, $fields, $count = false)
     {
         global $zdb, $login;
 
@@ -422,10 +424,10 @@ class Objects
             }
 
             if ($this->filters->active_filter == self::ACTIVE_OBJECTS) {
-                $select->where('o.is_active = true AND (c.is_active IS NULL OR c.is_active = true)');
+                $select->where('(o.is_active = true AND (c.is_active IS NULL OR c.is_active = true))');
             }
             if ($this->filters->active_filter == self::INACTIVE_OBJECTS) {
-                $select->where('o.is_active = false OR (c.is_active IS NOT NULL AND c.is_active = false)');
+                $select->where('(o.is_active = false OR (c.is_active IS NOT NULL AND c.is_active = false))');
             }
 
             if ($this->filters->category_filter != 'all' && $this->filters->category_filter !== null) {
