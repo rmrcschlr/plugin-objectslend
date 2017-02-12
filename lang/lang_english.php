@@ -1,9 +1,9 @@
 <?php
-// This file was automatically generated on Sat Feb 11 15:45:49 2017 (GMT)
+// This file was automatically generated on Sun Feb 12 09:48:06 2017 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
-// ../templates/default/objects_list.tpl:453 
+// ../templates/default/objects_list.tpl:443 
 $lang['Give object'] = 'Give object';
 
 // ../categories_list.php:109 
@@ -12,10 +12,10 @@ $lang['Category has been saved'] = 'Category has been saved';
 // ../status_edit.php:56 
 $lang['Edit status %status'] = 'Edit status %status';
 
-// ../objects_list_print.php:113 ../templates/default/objects_list.tpl:69 
+// ../objects_list_print.php:113 ../templates/default/objects_list.tpl:59 
 $lang['object'] = 'object';
 
-// ../templates/default/objects_list.tpl:273 
+// ../templates/default/objects_list.tpl:263 
 $lang['Take object away'] = 'Take object away';
 
 // ../templates/default/status_edit.tpl:14 
@@ -24,8 +24,8 @@ $lang['Is object at home or borrowed'] = 'Is object at home or borrowed';
 // ../status_list.php:62 
 $lang['Status has been successfully deleted'] = 'Status has been successfully deleted';
 
-// ../templates/default/preferences.tpl:30 
-$lang['Contribution text:'] = 'Contribution text:';
+// ../lib/GaletteObjectsLend/LendRent.php:154 
+$lang['Rent has not been added'] = 'Rent has not been added';
 
 // ../objects_list.php:148 
 $lang['Object has been returned!'] = 'Object has been returned!';
@@ -39,7 +39,7 @@ $lang['Credit card'] = 'Credit card';
 // ../templates/default/preferences.tpl:31 
 $lang['Comment text to add on generated contribution. Automatically replaced values (put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions'] = 'Comment text to add on generated contribution. Automatically replaced values (put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions';
 
-// ../templates/default/take_more_objects_away.tpl:155 ../templates/default/objects_list.tpl:278 
+// ../templates/default/take_more_objects_away.tpl:155 ../templates/default/objects_list.tpl:268 
 $lang['Give back'] = 'Give back';
 
 // ../status_list.php:68 
@@ -69,7 +69,7 @@ $lang['Object'] = 'Object';
 // ../objects_list_print.php:106 
 $lang['Selected category: %category'] = 'Selected category: %category';
 
-// ../templates/default/objects_list.tpl:307 
+// ../templates/default/objects_list.tpl:297 
 $lang['Print objects list'] = 'Print objects list';
 
 // ../templates/default/preferences.tpl:54 
@@ -81,25 +81,25 @@ $lang['Display images in objects and categories lists'] = 'Display images in obj
 // ../templates/default/take_object.tpl:137 
 $lang['to'] = 'to';
 
-// ../templates/default/objects_list.tpl:311 
+// ../templates/default/objects_list.tpl:301 
 $lang['Print objects cards'] = 'Print objects cards';
 
-// ../templates/default/objects_list.tpl:366 
+// ../templates/default/objects_list.tpl:356 
 $lang['Show legend'] = 'Show legend';
 
-// ../templates/default/objects_list.tpl:360 
+// ../templates/default/objects_list.tpl:350 
 $lang['Invert selection'] = 'Invert selection';
 
-// ../give_more_objects_back.php:80 ../templates/default/objects_list.tpl:570 
+// ../give_more_objects_back.php:80 ../templates/default/objects_list.tpl:560 
 $lang['Give back objects'] = 'Give back objects';
 
 // ../admin_picture.php:52 ../templates/default/menu.tpl:34 
 $lang['Pictures administration'] = 'Pictures administration';
 
-// ../templates/default/objects_list.tpl:182 
+// ../templates/default/objects_list.tpl:172 
 $lang['By'] = 'By';
 
-// ../templates/default/objects_list.tpl:75 ../templates/default/categories_list.tpl:28 
+// ../templates/default/objects_list.tpl:65 ../templates/default/categories_list.tpl:28 
 $lang['Change'] = 'Change';
 
 // ../templates/default/objects_edit.tpl:55 
@@ -108,7 +108,7 @@ $lang['Price per rental day:'] = 'Price per rental day:';
 // ../templates/default/objects_edit.tpl:157 
 $lang['Comment:'] = 'Comment:';
 
-// ../templates/default/objects_list.tpl:382 
+// ../templates/default/objects_list.tpl:372 
 $lang['Please make sure to select at least one object from the list to perform this action.'] = 'Please make sure to select at least one object from the list to perform this action.';
 
 // ../status_list.php:65 
@@ -117,13 +117,10 @@ $lang['Status has been saved'] = 'Status has been saved';
 // ../templates/default/preferences.tpl:6 ../templates/default/preferences.tpl:7 
 $lang['Allow a member (not staff neither admin) to borrow an object. If set to \'No\', only admin and staff members can access the \'Take object\' page'] = 'Allow a member (not staff neither admin) to borrow an object. If set to \'No\', only admin and staff members can access the \'Take object\' page';
 
-// ../templates/default/objects_list.tpl:481 ../templates/default/objects_list.tpl:598 
-$lang['An error occured loading \'Give back\' display :('] = 'An error occured loading \'Give back\' display :(';
+// ../templates/default/preferences.tpl:30 
+$lang['Contribution text:'] = 'Contribution text:';
 
-// ../objects_list.php:151 
-$lang['Object has not been returned! Don\'t forget it!'] = 'Object has not been returned! Don\'t forget it!';
-
-// ../templates/default/objects_list.tpl:360 
+// ../templates/default/objects_list.tpl:350 
 $lang['(Un)Check all'] = '(Un)Check all';
 
 // ../objects_print.php:172 
@@ -138,7 +135,7 @@ $lang['Comments'] = 'Comments';
 // ../templates/default/objects_list.tpl:20 ../templates/default/categories_list.tpl:15 
 $lang['Clear filter'] = 'Clear filter';
 
-// ../templates/default/objects_list.tpl:278 
+// ../templates/default/objects_list.tpl:268 
 $lang['Give object back'] = 'Give object back';
 
 // ../objects_edit.php:85 
@@ -147,13 +144,16 @@ $lang['Create an object'] = 'Create an object';
 // ../objects_edit.php:163 
 $lang['An SQL error has occured.'] = 'An SQL error has occured.';
 
+// ../templates/default/objects_list.tpl:44 
+$lang['Category is active'] = 'Category is active';
+
 // ../templates/default/categories_list.tpl:22 
 $lang['categories'] = 'categories';
 
 // ../templates/default/objects_list.tpl:5 ../templates/default/categories_list.tpl:4 
 $lang['Enter a value'] = 'Enter a value';
 
-// ../templates/default/objects_list.tpl:314 
+// ../templates/default/objects_list.tpl:304 
 $lang['Take out'] = 'Take out';
 
 // ../templates/default/preferences.tpl:93 
@@ -171,11 +171,11 @@ $lang['An error occured while storing the category.'] = 'An error occured while 
 // ../templates/default/preferences.tpl:39 
 $lang['Max thumb height (in px)'] = 'Max thumb height (in px)';
 
-// ../objects_list_print.php:138 ../templates/default/take_more_objects_away.tpl:28 ../templates/default/objects_list.tpl:136 
+// ../objects_list_print.php:138 ../templates/default/take_more_objects_away.tpl:28 ../templates/default/objects_list.tpl:126 
 $lang['Borrow price'] = 'Borrow price';
 
-// ../templates/default/categories_list.tpl:91 
-$lang['Remove %category from database'] = 'Remove %category from database';
+// ../templates/default/objects_list.tpl:321 ../templates/default/categories_list.tpl:61 
+$lang['Pages:'] = 'Pages:';
 
 // ../templates/default/take_more_objects_away.tpl:122 ../templates/default/take_object.tpl:113 
 $lang['Check'] = 'Check';
@@ -195,7 +195,7 @@ $lang['Preferences'] = 'Preferences';
 // ../templates/default/take_object.tpl:136 
 $lang['Time:'] = 'Time:';
 
-// ../templates/default/objects_list.tpl:284 ../templates/default/categories_list.tpl:89 ../templates/default/status_list.tpl:80 
+// ../templates/default/objects_list.tpl:274 ../templates/default/categories_list.tpl:89 ../templates/default/status_list.tpl:80 
 $lang['[mod]'] = '[mod]';
 
 // ../templates/default/objects_edit.tpl:133 ../templates/default/objects_edit.tpl:191 ../templates/default/status_list.tpl:60 
@@ -231,7 +231,7 @@ $lang['[del]'] = '[del]';
 // ../objects_list_print.php:215 
 $lang['Available'] = 'Available';
 
-// ../templates/default/take_more_objects_away.tpl:10 ../templates/default/objects_list.tpl:90 
+// ../templates/default/take_more_objects_away.tpl:10 ../templates/default/objects_list.tpl:80 
 $lang['Picture'] = 'Picture';
 
 // ../objects_edit.php:147 
@@ -240,7 +240,7 @@ $lang['- Filename or extension is incorrect. Only %s files are allowed. File nam
 // ../objects_list.php:78 
 $lang['No object was selected, please check at least one name.'] = 'No object was selected, please check at least one name.';
 
-// ../templates/default/take_more_objects_away.tpl:52 ../templates/default/objects_list.tpl:213 ../templates/default/objects_edit.tpl:93 ../templates/default/objects_edit.tpl:100 ../templates/default/take_object.tpl:13 
+// ../templates/default/take_more_objects_away.tpl:52 ../templates/default/objects_list.tpl:203 ../templates/default/objects_edit.tpl:93 ../templates/default/objects_edit.tpl:100 ../templates/default/take_object.tpl:13 
 $lang['Object\'s photo'] = 'Object\'s photo';
 
 // ../objects_edit.php:82 
@@ -255,10 +255,10 @@ $lang['Weight (kg):'] = 'Weight (kg):';
 // ../objects_list_print.php:88 ../objects_list_print.php:98 ../templates/default/menu.tpl:11 
 $lang['Objects list'] = 'Objects list';
 
-// ../templates/default/objects_list.tpl:503 
+// ../templates/default/objects_list.tpl:493 
 $lang['Are you sure you want to disable %count objects?'] = 'Are you sure you want to disable %count objects?';
 
-// ../templates/default/objects_list.tpl:524 
+// ../templates/default/objects_list.tpl:514 
 $lang['Take objects'] = 'Take objects';
 
 // ../templates/default/objects_edit.tpl:14 ../templates/default/take_object.tpl:21 
@@ -282,14 +282,11 @@ $lang['Back to list'] = 'Back to list';
 // ../lib/GaletteObjectsLend/Picture.php:311 
 $lang['Picture \'%path\' written'] = 'Picture \'%path\' written';
 
-// ../templates/default/objects_list.tpl:410 
+// ../templates/default/objects_list.tpl:400 
 $lang['Take object'] = 'Take object';
 
 // ../templates/default/menu.tpl:3 
 $lang['Borrow'] = 'Borrow';
-
-// ../templates/default/objects_list.tpl:54 
-$lang['All objects'] = 'All objects';
 
 // ../templates/default/take_more_objects_away.tpl:105 ../templates/default/take_more_objects_away.tpl:134 ../templates/default/status_edit.tpl:8 ../templates/default/objects_edit.tpl:145 ../templates/default/take_object.tpl:85 ../templates/default/take_object.tpl:125 
 $lang['Status:'] = 'Status:';
@@ -297,8 +294,8 @@ $lang['Status:'] = 'Status:';
 // ../templates/default/take_more_objects_away.tpl:156 ../templates/default/status_edit.tpl:40 ../templates/default/category_edit.tpl:41 ../templates/default/take_object.tpl:158 
 $lang['Cancel'] = 'Cancel';
 
-// ../templates/default/status_list.tpl:82 
-$lang['Do you really want to delete this status from the base?'] = 'Do you really want to delete this status from the base?';
+// ../objects_list_print.php:111 ../templates/default/objects_list.tpl:59 
+$lang['objects'] = 'objects';
 
 // ../templates/default/preferences.tpl:77 
 $lang['View dimensions:'] = 'View dimensions:';
@@ -306,19 +303,19 @@ $lang['View dimensions:'] = 'View dimensions:';
 // ../templates/default/preferences.tpl:30 
 $lang['Comment text to add on generated contribution'] = 'Comment text to add on generated contribution';
 
-// ../templates/default/objects_list.tpl:297 
+// ../templates/default/objects_list.tpl:287 
 $lang['No object has been found'] = 'No object has been found';
 
-// ../templates/default/objects_list.tpl:323 
+// ../templates/default/objects_list.tpl:313 
 $lang['Delete'] = 'Delete';
 
-// ../objects_list.php:208 
+// ../objects_list.php:176 
 $lang['Objects managment'] = 'Objects managment';
 
 // ../templates/default/preferences.tpl:82 
 $lang['View borrow price:'] = 'View borrow price:';
 
-// ../templates/default/take_more_objects_away.tpl:155 ../templates/default/objects_list.tpl:273 ../templates/default/take_object.tpl:157 
+// ../templates/default/take_more_objects_away.tpl:155 ../templates/default/objects_list.tpl:263 ../templates/default/take_object.tpl:157 
 $lang['Take away'] = 'Take away';
 
 // ../templates/default/take_more_objects_away.tpl:4 
@@ -330,7 +327,7 @@ $lang['New status'] = 'New status';
 // ../objects_list.php:157 
 $lang['You can\'t return an object that you don\'t borrow!'] = 'You can\'t return an object that you don\'t borrow!';
 
-// ../templates/default/objects_list.tpl:284 
+// ../templates/default/objects_list.tpl:274 
 $lang['Edit the object'] = 'Edit the object';
 
 // ../templates/default/menu.tpl:16 
@@ -339,7 +336,7 @@ $lang['Create a new object'] = 'Create a new object';
 // ../templates/default/preferences.tpl:13 
 $lang['Generate contribution:'] = 'Generate contribution:';
 
-// ../templates/default/objects_list.tpl:71 ../templates/default/categories_list.tpl:24 
+// ../templates/default/objects_list.tpl:61 ../templates/default/categories_list.tpl:24 
 $lang['Records per page:'] = 'Records per page:';
 
 // ../templates/default/status_edit.tpl:23 ../templates/default/objects_list.tpl:11 ../templates/default/objects_edit.tpl:75 ../templates/default/categories_list.tpl:6 
@@ -350,9 +347,6 @@ $lang['Plugin preferences'] = 'Plugin preferences';
 
 // ../templates/default/objects_edit.tpl:23 
 $lang['--- Select a category ---'] = '--- Select a category ---';
-
-// ../objects_list_print.php:111 ../templates/default/objects_list.tpl:69 
-$lang['objects'] = 'objects';
 
 // ../templates/default/menu.tpl:28 
 $lang['Create a new category'] = 'Create a new category';
@@ -372,13 +366,13 @@ $lang['Category'] = 'Category';
 // ../category_edit.php:68 
 $lang['Edit category'] = 'Edit category';
 
-// ../templates/default/objects_list.tpl:290 
+// ../templates/default/objects_list.tpl:280 
 $lang['Object card in PDF'] = 'Object card in PDF';
 
 // ../templates/default/objects_list.tpl:13 ../templates/default/categories_list.tpl:8 
 $lang['Don\'t care'] = 'Don\'t care';
 
-// ../objects_print.php:179 ../objects_list_print.php:139 ../lib/GaletteObjectsLend/Filters/ObjectsList.php:272 ../templates/default/take_more_objects_away.tpl:33 ../templates/default/objects_list.tpl:149 
+// ../objects_print.php:179 ../objects_list_print.php:139 ../lib/GaletteObjectsLend/Filters/ObjectsList.php:272 ../templates/default/take_more_objects_away.tpl:33 ../templates/default/objects_list.tpl:139 
 $lang['Dimensions'] = 'Dimensions';
 
 // ../templates/default/categories_list.tpl:22 
@@ -387,7 +381,7 @@ $lang['category'] = 'category';
 // ../templates/default/objects_list.tpl:17 ../templates/default/categories_list.tpl:12 ../templates/default/preferences.tpl:9 ../templates/default/preferences.tpl:16 ../templates/default/preferences.tpl:50 ../templates/default/preferences.tpl:56 ../templates/default/preferences.tpl:64 ../templates/default/preferences.tpl:69 ../templates/default/preferences.tpl:74 ../templates/default/preferences.tpl:79 ../templates/default/preferences.tpl:84 ../templates/default/preferences.tpl:90 ../templates/default/preferences.tpl:95 ../templates/default/preferences.tpl:100 ../templates/default/preferences.tpl:105 
 $lang['No'] = 'No';
 
-// ../objects_list_print.php:136 ../templates/default/take_more_objects_away.tpl:18 ../templates/default/objects_list.tpl:108 
+// ../objects_list_print.php:136 ../templates/default/take_more_objects_away.tpl:18 ../templates/default/objects_list.tpl:98 
 $lang['Serial'] = 'Serial';
 
 // ../templates/default/preferences.tpl:67 
@@ -408,8 +402,8 @@ $lang['From'] = 'From';
 // ../templates/default/objects_edit.tpl:110 
 $lang['Duplicate'] = 'Duplicate';
 
-// ../templates/default/objects_list.tpl:331 ../templates/default/categories_list.tpl:61 
-$lang['Pages:'] = 'Pages:';
+// ../templates/default/categories_list.tpl:91 
+$lang['Remove %category from database'] = 'Remove %category from database';
 
 // ../objects_list.php:145 
 $lang['Object has been took'] = 'Object has been took';
@@ -423,17 +417,20 @@ $lang['Edit an object'] = 'Edit an object';
 // ../templates/default/menu.tpl:25 
 $lang['Object categories'] = 'Object categories';
 
-// ../templates/default/objects_list.tpl:234 
+// ../templates/default/objects_list.tpl:224 
 $lang['(per day)'] = '(per day)';
 
-// ../objects_print.php:211 ../objects_list_print.php:141 ../templates/default/status_edit.tpl:5 ../templates/default/objects_list.tpl:168 ../templates/default/objects_edit.tpl:132 ../templates/default/status_list.tpl:21 
+// ../objects_print.php:211 ../objects_list_print.php:141 ../templates/default/status_edit.tpl:5 ../templates/default/objects_list.tpl:158 ../templates/default/objects_edit.tpl:132 ../templates/default/status_list.tpl:21 
 $lang['Status'] = 'Status';
+
+// ../templates/default/preferences.tpl:6 
+$lang['Members can borrow:'] = 'Members can borrow:';
 
 // ../templates/default/preferences.tpl:87 
 $lang['View price sum:'] = 'View price sum:';
 
-// ../templates/default/preferences.tpl:62 
-$lang['View category:'] = 'View category:';
+// ../templates/default/status_list.tpl:82 
+$lang['Do you really want to delete this status from the base?'] = 'Do you really want to delete this status from the base?';
 
 // ../objects_edit.php:154 
 $lang['File is too big. Maximum allowed size is %d'] = 'File is too big. Maximum allowed size is %d';
@@ -444,16 +441,13 @@ $lang['Category:'] = 'Category:';
 // ../templates/default/take_more_objects_away.tpl:119 ../templates/default/take_object.tpl:110 
 $lang['--- Select a payment type ---'] = '--- Select a payment type ---';
 
-// ../lib/GaletteObjectsLend/LendObject.php:246 
-$lang['OBJECT.AJOUT ECHEC'] = 'OBJECT.AJOUT ECHEC';
-
 // ../templates/default/objects_edit.tpl:101 ../templates/default/category_edit.tpl:31 
 $lang['Delete image'] = 'Delete image';
 
-// ../templates/default/objects_list.tpl:382 
+// ../templates/default/objects_list.tpl:372 
 $lang['No object selected'] = 'No object selected';
 
-// ../objects_print.php:184 ../templates/default/objects_list.tpl:191 ../templates/default/objects_list.tpl:266 ../templates/default/categories_list.tpl:51 ../templates/default/categories_list.tpl:84 ../templates/default/status_list.tpl:31 ../templates/default/status_list.tpl:68 
+// ../objects_print.php:184 ../templates/default/objects_list.tpl:44 ../templates/default/objects_list.tpl:181 ../templates/default/objects_list.tpl:256 ../templates/default/categories_list.tpl:51 ../templates/default/categories_list.tpl:84 ../templates/default/status_list.tpl:31 ../templates/default/status_list.tpl:68 
 $lang['Active'] = 'Active';
 
 // ../templates/default/categories_list.tpl:89 
@@ -465,13 +459,13 @@ $lang['The items offered for rent are in good condition and verification rental 
 // ../objects_print.php:120 
 $lang['Object card'] = 'Object card';
 
-// ../templates/default/preferences.tpl:6 
-$lang['Members can borrow:'] = 'Members can borrow:';
+// ../templates/default/objects_list.tpl:471 ../templates/default/objects_list.tpl:588 
+$lang['An error occured loading \'Give back\' display :('] = 'An error occured loading \'Give back\' display :(';
 
 // ../templates/default/category_edit.tpl:24 
 $lang['Picture:'] = 'Picture:';
 
-// ../objects_print.php:186 ../objects_list_print.php:142 ../templates/default/objects_list.tpl:179 
+// ../objects_print.php:186 ../objects_list_print.php:142 ../templates/default/objects_list.tpl:169 
 $lang['Since'] = 'Since';
 
 // ../templates/default/objects_list.tpl:4 ../templates/default/categories_list.tpl:3 
@@ -486,17 +480,14 @@ $lang['Filter'] = 'Filter';
 // ../templates/default/objects_edit.tpl:48 ../templates/default/take_object.tpl:44 
 $lang['Borrow price (%currency):'] = 'Borrow price (%currency):';
 
-// ../objects_print.php:189 ../objects_list_print.php:144 ../templates/default/objects_list.tpl:186 ../templates/default/objects_list.tpl:317 
-$lang['Return'] = 'Return';
-
 // ../objects_print.php:212 
 $lang['On site'] = 'On site';
 
 // ../objects_list_print.php:102 
 $lang['Printed on %date'] = 'Printed on %date';
 
-// ../lib/GaletteObjectsLend/LendRent.php:154 
-$lang['RENT.AJOUT ECHEC'] = 'RENT.AJOUT ECHEC';
+// ../templates/default/preferences.tpl:62 
+$lang['View category:'] = 'View category:';
 
 // ../categories_list.php:112 
 $lang['Category edition has been canceled'] = 'Category edition has been canceled';
@@ -510,11 +501,14 @@ $lang['Sum:'] = 'Sum:';
 // ../templates/default/objects_edit.tpl:131 
 $lang['End date'] = 'End date';
 
-// ../objects_print.php:182 ../objects_list_print.php:140 ../templates/default/take_more_objects_away.tpl:38 ../templates/default/objects_list.tpl:155 
+// ../objects_print.php:182 ../objects_list_print.php:140 ../templates/default/take_more_objects_away.tpl:38 ../templates/default/objects_list.tpl:145 
 $lang['Weight'] = 'Weight';
 
 // ../templates/default/preferences.tpl:53 
 $lang['Enable fullsize:'] = 'Enable fullsize:';
+
+// ../lib/GaletteObjectsLend/LendStatus.php:133 
+$lang['Status has not been added :('] = 'Status has not been added :(';
 
 // ../templates/default/preferences.tpl:72 
 $lang['View description'] = 'View description';
@@ -528,7 +522,7 @@ $lang['Edit %status'] = 'Edit %status';
 // ../templates/default/preferences.tpl:20 
 $lang['Contribution type:'] = 'Contribution type:';
 
-// ../objects_edit.php:81 ../templates/default/objects_list.tpl:287 
+// ../objects_edit.php:81 ../templates/default/objects_list.tpl:277 
 $lang['Duplicate object'] = 'Duplicate object';
 
 // ../templates/default/status_edit.tpl:17 
@@ -561,7 +555,7 @@ $lang['View weight'] = 'View weight';
 // ../templates/default/take_more_objects_away.tpl:125 ../templates/default/take_object.tpl:116 
 $lang['Other'] = 'Other';
 
-// ../templates/default/objects_list.tpl:502 
+// ../templates/default/objects_list.tpl:492 
 $lang['Are you sure you want to delete %count objects? This cannot be undone.'] = 'Are you sure you want to delete %count objects? This cannot be undone.';
 
 // ../preferences.php:71 
@@ -591,7 +585,7 @@ $lang['Begin'] = 'Begin';
 // ../templates/default/objects_edit.tpl:141 ../templates/default/objects_edit.tpl:178 
 $lang['Change status'] = 'Change status';
 
-// ../templates/default/objects_list.tpl:266 
+// ../templates/default/objects_list.tpl:256 
 $lang['Object is active'] = 'Object is active';
 
 // ../objects_print.php:157 ../objects_list_print.php:135 
@@ -603,19 +597,22 @@ $lang['Price:'] = 'Price:';
 // ../templates/default/objects_edit.tpl:36 ../templates/default/take_object.tpl:29 
 $lang['Serial number:'] = 'Serial number:';
 
-// ../objects_print.php:167 ../objects_list_print.php:137 ../templates/default/take_more_objects_away.tpl:23 ../templates/default/objects_list.tpl:122 
+// ../objects_print.php:167 ../objects_list_print.php:137 ../templates/default/take_more_objects_away.tpl:23 ../templates/default/objects_list.tpl:112 
 $lang['Price'] = 'Price';
 
 // ../templates/default/take_more_objects_away.tpl:124 ../templates/default/take_object.tpl:115 
 $lang['Paypal'] = 'Paypal';
 
+// ../objects_list.php:151 
+$lang['Object has not been returned! Don\'t forget it!'] = 'Object has not been returned! Don\'t forget it!';
+
 // ../templates/default/take_more_objects_away.tpl:107 ../templates/default/take_more_objects_away.tpl:136 ../templates/default/take_object.tpl:87 ../templates/default/take_object.tpl:127 
 $lang['--- Select a status ---'] = '--- Select a status ---';
 
-// ../take_object.php:117 ../take_object.php:118 ../objects_list_print.php:102 ../take_more_objects_away.php:98 ../take_more_objects_away.php:99 ../templates/default/objects_list.tpl:252 ../templates/default/objects_list.tpl:261 
+// ../take_object.php:117 ../take_object.php:118 ../objects_list_print.php:102 ../take_more_objects_away.php:98 ../take_more_objects_away.php:99 ../templates/default/objects_list.tpl:242 ../templates/default/objects_list.tpl:251 
 $lang['Y-m-d'] = 'Y-m-d';
 
-// ../templates/default/objects_list.tpl:320 
+// ../templates/default/objects_list.tpl:310 
 $lang['Disable'] = 'Disable';
 
 // ../templates/default/objects_edit.tpl:63 ../templates/default/take_object.tpl:56 
@@ -630,7 +627,7 @@ $lang['Category has been successfully deleted'] = 'Category has been successfull
 // ../templates/default/preferences.tpl:98 
 $lang['View serial number:'] = 'View serial number:';
 
-// ../templates/default/objects_list.tpl:305 
+// ../templates/default/objects_list.tpl:295 
 $lang['For the selection:'] = 'For the selection:';
 
 // ../templates/default/objects_edit.tpl:8 ../templates/default/take_object.tpl:14 
@@ -651,7 +648,7 @@ $lang['Borrowed'] = 'Borrowed';
 // ../status_list.php:78 
 $lang['You should add at last 1 status \'object borrowed\' to ensure the plugin works well!'] = 'You should add at last 1 status \'object borrowed\' to ensure the plugin works well!';
 
-// ../objects_print.php:155 ../objects_list_print.php:134 ../lib/GaletteObjectsLend/Filters/ObjectsList.php:266 ../templates/default/take_more_objects_away.tpl:14 ../templates/default/objects_list.tpl:95 ../templates/default/categories_list.tpl:40 ../templates/default/category_edit.tpl:8 
+// ../objects_print.php:155 ../objects_list_print.php:134 ../lib/GaletteObjectsLend/Filters/ObjectsList.php:266 ../templates/default/take_more_objects_away.tpl:14 ../templates/default/objects_list.tpl:85 ../templates/default/categories_list.tpl:40 ../templates/default/category_edit.tpl:8 
 $lang['Name'] = 'Name';
 
 // ../templates/default/objects_list.tpl:6 
@@ -672,7 +669,7 @@ $lang['Create a new status'] = 'Create a new status';
 // ../category_edit.php:71 
 $lang['New category'] = 'New category';
 
-// ../templates/default/objects_list.tpl:438 ../templates/default/objects_list.tpl:552 
+// ../templates/default/objects_list.tpl:428 ../templates/default/objects_list.tpl:542 
 $lang['An error occured loading \'Take away\' display :('] = 'An error occured loading \'Take away\' display :(';
 
 // ../take_more_objects_away.php:149 
@@ -687,14 +684,17 @@ $lang['remaining characters'] = 'remaining characters';
 // ../templates/default/headers.tpl:14 
 $lang['Click to view fullsize image'] = 'Click to view fullsize image';
 
-// ../templates/default/objects_list.tpl:195 ../templates/default/categories_list.tpl:54 ../templates/default/status_list.tpl:49 
+// ../templates/default/objects_list.tpl:185 ../templates/default/categories_list.tpl:54 ../templates/default/status_list.tpl:49 
 $lang['Actions'] = 'Actions';
 
-// ../lib/GaletteObjectsLend/LendStatus.php:133 
-$lang['STATUS.AJOUT ECHEC'] = 'STATUS.AJOUT ECHEC';
+// ../objects_print.php:189 ../objects_list_print.php:144 ../templates/default/objects_list.tpl:176 ../templates/default/objects_list.tpl:307 
+$lang['Return'] = 'Return';
 
 // ../templates/default/preferences.tpl:53 
 $lang['Show fullsize image or just thumbs'] = 'Show fullsize image or just thumbs';
+
+// ../lib/GaletteObjectsLend/LendObject.php:243 
+$lang['Object has not been added :('] = 'Object has not been added :(';
 
 // ../templates/default/status_list.tpl:82 
 $lang['Remove %status from database'] = 'Remove %status from database';
