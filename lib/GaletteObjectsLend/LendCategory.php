@@ -63,16 +63,35 @@ class LendCategory
     private $categ_image_url = '';
     private $picture;
 
+    private $deps = [
+        'picture'   => true
+    ];
+
     /**
-     * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
+     * Default constructor
      *
-     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
+     * @param int|object $args Maybe null, an RS object or an id from database
+     * @param array      $deps Dependencies configuration, see LendOb::$deps
      */
-    public function __construct($args = null)
+    public function __construct($args = null, $deps = null)
     {
         global $zdb, $plugins;
 
-        $this->picture = new CategoryPicture($plugins);
+        if ($deps !== null && is_array($deps)) {
+            $this->deps = array_merge(
+                $this->deps,
+                $deps
+            );
+        } elseif ($deps !== null) {
+            Analog::log(
+                '$deps shoud be an array, ' . gettype($deps) . ' given!',
+                Analog::WARNING
+            );
+        }
+
+        if ($this->deps['picture'] === true) {
+            $this->picture = new CategoryPicture($plugins);
+        }
 
         if (is_int($args)) {
             try {
@@ -109,7 +128,18 @@ class LendCategory
         $this->name = $r->name;
         $this->is_active = $r->is_active == '1' ? true : false;
 
-        $this->picture = new CategoryPicture($plugins, (int)$this->category_id);
+        if (property_exists($r, 'objects_count')) {
+            $this->objects_nb = $r->objects_count;
+        }
+
+        if (property_exists($r, 'objects_price_sum')) {
+            $this->objects_price_sum = $r->objects_price_sum;
+        }
+
+
+        if ($this->deps['picture'] === true) {
+            $this->picture = new CategoryPicture($plugins, (int)$this->category_id);
+        }
     }
 
     /**
