@@ -190,7 +190,6 @@ class Objects
             }
 
             $rows = $this->zdb->execute($select);
-            var_dump($this->zdb->query_string);
 
             $categories = array();
             if ($as_objects) {
