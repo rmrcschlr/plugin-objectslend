@@ -278,6 +278,7 @@ class LendCategory
         global $zdb;
 
         try {
+            $zdb->connection->beginTransaction();
             $select = $zdb->select(LEND_PREFIX . LendObject::TABLE)
                     ->where(array('category_id' => $id));
             $results = $zdb->execute($select);
@@ -292,7 +293,9 @@ class LendCategory
             $delete = $zdb->delete(PREFIX_DB . LEND_PREFIX . self::TABLE)
                     ->where(array(self::PK => $id));
             $zdb->execute($delete);
+            $zdb->connection->commit();
         } catch (\Exception $e) {
+            $zdb->connection->rollBack();
             Analog::log(
                 'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
                 $e->getTraceAsString(),
