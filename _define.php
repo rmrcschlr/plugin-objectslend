@@ -42,7 +42,7 @@ $this->register(
     'Galette Objects Lend',             //Name
     'Manage rent/lend of object',       //Short description
     'Mélissa Djebel, Johan Cwiklinski', //Author
-    '0.5-dev',                          //Version
+    '0.5-alpha',                        //Version
     '0.8.0',                            //Galette version compatibility
     '2017-01-21',                       //Date
     null //Permissions needed - not yet implemented
