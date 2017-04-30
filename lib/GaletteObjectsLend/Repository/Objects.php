@@ -194,7 +194,7 @@ class Objects
             $categories = array();
             if ($as_objects) {
                 foreach ($rows as $row) {
-                    $categories[] = new LendCategory($row, false);
+                    $categories[] = new LendCategory($row);
                 }
             } else {
                 $categories = $rows;

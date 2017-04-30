@@ -84,7 +84,7 @@ class LendCategory
             );
         } elseif ($deps !== null) {
             Analog::log(
-                '$deps shoud be an array, ' . gettype($deps) . ' given!',
+                '$deps should be an array, ' . gettype($deps) . ' given!',
                 Analog::WARNING
             );
         }
