@@ -59,6 +59,8 @@ if (isset($session['filters']['objectslend_objects'])) {
     $filters = new ObjectsList();
 }
 
+$ajax = (isset($_GET['mode']) && $_GET['mode'] === 'ajax');
+
 if (isset($_POST['print_list'])
     || isset($_POST['print_objects'])
 ) {

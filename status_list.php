@@ -82,8 +82,6 @@ $tpl->assign('statuses', $statuses);
 $tpl->assign('nb_status', count($statuses));
 $tpl->assign('tri', $tri);
 $tpl->assign('direction', $direction);
-$tpl->assign('msg_galette_location_needed', $msg_galette_location_needed);
-$tpl->assign('msg_away_needed', $msg_away_needed);
 $tpl->assign('success_detected', $success_detected);
 $tpl->assign('warning_detected', $warning_detected);
 $tpl->assign('error_detected', $error_detected);
