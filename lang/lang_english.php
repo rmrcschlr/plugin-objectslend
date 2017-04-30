@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sun Feb 12 09:48:06 2017 (GMT)
+// This file was automatically generated on Sun Apr 30 08:57:29 2017 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -27,7 +27,7 @@ $lang['Status has been successfully deleted'] = 'Status has been successfully de
 // ../lib/GaletteObjectsLend/LendRent.php:154 
 $lang['Rent has not been added'] = 'Rent has not been added';
 
-// ../objects_list.php:148 
+// ../objects_list.php:150 
 $lang['Object has been returned!'] = 'Object has been returned!';
 
 // ../templates/default/status_edit.tpl:29 ../templates/default/status_edit.tpl:32 
@@ -171,8 +171,8 @@ $lang['An error occured while storing the category.'] = 'An error occured while 
 // ../templates/default/preferences.tpl:39 
 $lang['Max thumb height (in px)'] = 'Max thumb height (in px)';
 
-// ../objects_list_print.php:138 ../templates/default/take_more_objects_away.tpl:28 ../templates/default/objects_list.tpl:126 
-$lang['Borrow price'] = 'Borrow price';
+// ../templates/default/objects_list.tpl:38 
+$lang['No category'] = 'No category';
 
 // ../templates/default/objects_list.tpl:321 ../templates/default/categories_list.tpl:61 
 $lang['Pages:'] = 'Pages:';
@@ -200,6 +200,9 @@ $lang['[mod]'] = '[mod]';
 
 // ../templates/default/objects_edit.tpl:133 ../templates/default/objects_edit.tpl:191 ../templates/default/status_list.tpl:60 
 $lang['At home'] = 'At home';
+
+// ../objects_edit.php:119 
+$lang['Something went wrong saving object :('] = 'Something went wrong saving object :(';
 
 // ../templates/default/category_edit.tpl:14 
 $lang['Is active'] = 'Is active';
@@ -237,7 +240,7 @@ $lang['Picture'] = 'Picture';
 // ../objects_edit.php:147 
 $lang['- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t'] = '- Filename or extension is incorrect. Only %s files are allowed. File name should not contains any of: %t';
 
-// ../objects_list.php:78 
+// ../objects_list.php:80 
 $lang['No object was selected, please check at least one name.'] = 'No object was selected, please check at least one name.';
 
 // ../templates/default/take_more_objects_away.tpl:52 ../templates/default/objects_list.tpl:203 ../templates/default/objects_edit.tpl:93 ../templates/default/objects_edit.tpl:100 ../templates/default/take_object.tpl:13 
@@ -288,6 +291,9 @@ $lang['Take object'] = 'Take object';
 // ../templates/default/menu.tpl:3 
 $lang['Borrow'] = 'Borrow';
 
+// ../objects_edit.php:117 
+$lang['Object has been successfully stored!'] = 'Object has been successfully stored!';
+
 // ../templates/default/take_more_objects_away.tpl:105 ../templates/default/take_more_objects_away.tpl:134 ../templates/default/status_edit.tpl:8 ../templates/default/objects_edit.tpl:145 ../templates/default/take_object.tpl:85 ../templates/default/take_object.tpl:125 
 $lang['Status:'] = 'Status:';
 
@@ -309,7 +315,7 @@ $lang['No object has been found'] = 'No object has been found';
 // ../templates/default/objects_list.tpl:313 
 $lang['Delete'] = 'Delete';
 
-// ../objects_list.php:176 
+// ../objects_list.php:178 
 $lang['Objects managment'] = 'Objects managment';
 
 // ../templates/default/preferences.tpl:82 
@@ -324,7 +330,7 @@ $lang['Objects'] = 'Objects';
 // ../status_edit.php:60 
 $lang['New status'] = 'New status';
 
-// ../objects_list.php:157 
+// ../objects_list.php:159 
 $lang['You can\'t return an object that you don\'t borrow!'] = 'You can\'t return an object that you don\'t borrow!';
 
 // ../templates/default/objects_list.tpl:274 
@@ -342,8 +348,8 @@ $lang['Records per page:'] = 'Records per page:';
 // ../templates/default/status_edit.tpl:23 ../templates/default/objects_list.tpl:11 ../templates/default/objects_edit.tpl:75 ../templates/default/categories_list.tpl:6 
 $lang['Active:'] = 'Active:';
 
-// ../templates/default/preferences.tpl:4 
-$lang['Plugin preferences'] = 'Plugin preferences';
+// ../templates/default/objects_list.tpl:4 ../templates/default/categories_list.tpl:3 
+$lang['Search:'] = 'Search:';
 
 // ../templates/default/objects_edit.tpl:23 
 $lang['--- Select a category ---'] = '--- Select a category ---';
@@ -405,7 +411,7 @@ $lang['Duplicate'] = 'Duplicate';
 // ../templates/default/categories_list.tpl:91 
 $lang['Remove %category from database'] = 'Remove %category from database';
 
-// ../objects_list.php:145 
+// ../objects_list.php:147 
 $lang['Object has been took'] = 'Object has been took';
 
 // ../templates/default/admin_picture.tpl:6 
@@ -468,9 +474,6 @@ $lang['Picture:'] = 'Picture:';
 // ../objects_print.php:186 ../objects_list_print.php:142 ../templates/default/objects_list.tpl:169 
 $lang['Since'] = 'Since';
 
-// ../templates/default/objects_list.tpl:4 ../templates/default/categories_list.tpl:3 
-$lang['Search:'] = 'Search:';
-
 // ../lib/GaletteObjectsLend/Picture.php:303 
 $lang['Picture \'%path\' deleted'] = 'Picture \'%path\' deleted';
 
@@ -528,11 +531,17 @@ $lang['Duplicate object'] = 'Duplicate object';
 // ../templates/default/status_edit.tpl:17 
 $lang['Check if the object is available to be borrowed;<br/>uncheck if object is already borrowed and should be given back'] = 'Check if the object is available to be borrowed;<br/>uncheck if object is already borrowed and should be given back';
 
+// ../objects_list_print.php:138 ../templates/default/take_more_objects_away.tpl:28 ../templates/default/objects_list.tpl:126 
+$lang['Borrow price'] = 'Borrow price';
+
 // ../preferences.php:67 
 $lang['Preferences have been successfully stored!'] = 'Preferences have been successfully stored!';
 
 // ../take_object.php:56 
 $lang['Borrow an object'] = 'Borrow an object';
+
+// ../templates/default/objects_edit.tpl:42 ../templates/default/take_object.tpl:37 
+$lang['Price:'] = 'Price:';
 
 // ../templates/default/preferences.tpl:37 
 $lang['Images related'] = 'Images related';
@@ -543,7 +552,7 @@ $lang['You should add at last 1 status \'on site\' to ensure the plugin works we
 // ../templates/default/take_more_objects_away.tpl:123 ../templates/default/take_object.tpl:114 
 $lang['Transfer'] = 'Transfer';
 
-// ../objects_list.php:154 
+// ../objects_list.php:156 
 $lang['Action has been canceled!'] = 'Action has been canceled!';
 
 // ../templates/default/objects_edit.tpl:95 
@@ -591,8 +600,8 @@ $lang['Object is active'] = 'Object is active';
 // ../objects_print.php:157 ../objects_list_print.php:135 
 $lang['Description'] = 'Description';
 
-// ../templates/default/objects_edit.tpl:42 ../templates/default/take_object.tpl:37 
-$lang['Price:'] = 'Price:';
+// ../templates/default/preferences.tpl:4 
+$lang['Plugin preferences'] = 'Plugin preferences';
 
 // ../templates/default/objects_edit.tpl:36 ../templates/default/take_object.tpl:29 
 $lang['Serial number:'] = 'Serial number:';
@@ -603,7 +612,7 @@ $lang['Price'] = 'Price';
 // ../templates/default/take_more_objects_away.tpl:124 ../templates/default/take_object.tpl:115 
 $lang['Paypal'] = 'Paypal';
 
-// ../objects_list.php:151 
+// ../objects_list.php:153 
 $lang['Object has not been returned! Don\'t forget it!'] = 'Object has not been returned! Don\'t forget it!';
 
 // ../templates/default/take_more_objects_away.tpl:107 ../templates/default/take_more_objects_away.tpl:136 ../templates/default/take_object.tpl:87 ../templates/default/take_object.tpl:127 
@@ -654,6 +663,9 @@ $lang['Name'] = 'Name';
 // ../templates/default/objects_list.tpl:6 
 $lang['in:'] = 'in:';
 
+// ../lib/GaletteObjectsLend/Picture.php:320 
+$lang['An error occured :('] = 'An error occured :(';
+
 // ../templates/default/preferences.tpl:13 ../templates/default/preferences.tpl:14 
 $lang['Automatically generate a contribution for the member of the amount of the rental price of the object'] = 'Automatically generate a contribution for the member of the amount of the rental price of the object';
 
@@ -675,7 +687,7 @@ $lang['An error occured loading \'Take away\' display :('] = 'An error occured l
 // ../take_more_objects_away.php:149 
 $lang['Take out several objects at once'] = 'Take out several objects at once';
 
-// ../objects_list.php:142 
+// ../objects_list.php:144 
 $lang['The object is not available!'] = 'The object is not available!';
 
 // ../templates/default/take_more_objects_away.tpl:148 ../templates/default/take_object.tpl:145 
@@ -702,7 +714,7 @@ $lang['Remove %status from database'] = 'Remove %status from database';
 // ../lib/GaletteObjectsLend/Filters/ObjectsList.php:268 
 $lang['Id'] = 'Id';
 
-// ../objects_list.php:160 ../objects_list.php:163 
+// ../objects_list.php:162 ../objects_list.php:165 
 $lang['Objects have been disabled!'] = 'Objects have been disabled!';
 
 ?>

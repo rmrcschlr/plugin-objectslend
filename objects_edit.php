@@ -114,9 +114,9 @@ if (filter_has_var(INPUT_POST, 'save')) {
     $object->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
 
     if ($object->store()) {
-        $success_detected[] = _('Object has been successfully stored!');
+        $success_detected[] = _T("Object has been successfully stored!");
     } else {
-        $error_detected[] = _('Something went wrong saveg object :(');
+        $error_detected[] = _T("Something went wrong saving object :(");
     }
 
     // Enregistrement du 1er statut lors de la création

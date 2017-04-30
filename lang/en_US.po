@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-02-12 10:48+0100\n"
+"PO-Revision-Date: 2017-04-30 10:57+0200\n"
 "Last-Translator: Johan Cwiklinski <johan@x-tnd.be>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: ../templates/default/preferences.tpl:87
 msgid "View price sum:"
@@ -33,6 +33,10 @@ msgstr "Credit card"
 #: ../templates/default/categories_list.tpl:15
 msgid "Clear filter"
 msgstr "Clear filter"
+
+#: ../templates/default/objects_list.tpl:38
+msgid "No category"
+msgstr "No category"
 
 #: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:266
 msgid "Name/description"
@@ -109,7 +113,7 @@ msgstr "Time:"
 msgid "Give back"
 msgstr "Give back"
 
-#: ../objects_list.php:157
+#: ../objects_list.php:159
 msgid "You can't return an object that you don't borrow!"
 msgstr "You can't return an object that you don't borrow!"
 
@@ -149,6 +153,10 @@ msgstr ""
 "(put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: "
 "Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- "
 "RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"
+
+#: ../templates/default/objects_list.tpl:356
+msgid "Show legend"
+msgstr "Show legend"
 
 #: ../templates/default/status_edit.tpl:17
 msgid ""
@@ -217,7 +225,7 @@ msgstr "Printed on %date"
 msgid "Paypal"
 msgstr "Paypal"
 
-#: ../objects_list.php:142
+#: ../objects_list.php:144
 msgid "The object is not available!"
 msgstr "The object is not available!"
 
@@ -440,7 +448,7 @@ msgstr "You are cloning this object, not editing it!"
 msgid "At home:"
 msgstr "At home:"
 
-#: ../objects_list.php:151
+#: ../objects_list.php:153
 msgid "Object has not been returned! Don't forget it!"
 msgstr "Object has not been returned! Don't forget it!"
 
@@ -476,9 +484,10 @@ msgstr "categories"
 msgid "objects"
 msgstr "objects"
 
-#: ../templates/default/objects_list.tpl:356
-msgid "Show legend"
-msgstr "Show legend"
+#: ../templates/default/objects_list.tpl:4
+#: ../templates/default/categories_list.tpl:3
+msgid "Search:"
+msgstr "Search:"
 
 #: ../templates/default/preferences.tpl:22
 msgid "Choose a contribution type"
@@ -519,7 +528,7 @@ msgstr "Max thumb width (in px)"
 msgid "Borrowed"
 msgstr "Borrowed"
 
-#: ../objects_list.php:148
+#: ../objects_list.php:150
 msgid "Object has been returned!"
 msgstr "Object has been returned!"
 
@@ -689,6 +698,10 @@ msgstr "Remove %status from database"
 msgid "View category:"
 msgstr "View category:"
 
+#: ../objects_edit.php:119
+msgid "Something went wrong saving object :("
+msgstr "Something went wrong saving object :("
+
 #: ../objects_edit.php:154
 msgid "File is too big. Maximum allowed size is %d"
 msgstr "File is too big. Maximum allowed size is %d"
@@ -701,9 +714,9 @@ msgstr "End date"
 msgid "Edit status %status"
 msgstr "Edit status %status"
 
-#: ../templates/default/menu.tpl:22
-msgid "Create a new status"
-msgstr "Create a new status"
+#: ../objects_edit.php:117
+msgid "Object has been successfully stored!"
+msgstr "Object has been successfully stored!"
 
 #: ../templates/default/take_more_objects_away.tpl:120
 #: ../templates/default/take_object.tpl:111
@@ -850,6 +863,10 @@ msgstr "Status has been successfully deleted"
 msgid "object"
 msgstr "object"
 
+#: ../templates/default/menu.tpl:22
+msgid "Create a new status"
+msgstr "Create a new status"
+
 #: ../templates/default/objects_edit.tpl:101
 #: ../templates/default/category_edit.tpl:31
 msgid "Delete image"
@@ -877,7 +894,7 @@ msgstr ""
 msgid "Picture:"
 msgstr "Picture:"
 
-#: ../objects_list.php:154
+#: ../objects_list.php:156
 msgid "Action has been canceled!"
 msgstr "Action has been canceled!"
 
@@ -918,7 +935,7 @@ msgstr "Restore categories pictures from database"
 msgid "Where is the object?"
 msgstr "Where is the object?"
 
-#: ../objects_list.php:78
+#: ../objects_list.php:80
 msgid "No object was selected, please check at least one name."
 msgstr "No object was selected, please check at least one name."
 
@@ -1017,12 +1034,11 @@ msgstr "View serial number:"
 msgid "Begin"
 msgstr "Begin"
 
-#: ../templates/default/objects_list.tpl:4
-#: ../templates/default/categories_list.tpl:3
-msgid "Search:"
-msgstr "Search:"
+#: ../lib/GaletteObjectsLend/Picture.php:320
+msgid "An error occured :("
+msgstr "An error occured :("
 
-#: ../objects_list.php:145
+#: ../objects_list.php:147
 msgid "Object has been took"
 msgstr "Object has been took"
 
@@ -1033,11 +1049,11 @@ msgstr "Object has been took"
 msgid "Dimensions"
 msgstr "Dimensions"
 
-#: ../objects_list.php:176
+#: ../objects_list.php:178
 msgid "Objects managment"
 msgstr "Objects managment"
 
-#: ../objects_list.php:160 ../objects_list.php:163
+#: ../objects_list.php:162 ../objects_list.php:165
 msgid "Objects have been disabled!"
 msgstr "Objects have been disabled!"
 
@@ -1105,10 +1121,10 @@ msgstr ""
 msgid "Price"
 msgstr "Price"
 
-#: ../objects_list_print.php:88 ../objects_list_print.php:98
-#: ../templates/default/menu.tpl:11
-msgid "Objects list"
-msgstr "Objects list"
+#: ../templates/default/take_more_objects_away.tpl:96
+#: ../templates/default/take_object.tpl:75
+msgid "--- Select a member ---"
+msgstr "--- Select a member ---"
 
 #: ../templates/default/preferences.tpl:54
 msgid ""
@@ -1145,10 +1161,10 @@ msgstr "Y-m-d"
 msgid "Pages:"
 msgstr "Pages:"
 
-#: ../templates/default/take_more_objects_away.tpl:96
-#: ../templates/default/take_object.tpl:75
-msgid "--- Select a member ---"
-msgstr "--- Select a member ---"
+#: ../objects_list_print.php:88 ../objects_list_print.php:98
+#: ../templates/default/menu.tpl:11
+msgid "Objects list"
+msgstr "Objects list"
 
 #: ../objects_edit.php:147
 msgid ""
