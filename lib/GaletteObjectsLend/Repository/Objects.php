@@ -322,27 +322,12 @@ class Objects
 
                 $select->columns($fieldsList);
                 $cat_cols = ['cat_active' => 'is_active'];
-                $select->quantifier('DISTINCT');
 
                 $select->join(
                     array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
                     'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
                     $cat_cols,
                     ($mode === self::SHOW_CATEGORIES ? $select::JOIN_INNER : $select::JOIN_LEFT)
-                );
-
-                $select->join(
-                    array('r' => PREFIX_DB . LEND_PREFIX . LendRent::TABLE),
-                    'o.' . LendObject::PK . '=r.' . LendObject::PK,
-                    array(),
-                    $select::JOIN_LEFT
-                );
-
-                $select->join(
-                    array('s' => PREFIX_DB . LEND_PREFIX . LendStatus::TABLE),
-                    'r.' . LendStatus::PK . '=s.' . LendStatus::PK,
-                    array(LendStatus::PK, 'status_text'),
-                    $select::JOIN_LEFT
                 );
 
                 if ($this->filters !== false) {
@@ -360,7 +345,7 @@ class Objects
                 $fieldsList = [
                     LendCategory::PK,
                     '*',
-                    'objects_count'     => new Expression('COUNT(DISTINCT o.' . self::PK . ')'),
+                    'objects_count'     => new Expression('COUNT(o.' . self::PK . ')'),
                     'objects_price_sum' => new Expression('SUM(o.price)')
                 ];
 
@@ -416,7 +401,7 @@ class Objects
             $countSelect->reset($countSelect::HAVING);
             $countSelect->columns(
                 array(
-                    'count' => new Expression('count(DISTINCT o.' . self::PK . ')')
+                    'count' => new Expression('count(o.' . self::PK . ')')
                 )
             );
 
