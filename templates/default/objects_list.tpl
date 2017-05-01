@@ -23,6 +23,22 @@
 
     {if $lendsprefs.VIEW_CATEGORY and $categories|@count gt 0}
         <div class="bigtable">
+        {if $filters->category_filter}
+            {if $categories.0->name neq null}
+                {_T string="Only in '%cat' category" pattern="/%cat/" replace=$categories.0->name}
+            {else}
+                {_T string="Only without category"}
+            {/if}
+            {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
+                &middot;
+                {$categories.0->objects_price_sum} &euro;
+
+                {if $categories.0->is_active}
+                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
+                {/if}
+            {/if}
+
+        {else}
             <table class="details">
                 <caption class="ui-state-active ui-corner-top">{_T string="Choose a category"}</caption>
                 <tr>
@@ -40,7 +56,7 @@
                                 &middot;
                                 {$categ->objects_price_sum} &euro;
 
-                                {if $categ->is_active || $categ->category_id eq null}
+                                {if $categ->is_active}
                                     <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
                                 {/if}
 
@@ -50,6 +66,7 @@
         {/foreach}
                 </tr>
             </table>
+        {/if}
         </div>
     {/if}
 
