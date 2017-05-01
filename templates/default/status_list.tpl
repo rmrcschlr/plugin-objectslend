@@ -37,6 +37,17 @@
                 {/if}
             </th>
             <th class="id_row">
+                <a href="?tri=is_home_location&direction={if $tri eq 'is_home_location' && $direction eq 'asc'}desc{else}asc{/if}">
+                    {_T string="Stock"}
+                </a>
+                {if $tri eq 'is_home_location' && $direction eq 'asc'}
+                    <img src="{$template_subdir}images/down.png"/>
+                {elseif $tri eq 'is_home_location' && $direction eq 'desc'}
+                    <img src="{$template_subdir}images/up.png"/>
+                {/if}
+            </th>
+
+            <th class="id_row">
                 <a href="?tri=rent_day_number&direction={if $tri eq 'rent_day_number' && $direction eq 'asc'}desc{else}asc{/if}">
                     {_T string="Days for rent"}
                 </a>
@@ -56,16 +67,20 @@
                     {$sttus->status_id}
                 </td>
                 <td>
-                    {if $sttus->is_home_location}
-                        <img src="{$template_subdir}images/icon-valid.png" alt="{_T string="At home"}" width="16" height="16"/>
-                    {else}
-                        <img src="{$template_subdir}images/icon-empty.png" alt="" width="16" height="16"/>
-                    {/if}
                     {$sttus->status_text}
                 </td>
                 <td align="center">
                     {if $sttus->is_active}
                         <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" width="16" height="16"/>
+                    {else}
+                        <img src="{$template_subdir}images/icon-off.png" alt="{_T string="Inactive"}" width="16" height="16"/>
+                    {/if}
+                </td>
+                <td align="center">
+                    {if $sttus->is_home_location}
+                        <img src="{$template_subdir}images/icon-on.png" alt="{_T string="In stock"}" width="16" height="16"/>
+                    {else}
+                        <img src="{$template_subdir}images/icon-off.png" alt="{_T string="Not in stock"}" width="16" height="16"/>
                     {/if}
                 </td>
                 <td>
