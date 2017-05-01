@@ -48,8 +48,14 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
+$param = '';
 if (array_key_exists('status_id', $_GET) && is_numeric($_GET['status_id'])) {
-    LendStatus::deleteStatus($_GET['status_id']);
+    $deleted = LendStatus::deleteStatus($_GET['status_id']);
+    if ($deleted) {
+        $param = '?msg=deleted';
+    } else {
+        $param = '?msg=notdeleted';
+    }
 }
 
-header('Location: status_list.php?msg=deleted');
+header('Location: status_list.php' . $param);

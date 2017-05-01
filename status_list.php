@@ -61,6 +61,9 @@ if (isset($_GET['msg'])) {
         case 'deleted':
             $success_detected[] = _T("Status has been successfully deleted");
             break;
+        case 'notdeleted':
+            $error_detected[] = _T("Status has not been deleted. Maybe it is still in use?");
+            break;
         case 'saved':
             $success_detected[] = _T("Status has been saved");
             break;

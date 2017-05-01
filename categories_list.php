@@ -105,6 +105,9 @@ if (isset($_GET['msg'])) {
         case 'deleted':
             $success_detected[] = _T("Category has been successfully deleted");
             break;
+        case 'notdeleted':
+            $error_detected[] = _T("Category has not been deleted :(");
+            break;
         case 'saved':
             $success_detected[] = _T("Category has been saved");
             break;

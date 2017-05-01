@@ -48,8 +48,14 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
+$param = '';
 if (array_key_exists('category_id', $_GET) && is_numeric($_GET['category_id'])) {
-    LendCategory::deleteCategory(intval($_GET['category_id']));
+    $deleted = LendCategory::deleteCategory(intval($_GET['category_id']));
+    if ($deleted) {
+        $param = '?msg=deleted';
+    } else {
+        $param = '?msg=notdeleted';
+    }
 }
 
-header('Location: categories_list.php?msg=deleted');
+header('Location: categories_list.php' . $param);

@@ -290,10 +290,11 @@ class LendCategory
                 $zdb->execute($update);
             }
 
-            $delete = $zdb->delete(PREFIX_DB . LEND_PREFIX . self::TABLE)
+            $delete = $zdb->delete(LEND_PREFIX . self::TABLE)
                     ->where(array(self::PK => $id));
             $zdb->execute($delete);
             $zdb->connection->commit();
+            return true;
         } catch (\Exception $e) {
             $zdb->connection->rollBack();
             Analog::log(
