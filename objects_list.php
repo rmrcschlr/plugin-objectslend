@@ -36,8 +36,6 @@
  * @since     Available since 0.7
  */
 
-use GaletteObjectsLend\LendObject;
-use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\Repository\Objects;
 use GaletteObjectsLend\Filters\ObjectsList;

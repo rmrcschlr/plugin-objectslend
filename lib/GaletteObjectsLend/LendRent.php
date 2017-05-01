@@ -338,8 +338,8 @@ class LendRent
         $rname = '_' . $name;
         switch ($name) {
             case 'adherent_id':
-                if (is_int($value) && $value > 0) {
-                    $this->$rname = $value;
+                if ((int)$value > 0) {
+                    $this->$rname = (int)$value;
                 } else {
                     $this->$rname = null;
                 }

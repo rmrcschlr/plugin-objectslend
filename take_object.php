@@ -40,7 +40,6 @@
 
 use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\Preferences;
-use GaletteObjectsLend\ObjectPicture;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
 
@@ -102,7 +101,7 @@ if (filter_has_var(INPUT_POST, 'yes')) {
     // Récupération du prix de location
     $rentprice = $object->value_rent_price;
     if (filter_has_var(INPUT_POST, 'rent_price') && ($login->isAdmin() || $login->isStaff())) {
-        $rentprice = floatval(str_replace(' ', '', str_replace(',', '.', filter_input(input, 'rent_price'))));
+        $rentprice = floatval(str_replace(' ', '', str_replace(',', '.', filter_input(INPUT_POST, 'rent_price'))));
     }
 
     // Ajout d'une contribution
@@ -116,7 +115,7 @@ if (filter_has_var(INPUT_POST, 'yes')) {
             \Galette\Entity\ContributionsTypes::PK => $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID},
             'date_enreg' => date(_T("Y-m-d")),
             'date_debut_cotis' => date(_T("Y-m-d")),
-            'type_paiement_cotis' => intval(filter_input(input_, 'payment_type')),
+            'type_paiement_cotis' => intval(filter_input(INPUT_POST, 'payment_type')),
             'info_cotis' => $info,
             \Galette\Entity\Adherent::PK => $rent->adherent_id,
         );
