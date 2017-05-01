@@ -336,6 +336,17 @@ class LendRent
     public function __set($name, $value)
     {
         $rname = '_' . $name;
-        $this->$rname = $value;
+        switch ($name) {
+            case 'adherent_id':
+                if (is_int($value) && $value > 0) {
+                    $this->$rname = $value;
+                } else {
+                    $this->$rname = null;
+                }
+                break;
+            default:
+                $this->$rname = $value;
+                break;
+        }
     }
 }
