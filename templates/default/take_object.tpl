@@ -1,4 +1,4 @@
-<form action="take_object.php" method="post" id="form_take_object">
+<form action="{if $takeorgive eq 'take'}take_object.php{else}give_object_back.php{/if}" method="post" id="form_take_object">
     <input type="hidden" name="object_id" value="{$object->object_id}">
     <div class="bigtable">
         <fieldset class="cssform">
