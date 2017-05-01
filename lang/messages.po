@@ -36,8 +36,8 @@ msgstr ""
 msgid "Delete failed"
 msgstr ""
 
-#: ../templates/default/preferences.tpl:87 ../templates/default/preferences.tpl:88
-msgid "View the objects buy price sum on the list under the category"
+#: ../templates/default/menu.tpl:16
+msgid "Add an object"
 msgstr ""
 
 #: ../objects_print.php:157 ../objects_list_print.php:135
@@ -293,6 +293,10 @@ msgstr ""
 msgid "Automatically generate a contribution for the member of the amount of the rental price of the object"
 msgstr ""
 
+#: ../templates/default/menu.tpl:28
+msgid "Add a category"
+msgstr ""
+
 #: ../preferences.php:71
 msgid "ObjectsLend preferences"
 msgstr ""
@@ -350,10 +354,6 @@ msgstr ""
 
 #: ../templates/default/objects_edit.tpl:110
 msgid "Duplicate"
-msgstr ""
-
-#: ../templates/default/menu.tpl:16
-msgid "Create a new object"
 msgstr ""
 
 #: ../templates/default/objects_list.tpl:280
@@ -417,8 +417,8 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: ../templates/default/preferences.tpl:22
-msgid "Choose a contribution type"
+#: ../templates/default/menu.tpl:22
+msgid "Add a status"
 msgstr ""
 
 #: ../lib/GaletteObjectsLend/LendObject.php:243
@@ -440,10 +440,6 @@ msgstr ""
 
 #: ../templates/default/category_edit.tpl:14
 msgid "Is active"
-msgstr ""
-
-#: ../templates/default/menu.tpl:28
-msgid "Create a new category"
 msgstr ""
 
 #: ../templates/default/preferences.tpl:43
@@ -524,10 +520,6 @@ msgstr ""
 msgid "Comment:"
 msgstr ""
 
-#: ../templates/default/status_list.tpl:3
-msgid "status"
-msgstr ""
-
 #: ../templates/default/objects_edit.tpl:48 ../templates/default/take_object.tpl:44
 msgid "Borrow price (%currency):"
 msgstr ""
@@ -578,6 +570,10 @@ msgstr ""
 
 #: ../templates/default/preferences.tpl:53
 msgid "Show fullsize image or just thumbs"
+msgstr ""
+
+#: ../templates/default/preferences.tpl:22
+msgid "Choose a contribution type"
 msgstr ""
 
 #: ../templates/default/objects_list.tpl:13 ../templates/default/categories_list.tpl:8
@@ -669,6 +665,10 @@ msgstr ""
 msgid "Remove %category from database"
 msgstr ""
 
+#: ../templates/default/preferences.tpl:87 ../templates/default/preferences.tpl:88
+msgid "View the objects buy price sum on the list under the category"
+msgstr ""
+
 #: ../templates/default/take_more_objects_away.tpl:52 ../templates/default/objects_list.tpl:203
 #: ../templates/default/objects_edit.tpl:93 ../templates/default/objects_edit.tpl:100
 #: ../templates/default/take_object.tpl:13
@@ -695,8 +695,8 @@ msgstr ""
 msgid "Take out"
 msgstr ""
 
-#: ../templates/default/menu.tpl:3
-msgid "Borrow"
+#: ../templates/default/status_list.tpl:3
+msgid "status"
 msgstr ""
 
 #: ../templates/default/objects_edit.tpl:130
@@ -729,10 +729,6 @@ msgstr ""
 
 #: ../objects_list_print.php:113 ../templates/default/objects_list.tpl:59
 msgid "object"
-msgstr ""
-
-#: ../templates/default/menu.tpl:22
-msgid "Create a new status"
 msgstr ""
 
 #: ../templates/default/objects_edit.tpl:101 ../templates/default/category_edit.tpl:31
@@ -850,6 +846,10 @@ msgstr ""
 
 #: ../templates/default/headers.tpl:14
 msgid "Click to view fullsize image"
+msgstr ""
+
+#: ../templates/default/menu.tpl:3
+msgid "Objects lend"
 msgstr ""
 
 #: ../templates/default/objects_list.tpl:313

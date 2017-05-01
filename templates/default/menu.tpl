@@ -1,6 +1,6 @@
 {* Titre du bloc *}
 <h1 class="nojs">
-    {_T string="Borrow"}
+    {_T string="Objects lend"}
 </h1>
 {if $login->isLogged()}
 {* Entrées du menu *}
@@ -13,19 +13,19 @@
    </li>
     {if $login->isAdmin() || $login->isStaff()}
     <li{if $PAGENAME eq "objects_edit.php"} class="selected"{/if}>
-            <a href="objects_edit.php">{_T string="Create a new object"}</a>
+            <a href="objects_edit.php">{_T string="Add an object"}</a>
     </li>
     <li{if $PAGENAME eq "status_list.php"} class="selected"{/if}>
         <a href="{$galette_base_path}{$lend_dir}status_list.php">{_T string="Borrow status"}</a>
     </li>
     <li{if $PAGENAME eq "status_edit.php"} class="selected"{/if}>
-            <a href="status_edit.php">{_T string="Create a new status"}</a>
+            <a href="status_edit.php">{_T string="Add a status"}</a>
     </li>
     <li{if $PAGENAME eq "categories_list.php"} class="selected"{/if}>
         <a href="{$galette_base_path}{$lend_dir}categories_list.php">{_T string="Object categories"}</a>
     </li>
     <li{if $PAGENAME eq "category_edit.php"} class="selected"{/if}>
-            <a href="category_edit.php">{_T string="Create a new category"}</a>
+            <a href="category_edit.php">{_T string="Add a category"}</a>
     </li>
     <li{if $PAGENAME eq "preferences.php"} class="selected"{/if}>
         <a href="{$galette_base_path}{$lend_dir}preferences.php">{_T string="Preferences"}</a>

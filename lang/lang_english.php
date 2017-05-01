@@ -1,7 +1,10 @@
 <?php
-// This file was automatically generated on Sun Apr 30 08:57:29 2017 (GMT)
+// This file was automatically generated on Mon May  1 07:48:06 2017 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
+
+// ../templates/default/menu.tpl:3 
+$lang['Objects lend'] = 'Objects lend';
 
 // ../templates/default/objects_list.tpl:443 
 $lang['Give object'] = 'Give object';
@@ -35,6 +38,9 @@ $lang['Number of days to rent per default'] = 'Number of days to rent per defaul
 
 // ../templates/default/take_more_objects_away.tpl:121 ../templates/default/take_object.tpl:112 
 $lang['Credit card'] = 'Credit card';
+
+// ../templates/default/objects_list.tpl:287 
+$lang['No object has been found'] = 'No object has been found';
 
 // ../templates/default/preferences.tpl:31 
 $lang['Comment text to add on generated contribution. Automatically replaced values (put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions'] = 'Comment text to add on generated contribution. Automatically replaced values (put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions';
@@ -276,6 +282,9 @@ $lang['No member'] = 'No member';
 // ../templates/default/status_edit.tpl:30 ../templates/default/status_list.tpl:41 
 $lang['Days for rent'] = 'Days for rent';
 
+// ../templates/default/menu.tpl:22 
+$lang['Add a status'] = 'Add a status';
+
 // ../templates/default/take_object.tpl:92 ../templates/default/status_list.tpl:73 
 $lang['%days days'] = '%days days';
 
@@ -287,9 +296,6 @@ $lang['Picture \'%path\' written'] = 'Picture \'%path\' written';
 
 // ../templates/default/objects_list.tpl:400 
 $lang['Take object'] = 'Take object';
-
-// ../templates/default/menu.tpl:3 
-$lang['Borrow'] = 'Borrow';
 
 // ../objects_edit.php:117 
 $lang['Object has been successfully stored!'] = 'Object has been successfully stored!';
@@ -309,8 +315,8 @@ $lang['View dimensions:'] = 'View dimensions:';
 // ../templates/default/preferences.tpl:30 
 $lang['Comment text to add on generated contribution'] = 'Comment text to add on generated contribution';
 
-// ../templates/default/objects_list.tpl:287 
-$lang['No object has been found'] = 'No object has been found';
+// ../templates/default/menu.tpl:28 
+$lang['Add a category'] = 'Add a category';
 
 // ../templates/default/objects_list.tpl:313 
 $lang['Delete'] = 'Delete';
@@ -336,9 +342,6 @@ $lang['You can\'t return an object that you don\'t borrow!'] = 'You can\'t retur
 // ../templates/default/objects_list.tpl:274 
 $lang['Edit the object'] = 'Edit the object';
 
-// ../templates/default/menu.tpl:16 
-$lang['Create a new object'] = 'Create a new object';
-
 // ../templates/default/preferences.tpl:13 
 $lang['Generate contribution:'] = 'Generate contribution:';
 
@@ -353,9 +356,6 @@ $lang['Search:'] = 'Search:';
 
 // ../templates/default/objects_edit.tpl:23 
 $lang['--- Select a category ---'] = '--- Select a category ---';
-
-// ../templates/default/menu.tpl:28 
-$lang['Create a new category'] = 'Create a new category';
 
 // ../templates/default/objects_list.tpl:15 ../templates/default/categories_list.tpl:10 ../templates/default/preferences.tpl:8 ../templates/default/preferences.tpl:15 ../templates/default/preferences.tpl:49 ../templates/default/preferences.tpl:55 ../templates/default/preferences.tpl:63 ../templates/default/preferences.tpl:68 ../templates/default/preferences.tpl:73 ../templates/default/preferences.tpl:78 ../templates/default/preferences.tpl:83 ../templates/default/preferences.tpl:89 ../templates/default/preferences.tpl:94 ../templates/default/preferences.tpl:99 ../templates/default/preferences.tpl:104 
 $lang['Yes'] = 'Yes';
@@ -413,9 +413,6 @@ $lang['Remove %category from database'] = 'Remove %category from database';
 
 // ../objects_list.php:147 
 $lang['Object has been took'] = 'Object has been took';
-
-// ../templates/default/admin_picture.tpl:6 
-$lang['Restore categories pictures from database'] = 'Restore categories pictures from database';
 
 // ../objects_edit.php:77 
 $lang['Edit an object'] = 'Edit an object';
@@ -576,11 +573,14 @@ $lang['Choose a category'] = 'Choose a category';
 // ../templates/default/take_more_objects_away.tpl:117 ../templates/default/take_object.tpl:108 
 $lang['Payment type:'] = 'Payment type:';
 
-// ../templates/default/menu.tpl:19 
-$lang['Borrow status'] = 'Borrow status';
+// ../templates/default/menu.tpl:16 
+$lang['Add an object'] = 'Add an object';
 
 // ../templates/default/objects_edit.tpl:112 
 $lang['Print card'] = 'Print card';
+
+// ../templates/default/menu.tpl:19 
+$lang['Borrow status'] = 'Borrow status';
 
 // ../templates/default/categories_list.tpl:91 
 $lang['Do you really want to delete this category from the base?'] = 'Do you really want to delete this category from the base?';
@@ -675,8 +675,8 @@ $lang['Cash'] = 'Cash';
 // ../objects_edit.php:159 
 $lang['Mime-Type not allowed'] = 'Mime-Type not allowed';
 
-// ../templates/default/menu.tpl:22 
-$lang['Create a new status'] = 'Create a new status';
+// ../templates/default/admin_picture.tpl:6 
+$lang['Restore categories pictures from database'] = 'Restore categories pictures from database';
 
 // ../category_edit.php:71 
 $lang['New category'] = 'New category';
