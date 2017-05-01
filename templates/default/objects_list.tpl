@@ -276,12 +276,12 @@
                             <td class="center nowrap">
                                 {if !$current_rent or $current_rent->is_home_location}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
-                                        <a id="take_object" href="take_object.php?object_id={$object->object_id}">
+                                        <a class="take_object" href="take_object.php?object_id={$object->object_id}">
                                             <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="Take away"}" title="{_T string="Take object away"}"/>
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $object->id_adh}
-                                        <a id="give_object" href="give_object_back.php?object_id={$object->object_id}">
+                                        <a class="give_object" href="give_object_back.php?object_id={$object->object_id}">
                                             <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-giveback.png" alt="{_T string="Give back"}" title="{_T string="Give object back"}"/>
                                         </a>
                                 {/if}
@@ -348,14 +348,14 @@
         var _is_checked = true;
         var _bind_check = function(){
             $('#checkall').click(function(){
-                $('table.listing :checkbox[name="object_ids"]').each(function(){
+                $('table.listing :checkbox[name="object_ids[]"]').each(function(){
                     this.checked = _is_checked;
                 });
                 _is_checked = !_is_checked;
                 return false;
             });
             $('#checkinvert').click(function(){
-                $('table.listing :checkbox[name="object_ids"]').each(function(){
+                $('table.listing :checkbox[name="object_ids[]"]').each(function(){
                     this.checked = !$(this).is(':checked');
                 });
                 return false;
@@ -404,7 +404,7 @@
                 }
             });
 
-            $('#take_object').on('click', function(e) {
+            $('.take_object').on('click', function(e) {
                 e.preventDefault();
                 var _this = $(this);
 
@@ -447,7 +447,7 @@
                 });
             });
 
-            $('#give_object').on('click', function(e) {
+            $('.give_object').on('click', function(e) {
                 e.preventDefault();
                 var _this = $(this);
 
