@@ -243,7 +243,8 @@ class Preferences
             $update = $this->zdb->update(LEND_PREFIX . self::TABLE);
             $update->set(
                 array(
-                    'value_text'  => $data['GENERATED_CONTRIB_INFO_TEXT']
+                    'value_text'        => $data['GENERATED_CONTRIB_INFO_TEXT'],
+                    'date_modification' => date('Y-m-d H:i:s')
                 )
             )->where->equalTo(self::PK, 'GENERATED_CONTRIB_INFO_TEXT');
             $this->zdb->execute($update);
@@ -258,6 +259,9 @@ class Preferences
             $stmt = $this->zdb->sql->prepareStatementForSqlObject($update);
 
             foreach ($this->prefs as $key => $value) {
+                if ($key === 'GENERATED_CONTRIB_INFO_TEXT') {
+                    continue;
+                }
                 $stmt->execute(
                     [
                         'value_numeric'     => $value,
