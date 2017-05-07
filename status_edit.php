@@ -48,8 +48,15 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-if (filter_has_var(INPUT_GET, 'status_id')) {
-    $status = new LendStatus((int)filter_input(INPUT_GET, 'status_id'));
+$id = null;
+if (filter_has_var(INPUT_POST, 'status_id')) {
+    $id = (int)$_POST['status_id'];
+} elseif (filter_has_var(INPUT_GET, 'status_id')) {
+    $id = (int)$_GET['status_id'];
+}
+
+if ($id !== null) {
+    $status = new LendStatus($id);
     $title = str_replace(
         '%status',
         $status->status_text,
@@ -65,15 +72,16 @@ if (filter_has_var(INPUT_GET, 'status_id')) {
  * Sotre changes
  */
 if (filter_has_var(INPUT_POST, 'save')) {
-    $s = new LendStatus((int)filter_input(INPUT_POST, 'status_id'));
-    $s->status_text = filter_input(INPUT_POST, 'text');
-    $s->is_home_location = filter_input(INPUT_POST, 'is_home_location') == 'true';
-    $s->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
+    $status->status_text = filter_input(INPUT_POST, 'text');
+    $status->is_home_location = filter_input(INPUT_POST, 'is_home_location') == 'true';
+    $status->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
     $days = trim(filter_input(INPUT_POST, 'rent_day_number'));
-    $s->rent_day_number = strlen($days) > 0 ? intval($days) : null;
-    $s->store();
-
-    header('Location: status_list.php?msg=saved');
+    $status->rent_day_number = strlen($days) > 0 ? intval($days) : null;
+    if($status->store()) {
+        header('Location: status_list.php?msg=saved');
+    } else {
+        $error_detected[] = _T("An error occured while storing the status.");
+    }
 }
 
 //Set the path to the current plugin's templates,
@@ -83,6 +91,8 @@ $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 
 $tpl->assign('page_title', $title);
 $tpl->assign('status', $status);
+
+$tpl->assign('error_detected', $error_detected);
 
 $content = $tpl->fetch('status_edit.tpl', LEND_SMARTY_PREFIX);
 $tpl->assign('content', $content);
