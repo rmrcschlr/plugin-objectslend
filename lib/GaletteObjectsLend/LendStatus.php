@@ -50,11 +50,11 @@ class LendStatus
     const PK = 'status_id';
 
     private $_fields = array(
-        '_status_id' => 'integer',
-        '_status_text' => 'varchar(100)',
-        '_is_home_location' => 'boolean',
-        '_is_active' => 'boolean',
-        '_rent_day_number' => 'int'
+        'status_id' => 'integer',
+        'status_text' => 'varchar(100)',
+        'is_home_location' => 'boolean',
+        'is_active' => 'boolean',
+        'rent_day_number' => 'int'
     );
     private $_status_id;
     private $_status_text = '';
@@ -120,10 +120,18 @@ class LendStatus
             $values = array();
 
             foreach ($this->_fields as $k => $v) {
-                $values[substr($k, 1)] = $this->$k;
+                if (($k === 'is_active' || $k === 'is_home_location')
+                    && $this->$k === false
+                ) {
+                    //Handle booleans for postgres ; bugs #18899 and #19354
+                    $values[$k] = $zdb->isPostgres() ? 'false' : 0;
+                } else {
+                    $values[$k] = $this->$k;
+                }
             }
 
             if (!isset($this->_status_id) || $this->_status_id == '') {
+                unset($values[self::PK]);
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
                 $add = $zdb->execute($insert);

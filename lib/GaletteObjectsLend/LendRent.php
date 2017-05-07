@@ -52,14 +52,14 @@ class LendRent
     const PK = 'rent_id';
 
     private $_fields = array(
-        '_rent_id' => 'integer',
-        '_object_id' => 'integer',
-        '_date_begin' => 'datetime',
-        '_date_forecast' => 'datetime',
-        '_date_end' => 'datetime',
-        '_status_id' => 'integer',
-        '_adherent_id' => 'integer',
-        '_comments' => 'varchar(200)'
+        'rent_id' => 'integer',
+        'object_id' => 'integer',
+        'date_begin' => 'datetime',
+        'date_forecast' => 'datetime',
+        'date_end' => 'datetime',
+        'status_id' => 'integer',
+        'adherent_id' => 'integer',
+        'comments' => 'varchar(200)'
     );
     private $_rent_id;
     private $_object_id;
@@ -141,10 +141,11 @@ class LendRent
             $values = array();
 
             foreach ($this->_fields as $k => $v) {
-                $values[substr($k, 1)] = $this->$k;
+                $values[$k] = $this->$k;
             }
 
             if (!isset($this->_rent_id) || $this->_rent_id == '') {
+                unset($values[self::PK]);
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
                 $result = $zdb->execute($insert);
