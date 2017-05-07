@@ -182,7 +182,7 @@ class LendObject
         $this->price_per_day = $r->price_per_day == '1';
         $this->dimension = self::protectQuote($r->dimension);
         $this->weight = is_numeric($r->weight) ? floatval($r->weight) : 0.0;
-        $this->is_active = $r->is_active;
+        $this->is_active = $r->is_active == '1' ? true : false;
         if (property_exists($r, 'cat_active') && ($r->cat_active == 1 || $r->cat_active === null)) {
             $this->cat_active = true;
         } else {
@@ -230,10 +230,18 @@ class LendObject
             $values = array();
 
             foreach ($this->fields as $k => $v) {
-                $values[$k] = $this->$k;
+                if (($k === 'is_active' || $k === 'price_per_day')
+                    && $this->$k === false
+                ) {
+                    //Handle booleans for postgres ; bugs #18899 and #19354
+                    $values[$k] = $zdb->isPostgres() ? 'false' : 0;
+                } else {
+                    $values[$k] = $this->$k;
+                }
             }
 
             if (!isset($this->object_id) || $this->object_id == '') {
+                unset($values[self::PK]);
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
                 $result = $zdb->execute($insert);
