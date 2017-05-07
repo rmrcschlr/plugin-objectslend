@@ -1,4 +1,4 @@
-﻿-- sequence for objects
+-- sequence for objects
 DROP SEQUENCE IF EXISTS galette_lend_objects_id_seq;
 CREATE SEQUENCE galette_lend_objects_id_seq
     START 1
