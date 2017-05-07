@@ -155,10 +155,16 @@ class LendCategory
             $values = array();
 
             foreach ($this->fields as $k => $v) {
-                $values[$k] = $this->$k;
+                if ($k === 'is_active' && $v === false) {
+                    //Handle booleans for postgres ; bugs #18899 and #19354
+                    $values[$field] = $zdb->isPostgres() ? 'false' : 0;
+                } else {
+                    $values[$k] = $this->$k;
+                }
             }
 
             if (!isset($this->category_id) || $this->category_id == '') {
+                unset($values['category_id']);
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
                 $add = $zdb->execute($insert);
