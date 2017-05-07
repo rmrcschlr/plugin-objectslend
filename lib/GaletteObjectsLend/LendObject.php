@@ -506,8 +506,9 @@ class LendObject
         }
 
         $untokenized = trim($filters->filter_str, '%');
+        mb_internal_encoding('UTF-8');
         return preg_replace(
-            '/(' . $untokenized . ')/i',
+            '/(' . $untokenized . ')/iu',
             '<span class="search">$1</span>',
             $this->$field
         );
