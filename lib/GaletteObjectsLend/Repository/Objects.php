@@ -321,12 +321,11 @@ class Objects
                                 : $fields) : (array)'*';
 
                 $select->columns($fieldsList);
-                $cat_cols = ['cat_active' => 'is_active'];
 
                 $select->join(
                     array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
                     'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
-                    $cat_cols,
+                    [],
                     ($mode === self::SHOW_CATEGORIES ? $select::JOIN_INNER : $select::JOIN_LEFT)
                 );
 
@@ -352,13 +351,12 @@ class Objects
                 if ($fields !== null && is_array($fields)) {
                     array_merge($fieldsList, $fields);
                 }
-                $cat_cols = $fieldsList;
                 $select->columns([]);
 
                 $select->join(
                     array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
                     'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
-                    $cat_cols,
+                    $fieldsList,
                     $select::JOIN_LEFT
                 );
 
@@ -369,7 +367,7 @@ class Objects
                 $select->order(['c.name']);
 
                 $select->group(
-                    'o.category_id'
+                    'c.category_id'
                 );
             }
 
