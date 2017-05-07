@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS galette_lend_objects (
   object_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  name varchar(100) NOT NULL,
   description varchar(500) NOT NULL,
   serial_number varchar(30) NOT NULL,
   price decimal(15,3) NOT NULL,
@@ -203,7 +203,7 @@ values
 
 CREATE TABLE IF NOT EXISTS galette_lend_category (
   category_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8_general_ci NOT NULL,
+  name varchar(100) COLLATE utf8_general_ci NOT NULL,
   is_active tinyint(1) NOT NULL,
   PRIMARY KEY (category_id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
