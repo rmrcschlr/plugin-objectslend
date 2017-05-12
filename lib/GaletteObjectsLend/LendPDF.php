@@ -41,7 +41,7 @@
 
 namespace GaletteObjectsLend;
 
-use Galette\Core\Preferences;
+use Galette\Core\Preferences as CorePreferences;
 
 class LendPDF extends \Galette\IO\Pdf
 {
@@ -51,7 +51,7 @@ class LendPDF extends \Galette\IO\Pdf
      * @param Preferences $prefs Preferences
      * @param PdfModel    $model Related model
      */
-    public function __construct(Preferences $prefs, $model = null)
+    public function __construct(CorePreferences $prefs, $model = null)
     {
         parent::__construct($prefs, $model);
         $this->SetDisplayMode('real', 'OneColumn');
