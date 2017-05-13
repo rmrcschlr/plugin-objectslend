@@ -138,10 +138,12 @@ class LendRent
         global $zdb;
 
         try {
+            $zdb->connection->beginTransaction();
             $values = array();
 
             foreach ($this->_fields as $k => $v) {
-                $values[$k] = $this->$k;
+                $rk = '_' . $k;
+                $values[$k] = $this->$rk;
             }
 
             if (!isset($this->_rent_id) || $this->_rent_id == '') {
@@ -152,11 +154,23 @@ class LendRent
                 if ($result->count() > 0) {
                     if ( $zdb->isPostgres() ) {
                         $this->_rent_id = $zdb->driver->getLastGeneratedValue(
-                            PREFIX_DB . '_lend_rents_id_seq'
+                            PREFIX_DB . 'lend_rents_id_seq'
                         );
                     } else {
                         $this->_rent_id = $zdb->driver->getLastGeneratedValue();
                     }
+                    Analog::log(
+                        'Rent #' . $this->_rent_id . ' added.',
+                        Analog::DEBUG
+                    );
+                    $update = $zdb->update(LEND_PREFIX . LendObject::TABLE)
+                        ->set([self::PK => $this->_rent_id])
+                        ->where([LendObject::PK => $this->_object_id]);
+                    $zdb->execute($update);
+                    Analog::log(
+                        'Rent set for object #' . $this->_object_id,
+                        Analog::DEBUG
+                    );
                 } else {
                     throw new \Exception(_T("Rent has not been added"));
                 }
@@ -166,8 +180,10 @@ class LendRent
                         ->where(array(self::PK => $this->_rent_id));
                 $zdb->execute($update);
             }
+            $zdb->connection->commit();
             return true;
         } catch (\Exception $e) {
+            $zdb->connection->rollBack();
             Analog::log(
                 'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
                     $e->getTraceAsString(),

@@ -134,11 +134,11 @@ class LendStatus
                 unset($values[self::PK]);
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $add = $zdb->execute($insert);
-                if ($add > 0) {
+                $result = $zdb->execute($insert);
+                if ($result->count() > 0) {
                     if ( $zdb->isPostgres() ) {
                         $this->_status_id = $zdb->driver->getLastGeneratedValue(
-                            PREFIX_DB . '_lend_status_id_seq'
+                            PREFIX_DB . 'lend_status_id_seq'
                         );
                     } else {
                         $this->_status_id = $zdb->driver->getLastGeneratedValue();

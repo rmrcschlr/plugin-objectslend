@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS galette_lend_categories_pictures (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- Add fullsize parameter
-insert into galette_lend_parameters
+INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_FULLSIZE', 0, 0, 1, 0, 1, NOW(), NOW());
 
 DELETE FROM galette_lend_parameters WHERE code='VIEW_CATEGORY_THUMB';
@@ -23,3 +23,5 @@ DELETE FROM galette_lend_parameters WHERE code='VIEW_NAME';
 
 ALTER TABLE galette_lend_rents DROP FOREIGN KEY FK_rent_adherent_1;
 ALTER TABLE galette_lend_rents ADD CONSTRAINT FK_rent_adherent_1 FOREIGN KEY (adherent_id) REFERENCES galette_adherents (id_adh) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE galette_lend_objects ADD CONSTRAINT FK_object_rent_1 FOREIGN KEY (rent_id) REFERENCES galette_lend_rents (rent_id) ON DELETE NO ACTION ON UPDATE NO ACTION;

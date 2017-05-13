@@ -80,6 +80,7 @@ CREATE TABLE galette_lend_objects (
     category_id integer REFERENCES galette_lend_category (category_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     rent_price real NULL,
     nb_available integer NULL,
+    rent_id integer REFERENCES galette_lend_rents (rent_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (object_id)
 );
 

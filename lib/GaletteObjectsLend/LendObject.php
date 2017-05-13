@@ -91,6 +91,7 @@ class LendObject
     private $prenom_adh = '';
     private $email_adh = '';
     private $id_adh;
+    private $rent_id;
 
     private $currency = '€';
     private $picture;
@@ -191,8 +192,28 @@ class LendObject
         $this->category_id = $r->category_id;
         $this->nb_available = $r->nb_available;
         $this->category_name = isset($r->category_name) ? $r->category_name : '';
+        $this->rent_id = $r->rent_id;
 
-        if ($this->object_id) {
+        //load last rent infos (status, member, and so on
+        if ($this->rent_id) {
+            if (property_exists($r, 'status_text')) {
+                $this->status_text = $r->status_text;
+            }
+
+            if (property_exists($r, 'date_begin')) {
+                $this->date_begin = $r->date_begin;
+            }
+
+            if (property_exists($r, 'date_forecast')) {
+                $this->date_forecast = $r->date_forecast;
+            }
+
+            if (property_exists($r, Adherent::PK)) {
+                $this->id_adh = $r->{Adherent::PK};
+            }
+        }
+
+        if ($this->object_id && $deps['rents'] === true) {
             $only_last = false;
             if ($this->deps['rents'] === false && $this->deps['last_rent'] === true) {
                 $only_last = true;
@@ -248,7 +269,7 @@ class LendObject
                 if ($result->count() > 0) {
                     if ( $zdb->isPostgres() ) {
                         $this->object_id = $zdb->driver->getLastGeneratedValue(
-                            PREFIX_DB . '_lend_objects_id_seq'
+                            PREFIX_DB . 'lend_objects_id_seq'
                         );
                     } else {
                         $this->object_id = $zdb->driver->getLastGeneratedValue();

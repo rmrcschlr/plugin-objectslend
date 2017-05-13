@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS galette_lend_objects (
   category_id INT(10) UNSIGNED NULL,
   rent_price DECIMAL(15,3) NULL,
   nb_available INT NULL,
+  rent_id int(10) unsigned NOT NULL,
   PRIMARY KEY (object_id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
@@ -214,7 +215,8 @@ CREATE TABLE IF NOT EXISTS galette_lend_category (
 --
 
 ALTER TABLE galette_lend_objects
-  ADD CONSTRAINT FK_rent_category_1 FOREIGN KEY (category_id) REFERENCES galette_lend_category (category_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT FK_rent_category_1 FOREIGN KEY (category_id) REFERENCES galette_lend_category (category_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  ADD CONSTRAINT FK_object_rent_1 FOREIGN KEY (rent_id) REFERENCES galette_lend_rents (rent_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Structure de la table 'galette_lend_categories_pictures'

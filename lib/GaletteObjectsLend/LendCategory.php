@@ -167,11 +167,11 @@ class LendCategory
                 unset($values['category_id']);
                 $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $add = $zdb->execute($insert);
-                if ($add > 0) {
+                $result = $zdb->execute($insert);
+                if ($result->count() > 0) {
                     if ( $zdb->isPostgres() ) {
                         $this->category_id = $zdb->driver->getLastGeneratedValue(
-                            PREFIX_DB . '_lend_category_id_seq'
+                            PREFIX_DB . 'lend_category_id_seq'
                         );
                     } else {
                         $this->category_id = $zdb->driver->getLastGeneratedValue();
