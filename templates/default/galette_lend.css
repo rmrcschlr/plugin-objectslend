@@ -164,3 +164,49 @@
     margin: 1em 3em;
     font-size: .9em;
 }
+
+/*
+ * == Categories list in objects
+ */
+
+#categories {
+    border-spacing:3em 1em;
+    text-align: center;
+    min-width: 30em;
+    margin: 0 auto;
+    border-spacing:1em;
+    border:1px solid #AAAAAA;
+}
+
+#categories header {
+    padding: .2em 0;
+    text-align: center;
+    font-weight: bold;
+    border: 0;
+}
+
+#categories a {
+    border: 1px solid #d3d3d3;
+    background-color: #e6e6e6;
+    color: #555555;
+    background-position: 50% .5em, 50% 50%;
+    background-repeat: no-repeat, repeat-x;
+    display: inline-block;
+    text-align: center;
+    vertical-align: bottom;
+    padding: .2em .5em;
+    margin: .5em;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#categories a.active {
+    background-color: #DDFFDD;
+}
+
+#categories a:hover, #categories a.active:hover {
+    border: 1px solid #999999;
+    background-color: #ffb619;
+    font-weight: normal; color: #212121;
+}

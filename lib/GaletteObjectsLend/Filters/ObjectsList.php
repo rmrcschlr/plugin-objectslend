@@ -174,7 +174,7 @@ class ObjectsList extends Pagination
                     $this->$name = $value;
                     break;
                 case 'category_filter':
-                    if (is_numeric($value) || $value === 'none') {
+                    if (is_numeric($value)) {
                         $this->$name = $value;
                     } elseif ($value !== null) {
                         Analog::log(
@@ -182,6 +182,8 @@ class ObjectsList extends Pagination
                             '` should be an integer (' . gettype($value) . ' given)',
                             Analog::WARNING
                         );
+                    } else {
+                        $this->$name = null;
                     }
                     break;
                 case 'active_filter':
@@ -263,7 +265,7 @@ class ObjectsList extends Pagination
         $prefs = $prefs->getPreferences();
 
         $options = [
-            Objects::FILTER_NAME    => ($prefs['VIEW_CATEGORY'] ? _T("Name/description") : _T("Name")),
+            Objects::FILTER_NAME    => ($prefs['VIEW_DESCRIPTION'] ? _T("Name/description") : _T("Name")),
             Objects::FILTER_SERIAL  => _T("Serial number"),
             Objects::FILTER_ID      => _T("Id")
         ];

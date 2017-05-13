@@ -313,6 +313,24 @@ class LendCategory
     }
 
     /**
+     * Get category name
+     *
+     * @param boolea $count Whether to display count along with name (defaults to true)
+     *
+     * @return string
+     */
+    public function getName($count = true)
+    {
+        $name = $this->name !== null ? $this->name : _T("No category");
+
+        if ($count === true) {
+            $name .= " ({$this->objects_nb})";
+        }
+
+        return $name;
+    }
+
+    /**
      * Global getter method
      *
      * @param string $name name of the property we want to retrive

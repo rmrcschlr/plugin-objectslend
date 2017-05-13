@@ -3,8 +3,8 @@
         <div id="listfilter">
             <label for="filter_str">{_T string="Search:"}&nbsp;</label>
             <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
-             {_T string="in:"}&nbsp;
-            <select name="field_filter" onchange="form.submit()">
+            <label for="field_filter"> {_T string="in:"}&nbsp;</label>
+            <select name="field_filter" id="field_filter" onchange="form.submit()">
                 {html_options options=$field_filter_options selected=$filters->field_filter}
             </select>
             {if $login->isAdmin() or $login->isStaff()}
@@ -22,52 +22,40 @@
     </form>
 
     {if $lendsprefs.VIEW_CATEGORY and $categories|@count gt 0}
-        <div class="bigtable">
-        {if $filters->category_filter}
-            {if $categories.0->name neq null}
-                {_T string="Only in '%cat' category" pattern="/%cat/" replace=$categories.0->name}
-            {else}
-                {_T string="Only without category"}
-            {/if}
-            {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
-                &middot;
-                {$categories.0->objects_price_sum} &euro;
 
-                {if $categories.0->is_active}
-                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
-                {/if}
-            {/if}
-
-        {else}
-            <table class="details">
-                <caption class="ui-state-active ui-corner-top">{_T string="Choose a category"}</caption>
-                <tr>
+        <section id="categories">
+            <header class="ui-state-default ui-state-active">
+                {_T string="Categories"}
+            </header>
+            <div>
+                <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter=none"{if $filters->category_filter eq null} class="active"{/if}>
+                    <img src="picture.php?category_id=0&amp;rand={$time}&thumb=1"
+                        alt=""/>
+                    <br/>
+                    {_T string="All"}
+                </a>
         {foreach from=$categories item=categ}
-                    <td class="center{if $filters->category_filter eq $categ->category_id} cotis-ok{/if}">
-                        <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={if $categ->category_id neq null}{$categ->category_id}{else}none{/if}">
-                            <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
-                                class="picture"
-                                width="{$categ->picture->getOptimalThumbWidth()}"
-                                height="{$categ->picture->getOptimalThumbHeight()}"
-                                alt=""/>
-                            <br/>
-                            {if $categ->name neq null}{$categ->name}{else}{_T string="No category"}{/if} ({$categ->objects_nb})
-                            {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
-                                &middot;
-                                {$categ->objects_price_sum} &euro;
+                <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={$categ->category_id}"{if $filters->category_filter eq $categ->category_id} class="active"{/if}>
+                    <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
+                        width="{$categ->picture->getOptimalThumbWidth()}"
+                        height="{$categ->picture->getOptimalThumbHeight()}"
+                        alt=""/>
+                    <br/>
+                    {$categ->getName()}
+                    {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
+                        &middot;
+                        {$categ->objects_price_sum} &euro;
 
-                                {if $categ->is_active}
-                                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
-                                {/if}
+                        {if $categ->is_active}
+                            <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
+                        {/if}
 
-                            {/if}
-                        </a>
-                    </td>
+                    {/if}
+                </a>
         {/foreach}
-                </tr>
-            </table>
-        {/if}
-        </div>
+
+            </div>
+        </section>
     {/if}
 
     <form action="objects_list.php" method="get">

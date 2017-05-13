@@ -194,6 +194,9 @@ class Objects
             $categories = array();
             if ($as_objects) {
                 foreach ($rows as $row) {
+                    if (!isset($row[LendCategory::PK]) || $row[LendCategory::PK] === null) {
+                        $row[LendCategory::PK] = -1;
+                    }
                     $categories[] = new LendCategory($row);
                 }
             } else {
@@ -326,7 +329,7 @@ class Objects
                     array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
                     'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
                     [],
-                    ($mode === self::SHOW_CATEGORIES ? $select::JOIN_INNER : $select::JOIN_LEFT)
+                    $select::JOIN_LEFT
                 );
 
                 if ($this->filters !== false) {
@@ -359,13 +362,9 @@ class Objects
                     $fieldsList,
                     $select::JOIN_LEFT
                 );
-
-                if ($this->filters !== false) {
-                    $this->buildWhereClause($select);
-                }
+                $select->where('c.is_active', true);
 
                 $select->order(['c.name']);
-
                 $select->group(
                     'c.category_id'
                 );
@@ -374,7 +373,7 @@ class Objects
             return $select;
         } catch (\Exception $e) {
             Analog::log(
-                'Cannot build SELECT clause for members | ' . $e->getMessage(),
+                'Cannot build SELECT clause for objects | ' . $e->getMessage(),
                 Analog::WARNING
             );
             return false;
@@ -495,7 +494,7 @@ class Objects
                 $select->where('(o.is_active = false OR (c.is_active IS NOT NULL AND c.is_active = false))');
             }
 
-            if ($this->filters->category_filter == 'none') {
+            if ($this->filters->category_filter == '-1') {
                 $select->where('o.' . LendCategory::PK . ' IS NULL');
             } elseif ($this->filters->category_filter !== null) {
                 $select->where('o.' . LendCategory::PK . '=' . $this->filters->category_filter);

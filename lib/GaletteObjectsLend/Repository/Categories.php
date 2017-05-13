@@ -160,8 +160,6 @@ class Categories
             $as_cat,
             $fields,
             false,
-            false,
-            false,
             false
         );
     }

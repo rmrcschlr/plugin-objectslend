@@ -106,7 +106,7 @@ if (isset($_GET['clear_filter'])) {
         if (is_numeric($_GET['category_filter'])) {
             $filters->category_filter = $_GET['category_filter'];
         } elseif ($_GET['category_filter'] == 'none') {
-            $filters->category_filter = 'none';
+            $filters->category_filter = null;
         }
     }
 
@@ -165,7 +165,6 @@ if (filter_has_var(INPUT_GET, 'msg')) {
     }
 }
 
-$categories = $objects->getCategoriesList();
 
 //store current filters in session
 $session['filters']['objectslend_objects'] = serialize($filters);
@@ -195,7 +194,11 @@ $tpl->assign('success_detected', $success_detected);
 $tpl->assign('warning_detected', $warning_detected);
 
 $tpl->assign('msg_no_right', $msg_no_right);
-$tpl->assign('categories', $categories);
+
+if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
+    $categories = $objects->getCategoriesList();
+    $tpl->assign('categories', $categories);
+}
 
 $filters->setTplCommonsFilters($lendsprefs, $tpl);
 
