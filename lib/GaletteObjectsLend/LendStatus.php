@@ -136,7 +136,13 @@ class LendStatus
                         ->values($values);
                 $add = $zdb->execute($insert);
                 if ($add > 0) {
-                    $this->_status_id = $zdb->driver->getLastGeneratedValue();
+                    if ( $zdb->isPostgres() ) {
+                        $this->_status_id = $zdb->driver->getLastGeneratedValue(
+                            PREFIX_DB . '_lend_status_id_seq'
+                        );
+                    } else {
+                        $this->_status_id = $zdb->driver->getLastGeneratedValue();
+                    }
                 } else {
                     throw new \Exception(_T("Status has not been added :("));
                 }

@@ -150,7 +150,13 @@ class LendRent
                         ->values($values);
                 $result = $zdb->execute($insert);
                 if ($result->count() > 0) {
-                    $this->_rent_id = $zdb->driver->getLastGeneratedValue();
+                    if ( $zdb->isPostgres() ) {
+                        $this->_rent_id = $zdb->driver->getLastGeneratedValue(
+                            PREFIX_DB . '_lend_rents_id_seq'
+                        );
+                    } else {
+                        $this->_rent_id = $zdb->driver->getLastGeneratedValue();
+                    }
                 } else {
                     throw new \Exception(_T("Rent has not been added"));
                 }

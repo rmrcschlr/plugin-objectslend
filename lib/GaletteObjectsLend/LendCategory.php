@@ -169,7 +169,13 @@ class LendCategory
                         ->values($values);
                 $add = $zdb->execute($insert);
                 if ($add > 0) {
-                    $this->category_id = $zdb->driver->getLastGeneratedValue();
+                    if ( $zdb->isPostgres() ) {
+                        $this->category_id = $zdb->driver->getLastGeneratedValue(
+                            PREFIX_DB . '_lend_category_id_seq'
+                        );
+                    } else {
+                        $this->category_id = $zdb->driver->getLastGeneratedValue();
+                    }
                 } else {
                     throw new \RuntimeException('Unable to add catagory!');
                 }

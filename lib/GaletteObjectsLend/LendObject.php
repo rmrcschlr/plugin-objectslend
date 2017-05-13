@@ -246,7 +246,13 @@ class LendObject
                         ->values($values);
                 $result = $zdb->execute($insert);
                 if ($result->count() > 0) {
-                    $this->object_id = $zdb->driver->getLastGeneratedValue();
+                    if ( $zdb->isPostgres() ) {
+                        $this->object_id = $zdb->driver->getLastGeneratedValue(
+                            PREFIX_DB . '_lend_objects_id_seq'
+                        );
+                    } else {
+                        $this->object_id = $zdb->driver->getLastGeneratedValue();
+                    }
                 } else {
                     throw new \Exception(_T("Object has not been added :("));
                 }
