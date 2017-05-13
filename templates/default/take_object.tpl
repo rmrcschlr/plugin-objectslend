@@ -86,7 +86,7 @@
                     <select name="status" id="status">
                         <option value="null">{_T string="--- Select a status ---"}</option>
                         {foreach from=$statuses item=sta}
-                            <option value="{$sta->status_id}/{$sta->rent_day_number}">
+                            <option value="{$sta->status_id}" data-days="{$sta->rent_day_number}">
                                 {$sta->status_text}
                                 {if $sta->rent_day_number ne ''}
                                     ({_T string="%days days" pattern="/%days/" replace=$sta->rent_day_number})
@@ -212,24 +212,23 @@
             _lyes.button('enable');
         }
 
-        var id_days = $('#status').val();
-        if (id_days === 'null') {
+        var days = $('#status option:selected').data('days');
+        if (typeof days == "undefined" || days == 'null') {
             return;
         }
 
-        var nb_days = id_days.split('/');
-        if (nb_days[1].length === 0) {
+        if (days.length === 0) {
             var text = "{$object->rent_price}";
             $('#rent_price').val(text);
             $('#rent_price_label').html(text);
             return;
         }
 
-        var tomorrow = new Date({$year}, {$month} - 1, {$day} + parseInt(nb_days[1]));
+        var tomorrow = new Date({$year}, {$month} - 1, {$day} + parseInt(days));
         $('#expected_return').val(completeZero(tomorrow.getDate()) + '/' + completeZero(tomorrow.getMonth() + 1) + '/' + tomorrow.getFullYear());
 
         if ('1' === '{$object->price_per_day}') {
-            var price_per_day = {$rent_price} * parseInt(nb_days[1]);
+            var price_per_day = {$rent_price} * parseInt(days);
             var text = price_per_day.toFixed(2).replace(".", ",");
             $('#rent_price').val(text);
             $('#rent_price_label').html(text);
