@@ -173,15 +173,43 @@
                             </a>
                         </th>
                         <th>
-                            {_T string="Since"}
+                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE;{/php}">
+                                {_T string="Since"}
+                                {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE')}
+                                    {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
+                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    {else}
+                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    {/if}
+                                {/if}
+                            </a>
                         </th>
                         <th>
-                            {_T string="By"}
+                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER;{/php}">
+                                {_T string="By"}
+                                {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER')}
+                                    {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
+                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    {else}
+                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    {/if}
+                                {/if}
+                            </a>
                         </th>
                         {if $lendsprefs.VIEW_DATE_FORECAST}
-                            <th>
+                        <th>
+                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE;{/php}">
                                 {_T string="Return"}
-                            </th>
+                                {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE')}
+                                    {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
+                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    {else}
+                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    {/if}
+                                {/if}
+                            </a>
+
+                        </th>
                         {/if}
                         {if $login->isAdmin() || $login->isStaff()}
                             <th class="id_row">
@@ -242,21 +270,26 @@
                                 </td>
                             {/if}
                             <td>
-                                {assign var=current_rent value=$object->getCurrentRent()}
-                                {if $current_rent}{$current_rent->status_text}{/if}
+                                {if $object->status_text}
+                                    {$object->status_text}
+                                {else}-{/if}
                             </td>
-                            <td class="center">
-                                {if $current_rent}<span style="white-space: nowrap">{$current_rent->date_begin|date_format:_T("Y-m-d")}</span>{/if}
+                            <td class="center nowrap">
+                                {if $object->date_begin}
+                                    {$object->date_begin|date_format:_T("Y-m-d")}
+                                {else}-{/if}
                             </td>
                             <td>
-                                {if $current_rent and $current_rent->nom_adh ne ''}
-                                    <a href="mailto:{$current_rent->email_adh}">{$current_rent->nom_adh} {$current_rent->prenom_adh}</a>
-                                {/if}
+                                {if $object->id_adh}
+                                    <a href="../../ajouter_adherent.php?id_adh={$object->id_adh}">{memberName id=$object->id_adh}</a>
+                                {else}-{/if}
                             </td>
                             {if $lendsprefs.VIEW_DATE_FORECAST}
-                                <td class="center">
-                                    {if $current_rent}<span style="white-space: nowrap">{$current_rent->date_forecast|date_format:_T("Y-m-d")}</span>{/if}
-                                </td>
+                            <td class="center nowrap">
+                                {if $object->date_forecast}
+                                    {$object->date_forecast|date_format:_T("Y-m-d")}
+                                {else}-{/if}
+                            </td>
                             {/if}
                             <td class="center">
                                 {if $object->isActive()}
@@ -264,7 +297,7 @@
                                 {/if}
                             </td>
                             <td class="center nowrap">
-                                {if !$current_rent or $current_rent->is_home_location}
+                                {if !$object->rent_id or $object->in_stock}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
                                         <a class="take_object" href="take_object.php?object_id={$object->object_id}">
                                             <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="Take away"}" title="{_T string="Take object away"}"/>

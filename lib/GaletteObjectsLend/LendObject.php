@@ -92,6 +92,7 @@ class LendObject
     private $email_adh = '';
     private $id_adh;
     private $rent_id;
+    private $in_stock;
 
     private $currency = '€';
     private $picture;
@@ -210,6 +211,10 @@ class LendObject
 
             if (property_exists($r, Adherent::PK)) {
                 $this->id_adh = $r->{Adherent::PK};
+            }
+
+            if (property_exists($r, 'is_home_location')) {
+                $this->in_stock = $r->is_home_location;
             }
         }
 

@@ -41,6 +41,7 @@ use Galette\Entity\DynamicFields;
 use Analog\Analog;
 use Galette\Core\Db;
 use Zend\Db\Sql\Expression;
+use Galette\Entity\Adherent;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\ObjectsList;
 use GaletteObjectsLend\Preferences;
@@ -81,6 +82,9 @@ class Objects
     const ORDERBY_RENTPRICE = 3;
     const ORDERBY_WEIGHT = 4;
     const ORDERBY_STATUS = 5;
+    const ORDERBY_BDATE = 6;
+    const ORDERBY_FDATE = 7;
+    const ORDERBY_MEMBER = 8;
 
     const SHOW_LIST = 0;
     const SHOW_CATEGORIES = 1;
@@ -144,7 +148,7 @@ class Objects
             $objects = array();
             if ($as_objects) {
                 foreach ($rows as $row) {
-                    $deps = ['last_rent' => true];
+                    //$deps = ['last_rent' => true];
                     if ($all_rents === true) {
                         $deps['rents'] = true;
                     }
@@ -326,6 +330,27 @@ class Objects
                 $select->columns($fieldsList);
 
                 $select->join(
+                    ['r' => PREFIX_DB . LEND_PREFIX . LendRent::TABLE],
+                    'o.' . LendRent::PK . '=r.' . LendRent::PK,
+                    ['date_begin', 'date_forecast'],
+                    $select::JOIN_LEFT
+                );
+
+                $select->join(
+                    ['s' => PREFIX_DB . LEND_PREFIX . LendStatus::TABLE],
+                    'r.' . LendStatus::PK . '=s.' . LendStatus::PK,
+                    ['status_text', 'is_home_location'],
+                    $select::JOIN_LEFT
+                );
+
+                $select->join(
+                    ['a' => PREFIX_DB . Adherent::TABLE],
+                    'r.adherent_id=a.' . Adherent::PK,
+                    [Adherent::PK, 'nom_adh', 'prenom_adh'],
+                    $select::JOIN_LEFT
+                );
+
+                $select->join(
                     array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
                     'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
                     [],
@@ -463,6 +488,21 @@ class Objects
             case self::ORDERBY_STATUS:
                 if ($this->canOrderBy('status_text', $fields)) {
                     $order[] = 'status_text ' . $this->filters->getDirection();
+                }
+                break;
+            case self::ORDERBY_BDATE:
+                if ($this->canOrderBy('date_begin', $fields)) {
+                    $order[] = 'date_begin ' . $this->filters->getDirection();
+                }
+                break;
+            case self::ORDERBY_FDATE:
+                if ($this->canOrderBy('date_forecast', $fields)) {
+                    $order[] = 'date_forecast ' . $this->filters->getDirection();
+                }
+                break;
+            case self::ORDERBY_MEMBER:
+                if ($this->canOrderBy('nom_adh', $fields) && $this->canOrderBy('prenom_adh', $fields)) {
+                    $order[] = 'nom_adh ' . $this->filters->getDirection() . ', prenom_adh ' . $this->filters->getDirection();
                 }
                 break;
         }
