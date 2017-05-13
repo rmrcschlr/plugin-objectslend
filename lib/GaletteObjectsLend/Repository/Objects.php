@@ -362,7 +362,6 @@ class Objects
                     $fieldsList,
                     $select::JOIN_LEFT
                 );
-                $select->where('c.is_active', true);
 
                 $select->order(['c.name']);
                 $select->group(

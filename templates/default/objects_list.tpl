@@ -35,6 +35,7 @@
                     {_T string="All"}
                 </a>
         {foreach from=$categories item=categ}
+            {if $categ->is_active || $categ->category_id eq -1}
                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={$categ->category_id}"{if $filters->category_filter eq $categ->category_id} class="active"{/if}>
                     <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
                         width="{$categ->picture->getOptimalThumbWidth()}"
@@ -52,6 +53,7 @@
 
                     {/if}
                 </a>
+            {/if}
         {/foreach}
 
             </div>
