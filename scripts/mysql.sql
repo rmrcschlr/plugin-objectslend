@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS galette_lend_objects (
   category_id INT(10) UNSIGNED NULL,
   rent_price DECIMAL(15,3) NULL,
   nb_available INT NULL,
-  rent_id int(10) unsigned NOT NULL,
+  rent_id int(10) unsigned NULL DEFAULT NULL,
   PRIMARY KEY (object_id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
