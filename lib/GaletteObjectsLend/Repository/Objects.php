@@ -420,6 +420,7 @@ class Objects
             $countSelect->reset($countSelect::COLUMNS);
             $countSelect->reset($countSelect::ORDER);
             $countSelect->reset($countSelect::HAVING);
+            $countSelect->reset($countSelect::JOINS);
             $countSelect->columns(
                 array(
                     'count' => new Expression('count(o.' . self::PK . ')')
@@ -431,6 +432,16 @@ class Objects
                 foreach ($have->getPredicates() as $h) {
                     $countSelect->where($h);
                 }
+            }
+
+            $joins = $select->getRawState($select::JOINS);
+            foreach ($joins as $join) {
+                $countSelect->join(
+                    $join['name'],
+                    $join['on'],
+                    [],
+                    $join['type']
+                );
             }
 
             $results = $zdb->execute($countSelect);
