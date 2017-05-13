@@ -116,14 +116,37 @@ class Picture extends \Galette\Core\Picture
     public function displayThumb(Preferences $prefs)
     {
         $thumb = $this->getThumbPath();
+        $this->thumb_max_width = $prefs->getThumbWidth();
+        $this->thumb_max_height = $prefs->getThumbHeight();
 
         // Create if missing
         if (!is_file($thumb)) {
-            $this->thumb_max_width = $prefs->getThumbWidth();
-            $this->thumb_max_height = $prefs->getThumbHeight();
             $ext = pathinfo($this->file_path, PATHINFO_EXTENSION);
             $this->createThumb($this->file_path, $ext, $thumb);
+        } else {
+            //resize if too small/large
+            if (function_exists("gd_info")) {
+                list($cur_width, $cur_height, $cur_type, $curattr)
+                    = getimagesize($thumb);
+
+                if ($cur_height != $this->getOptimalHeight()
+                    && $cur_height < $this->thumb_max_height
+                    && $cur_width != $this->getOptimalWidth()
+                    && $cur_width < $this->thumb_max_width
+                    || $cur_width > $this->thumb_max_width
+                    || $cur_height > $this->thumb_max_height
+                ) {
+                    Analog::log(
+                        'Picture thumbnail must be generated again.',
+                        Analog::INFO
+                    );
+                    unlink($thumb);
+                    $ext = pathinfo($this->file_path, PATHINFO_EXTENSION);
+                    $this->createThumb($this->file_path, $ext, $thumb);
+                }
+            }
         }
+
         header('Content-type: ' . $this->mime);
         readfile($thumb);
     }
