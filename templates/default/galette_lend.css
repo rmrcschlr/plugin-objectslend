@@ -160,9 +160,11 @@
 }
 
 .disclaimer {
-    color: #999999;
     margin: 1em 3em;
     font-size: .9em;
+}
+#terms_conditions {
+    color: #999;
 }
 
 /*

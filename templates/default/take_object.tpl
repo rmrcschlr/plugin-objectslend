@@ -149,12 +149,15 @@
         </fieldset>
     </div>
     {if $takeorgive eq 'take'}
-    <div class="disclaimer">
-        {_T string="The items offered for rent are in good condition and verification rental contradictory to their status is at the time of withdrawal. No claims will be accepted after the release of the object. Writing by the store a list of reservation does not exempt the customer checking his retrait. The payment of rent entitles the purchaser to make normal use of the loaned object. If the object is rendered in a degraded state, the seller reserves the right to collect all or part of the security deposit. In case of deterioration of the rented beyond the standard object, a financial contribution will be required for additional cleaning caused. In case of damage, loss or theft of the rented property, the deposit will not be refunded automatically to 'the company as damages pursuant to Article 1152 of the Civil Code and without that it need for any other judicial or extra-judicial formality. In some other cases not listed above and at the discretion of the seller, the deposit check may also be collected in whole or party."}
+    <div class="disclaimer center">
+        <input type="checkbox" name="agreement" id="agreement" value="1" required="required"/>
+        <label for="agreement">{_T string="I have read and I agree with terms and conditions"}</label>
+        <span class="show_agreement" title="{_T string="Show terms and conditions"}"><img src="{$template_subdir}images/icon-down.png" alt="{_T string="Show terms and conditions"}"/></span>
+        <div id="terms_conditions" class="left">{_T string="The items offered for rent are in good condition and verification rental contradictory to their status is at the time of withdrawal. No claims will be accepted after the release of the object. Writing by the store a list of reservation does not exempt the customer checking his retrait. The payment of rent entitles the purchaser to make normal use of the loaned object. If the object is rendered in a degraded state, the seller reserves the right to collect all or part of the security deposit. In case of deterioration of the rented beyond the standard object, a financial contribution will be required for additional cleaning caused. In case of damage, loss or theft of the rented property, the deposit will not be refunded automatically to 'the company as damages pursuant to Article 1152 of the Civil Code and without that it need for any other judicial or extra-judicial formality. In some other cases not listed above and at the discretion of the seller, the deposit check may also be collected in whole or party."}</div>
     </div>
     {/if}
     <div class="button-container" id="button_container">
-        <input type="submit" id="btnsave" name="yes" value="{_T string="Take away"}">
+        <input type="submit" id="btnsave" name="yes" value="{if $takeorgive eq 'take'}{_T string="Take away"}{else}{_T string="Give back"}{/if}">
         <a href="objects_list.php" class="button" id="btncancel">{_T string="Cancel"}</a>
     </div>
 </form>
@@ -180,6 +183,18 @@
 
         $('#id_adh, #status, #payment_type').on('change',function() {
             validStatus()
+        });
+
+        $('#btnsave').on('click', function(e) {
+            if (!$('#agreement').is(':checked')) {
+                e.preventDefault();
+                alert('{_T string="You must agree with terms and conditions in order to take." escape="js"}');
+            }
+        });
+
+        $('#terms_conditions').hide();
+        $('.show_agreement').on('click', function() {
+            $('#terms_conditions').toggle();
         });
     }
 
