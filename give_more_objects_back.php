@@ -57,10 +57,7 @@ $lendsprefs = new Preferences($zdb);
  * Traitement résultats
  */
 if (filter_has_var(INPUT_POST, 'yes')) {
-    $objects_ids = filter_input(INPUT_POST, 'objects_id');
-    if (filter_has_var(INPUT_POST, 'safe_objects_ids')) {
-        $objects_ids = explode(',', filter_input(INPUT_POST, 'safe_objects_ids'));
-    }
+    $objects_ids = $_POST['objects_id'];
     foreach ($objects_ids as $o_id) {
         LendRent::closeAllRentsForObject($o_id, filter_input(INPUT_POST, 'comments'));
         $rent = new LendRent();
@@ -90,11 +87,9 @@ $ajax = filter_has_var(INPUT_GET, 'mode') ? filter_input(INPUT_GET, 'mode') === 
  * Récupération des objets et vérification qu'ils sont bien sortis
  */
 $objects = array();
-$safe_objects_ids = array();
 foreach (LendObject::getMoreObjectsByIds($objects_ids) as $obj) {
     if (!$obj->is_home_location) {
         $objects[] = $obj;
-        $safe_objects_ids[] = $obj->object_id;
     }
 }
 
@@ -103,7 +98,6 @@ $tpl->assign('objects', $objects);
 $tpl->assign('statuses', LendStatus::getActiveHomeStatuses());
 
 $tpl->assign('ajax', $ajax);
-$tpl->assign('safe_objects_ids', join(',', $safe_objects_ids));
 $tpl->assign('lendsprefs', $lendsprefs->getpreferences());
 $tpl->assign('olendsprefs', $lendsprefs);
 $tpl->assign('takeorgive', 'give');
