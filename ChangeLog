@@ -6,6 +6,7 @@
 - Use standard translation system
 - Add missing changes in 0.4.x migrations
 - Add filtering on lists
+- Galette 0.9 compatible
 
 * 2017-05-01 - 0.5beta
 - Beta release for 0.5

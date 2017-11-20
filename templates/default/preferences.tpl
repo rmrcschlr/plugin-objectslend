@@ -1,4 +1,6 @@
-<form action="preferences.php" method="post">
+{extends file="page.tpl"}
+{block name="content"}
+<form action="{path_for name="store_objectlend_preferences"}" method="post">
     <div id="prefs_tabs">
         <fieldset class="cssform" id="objectslend">
             <legend class="ui-state-active ui-corner-top">{_T string="Plugin preferences"}</legend>
@@ -110,3 +112,4 @@
         <input type="submit" id="btnsave" name="saveprefs" value="{_T string="Save"}">
     </div>
 </form>
+{/block}

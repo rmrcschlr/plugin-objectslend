@@ -39,7 +39,6 @@
  */
 
 $_tpl_assignments = array(
-    'lend_tpl_dir'  => '__plugin_templates_dir__',
-    'lend_dir'      => '__plugin_dir__',
-    'lendc_dir'     => '__plugin_include_dir__/'
+    'lend_tpl_dir' => '__plugin_templates_dir__',
+    'lend_dir'     => '__plugin_dir__'
 );

@@ -38,4 +38,3 @@
  * @since     Available since 0.7
  */
 define('LEND_PREFIX', 'lend_');
-define('LEND_SMARTY_PREFIX', 'plugins|lend');
