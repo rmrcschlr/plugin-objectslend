@@ -280,7 +280,7 @@ class LendObject
                         $this->object_id = $zdb->driver->getLastGeneratedValue();
                     }
                 } else {
-                    throw new \Exception(_T("Object has not been added :("));
+                    throw new \Exception(_T("Object has not been added :(", "objectslend"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)

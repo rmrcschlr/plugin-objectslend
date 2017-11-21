@@ -65,10 +65,10 @@ if (filter_has_var(INPUT_POST, 'category_id')) {
 
 if ($id !== null) {
     $category = new LendCategory($id);
-    $title = _T("Edit category");
+    $title = _T("Edit category", "objectslend");
 } else {
     $category = new LendCategory();
-    $title = _T("New category");
+    $title = _T("New category", "objectslend");
 }
 
 /**
@@ -104,7 +104,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
 
         if (isset($_POST['del_picture'])) {
             if (!$category->picture->delete($category->category_id)) {
-                $error_detected[] = _T("Delete failed");
+                $error_detected[] = _T("Delete failed", "objectslend");
                 Analog::log(
                     'Unable to delete picture for member ' . $category->name,
                     Analog::ERROR
@@ -112,7 +112,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
             }
         }
     } else {
-        $error_detected[] = _T("An error occured while storing the category.");
+        $error_detected[] = _T("An error occured while storing the category.", "objectslend");
     }
 
     if (count($error_detected) == 0) {

@@ -2,16 +2,16 @@
     <input type="hidden" name="category_id" value="{$category->category_id}">
     <div class="bigtable">
         <fieldset class="cssform">
-            <legend class="ui-state-active ui-corner-top">{_T string="Category"}</legend>
+            <legend class="ui-state-active ui-corner-top">{_T string="Category" domain="objectslend"}</legend>
             <div>
                 <p>
-                    <span class="bline">{_T string="Name"}</span>
+                    <span class="bline">{_T string="Name" domain="objectslend"}</span>
                     <input type="text" name="name" size="60" maxlength="100" value="{$category->name}" required>
                 </p>
             </div>
             <div>
                 <p>
-                    <label for="is_active" class="bline">{_T string="Is active"}</label>
+                    <label for="is_active" class="bline">{_T string="Is active" domain="objectslend"}</label>
                     <input type="checkbox" name="is_active" id="is_active" value="true"{if $category->is_active} checked="checked"{/if}>
                 </p>
             </div>
@@ -21,14 +21,14 @@
             </div>
             <div>
                 <p>
-                    <span class="bline">{_T string="Picture:"}</span>
+                    <span class="bline">{_T string="Picture:" domain="objectslend"}</span>
                     <img src="picture.php?category_id={$category->category_id}&amp;rand={$time}&thumb=1"
                         class="picture"
                         width="{$category->picture->getOptimalThumbWidth()}"
                         height="{$category->picture->getOptimalThumbHeight()}"
-                        alt="{_T string="Category photo"}"/><br/>
+                        alt="{_T string="Category photo" domain="objectslend"}"/><br/>
     {if $category->picture->hasPicture()}
-                    <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image"}</label></span><br/>
+                    <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>
     {/if}
 
                     <input class="labelalign" type="file" name="picture"/>

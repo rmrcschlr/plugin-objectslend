@@ -52,7 +52,7 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("Give back object"));
+$tpl->assign('page_title', _T("Give back object", "objectslend"));
 
 $lendsprefs = new Preferences($zdb);
 

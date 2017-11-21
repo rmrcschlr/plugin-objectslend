@@ -60,11 +60,11 @@ if ($id !== null) {
     $title = str_replace(
         '%status',
         $status->status_text,
-        _T("Edit status %status")
+        _T("Edit status %status", "objectslend")
     );
 } else {
     $status = new LendStatus();
-    $title = _T("New status");
+    $title = _T("New status", "objectslend");
 }
 
 
@@ -80,7 +80,7 @@ if (filter_has_var(INPUT_POST, 'save')) {
     if($status->store()) {
         header('Location: status_list.php?msg=saved');
     } else {
-        $error_detected[] = _T("An error occured while storing the status.");
+        $error_detected[] = _T("An error occured while storing the status.", "objectslend");
     }
 }
 

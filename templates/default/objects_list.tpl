@@ -8,7 +8,7 @@
                 {html_options options=$field_filter_options selected=$filters->field_filter}
             </select>
             {if $login->isAdmin() or $login->isStaff()}
-                {_T string="Active:"}
+                {_T string="Active:" domain="objectslend"}
                 <input type="radio" name="active_filter" id="filter_dc_active" value="{php}echo GaletteObjectsLend\Repository\Objects::ALL_OBJECTS;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_dc_active" >{_T string="Don't care"}</label>
                 <input type="radio" name="active_filter" id="filter_yes_active" value="{php}echo GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
@@ -25,7 +25,7 @@
 
         <section id="categories">
             <header class="ui-state-default ui-state-active">
-                {_T string="Categories"}
+                {_T string="Categories" domain="objectslend"}
             </header>
             <div>
                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter=none"{if $filters->category_filter eq null} class="active"{/if}>
@@ -48,7 +48,7 @@
                         {$categ->objects_price_sum} &euro;
 
                         {if $categ->is_active}
-                            <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Category is active"}"/>
+                            <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Category is active" domain="objectslend"}"/>
                         {/if}
 
                     {/if}
@@ -63,7 +63,7 @@
     <form action="objects_list.php" method="get">
         <table class="infoline">
             <tr>
-                <td class="left">{$nb_objects} {if $nb_objects gt 1}{_T string="objects"}{else}{_T string="object"}{/if}</td>
+                <td class="left">{$nb_objects} {if $nb_objects gt 1}{_T string="objects" domain="objectslend"}{else}{_T string="object" domain="objectslend"}{/if}</td>
                 <td class="right">
                     <label for="nbshow">{_T string="Records per page:"}</label>
                     <select name="nbshow" id="nbshow">
@@ -89,7 +89,7 @@
                         {/if}
                             <th>
                                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_NAME;{/php}">
-                                    {_T string="Name"}
+                                    {_T string="Name" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_NAME')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                     <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -102,7 +102,7 @@
                         {if $lendsprefs.VIEW_SERIAL}
                             <th>
                                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL;{/php}">
-                                    {_T string="Serial"}
+                                    {_T string="Serial" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                             <img src="{$template_subdir}images/down.png"/>
@@ -116,7 +116,7 @@
                         {if $lendsprefs.VIEW_PRICE}
                             <th>
                                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE;{/php}">
-                                    {_T string="Price"}
+                                    {_T string="Price" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                     <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -130,7 +130,7 @@
                         {if $lendsprefs.VIEW_LEND_PRICE}
                             <th>
                                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE;{/php}">
-                                    {_T string="Borrow price"}
+                                    {_T string="Borrow price" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                     <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -143,13 +143,13 @@
                         {/if}
                         {if $lendsprefs.VIEW_DIMENSION}
                             <th>
-                                {_T string="Dimensions"}
+                                {_T string="Dimensions" domain="objectslend"}
                             </th>
                         {/if}
                         {if $lendsprefs.VIEW_WEIGHT}
                             <th>
                                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT;{/php}">
-                                    {_T string="Weight"}
+                                    {_T string="Weight" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                     <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -162,7 +162,7 @@
                         {/if}
                         <th>
                             <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS;{/php}">
-                                {_T string="Status"}
+                                {_T string="Status" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                 <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -174,7 +174,7 @@
                         </th>
                         <th>
                             <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE;{/php}">
-                                {_T string="Since"}
+                                {_T string="Since" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                 <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -186,7 +186,7 @@
                         </th>
                         <th>
                             <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER;{/php}">
-                                {_T string="By"}
+                                {_T string="By" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                 <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -199,7 +199,7 @@
                         {if $lendsprefs.VIEW_DATE_FORECAST}
                         <th>
                             <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE;{/php}">
-                                {_T string="Return"}
+                                {_T string="Return" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                 <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
@@ -213,7 +213,7 @@
                         {/if}
                         {if $login->isAdmin() || $login->isStaff()}
                             <th class="id_row">
-                                {_T string="Active"}
+                                {_T string="Active" domain="objectslend"}
                             </th>
                         {/if}
                         <th class="actions_row">
@@ -235,7 +235,7 @@
                                     class="picture"
                                     width="{$object->picture->getOptimalThumbWidth()}"
                                     height="{$object->picture->getOptimalThumbHeight()}"
-                                    alt="{_T string="Object's photo"}"/>
+                                    alt="{_T string="Object's photo" domain="objectslend"}"/>
                             </td>
     {/if}
                             <td>
@@ -293,38 +293,38 @@
                             {/if}
                             <td class="center">
                                 {if $object->isActive()}
-                                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" title="{_T string="Object is active"}"/>
+                                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Object is active" domain="objectslend"}"/>
                                 {/if}
                             </td>
                             <td class="center nowrap">
                                 {if !$object->rent_id or $object->in_stock}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
                                         <a class="take_object" href="take_object.php?object_id={$object->object_id}">
-                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="Take away"}" title="{_T string="Take object away"}"/>
+                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="Take away" domain="objectslend"}" title="{_T string="Take object away" domain="objectslend"}"/>
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $object->id_adh}
                                         <a class="give_object" href="give_object_back.php?object_id={$object->object_id}">
-                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-giveback.png" alt="{_T string="Give back"}" title="{_T string="Give object back"}"/>
+                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-giveback.png" alt="{_T string="Give back" domain="objectslend"}" title="{_T string="Give object back" domain="objectslend"}"/>
                                         </a>
                                 {/if}
 
     {if $login->isAdmin() || $login->isStaff()}
                                 <a href="objects_edit.php?object_id={$object->object_id}">
-                                    <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object"}"/>
+                                    <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object" domain="objectslend"}"/>
                                 </a>
                                 <a href="objects_edit.php?clone_object_id={$object->object_id}">
-                                    <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-dup.png" title="{_T string="Duplicate object"}"/>
+                                    <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-dup.png" title="{_T string="Duplicate object" domain="objectslend"}"/>
                                 </a>
                                 <a href="objects_print.php?object_id={$object->object_id}">
-                                    <img src="{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF"}"/>
+                                    <img src="{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
                                 </a>
                             </td>
     {/if}
                         </tr>
                     {foreachelse}
                         {* FIXME: calculate colspan *}
-                        <tr><td colspan="14" class="emptylist">{_T string="No object has been found"}</td></tr>
+                        <tr><td colspan="14" class="emptylist">{_T string="No object has been found" domain="objectslend"}</td></tr>
                     {/foreach}
                 </tbody>
 {if $nb_objects != 0}
@@ -334,23 +334,23 @@
                         <ul class="selection_menu">
                             <li>{_T string="For the selection:"}</li>
                             <li>
-                                <input type="submit" name="print_list" class="button btnpdf" value="{_T string="Print objects list"}">
+                                <input type="submit" name="print_list" class="button btnpdf" value="{_T string="Print objects list" domain="objectslend"}">
                             </li>
     {if $login->isAdmin() || $login->isStaff()}
                             <li>
-                                <input type="submit" name="print_objects" class="button btnpdf" value="{_T string="Print objects cards"}">
+                                <input type="submit" name="print_objects" class="button btnpdf" value="{_T string="Print objects cards" domain="objectslend"}">
                             </li>
                             <li>
-                                <input type="submit" value="{_T string="Take out"}" id="objects_take_away" class="button">
+                                <input type="submit" value="{_T string="Take out" domain="objectslend"}" id="objects_take_away" class="button">
                             </li>
                             <li>
-                                <input type="submit" value="{_T string="Return"}" id="objects_give_back" class="button">
+                                <input type="submit" value="{_T string="Return" domain="objectslend"}" id="objects_give_back" class="button">
                             </li>
                             <li>
-                                <input type="submit" value="{_T string="Disable"}" onclick="return confirmDelete(false);">
+                                <input type="submit" value="{_T string="Disable" domain="objectslend"}" onclick="return confirmDelete(false);">
                             </li>
                             <li>
-                                <input type="submit" id="delete" value="{_T string="Delete"}" onclick="return confirmDelete(true);">
+                                <input type="submit" id="delete" value="{_T string="Delete" domain="objectslend"}" onclick="return confirmDelete(true);">
                             </li>
     {/if}
                         </ul>
@@ -409,7 +409,7 @@
             $('.selection_menu input[type="submit"], .selection_menu input[type="button"]').click(function(){
                 var _checkeds = $('table.listing').find('input[type=checkbox]:checked').length;
                 if ( _checkeds == 0 ) {
-                    var _el = $('<div id="pleaseselect" title="{_T string="No object selected" escape="js"}">{_T string="Please make sure to select at least one object from the list to perform this action." escape="js"}</div>');
+                    var _el = $('<div id="pleaseselect" title="{_T string="No object selected" domain="objectslend" escape="js"}">{_T string="Please make sure to select at least one object from the list to perform this action." domain="objectslend" escape="js"}</div>');
                     _el.appendTo('body').dialog({
                         modal: true,
                         buttons: {
@@ -437,7 +437,7 @@
                     datatype: 'html',
                     {include file="../../../../templates/default/js_loader.tpl"},
                     success: function(res){
-                        var _el = $('<div id="lend_window" title="{_T string="Take object" escape="js"}"></div>');
+                        var _el = $('<div id="lend_window" title="{_T string="Take object" domain="objectslend" escape="js"}"></div>');
                         _el.appendTo('body').dialog({
                             modal: true,
                             hide: 'fold',
@@ -465,7 +465,7 @@
 
                     },
                     error: function(){
-                        alert("{_T string="An error occured loading 'Take away' display :(" escape="js"}")
+                        alert("{_T string="An error occured loading 'Take away' display :(" domain="objectslend" escape="js"}")
                     }
                 });
             });
@@ -480,7 +480,7 @@
                     datatype: 'html',
                     {include file="../../../../templates/default/js_loader.tpl"},
                     success: function(res){
-                        var _el = $('<div id="lend_window" title="{_T string="Give object" escape="js"}"></div>');
+                        var _el = $('<div id="lend_window" title="{_T string="Give object" domain="objectslend" escape="js"}"></div>');
                         _el.appendTo('body').dialog({
                             modal: true,
                             hide: 'fold',
@@ -508,7 +508,7 @@
 
                     },
                     error: function(){
-                        alert("{_T string="An error occured loading 'Give back' display :(" escape="js"}")
+                        alert("{_T string="An error occured loading 'Give back' display :(" domain="objectslend" escape="js"}")
                     }
                 });
             });
@@ -529,8 +529,8 @@
                     objectsIds += $(this).val() + ',';
                 });
 
-                var msg = isDelete ? '{_T string="Are you sure you want to delete %count objects? This cannot be undone." escape="js"}'
-                    : '{_T string="Are you sure you want to disable %count objects?" escape="js"}';
+                var msg = isDelete ? '{_T string="Are you sure you want to delete %count objects? This cannot be undone." domain="objectslend" escape="js"}'
+                    : '{_T string="Are you sure you want to disable %count objects?" domain="objectslend" escape="js"}';
                 msg = msg.replace('%count', nbSelected);
                 if (nbSelected > 0 && confirm(msg)) {
                     window.location = 'objects_delete.php?' + (isDelete ? 'delete' : 'disable') + '=1&objects_ids=' + objectsIds;
@@ -551,7 +551,7 @@
                     datatype: 'html',
                     {include file="../../../../templates/default/js_loader.tpl"},
                     success: function(res){
-                        var _el = $('<div id="lend_window" title="{_T string="Take objects" escape="js"}"></div>');
+                        var _el = $('<div id="lend_window" title="{_T string="Take objects" domain="objectslend" escape="js"}"></div>');
                         _el.appendTo('body').dialog({
                             modal: true,
                             hide: 'fold',
@@ -579,7 +579,7 @@
 
                     },
                     error: function(){
-                        alert("{_T string="An error occured loading 'Take away' display :(" escape="js"}")
+                        alert("{_T string="An error occured loading 'Take away' display :(" domain="objectslend" escape="js"}")
                     }
                 });
             });
@@ -597,7 +597,7 @@
                     datatype: 'html',
                     {include file="../../../../templates/default/js_loader.tpl"},
                     success: function(res){
-                        var _el = $('<div id="lend_window" title="{_T string="Give back objects" escape="js"}"></div>');
+                        var _el = $('<div id="lend_window" title="{_T string="Give back objects" domain="objectslend" escape="js"}"></div>');
                         _el.appendTo('body').dialog({
                             modal: true,
                             hide: 'fold',
@@ -625,7 +625,7 @@
 
                     },
                     error: function(){
-                        alert("{_T string="An error occured loading 'Give back' display :(" escape="js"}")
+                        alert("{_T string="An error occured loading 'Give back' display :(" domain="objectslend" escape="js"}")
                     }
                 });
             });

@@ -85,7 +85,7 @@ function cut($str, $length)
 $pdf = new LendPDF($preferences);
 
 // Set document information
-$pdf->SetTitle(_T("Objects list"));
+$pdf->SetTitle(_T("Objects list", "objectslend"));
 $pdf->SetSubject('');
 $pdf->SetKeywords('');
 
@@ -95,22 +95,22 @@ $objects = new Objects($zdb, $lendsprefs, $filters);
 $list = $objects->getObjectsList(true, null, true, false);
 
 $pdf->SetFont(Pdf::FONT, 'B', 14);
-$pdf->Cell(275, 0, _T("Objects list"), '', 0, 'C');
+$pdf->Cell(275, 0, _T("Objects list", "objectslend"), '', 0, 'C');
 $pdf->Ln();
 
 $pdf->SetFont(Pdf::FONT, '', 9);
-$pdf->Cell(0, 0, str_replace('%date', date(_T("Y-m-d")), _T("Printed on %date")));
+$pdf->Cell(0, 0, str_replace('%date', date(_T("Y-m-d")), _T("Printed on %date", "objectslend")));
 $pdf->Ln();
 if ($filters->category_filter > 0) {
     $categ = new LendCategory(intval($filters->category_filter));
-    $pdf->Cell(0, 0, str_replace('%category', $categ->name, _T("Selected category: %category")));
+    $pdf->Cell(0, 0, str_replace('%category', $categ->name, _T("Selected category: %category", "objectslend")));
     $pdf->Ln();
 }
 
 if (count($list) > 1) {
-    $pdf->Cell(0, 0, count($list) . ' ' . _T("objects"));
+    $pdf->Cell(0, 0, count($list) . ' ' . _T("objects", "objectslend"));
 } else {
-    $pdf->Cell(0, 0, count($list) . ' ' . _T("object"));
+    $pdf->Cell(0, 0, count($list) . ' ' . _T("object", "objectslend"));
 }
 
 $pdf->Ln();
@@ -131,18 +131,18 @@ $w_adherent = 26;
 $w_location = 21;
 
 $pdf->Cell($w_checkbox, 0, '', 'B');
-$pdf->Cell($w_name, 0, cut(_T("Name"), $w_name), 'B');
-$pdf->Cell($w_description, 0, cut(_T("Description"), $w_description), 'B');
-$pdf->Cell($w_serial, 0, cut(_T("Serial"), $w_serial), 'B');
-$pdf->Cell($w_price, 0, cut(_T("Price"), $w_price), 'B');
-$pdf->Cell($w_price, 0, cut(_T("Borrow price"), $w_price), 'B');
-$pdf->Cell($w_dimension, 0, cut(_T("Dimensions"), $w_dimension), 'B');
-$pdf->Cell($w_weight, 0, cut(_T("Weight"), $w_weight), 'B');
-$pdf->Cell($w_status, 0, cut(_T("Status"), $w_status), 'B');
-$pdf->Cell($w_date, 0, cut(_T("Since"), $w_date), 'B');
-$pdf->Cell($w_adherent, 0, cut(_T("Member"), $w_adherent), 'B');
-$pdf->Cell($w_location, 0, cut(_T("Return"), $w_location), 'B');
-//$pdf->Cell($w_location, 0, _T("Location"), 'B');
+$pdf->Cell($w_name, 0, cut(_T("Name", "objectslend"), $w_name), 'B');
+$pdf->Cell($w_description, 0, cut(_T("Description", "objectslend"), $w_description), 'B');
+$pdf->Cell($w_serial, 0, cut(_T("Serial", "objectslend"), $w_serial), 'B');
+$pdf->Cell($w_price, 0, cut(_T("Price", "objectslend"), $w_price), 'B');
+$pdf->Cell($w_price, 0, cut(_T("Borrow price", "objectslend"), $w_price), 'B');
+$pdf->Cell($w_dimension, 0, cut(_T("Dimensions", "objectslend"), $w_dimension), 'B');
+$pdf->Cell($w_weight, 0, cut(_T("Weight", "objectslend"), $w_weight), 'B');
+$pdf->Cell($w_status, 0, cut(_T("Status", "objectslend"), $w_status), 'B');
+$pdf->Cell($w_date, 0, cut(_T("Since", "objectslend"), $w_date), 'B');
+$pdf->Cell($w_adherent, 0, cut(_T("Member", "objectslend"), $w_adherent), 'B');
+$pdf->Cell($w_location, 0, cut(_T("Return", "objectslend"), $w_location), 'B');
+//$pdf->Cell($w_location, 0, _T("Location", "objectslend"), 'B');
 $pdf->Ln();
 
 $pdf->SetFont(Pdf::FONT, '', 9);
@@ -201,7 +201,7 @@ if ($login->isAdmin() || $login->isStaff()) {
     $pdf->Ln();
     $pdf->Ln();
 
-    $pdf->Cell($w_checkbox + $w_name + $w_description + $w_serial + $w_price, 0, _T("Sum:") . ' ' . number_format($grant_total, 2, ',', ''), '', 0, 'R');
+    $pdf->Cell($w_checkbox + $w_name + $w_description + $w_serial + $w_price, 0, _T("Sum:", "objectslend") . ' ' . number_format($grant_total, 2, ',', ''), '', 0, 'R');
     $pdf->Ln();
 }
 
@@ -209,10 +209,10 @@ $pdf->Ln();
 
 $pdf->SetFont(Pdf::FONT, '', 9);
 $pdf->Cell($w_price, 0, '', 'LTRB');
-$pdf->Cell(0, 0, _T("Borrowed"));
+$pdf->Cell(0, 0, _T("Borrowed", "objectslend"));
 $pdf->Ln();
 $pdf->Cell($w_price, 0, '', '', 0, 'L', true);
-$pdf->Cell(0, 0, _T("Available"));
+$pdf->Cell(0, 0, _T("Available", "objectslend"));
 $pdf->Ln();
 
 $pdf->Output('objects_list_' . date('Ymd-Hi') . '.pdf', 'D');

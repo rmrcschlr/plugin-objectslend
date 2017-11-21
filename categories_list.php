@@ -103,16 +103,16 @@ $list = $categories->getCategoriesList(true);
 if (isset($_GET['msg'])) {
     switch ($_GET['msg']) {
         case 'deleted':
-            $success_detected[] = _T("Category has been successfully deleted");
+            $success_detected[] = _T("Category has been successfully deleted", "objectslend");
             break;
         case 'notdeleted':
-            $error_detected[] = _T("Category has not been deleted :(");
+            $error_detected[] = _T("Category has not been deleted :(", "objectslend");
             break;
         case 'saved':
-            $success_detected[] = _T("Category has been saved");
+            $success_detected[] = _T("Category has been saved", "objectslend");
             break;
         case 'canceled':
-            $warning_detected[] = _T("Category edition has been canceled");
+            $warning_detected[] = _T("Category edition has been canceled", "objectslend");
             break;
     }
 }
@@ -123,7 +123,7 @@ $session['filters']['objectslend_categories'] = serialize($filters);
 //assign pagination variables to the template and add pagination links
 $filters->setSmartyPagination($tpl, false);
 
-$tpl->assign('page_title', _T("Categories list"));
+$tpl->assign('page_title', _T("Categories list", "objectslend"));
 
 $tpl->assign('categories', $list);
 $tpl->assign('nb_categories', count($list));

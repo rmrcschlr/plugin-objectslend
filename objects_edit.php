@@ -74,15 +74,15 @@ $rents = array();
 if ($object_id != null) {
     $object = new LendObject($object_id);
     $rents = LendRent::getRentsForObjectId($object_id);
-    $title = _T("Edit an object");
+    $title = _T("Edit an object", "objectslend");
 } else {
     if (filter_has_var(INPUT_GET, 'clone_object_id')) {
         $object = new LendObject(intval(filter_input(INPUT_GET, 'clone_object_id')), true);
-        $title = _T("Duplicate object");
-        $warning_detected[] = _T("You are cloning this object, not editing it!");
+        $title = _T("Duplicate object", "objectslend");
+        $warning_detected[] = _T("You are cloning this object, not editing it!", "objectslend");
     } else {
         $object = new LendObject();
-        $title = _T("Create an object");
+        $title = _T("Create an object", "objectslend");
     }
     $show_status = true;
 }
@@ -114,9 +114,9 @@ if (filter_has_var(INPUT_POST, 'save')) {
     $object->is_active = filter_input(INPUT_POST, 'is_active') == 'true';
 
     if ($object->store()) {
-        $success_detected[] = _T("Object has been successfully stored!");
+        $success_detected[] = _T("Object has been successfully stored!", "objectslend");
     } else {
-        $error_detected[] = _T("Something went wrong saving object :(");
+        $error_detected[] = _T("Something went wrong saving object :(", "objectslend");
     }
 
     // Enregistrement du 1er statut lors de la création

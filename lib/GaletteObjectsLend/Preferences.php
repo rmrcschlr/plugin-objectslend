@@ -281,7 +281,7 @@ class Preferences
                     $e->getTraceAsString(),
                 Analog::ERROR
             );
-            $errors[] = _T("Unable to store preferences :(");
+            $errors[] = _T("Unable to store preferences :(", "objectslend");
             return false;
         }
     }

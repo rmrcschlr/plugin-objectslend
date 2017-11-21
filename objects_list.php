@@ -75,7 +75,7 @@ if (isset($_POST['print_list'])
         die();
     } else {
         $error_detected[]
-            = _T("No object was selected, please check at least one name.");
+            = _T("No object was selected, please check at least one name.", "objectslend");
     }
 }
 
@@ -139,28 +139,28 @@ $msg_no_right = false;
 if (filter_has_var(INPUT_GET, 'msg')) {
     switch (filter_input(INPUT_GET, 'msg')) {
         case 'unavailable':
-            $error_detected[] = _T("The object is not available!");
+            $error_detected[] = _T("The object is not available!", "objectslend");
             break;
         case 'taken':
-            $success_detected[] = _T("Object has been took");
+            $success_detected[] = _T("Object has been took", "objectslend");
             break;
         case 'given':
-            $success_detected[] = _T("Object has been returned!");
+            $success_detected[] = _T("Object has been returned!", "objectslend");
             break;
         case 'not_given':
-            $warning_detected[] = _T("Object has not been returned! Don't forget it!");
+            $warning_detected[] = _T("Object has not been returned! Don't forget it!", "objectslend");
             break;
         case 'canceled':
-            $warning_detected[] = _T("Action has been canceled!");
+            $warning_detected[] = _T("Action has been canceled!", "objectslend");
             break;
         case 'no_right':
-            $error_detected[] = _T("You can't return an object that you don't borrow!");
+            $error_detected[] = _T("You can't return an object that you don't borrow!", "objectslend");
             break;
         case 'deleted':
-            $success_detected[] = _T("Objects have been disabled!");
+            $success_detected[] = _T("Objects have been disabled!", "objectslend");
             break;
         case 'disabled':
-            $success_detected[] = _T("Objects have been disabled!");
+            $success_detected[] = _T("Objects have been disabled!", "objectslend");
             break;
     }
 }
@@ -172,7 +172,7 @@ $session['filters']['objectslend_objects'] = serialize($filters);
 //assign pagination variables to the template and add pagination links
 $filters->setSmartyPagination($tpl, false);
 
-$tpl->assign('page_title', _T("Objects managment"));
+$tpl->assign('page_title', _T("Objects managment", "objectslend"));
 
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before

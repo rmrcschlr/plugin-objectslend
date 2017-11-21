@@ -48,7 +48,7 @@ if (!$login->isLogged() && !($login->isAdmin() || $login->isStaff())) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("Status list"));
+$tpl->assign('page_title', _T("Status list", "objectslend"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
@@ -59,26 +59,26 @@ $direction = array_key_exists('direction', $_GET) ? $_GET['direction'] : 'asc';
 if (isset($_GET['msg'])) {
     switch ($_GET['msg']) {
         case 'deleted':
-            $success_detected[] = _T("Status has been successfully deleted");
+            $success_detected[] = _T("Status has been successfully deleted", "objectslend");
             break;
         case 'notdeleted':
-            $error_detected[] = _T("Status has not been deleted. Maybe it is still in use?");
+            $error_detected[] = _T("Status has not been deleted. Maybe it is still in use?", "objectslend");
             break;
         case 'saved':
-            $success_detected[] = _T("Status has been saved");
+            $success_detected[] = _T("Status has been saved", "objectslend");
             break;
         case 'canceled':
-            $warning_detected[] = _T("Status edition has been canceled");
+            $warning_detected[] = _T("Status edition has been canceled", "objectslend");
             break;
     }
 }
 
 $statuses = LendStatus::getAllStatuses($tri, $direction);
 if (count(LendStatus::getActiveHomeStatuses()) == 0) {
-    $error_detected[] = _T("You should add at last 1 status 'on site' to ensure the plugin works well!");
+    $error_detected[] = _T("You should add at last 1 status 'on site' to ensure the plugin works well!", "objectslend");
 }
 if (count(LendStatus::getActiveTakeAwayStatuses()) == 0) {
-    $error_detected[] = _T("You should add at last 1 status 'object borrowed' to ensure the plugin works well!");
+    $error_detected[] = _T("You should add at last 1 status 'object borrowed' to ensure the plugin works well!", "objectslend");
 }
 
 $tpl->assign('statuses', $statuses);

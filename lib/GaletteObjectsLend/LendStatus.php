@@ -144,7 +144,7 @@ class LendStatus
                         $this->_status_id = $zdb->driver->getLastGeneratedValue();
                     }
                 } else {
-                    throw new \Exception(_T("Status has not been added :("));
+                    throw new \Exception(_T("Status has not been added :(", "objectslend"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)

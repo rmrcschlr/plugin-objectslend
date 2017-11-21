@@ -172,7 +172,7 @@ class LendRent
                         Analog::DEBUG
                     );
                 } else {
-                    throw new \Exception(_T("Rent has not been added"));
+                    throw new \Exception(_T("Rent has not been added", "objectslend"));
                 }
             } else {
                 $update = $zdb->update(LEND_PREFIX . self::TABLE)

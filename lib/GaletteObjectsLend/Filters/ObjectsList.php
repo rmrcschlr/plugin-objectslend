@@ -265,13 +265,13 @@ class ObjectsList extends Pagination
         $prefs = $prefs->getPreferences();
 
         $options = [
-            Objects::FILTER_NAME    => ($prefs['VIEW_DESCRIPTION'] ? _T("Name/description") : _T("Name")),
-            Objects::FILTER_SERIAL  => _T("Serial number"),
-            Objects::FILTER_ID      => _T("Id")
+            Objects::FILTER_NAME    => ($prefs['VIEW_DESCRIPTION'] ? _T("Name/description", "objectslend") : _T("Name", "objectslend")),
+            Objects::FILTER_SERIAL  => _T("Serial number", "objectslend"),
+            Objects::FILTER_ID      => _T("Id", "objectslend")
         ];
 
         if ($prefs['VIEW_DIMENSION']) {
-            $options[Objects::FILTER_DIM] = _T("Dimensions");
+            $options[Objects::FILTER_DIM] = _T("Dimensions", "objectslend");
         }
 
         $tpl->assign(

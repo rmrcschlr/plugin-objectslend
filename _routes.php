@@ -82,7 +82,7 @@ $this->post(
         if ($lendsprefs->store($pos, $error_detected)) {
             $this->flash->addMessage(
                 'success_detected',
-                _T("Preferences have been successfully stored!")
+                _T("Preferences have been successfully stored!", "objectslend")
             );
         } else {
             $this->session->objectslend_preferences = $lendsprefs;

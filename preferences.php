@@ -64,11 +64,11 @@ $lendsprefs = new Preferences($zdb);
 if (isset($_POST['saveprefs'])) {
     unset($_POST['saveprefs']);
     if ($lendsprefs->store($_POST, $error_detected)) {
-        $success_detected[] = _T("Preferences have been successfully stored!");
+        $success_detected[] = _T("Preferences have been successfully stored!", "objectslend");
     }
 }
 
-$tpl->assign('page_title', _T("ObjectsLend preferences"));
+$tpl->assign('page_title', _T("ObjectsLend preferences", "objectslend"));
 
 $ctypes = new ContributionsTypes();
 $tpl->assign('ctypes', $ctypes->getList());

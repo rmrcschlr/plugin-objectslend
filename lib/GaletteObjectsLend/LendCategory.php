@@ -327,7 +327,7 @@ class LendCategory
      */
     public function getName($count = true)
     {
-        $name = $this->name !== null ? $this->name : _T("No category");
+        $name = $this->name !== null ? $this->name : _T("No category", "objectslend");
 
         if ($count === true) {
             $name .= " ({$this->objects_nb})";

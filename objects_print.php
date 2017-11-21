@@ -117,7 +117,7 @@ function addCell(LendPDF $pdf, $title, $value, $width)
 $pdf = new LendPDF($preferences);
 
 // Set document information
-$pdf->SetTitle(_T("Object card"));
+$pdf->SetTitle(_T("Object card", "objectslend"));
 $pdf->SetSubject('');
 $pdf->SetKeywords('');
 
@@ -152,19 +152,19 @@ foreach ($list as $object) {
         $pdf->Image($object->picture->getThumbPath(), 10, 10, $wpic, $hpic);
     }
 
-    addCell($pdf, _T("Name"), $object->name, $wpic);
+    addCell($pdf, _T("Name", "objectslend"), $object->name, $wpic);
     if ($lendsprefs->{Preferences::PARAM_VIEW_DESCRIPTION}) {
-        addCell($pdf, _T("Description"), $object->description, $wpic);
+        addCell($pdf, _T("Description", "objectslend"), $object->description, $wpic);
     }
     if ($lendsprefs->{Preferences::PARAM_VIEW_CATEGORY}) {
         $categ = new LendCategory((int)$object->category_id);
-        addCell($pdf, _T("Category"), $categ->name, $wpic);
+        addCell($pdf, _T("Category", "objectslend"), $categ->name, $wpic);
     }
     if ($lendsprefs->{Preferences::PARAM_VIEW_SERIAL}) {
-        addCell($pdf, _T("Serial number"), $object->serial_number, $wpic);
+        addCell($pdf, _T("Serial number", "objectslend"), $object->serial_number, $wpic);
     }
     if ($lendsprefs->{Preferences::PARAM_VIEW_PRICE}) {
-        addCell($pdf, _T("Price"), $object->price, $wpic);
+        addCell($pdf, _T("Price", "objectslend"), $object->price, $wpic);
     }
     if ($lendsprefs->{Preferences::PARAM_VIEW_LEND_PRICE}) {
         addCell(
@@ -173,20 +173,20 @@ foreach ($list as $object) {
             $object->rent_price,
             $wpic
         );
-        addCell($pdf, _T("Price per rental day"), $object->price_per_day, $wpic);
+        addCell($pdf, _, "objectslend"T("Price per rental day", "objectslend"), $object->price_per_day, $wpic);
     }
     if ($lendsprefs->{Preferences::PARAM_VIEW_DIMENSION}) {
-        addCell($pdf, _T("Dimensions"), $object->dimension, $wpic);
+        addCell($pdf, _T("Dimensions", "objectslend"), $object->dimension, $wpic);
     }
     if ($lendsprefs->{Preferences::PARAM_VIEW_WEIGHT}) {
-        addCell($pdf, _T("Weight"), $object->weight, $wpic);
+        addCell($pdf, _T("Weight", "objectslend"), $object->weight, $wpic);
     }
-    addCell($pdf, _T("Active"), $object->is_active ? 'X' : '', $wpic);
-    addCell($pdf, _T("Location"), $object->status_text, $wpic);
-    addCell($pdf, _T("Since"), $object->date_begin_ihm, $wpic);
-    addCell($pdf, _T("Member"), $object->nom_adh . ' ' . $object->prenom_adh, $wpic);
+    addCell($pdf, _T("Active", "objectslend"), $object->is_active ? 'X' : '', $wpic);
+    addCell($pdf, _T("Location", "objectslend"), $object->status_text, $wpic);
+    addCell($pdf, _T("Since", "objectslend"), $object->date_begin_ihm, $wpic);
+    addCell($pdf, _T("Member", "objectslend"), $object->nom_adh . ' ' . $object->prenom_adh, $wpic);
     if ($lendsprefs->{Preferences::PARAM_VIEW_DATE_FORECAST}) {
-        addCell($pdf, _T("Return"), $object->date_forecast_ihm, $wpic);
+        addCell($pdf, _T("Return", "objectslend"), $object->date_forecast_ihm, $wpic);
     }
 
     if ($pdf->GetY() < $hpic) {
@@ -204,14 +204,14 @@ foreach ($list as $object) {
     $col_comments = 40;
 
     $pdf->SetFont(Pdf::FONT, 'B', 10);
-    $pdf->Cell(0, 0, _T("History of object loans"), 0, 1, 'C');
+    $pdf->Cell(0, 0, _T("History of object loans", "objectslend"), 0, 1, 'C');
     $pdf->Ln();
-    $pdf->Cell($col_begin, 0, cut(_T("Begin"), $col_begin), 'B');
-    $pdf->Cell($col_end, 0, cut(_T("End"), $col_end), 'B');
-    $pdf->Cell($col_status, 0, cut(_T("Status"), $col_status), 'B');
-    $pdf->Cell($col_home, 0, cut(_T("On site"), $col_home), 'B');
-    $pdf->Cell($col_adh, 0, cut(_T("Member"), $col_adh), 'B');
-    $pdf->Cell($col_comments, 0, cut(_T("Comments"), $col_comments), 'B');
+    $pdf->Cell($col_begin, 0, cut(_T("Begin", "objectslend"), $col_begin), 'B');
+    $pdf->Cell($col_end, 0, cut(_T("End", "objectslend"), $col_end), 'B');
+    $pdf->Cell($col_status, 0, cut(_T("Status", "objectslend"), $col_status), 'B');
+    $pdf->Cell($col_home, 0, cut(_T("On site", "objectslend"), $col_home), 'B');
+    $pdf->Cell($col_adh, 0, cut(_T("Member", "objectslend"), $col_adh), 'B');
+    $pdf->Cell($col_comments, 0, cut(_T("Comments", "objectslend"), $col_comments), 'B');
     $pdf->Ln();
     $pdf->SetFont(Pdf::FONT, '', 9);
 

@@ -74,7 +74,7 @@ if (filter_has_var(INPUT_POST, 'yes')) {
     }
 }
 
-$tpl->assign('page_title', _T("Give back objects"));
+$tpl->assign('page_title', _T("Give back objects", "objectslend"));
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;

@@ -52,7 +52,7 @@ if (!$login->isLogged()) {
 }
 require_once '_config.inc.php';
 
-$tpl->assign('page_title', _T("Borrow an object"));
+$tpl->assign('page_title', _T("Borrow an object", "objectslend"));
 
 $lendsprefs = new Preferences($zdb);
 

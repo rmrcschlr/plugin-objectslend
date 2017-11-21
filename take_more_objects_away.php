@@ -141,7 +141,7 @@ if ($login->isAdmin() || $login->isStaff()) {
     $members = $m->getList(false, $required_fields);
 }
 
-$tpl->assign('page_title', _T("Take out several objects at once"));
+$tpl->assign('page_title', _T("Take out several objects at once", "objectslend"));
 
 $tpl->assign('objects', $objects);
 $tpl->assign('statuses', LendStatus::getActiveTakeAwayStatuses());
