@@ -156,30 +156,49 @@ $this->post(
                 $zip_file .= $zip_filename;
 
                 $zip = new \ZipArchive();
-                $zip->open($zip_file, \ZipArchive::OVERWRITE);
-                $dir_pictures = opendir($picture->getDir());
-                while (($file = readdir($dir_pictures)) !== false) {
-                    if (preg_match('/^[0-9]+$/', pathinfo($file, PATHINFO_FILENAME)) !== false) {
-                        $zip->addFile($dir_name . '/' . $file, $file);
-                    }
-                }
-                $zip->close();
-                if (file_exists($zip_file)) {
-                    header('Content-Type: application/zip');
-                    header('Content-Disposition: attachment; filename="' . $zip_filename . '";');
-                    header('Pragma: no-cache');
-                    readfile($zip_file);
+
+                $ZIP_ERROR = [
+                    ZipArchive::ER_EXISTS   => _T('File already exists.', 'objectslends'),
+                    ZipArchive::ER_INCONS   => _T('Zip archive inconsistent.', 'objectslends'),
+                    ZipArchive::ER_INVAL    => _T('Invalid argument.', 'objectslends'),
+                    ZipArchive::ER_MEMORY   => _T('Memory allocation failure.', 'objectslends'),
+                    ZipArchive::ER_NOENT    => _T('No such file.', 'objectslends'),
+                    ZipArchive::ER_NOZIP    => _T('Not a zip archive.', 'objectslends'),
+                    ZipArchive::ER_OPEN     => _T("Can't open file.", "objectslends"),
+                    ZipArchive::ER_READ     => _T('Read error.', 'objectslends'),
+                    ZipArchive::ER_SEEK     => _T('Seek error.', 'objectslends'),
+                ];
+
+                $result_code = $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+                if ($result_code !== true) {
+                    $error_detected[] = isset($ZIP_ERROR[$result_code]) ?
+                        $ZIP_ERROR[$result_code] :
+                        _T('Unknown error.', 'objectslends');
                 } else {
-                    Analog::log(
-                        'A request has been made to get file named `' .
-                        $zip_filename .'` that does not exists.',
-                        Analog::WARNING
-                    );
-                    $error_detected[] = str_replace(
-                        '%filename',
-                        $zip_filename,
-                        _T('File %filename does not exists', 'objectslends')
-                    );
+                    $dir_pictures = opendir($picture->getDir());
+                    while (($file = readdir($dir_pictures)) !== false) {
+                        if (preg_match('/^[0-9]+$/', pathinfo($file, PATHINFO_FILENAME)) !== false && !is_dir($file)) {
+                            $zip->addFile($picture->getDir() . '/' . $file, $file);
+                        }
+                    }
+                    $zip->close();
+                    if (file_exists($zip_file)) {
+                        header('Content-Type: application/zip');
+                        header('Content-Disposition: attachment; filename="' . $zip_filename . '";');
+                        header('Pragma: no-cache');
+                        readfile($zip_file);
+                    } else {
+                        Analog::log(
+                            'A request has been made to get file named `' .
+                            $zip_filename .'` that does not exists.',
+                            Analog::WARNING
+                        );
+                        $error_detected[] = str_replace(
+                            '%filename',
+                            $zip_filename,
+                            _T('File %filename does not exists', 'objectslends')
+                        );
+                    }
                 }
             }
         }

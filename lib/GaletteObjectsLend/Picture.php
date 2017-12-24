@@ -100,8 +100,10 @@ class Picture extends \Galette\Core\Picture
      */
     protected function getDefaultPicture()
     {
-        $this->file_path = $this->plugins->getTemplatesPathFromName('Galette Objects Lend') .
-            '/images/default.png';
+        $this->file_path = realpath(
+            $this->plugins->getTemplatesPathFromName('Galette Objects Lend') .
+            '/../../webroot/images/default.png'
+        );
         $this->format = 'png';
         $this->mime = 'image/png';
         $this->has_picture = false;
