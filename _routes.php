@@ -38,14 +38,15 @@
 use Analog\Analog;
 use Galette\Entity\ContributionsTypes;
 use GaletteObjectsLend\Preferences;
-
+use GaletteObjectsLend\ObjectPicture;
+use GaletteObjectsLend\CategoryPicture;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
 
 $this->get(
     __('/preferences', 'routes'),
-    function ($request, $response, $args) use ($module, $module_id) {
+    function ($request, $response) use ($module, $module_id) {
         if ($this->session->objectslend_preferences !== null) {
             $lendsprefs = $this->session->objectslend_preferences;
             $this->session->objectslend_preferences = null;
@@ -73,13 +74,13 @@ $this->get(
 
 $this->post(
     __('/preferences', 'routes'),
-    function ($request, $response, $args) use ($module, $module_id) {
+    function ($request, $response) {
         $post = $request->getParsedBody();
         $lendsprefs = new Preferences($this->zdb);
 
         $error_detected = [];
         $success_detected = [];
-        if ($lendsprefs->store($pos, $error_detected)) {
+        if ($lendsprefs->store($post, $error_detected)) {
             $this->flash->addMessage(
                 'success_detected',
                 _T("Preferences have been successfully stored!", "objectslend")
@@ -102,3 +103,116 @@ $this->post(
             );
     }
 )->setName('store_objectlend_preferences')->add($authenticate);
+
+$this->get(
+    __('/administration', 'objectslend_routes') . __('/images', 'objectslend_routes'),
+    function ($request, $response) use ($module, $module_id) {
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']admin_picture.tpl',
+            [
+                'page_title' => _T("Pictures administration", "objectslend")
+            ]
+        );
+        return $response;
+    }
+)->setName('objectslend_adminimages')->add($authenticate);
+
+$this->post(
+    __('/administration', 'objectslend_routes') . __('/images', 'objectslend_routes'),
+    function ($request, $response, $args) use ($module, $module_id) {
+        $post = $request->getParsedBody();
+        $success_detected = [];
+        $error_detected = [];
+
+        if (isset($post['save_categories']) || isset($post['save_objects'])) {
+            $pic_class = isset($post['save_categories']) ? 'CategoryPicture' : 'ObjectPicture';
+            $pic_class = '\GaletteObjectsLend\\' . $pic_class;
+            $picture = new $pic_class($this->plugins);
+
+            $zip_file = GALETTE_EXPORTS_PATH . 'objectslends/';
+            if (!file_exists($zip_file)) {
+                if (!mkdir($zip_file, 0755, true)) {
+                    Analog::log(
+                        'Unable to create backup dir `' . $zip_file . '`.',
+                        Analog::ERROR
+                    );
+                    $error_detected[] = str_replace(
+                        '%dir',
+                        $zip_file,
+                        _T('Unable to create backup directory "%dir"', 'objectslends')
+                    );
+                } else {
+                    Analog::log(
+                        'New directory `' . $zip_file . '` has been created',
+                        Analog::INFO
+                    );
+                }
+            }
+
+            if (!count($error_detected)) {
+                $zip_filename = isset($post['save_categories']) ? 'categories.zip' : 'objects.zip';
+                $zip_file .= $zip_filename;
+
+                $zip = new \ZipArchive();
+                $zip->open($zip_file, \ZipArchive::OVERWRITE);
+                $dir_pictures = opendir($picture->getDir());
+                while (($file = readdir($dir_pictures)) !== false) {
+                    if (preg_match('/^[0-9]+$/', pathinfo($file, PATHINFO_FILENAME)) !== false) {
+                        $zip->addFile($dir_name . '/' . $file, $file);
+                    }
+                }
+                $zip->close();
+                if (file_exists($zip_file)) {
+                    header('Content-Type: application/zip');
+                    header('Content-Disposition: attachment; filename="' . $zip_filename . '";');
+                    header('Pragma: no-cache');
+                    readfile($zip_file);
+                } else {
+                    Analog::log(
+                        'A request has been made to get file named `' .
+                        $zip_filename .'` that does not exists.',
+                        Analog::WARNING
+                    );
+                    $error_detected[] = str_replace(
+                        '%filename',
+                        $zip_filename,
+                        _T('File %filename does not exists', 'objectslends')
+                    );
+                }
+            }
+        }
+
+        if (isset($post['restore_objects'])) {
+            $p = new ObjectPicture($this->plugins, -1);
+            $p->restorePictures($success_detected, $error_detected);
+        }
+
+        if (isset($post['restore_categories'])) {
+            $p = new CategoryPicture($this->plugins, -1);
+            $p->restorePictures($success_detected, $error_detected);
+        }
+
+        foreach ($error_detected as $error) {
+            $this->flash->addMessage(
+                'error_detected',
+                $error
+            );
+        }
+
+        foreach ($success_detected as $success) {
+            $this->flash->addMessage(
+                'success_detected',
+                $success
+            );
+        }
+
+        return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_adminimages')
+            );
+    }
+)->setName('objectslend_adminimages_action')->add($authenticate);

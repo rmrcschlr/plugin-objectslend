@@ -28,8 +28,8 @@
     <li{if $cur_route eq "objectslend_preferences"} class="selected"{/if}>
         <a href="{path_for name="objectslend_preferences"}">{_T string="Preferences" domain="objectslend"}</a>
     </li>
-    <li{if $PAGENAME eq "admin_picture.php"} class="selected"{/if}>
-        <a href="{$galette_base_path}{$lend_dir}admin_picture.php">{_T string="Pictures administration" domain="objectslend"}</a>
+    <li{if $cur_route eq "objectslend_adminimages"} class="selected"{/if}>
+        <a href="{path_for name="objectslend_adminimages"}">{_T string="Pictures administration" domain="objectslend"}</a>
     </li>
     {/if}
 </ul>

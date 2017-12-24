@@ -48,6 +48,8 @@ $this->register(
     '2017-01-21',                       //Date
     [   //Permissions needed - not yet implemented
         'objectslend_preferences'       => 'admin',
-        'store_objectlend_preferences'  => 'admin'
+        'store_objectlend_preferences'  => 'admin',
+        'objectslend_adminimages'       => 'staff',
+        'objectslend_adminimages_action'=> 'staff'
     ]
 );

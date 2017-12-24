@@ -401,4 +401,14 @@ class Picture extends \Galette\Core\Picture
         }
         return round($this->thumb_optimal_width);
     }
+
+    /**
+     * Get storage directory
+     *
+     * @return string
+     */
+    public function getDir()
+    {
+        return $this->store_path;
+    }
 }
