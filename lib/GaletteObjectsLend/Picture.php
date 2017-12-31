@@ -358,8 +358,11 @@ class Picture extends \Galette\Core\Picture
             $filename = substr($this->file_path, 0, strlen($this->file_path) - strlen($ext) - 1);
             $filename .= '_th.' . $ext;
         } else {
+            $this->getDefaultPicture();
+            $filename = $this->file_path;
             $infos = pathinfo($this->file_path);
-            $filename = $this->store_path . $infos['filename'] . '_th.' . $infos['extension'];
+            /*$filename = $this->store_path . $infos['filename'] . '_th.' . $infos['extension'];
+            $filename = $this->store_path . $infos['filename'] . '.' . $infos['extension'];*/
         }
         return $filename;
     }

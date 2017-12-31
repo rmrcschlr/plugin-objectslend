@@ -1,0 +1,30 @@
+#: ../_routes.php:109 ../_routes.php:124
+msgid "/administration"
+msgstr ""
+
+#: ../_routes.php:241
+msgid "/category"
+msgstr ""
+
+#: ../_routes.php:340
+msgid "photo"
+msgstr ""
+
+#: ../_routes.php:109 ../_routes.php:124
+msgid "/images"
+msgstr ""
+
+#: ../_routes.php:339 ../_routes.php:345
+#: ../templates/default/category_edit.tpl:27 ../templates/default/category_edit.tpl:27
+msgid "category"
+msgstr ""
+
+#: ../_routes.php:340 ../_routes.php:350
+#: ../templates/default/category_edit.tpl:27 ../templates/default/category_edit.tpl:27
+msgid "thumbnail"
+msgstr ""
+
+#: ../_routes.php:339
+msgid "object"
+msgstr ""
+

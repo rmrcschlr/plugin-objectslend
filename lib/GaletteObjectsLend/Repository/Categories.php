@@ -48,6 +48,8 @@ use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
+use Galette\Core\Login;
+use Galette\Core\Plugins;
 
 /**
  * Categories list
@@ -77,16 +79,21 @@ class Categories
     private $filters = false;
     private $count = null;
     private $errors = array();
+    protected $plugins;
 
     /**
      * Default constructor
      *
      * @param Db             $zdb     Database instance
+     * @param Login          $login   Logged in instance
+     * @param Plugins        $plugins Plugins instance
      * @param CategoriesList $filters Filtering
      */
-    public function __construct(Db $zdb, CategoriesList $filters = null)
+    public function __construct(Db $zdb, Login $login, Plugins $plugins, CategoriesList $filters = null)
     {
         $this->zdb = $zdb;
+        $this->login = $login;
+        $this->plugins = $plugins;
 
         if ($filters === null) {
             $this->filters = new CategoriesList();
@@ -129,7 +136,7 @@ class Categories
             $categories = array();
             if ($as_cat) {
                 foreach ($rows as $row) {
-                    $categories[] = new LendCategory($row);
+                    $categories[] = new LendCategory($this->zdb, $this->plugins, $row);
                 }
             } else {
                 $categories = $rows;
@@ -176,14 +183,12 @@ class Categories
      */
     private function buildSelect($fields, $photos, $count = false)
     {
-        global $zdb, $login;
-
         try {
             $fieldsList = ( $fields != null )
                             ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
                             : $fields) : (array)'*';
 
-            $select = $zdb->select(LEND_PREFIX . self::TABLE, 'c');
+            $select = $this->zdb->select(LEND_PREFIX . self::TABLE, 'c');
             $select->columns($fieldsList);
 
             if ($this->filters !== false) {
@@ -214,8 +219,6 @@ class Categories
      */
     private function proceedCount($select)
     {
-        global $zdb;
-
         try {
             $countSelect = clone $select;
             $countSelect->reset($countSelect::COLUMNS);
@@ -234,7 +237,7 @@ class Categories
                 }
             }
 
-            $results = $zdb->execute($countSelect);
+            $results = $this->zdb->execute($countSelect);
 
             $this->count = $results->current()->count;
             if (isset($this->filters) && $this->count > 0) {
@@ -280,8 +283,6 @@ class Categories
      */
     private function buildWhereClause($select)
     {
-        global $login;
-
         try {
             if ($this->filters->active_filter == self::ACTIVE_CATEGORIES) {
                 $select->where('c.is_active = true');

@@ -42,6 +42,8 @@
 namespace GaletteObjectsLend;
 
 use Analog\Analog;
+use Galette\Core\Db;
+use Galette\Core\Plugins;
 use \Zend\Db\Sql\Predicate;
 
 class LendCategory
@@ -67,15 +69,21 @@ class LendCategory
         'picture'   => true
     ];
 
+    private $zdb;
+    private $plugins;
+
     /**
      * Default constructor
      *
-     * @param int|object $args Maybe null, an RS object or an id from database
-     * @param array      $deps Dependencies configuration, see LendOb::$deps
+     * @param Db         $zdb     Database instance
+     * @param Plugins    $plugins Pluginsugins instance
+     * @param int|object $args    Maybe null, an RS object or an id from database
+     * @param array      $deps    Dependencies configuration, see LendCategory::$deps
      */
-    public function __construct($args = null, $deps = null)
+    public function __construct(Db $zdb, Plugins $plugins, $args = null, $deps = null)
     {
-        global $zdb, $plugins;
+        $this->zdb = $zdb;
+        $this->plugins = $plugins;
 
         if ($deps !== null && is_array($deps)) {
             $this->deps = array_merge(
@@ -90,14 +98,14 @@ class LendCategory
         }
 
         if ($this->deps['picture'] === true) {
-            $this->picture = new CategoryPicture($plugins);
+            $this->picture = new CategoryPicture($this->plugins);
         }
 
         if (is_int($args)) {
             try {
-                $select = $zdb->select(LEND_PREFIX . self::TABLE)
+                $select = $this->zdb->select(LEND_PREFIX . self::TABLE)
                         ->where(array(self::PK => $args));
-                $results = $zdb->execute($select);
+                $results = $this->zdb->execute($select);
                 if ($results->count() == 1) {
                     $this->loadFromRS($results->current());
                 }
@@ -122,8 +130,6 @@ class LendCategory
      */
     private function loadFromRS($r)
     {
-        global $plugins;
-
         $this->category_id = $r->category_id;
         $this->name = $r->name;
         $this->is_active = $r->is_active == '1' ? true : false;
@@ -138,7 +144,7 @@ class LendCategory
 
 
         if ($this->deps['picture'] === true) {
-            $this->picture = new CategoryPicture($plugins, (int)$this->category_id);
+            $this->picture = new CategoryPicture($this->plugins, (int)$this->category_id);
         }
     }
 
@@ -149,15 +155,13 @@ class LendCategory
      */
     public function store()
     {
-        global $zdb;
-
         try {
             $values = array();
 
             foreach ($this->fields as $k => $v) {
                 if ($k === 'is_active' && $this->$k === false) {
                     //Handle booleans for postgres ; bugs #18899 and #19354
-                    $values[$k] = $zdb->isPostgres() ? 'false' : 0;
+                    $values[$k] = $this->zdb->isPostgres() ? 'false' : 0;
                 } else {
                     $values[$k] = $this->$k;
                 }
@@ -165,25 +169,25 @@ class LendCategory
 
             if (!isset($this->category_id) || $this->category_id == '') {
                 unset($values['category_id']);
-                $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
+                $insert = $this->zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $result = $zdb->execute($insert);
+                $result = $this->zdb->execute($insert);
                 if ($result->count() > 0) {
-                    if ( $zdb->isPostgres() ) {
-                        $this->category_id = $zdb->driver->getLastGeneratedValue(
+                    if ($this->zdb->isPostgres()) {
+                        $this->category_id = $this->zdb->driver->getLastGeneratedValue(
                             PREFIX_DB . 'lend_category_id_seq'
                         );
                     } else {
-                        $this->category_id = $zdb->driver->getLastGeneratedValue();
+                        $this->category_id = $this->zdb->driver->getLastGeneratedValue();
                     }
                 } else {
                     throw new \RuntimeException('Unable to add catagory!');
                 }
             } else {
-                $update = $zdb->update(LEND_PREFIX . self::TABLE)
+                $update = $this->zdb->update(LEND_PREFIX . self::TABLE)
                         ->set($values)
                         ->where(array(self::PK => $this->category_id));
-                $zdb->execute($update);
+                $this->zdb->execute($update);
             }
             return true;
         } catch (\Exception $e) {
@@ -260,7 +264,7 @@ class LendCategory
             $categs = array();
             $result = $zdb->execute($select);
             foreach ($result as $r) {
-                $cat = new LendCategory($r);
+                $cat = new LendCategory($this->zdb, $this->plugins, $r);
                 $cat->objects_nb = $r->nb;
                 if (is_numeric($r->sum)) {
                     $cat->objects_price_sum = $r->sum;
@@ -279,36 +283,32 @@ class LendCategory
     }
 
     /**
-     * Supprime une catégorie et assigne les objets de cette catégorie à "aucune catégorie"
+     * Drop a category. All objects for removed catagory will be assigned to none.
      *
-     * @param int $id Id de la catégorie à supprimer
-     *
-     * @return boolean True en cas de réussite, false sinon
+     * @return boolean
      */
-    public static function deleteCategory($id)
+    public function delete()
     {
-        global $zdb;
-
         try {
-            $zdb->connection->beginTransaction();
-            $select = $zdb->select(LEND_PREFIX . LendObject::TABLE)
-                    ->where(array('category_id' => $id));
-            $results = $zdb->execute($select);
+            $this->zdb->connection->beginTransaction();
+            $select = $this->zdb->select(LEND_PREFIX . LendObject::TABLE)
+                    ->where(array('category_id' => $this->category_id));
+            $results = $this->zdb->execute($select);
             if ($results->count() > 0) {
                 $values = ['category_id' => new Predicate\Expression('NULL')];
-                $update = $zdb->update(LEND_PREFIX . LendObject::TABLE)
+                $update = $this->zdb->update(LEND_PREFIX . LendObject::TABLE)
                         ->set($values)
-                        ->where(array('category_id' => $id));
-                $zdb->execute($update);
+                        ->where(array('category_id' => $this->category_id));
+                $this->zdb->execute($update);
             }
 
-            $delete = $zdb->delete(LEND_PREFIX . self::TABLE)
-                    ->where(array(self::PK => $id));
-            $zdb->execute($delete);
-            $zdb->connection->commit();
+            $delete = $this->zdb->delete(LEND_PREFIX . self::TABLE)
+                    ->where(array(self::PK => $this->category_id));
+            $this->zdb->execute($delete);
+            $this->zdb->connection->commit();
             return true;
         } catch (\Exception $e) {
-            $zdb->connection->rollBack();
+            $this->zdb->connection->rollBack();
             Analog::log(
                 'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
                 $e->getTraceAsString(),

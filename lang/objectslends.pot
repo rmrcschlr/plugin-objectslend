@@ -1,0 +1,48 @@
+#: ../_routes.php:200
+msgid "File %filename does not exists"
+msgstr ""
+
+#: ../_routes.php:163
+msgid "Zip archive inconsistent."
+msgstr ""
+
+#: ../_routes.php:165
+msgid "Memory allocation failure."
+msgstr ""
+
+#: ../_routes.php:177
+msgid "Unknown error."
+msgstr ""
+
+#: ../_routes.php:164
+msgid "Invalid argument."
+msgstr ""
+
+#: ../_routes.php:168
+msgid "Can't open file."
+msgstr ""
+
+#: ../_routes.php:167
+msgid "Not a zip archive."
+msgstr ""
+
+#: ../_routes.php:145
+msgid "Unable to create backup directory "%dir""
+msgstr ""
+
+#: ../_routes.php:170
+msgid "Seek error."
+msgstr ""
+
+#: ../_routes.php:169
+msgid "Read error."
+msgstr ""
+
+#: ../_routes.php:162
+msgid "File already exists."
+msgstr ""
+
+#: ../_routes.php:166
+msgid "No such file."
+msgstr ""
+

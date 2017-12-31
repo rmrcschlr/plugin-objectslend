@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Johan Cwiklinski <johan@x-tnd.be>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+
+#: ../_routes.php:109 ../_routes.php:124
+msgid "/administration"
+msgstr "/administration"
+
+#: ../_routes.php:241
+msgid "/category"
+msgstr "/category"
+
+#: ../_routes.php:340
+msgid "photo"
+msgstr "photo"
+
+#: ../_routes.php:109 ../_routes.php:124
+msgid "/images"
+msgstr "/images"
+
+#: ../_routes.php:339 ../_routes.php:345
+#: ../templates/default/category_edit.tpl:27
+msgid "category"
+msgstr "category"
+
+#: ../_routes.php:340 ../_routes.php:350
+#: ../templates/default/category_edit.tpl:27
+msgid "thumbnail"
+msgstr "thumbnail"
+
+#: ../_routes.php:339
+msgid "object"
+msgstr "object"

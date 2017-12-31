@@ -40,6 +40,9 @@ use Galette\Entity\ContributionsTypes;
 use GaletteObjectsLend\Preferences;
 use GaletteObjectsLend\ObjectPicture;
 use GaletteObjectsLend\CategoryPicture;
+use GaletteObjectsLend\LendCategory;
+use GaletteObjectsLend\Repository\Categories;
+use GaletteObjectsLend\Filters\CategoriesList;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
@@ -235,3 +238,351 @@ $this->post(
             );
     }
 )->setName('objectslend_adminimages_action')->add($authenticate);
+
+$this->get(
+    __('/category', 'objectslend_routes') . '/{action:' .
+    __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $action = $args['action'];
+        if ($action === __('edit', 'routes') && !isset($args['id'])) {
+            throw new \RuntimeException(
+                _T("Category ID cannot be null calling edit route!")
+            );
+        } elseif ($action === __('add', 'routes') && isset($args['id'])) {
+             return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_category', ['action' => __('add', 'routes')])
+                );
+        }
+
+        if ($this->session->objectslend_category !== null) {
+            $category = $this->session->objectslend_category;
+            $this->session->objectslend_category = null;
+        } else {
+            $category = new LendCategory($this->zdb, $this->plugins, isset($args['id']) ? (int)$args['id'] : null);
+        }
+
+        if ($category->category_id !== null) {
+            $title = _T("Edit category", "objectslend");
+        } else {
+            $title = _T("New category", "objectslend");
+        }
+
+        $params = [
+            'page_title'    => $title,
+            'category'      => $category,
+            'time'          => time(),
+            'action'        => $action
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']category_edit.tpl',
+            $params
+        );
+        return $response;
+    }
+)->setName('objectslend_category')->add($authenticate);
+
+$this->post(
+    __('/category', 'objectslend_routes') . '/{action:' .
+    __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $action = $args['action'];
+        $post = $request->getParsedBody();
+        $category = new LendCategory($this->zdb, $this->plugins, isset($args['id']) ? (int)$args['id'] : null);
+        $error_detected = [];
+
+        /**
+        * Store changes
+        */
+        $category->name = $post['name'];
+        $category->is_active = $post['is_active'] == 'true';
+        if ($category->store()) {
+            // picture upload
+            if (isset($_FILES['picture'])) {
+                if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+                    if ($_FILES['picture']['tmp_name'] !='') {
+                        if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
+                            $res = $category->picture->store($_FILES['picture']);
+                            if ($res < 0) {
+                                $error_detected[] = $category->picture->getErrorMessage($res);
+                            }
+                        }
+                    }
+                } elseif ($_FILES['picture']['error'] !== UPLOAD_ERR_NO_FILE) {
+                    Analog::log(
+                        $category->picture->getPhpErrorMessage($_FILES['picture']['error']),
+                        Analog::WARNING
+                    );
+                    $error_detected[] = $category->picture->getPhpErrorMessage(
+                        $_FILES['picture']['error']
+                    );
+                }
+            }
+
+            if (isset($post['del_picture'])) {
+                if (!$category->picture->delete($category->category_id)) {
+                    $error_detected[] = _T("Delete failed", "objectslend");
+                    Analog::log(
+                        'Unable to delete picture for category ' . $category->name,
+                        Analog::ERROR
+                    );
+                }
+            }
+        } else {
+            $error_detected[] = _T("An error occured while storing the category.", "objectslend");
+        }
+
+        if (count($error_detected)) {
+            $this->session->objectslend_category = $category;
+            foreach ($error_detected as $error) {
+                $this->flash->addMessage(
+                    'error_detected',
+                    $error
+                );
+            }
+
+            return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_category', $args)
+                );
+        } else {
+            //redirect to categories list
+            $this->flash->addMessage(
+                'success_detected',
+                _T("Category has been saved", "objectslend")
+            );
+
+            return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_categories', $args)
+                );
+        }
+    }
+)->setName('objectslend_category_action')->add($authenticate);
+
+$this->get(
+    '/{type:' . __('category', 'objectslend_routes') .'|' . __('object', 'objectslend_routes') . '}' .
+    '/{mode:' . __('photo', 'objectslend_routes') . '|' . __('thumbnail', 'objectslend_routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) {
+        $id = isset($args['id']) ? $args['id'] : '';
+        $type = $args['type'];
+        $class = '\GaletteObjectsLend\\' .
+            ($type == __('category', 'objectslend_routes') ? 'CategoryPicture' : 'ObjectPicture');
+        $picture = new $class($this->plugins, $id);
+
+        $lendsprefs = new Preferences($this->zdb);
+        $thumb = false;
+        if (!$lendsprefs->showFullsize() || $args['mode'] == __('thumbnail', 'objectslend_routes')) {
+            //force thumbnail display from preferences
+            $thumb = true;
+        }
+
+        if ($thumb) {
+            $picture->displayThumb($lendsprefs);
+        } else {
+            $picture->display();
+        }
+    }
+)->setName('objectslend_photo');
+
+$this->get(
+    __('/categories', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
+    __('order', 'routes') . '}/{value:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $option = null;
+        if (isset($args['option'])) {
+            $option = $args['option'];
+        }
+        $value = null;
+        if (isset($args['value'])) {
+            $value = $args['value'];
+        }
+
+        if (isset($this->session->filter_objectlends_categories)) {
+            $filters = $this->session->objectslend_filter_categories;
+        } else {
+            $filters = new CategoriesList();
+        }
+
+        if ($option !== null) {
+            switch ($option) {
+                case __('page', 'routes'):
+                    $filters->current_page = (int)$value;
+                    break;
+                case __('order', 'routes'):
+                    $filters->orderby = $value;
+                    break;
+            }
+        }
+
+        $categories = new Categories($this->zdb, $this->login, $this->plugins, $filters);
+        $list = $categories->getCategoriesList(true);
+
+        $this->session->objectslend_filter_categories = $filters;
+
+        //assign pagination variables to the template and add pagination links
+        $filters->setSmartyPagination($this->router, $this->view->getSmarty(), false);
+
+        $lendsprefs = new Preferences($this->zdb);
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']categories_list.tpl',
+            array(
+                'page_title'            => _T("Categories list", "objectslend"),
+                'require_dialog'        => true,
+                'categories'            => $list,
+                'nb_categories'         => count($list),
+                'filters'               => $filters,
+                'olendsprefs'           => $lendsprefs,
+                'time'                  => time()
+            )
+        );
+        return $response;
+    }
+)->setName('objectslend_categories')->add($authenticate);
+
+//categories list filtering
+$this->post(
+    __('/categories', 'objectslend_routes') . __('/filter', 'routes'),
+    function ($request, $response) {
+        $post = $request->getParsedBody();
+        if (isset($this->session->objectslend_filter_categories)) {
+            //CAUTION: this one may be simple or advanced, display must change
+            $filters = $this->session->objectslend_filter_categories;
+        } else {
+            $filters = new CategoriesList();
+        }
+
+        //reintialize filters
+        if (isset($post['clear_filter'])) {
+            $filters->reinit();
+        } else {
+            //string to filter
+            if (isset($post['filter_str'])) { //filter search string
+                $filters->filter_str = stripslashes(
+                    htmlspecialchars($post['filter_str'], ENT_QUOTES)
+                );
+            }
+            //activity to filter
+            if (isset($post['active_filter'])) {
+                if (is_numeric($post['active_filter'])) {
+                    $filters->active_filter = $post['active_filter'];
+                }
+            }
+            //number of rows to show
+            if (isset($post['nbshow'])) {
+                $filters->show = $post['nbshow'];
+            }
+        }
+
+        $this->session->objectslend_filter_categories = $filters;
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $this->router->pathFor('objectslend_categories'));
+    }
+)->setName('objectslend_filter_categories')->add($authenticate);
+
+$this->get(
+    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+
+        $data = [
+            'id'            => $args['id'],
+            'redirect_uri'  => $this->router->pathFor('objectslend_categories')
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'confirm_removal.tpl',
+            array(
+                'type'          => _T("Category", "objectslend"),
+                'mode'          => $request->isXhr() ? 'ajax' : '',
+                'page_title'    => sprintf(
+                    _T('Remove category %1$s', 'objectslend'),
+                    $category->name
+                ),
+                'form_url'      => $this->router->pathFor(
+                    'objectslend_doremove_category',
+                    ['id' => $category->category_id]
+                ),
+                'cancel_uri'    => $this->router->pathFor('objectslend_categories'),
+                'data'          => $data
+            )
+        );
+        return $response;
+    }
+)->setName('objectslend_remove_category')->add($authenticate);
+
+$this->post(
+    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        $post = $request->getParsedBody();
+        $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
+        $success = false;
+
+        $uri = isset($post['redirect_uri']) ?
+            $post['redirect_uri'] :
+            $this->router->pathFor('slash');
+
+        if (!isset($post['confirm'])) {
+            $this->flash->addMessage(
+                'error_detected',
+                _T("Removal has not been confirmed!")
+            );
+        } else {
+            $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+            $del = $category->delete();
+
+            if ($del !== true) {
+                $error_detected = str_replace(
+                    '%category',
+                    $category->name,
+                    _T("An error occured trying to remove category %category :/")
+                );
+
+                $this->flash->addMessage(
+                    'error_detected',
+                    $error_detected
+                );
+            } else {
+                $success_detected = str_replace(
+                    '%category',
+                    $category->name,
+                    _T("Category %category has been successfully deleted.")
+                );
+
+                $this->flash->addMessage(
+                    'success_detected',
+                    $success_detected
+                );
+
+                $success = true;
+            }
+        }
+
+        if (!$ajax) {
+            return $response
+                ->withStatus(301)
+                ->withHeader('Location', $uri);
+        } else {
+            return $response->withJson(
+                [
+                    'success'   => $success
+                ]
+            );
+        }
+    }
+)->setName('objectslend_doremove_category')->add($authenticate);
