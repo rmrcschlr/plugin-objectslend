@@ -43,6 +43,9 @@ use GaletteObjectsLend\CategoryPicture;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\Repository\Categories;
 use GaletteObjectsLend\Filters\CategoriesList;
+use GaletteObjectsLend\Repository\Status;
+use GaletteObjectsLend\Filters\StatusList;
+use GaletteObjectsLend\LendStatus;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
@@ -407,7 +410,7 @@ $this->get(
             $value = $args['value'];
         }
 
-        if (isset($this->session->filter_objectlends_categories)) {
+        if (isset($this->session->objectslend_filter_categories)) {
             $filters = $this->session->objectslend_filter_categories;
         } else {
             $filters = new CategoriesList();
@@ -586,3 +589,317 @@ $this->post(
         }
     }
 )->setName('objectslend_doremove_category')->add($authenticate);
+
+$this->get(
+    __('/status', 'objectslend_routes') . '/{action:' .
+    __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $action = $args['action'];
+        if ($action === __('edit', 'routes') && !isset($args['id'])) {
+            throw new \RuntimeException(
+                _T("Status ID cannot be null calling edit route!")
+            );
+        } elseif ($action === __('add', 'routes') && isset($args['id'])) {
+             return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_status', ['action' => __('add', 'routes')])
+                );
+        }
+
+        if ($this->session->objectslend_status !== null) {
+            $status = $this->session->objectslend_status;
+            $this->session->objectslend_status = null;
+        } else {
+            //$status = new LendStatus($this->zdb, $this->plugins, isset($args['id']) ? (int)$args['id'] : null);
+            $status = new LendStatus($this->zdb, isset($args['id']) ? (int)$args['id'] : null);
+        }
+
+        if ($status->status_id !== null) {
+            $title = str_replace(
+                '%status',
+                $status->status_text,
+                _T("Edit status %status", "objectslend")
+            );
+        } else {
+            $title = _T("New status", "objectslend");
+        }
+
+        $params = [
+            'page_title'    => $title,
+            'status'        => $status,
+            'action'        => $action
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']status_edit.tpl',
+            $params
+        );
+        return $response;
+    }
+)->setName('objectslend_status')->add($authenticate);
+
+$this->post(
+    __('/status', 'objectslend_routes') . '/{action:' .
+    __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $action = $args['action'];
+        $post = $request->getParsedBody();
+        $status = new LendStatus($this->zdb, isset($args['id']) ? (int)$args['id'] : null);
+        $error_detected = [];
+
+        $status->status_text = $post['text'];
+        $status->is_home_location = isset($post['is_home_location']);
+        $status->is_active = isset($post['is_active']);
+        $days = trim($post['rent_day_number']);
+        $status->rent_day_number = strlen($days) > 0 ? intval($days) : null;
+        if (!$status->store()) {
+            $error_detected[] = _T("An error occured while storing the status.", "objectslend");
+        }
+
+        if (count($error_detected)) {
+            $this->session->objectslend_status = $status;
+            foreach ($error_detected as $error) {
+                $this->flash->addMessage(
+                    'error_detected',
+                    $error
+                );
+            }
+
+            return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_status', $args)
+                );
+        } else {
+            //redirect to categories list
+            $this->flash->addMessage(
+                'success_detected',
+                _T("Status has been saved", "objectslend")
+            );
+
+            return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_statuses', $args)
+                );
+        }
+    }
+)->setName('objectslend_status_action')->add($authenticate);
+
+$this->get(
+    __('/statuses', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
+    __('order', 'routes') . '}/{value:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $option = null;
+        if (isset($args['option'])) {
+            $option = $args['option'];
+        }
+        $value = null;
+        if (isset($args['value'])) {
+            $value = $args['value'];
+        }
+
+        if (isset($this->session->objectslend_filter_statuses)) {
+            $filters = $this->session->objectslend_filter_statuses;
+        } else {
+            $filters = new StatusList();
+        }
+
+        if ($option !== null) {
+            switch ($option) {
+                case __('page', 'routes'):
+                    $filters->current_page = (int)$value;
+                    break;
+                case __('order', 'routes'):
+                    $filters->orderby = $value;
+                    break;
+            }
+        }
+
+        $statuses = new Status($this->zdb, $this->login, $filters);
+        $list = $statuses->getStatusList(true);
+
+        if (count(LendStatus::getActiveHomeStatuses($this->zdb)) == 0) {
+            $this->flash->addMessage(
+                'error_detected',
+                _T("You should add at last 1 status 'on site' to ensure the plugin works well!", "objectslend")
+            );
+        }
+        if (count(LendStatus::getActiveTakeAwayStatuses($this->zdb)) == 0) {
+            $this->flash->addMessage(
+                'error_detected',
+                _T("You should add at last 1 status 'object borrowed' to ensure the plugin works well!", "objectslend")
+            );
+        }
+
+        $this->session->objectslend_filter_statuses = $filters;
+
+        //assign pagination variables to the template and add pagination links
+        $filters->setSmartyPagination($this->router, $this->view->getSmarty(), false);
+
+        $lendsprefs = new Preferences($this->zdb);
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']status_list.tpl',
+            array(
+                'page_title'            => _T("Status list", "objectslend"),
+                'require_dialog'        => true,
+                'statuses'              => $list,
+                'nb_status'             => count($list),
+                'olendsprefs'           => $lendsprefs,
+                'filters'               => $filters,
+                'time'                  => time()
+            )
+        );
+        return $response;
+    }
+)->setName('objectslend_statuses')->add($authenticate);
+
+//status list filtering
+$this->post(
+    __('/statuses', 'objectslend_routes') . __('/filter', 'routes'),
+    function ($request, $response) {
+        $post = $request->getParsedBody();
+        if (isset($this->session->objectslend_filter_statuses)) {
+            $filters = $this->session->objectslend_filter_statuses;
+        } else {
+            $filters = new StatusList();
+        }
+
+        //reintialize filters
+        if (isset($post['clear_filter'])) {
+            $filters->reinit();
+        } else {
+            //string to filter
+            if (isset($post['filter_str'])) { //filter search string
+                $filters->filter_str = stripslashes(
+                    htmlspecialchars($post['filter_str'], ENT_QUOTES)
+                );
+            }
+            //activity to filter
+            if (isset($post['active_filter'])) {
+                if (is_numeric($post['active_filter'])) {
+                    $filters->active_filter = $post['active_filter'];
+                }
+            }
+            //stock to filter
+            if (isset($post['stock_filter'])) {
+                if (is_numeric($post['stock_filter'])) {
+                    $filters->stock_filter = $post['stock_filter'];
+                }
+            }
+
+            //number of rows to show
+            if (isset($post['nbshow'])) {
+                $filters->show = $post['nbshow'];
+            }
+        }
+
+        $this->session->objectslend_filter_statuses = $filters;
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $this->router->pathFor('objectslend_statuses'));
+    }
+)->setName('objectslend_filter_statuses')->add($authenticate);
+
+$this->get(
+    __('/status', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        /*$category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+
+        $data = [
+            'id'            => $args['id'],
+            'redirect_uri'  => $this->router->pathFor('objectslend_categories')
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'confirm_removal.tpl',
+            array(
+                'type'          => _T("Category", "objectslend"),
+                'mode'          => $request->isXhr() ? 'ajax' : '',
+                'page_title'    => sprintf(
+                    _T('Remove category %1$s', 'objectslend'),
+                    $category->name
+                ),
+                'form_url'      => $this->router->pathFor(
+                    'objectslend_doremove_category',
+                    ['id' => $category->category_id]
+                ),
+                'cancel_uri'    => $this->router->pathFor('objectslend_categories'),
+                'data'          => $data
+            )
+        );
+        return $response;*/
+    }
+)->setName('objectslend_remove_status')->add($authenticate);
+
+$this->post(
+    __('/status', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        /*$post = $request->getParsedBody();
+        $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
+        $success = false;
+
+        $uri = isset($post['redirect_uri']) ?
+            $post['redirect_uri'] :
+            $this->router->pathFor('slash');
+
+        if (!isset($post['confirm'])) {
+            $this->flash->addMessage(
+                'error_detected',
+                _T("Removal has not been confirmed!")
+            );
+        } else {
+            $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+            $del = $category->delete();
+
+            if ($del !== true) {
+                $error_detected = str_replace(
+                    '%category',
+                    $category->name,
+                    _T("An error occured trying to remove category %category :/")
+                );
+
+                $this->flash->addMessage(
+                    'error_detected',
+                    $error_detected
+                );
+            } else {
+                $success_detected = str_replace(
+                    '%category',
+                    $category->name,
+                    _T("Category %category has been successfully deleted.")
+                );
+
+                $this->flash->addMessage(
+                    'success_detected',
+                    $success_detected
+                );
+
+                $success = true;
+            }
+        }
+
+        if (!$ajax) {
+            return $response
+                ->withStatus(301)
+                ->withHeader('Location', $uri);
+        } else {
+            return $response->withJson(
+                [
+                    'success'   => $success
+                ]
+            );
+        }*/
+    }
+)->setName('objectslend_doremove_status')->add($authenticate);

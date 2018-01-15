@@ -1,4 +1,6 @@
-<form action="status_edit.php" method="post">
+{extends file="page.tpl"}
+{block name="content"}
+<form action="{path_for name="objectslend_status_action" data=["action" => $action, "id" => $status->status_id]}" method="post">
     <input type="hidden" name="status_id" value="{$status->status_id}">
     <div class="bigtable">
         <fieldset class="cssform">
@@ -40,3 +42,4 @@
         <a href="status_list.php?msg=canceled" class="button" id="btncancel">{_T string="Cancel"}</a>
     </div>
 </form>
+{/block}

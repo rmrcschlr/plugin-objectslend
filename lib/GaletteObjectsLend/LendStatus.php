@@ -42,6 +42,7 @@
 namespace GaletteObjectsLend;
 
 use Analog\Analog;
+use Galette\Core\Db;
 
 class LendStatus
 {
@@ -49,33 +50,36 @@ class LendStatus
     const TABLE = 'status';
     const PK = 'status_id';
 
-    private $_fields = array(
+    private $zdb;
+
+    private $fields = array(
         'status_id' => 'integer',
         'status_text' => 'varchar(100)',
         'is_home_location' => 'boolean',
         'is_active' => 'boolean',
         'rent_day_number' => 'int'
     );
-    private $_status_id;
-    private $_status_text = '';
-    private $_is_home_location = false;
-    private $_is_active = true;
-    private $_rent_day_number = null;
+    private $status_id;
+    private $status_text = '';
+    private $is_home_location = false;
+    private $is_active = true;
+    private $rent_day_number = null;
 
     /**
-     * Construit un nouveau statut d'emprunt à partir de la BDD (à partir de son ID) ou vierge
+     * Status constructor
      *
-     * @param int|object $args Peut être null, un ID ou une ligne de la BDD
+     * @param Db    $zdb  Database instance
+     * @param mixed $args Can be null, an ID or a database row
      */
-    public function __construct($args = null)
+    public function __construct(Db $zdb, $args = null)
     {
-        global $zdb;
+        $this->zdb = $zdb;
 
         if (is_int($args)) {
             try {
-                $select = $zdb->select(LEND_PREFIX . self::TABLE)
+                $select = $this->zdb->select(LEND_PREFIX . self::TABLE)
                         ->where(self::PK . ' = ' . $args);
-                $result = $zdb->execute($select);
+                $result = $this->zdb->execute($select);
                 if ($result->count() == 1) {
                     $this->_loadFromRS($result->current());
                 }
@@ -100,11 +104,11 @@ class LendStatus
      */
     private function _loadFromRS($r)
     {
-        $this->_status_id = $r->status_id;
-        $this->_status_text = $r->status_text;
-        $this->_is_home_location = $r->is_home_location == '1' ? true : false;
-        $this->_is_active = $r->is_active == '1' ? true : false;
-        $this->_rent_day_number = $r->rent_day_number;
+        $this->status_id = $r->status_id;
+        $this->status_text = $r->status_text;
+        $this->is_home_location = $r->is_home_location == '1' ? true : false;
+        $this->is_active = $r->is_active == '1' ? true : false;
+        $this->rent_day_number = $r->rent_day_number;
     }
 
     /**
@@ -114,43 +118,41 @@ class LendStatus
      */
     public function store()
     {
-        global $zdb;
-
         try {
             $values = array();
 
-            foreach ($this->_fields as $k => $v) {
+            foreach ($this->fields as $k => $v) {
                 if (($k === 'is_active' || $k === 'is_home_location')
                     && $this->$k === false
                 ) {
                     //Handle booleans for postgres ; bugs #18899 and #19354
-                    $values[$k] = $zdb->isPostgres() ? 'false' : 0;
+                    $values[$k] = $this->zdb->isPostgres() ? 'false' : 0;
                 } else {
                     $values[$k] = $this->$k;
                 }
             }
 
-            if (!isset($this->_status_id) || $this->_status_id == '') {
+            if (!isset($this->status_id) || $this->status_id == '') {
                 unset($values[self::PK]);
-                $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
+                $insert = $this->zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $result = $zdb->execute($insert);
+                $result = $this->zdb->execute($insert);
                 if ($result->count() > 0) {
-                    if ( $zdb->isPostgres() ) {
-                        $this->_status_id = $zdb->driver->getLastGeneratedValue(
+                    if ($this->zdb->isPostgres()) {
+                        $this->status_id = $this->zdb->driver->getLastGeneratedValue(
                             PREFIX_DB . 'lend_status_id_seq'
                         );
                     } else {
-                        $this->_status_id = $zdb->driver->getLastGeneratedValue();
+                        $this->status_id = $this->zdb->driver->getLastGeneratedValue();
                     }
                 } else {
                     throw new \Exception(_T("Status has not been added :(", "objectslend"));
                 }
             } else {
-                $update = $zdb->update(LEND_PREFIX . self::TABLE)
+                $update = $this->zdb->update(LEND_PREFIX . self::TABLE)
                         ->set($values)
-                        ->where(array(self::PK => $this->_status_id));
-                $zdb->execute($update);
+                        ->where(array(self::PK => $this->status_id));
+                $this->zdb->execute($update);
             }
             return true;
         } catch (\Exception $e) {
@@ -166,15 +168,14 @@ class LendStatus
     /**
      * Renvoi tous les statuts triés par le tri indiqué
      *
-     * @param string $tri Colonne de tri
+     * @param Db     $zdb       Database instance
+     * @param string $tri       Colonne de tri
      * @param string $direction asc ou desc
      *
      * @return LendStatus[] La liste des statuts triés par le tri donné
      */
-    public static function getAllStatuses($tri, $direction)
+    public static function getAllStatuses(Db $zdb, $tri, $direction)
     {
-        global $zdb;
-
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->order($tri . ' ' . $direction);
@@ -182,7 +183,7 @@ class LendStatus
             $status = array();
             $result = $zdb->execute($select);
             foreach ($result as $r) {
-                $status[] = new LendStatus($r);
+                $status[] = new LendStatus($zdb, $r);
             }
             return $status;
         } catch (\Exception $e) {
@@ -198,12 +199,12 @@ class LendStatus
     /**
      * Renvoi tous les statuts actifs triés par nom
      *
+     * @param Db     $zdb       Database instance
+     *
      * @return LendStatus[] La liste des statuts actifs triés
      */
-    public static function getActiveStatuses()
+    public static function getActiveStatuses(Db $zdb)
     {
-        global $zdb;
-
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->where(array('is_active' => 1))
@@ -212,7 +213,7 @@ class LendStatus
             $status = array();
             $result = $zdb->execute($select);
             foreach ($result as $r) {
-                $status[] = new LendStatus($r);
+                $status[] = new LendStatus($zdb, $r);
             }
             return $status;
         } catch (\Exception $e) {
@@ -228,12 +229,12 @@ class LendStatus
     /**
      * Renvoi tous les statuts actifs considéré comme empruntés triés par nom
      *
+     * @param Db     $zdb       Database instance
+     *
      * @return LendStatus[] La liste des statuts actifs triés
      */
-    public static function getActiveTakeAwayStatuses()
+    public static function getActiveTakeAwayStatuses(Db $zdb)
     {
-        global $zdb;
-
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->where(array('is_active' => 1, 'is_home_location' => 0))
@@ -242,7 +243,7 @@ class LendStatus
             $status = array();
             $result = $zdb->execute($select);
             foreach ($result as $r) {
-                $status[] = new LendStatus($r);
+                $status[] = new LendStatus($zdb, $r);
             }
             return $status;
         } catch (\Exception $e) {
@@ -258,12 +259,12 @@ class LendStatus
     /**
      * Renvoi tous les statuts actifs considéré comme à la maison triés par nom
      *
+     * @param Db     $zdb       Database instance
+     *
      * @return LendStatus[] La liste des statuts actifs triés
      */
-    public static function getActiveHomeStatuses()
+    public static function getActiveHomeStatuses(Db $zdb)
     {
-        global $zdb;
-
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->where(array('is_active' => 1, 'is_home_location' => 1))
@@ -272,7 +273,7 @@ class LendStatus
             $status = array();
             $result = $zdb->execute($select);
             foreach ($result as $r) {
-                $status[] = new LendStatus($r);
+                $status[] = new LendStatus($zdb, $r);
             }
             return $status;
         } catch (\Exception $e) {
@@ -286,20 +287,16 @@ class LendStatus
     }
 
     /**
-     * Supprime un statut
+     * Delete status
      *
-     * @param int $id Id du statut à supprimer
-     *
-     * @return boolean True en cas de réussite, false sinon
+     * @return boolean
      */
-    public static function deleteStatus($id)
+    public function delete()
     {
-        global $zdb;
-
         try {
-            $delete = $zdb->delete(LEND_PREFIX . self::TABLE)
-                    ->where(array(self::PK => $id));
-            $zdb->execute($delete);
+            $delete = $this->zdb->delete(LEND_PREFIX . self::TABLE)
+                    ->where(array(self::PK => $this->status_id));
+            $this->zdb->execute($delete);
             return true;
         } catch (\Exception $e) {
             Analog::log(
@@ -320,14 +317,7 @@ class LendStatus
      */
     public function __get($name)
     {
-        $rname = '_' . $name;
-        if (substr($rname, 0, 3) == '___') {
-            return false;
-        }
-        switch ($name) {
-            default:
-                return $this->$rname;
-        }
+        return $this->$name;
     }
 
     /**
@@ -340,7 +330,6 @@ class LendStatus
      */
     public function __set($name, $value)
     {
-        $rname = '_' . $name;
-        $this->$rname = $value;
+        $this->$name = $value;
     }
 }

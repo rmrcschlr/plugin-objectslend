@@ -56,6 +56,12 @@ $this->register(
         'objectslend_categories'        => 'staff',
         'objectslend_filter_categories' => 'staff',
         'objectslend_remove_category'   => 'staff',
-        'objectslend_doremove_category' => 'staff'
+        'objectslend_doremove_category' => 'staff',
+        'objectslend_status'            => 'staff',
+        'objectslend_status_action'     => 'staff',
+        'objectslend_statuses'          => 'staff',
+        'objectslend_filter_statuses'   => 'staff',
+        'objectslend_remove_status'     => 'staff',
+        'objectslend_doremove_status'   => 'staff'
     ]
 );
