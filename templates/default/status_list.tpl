@@ -143,6 +143,8 @@
                     <a class="delete" href="{path_for name="objectslend_remove_status" data=["id" => $sttus->status_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %status from database" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}"/></a>
                 </td>
             </tr>
+        {foreachelse}
+            <tr><td colspan="6" class="emptylist">{_T string="No status has been found" domain="objectslend"}</td></tr>
         {/foreach}
     </tbody>
 </table>

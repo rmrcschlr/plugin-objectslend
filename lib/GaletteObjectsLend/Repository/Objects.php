@@ -7,7 +7,7 @@
  *
  * PHP version 5
  *
- * Copyright © 2017 The Galette Team
+ * Copyright © 2017-2018 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -49,6 +49,7 @@ use GaletteObjectsLend\LendObject;
 use GaletteObjectsLend\LendCategory;
 use GaletteObjectsLend\LendRent;
 use GaletteObjectsLend\LendStatus;
+use Galette\Core\Plugins;
 
 /**
  * Objects list
@@ -58,7 +59,7 @@ use GaletteObjectsLend\LendStatus;
  * @package   GaletteObjectsLend
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2017 The Galette Team
+ * @copyright 2017-2018 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
  */
@@ -93,17 +94,20 @@ class Objects
     private $count = null;
     private $errors = array();
     private $prefs;
+    private $plugins;
 
     /**
      * Default constructor
      *
      * @param Db          $zdb     Database instance
+     * @param Plugins     $plugins Plugins instance
      * @param Preferences $lprefs  Lends preferences instance
      * @param ObjectsList $filters Filtering
      */
-    public function __construct(Db $zdb, Preferences $lprefs, ObjectsList $filters = null)
+    public function __construct(Db $zdb, Plugins $plugins, Preferences $lprefs, ObjectsList $filters = null)
     {
         $this->zdb = $zdb;
+        $this->plugins = $plugins;
         $this->prefs = $lprefs;
 
         if ($filters === null) {
@@ -117,10 +121,10 @@ class Objects
      * Get objects list
      *
      * @param boolean $as_objects return the results as an array of
-     *                               Object object.
+     *                            Object object.
      * @param array   $fields     field(s) name(s) to get. Should be a string or
-     *                               an array. If null, all fields will be
-     *                               returned
+     *                            an array. If null, all fields will be
+     *                            returned
      * @param boolean $count      true if we want to count members
      * @param boolean $limit      true if we want records pagination
      * @param boolean $all_rents  true to load rents along with objects
@@ -152,7 +156,7 @@ class Objects
                     if ($all_rents === true) {
                         $deps['rents'] = true;
                     }
-                    $objects[] = new LendObject($row, false, $deps);
+                    $objects[] = new LendObject($this->zdb, $this->plugins, $row, false, $deps);
                 }
             } else {
                 $objects = $rows;
@@ -170,10 +174,10 @@ class Objects
      * Get categories list
      *
      * @param boolean $as_objects return the results as an array of
-     *                               Object object.
+     *                            Object object.
      * @param array   $fields     field(s) name(s) to get. Should be a string or
-     *                               an array. If null, all fields will be
-     *                               returned
+     *                            an array. If null, all fields will be
+     *                            returned
      * @param boolean $count      true if we want to count members
      * @param boolean $limit      true if we want records pagination
      *
@@ -513,7 +517,8 @@ class Objects
                 break;
             case self::ORDERBY_MEMBER:
                 if ($this->canOrderBy('nom_adh', $fields) && $this->canOrderBy('prenom_adh', $fields)) {
-                    $order[] = 'nom_adh ' . $this->filters->getDirection() . ', prenom_adh ' . $this->filters->getDirection();
+                    $order[] = 'nom_adh ' . $this->filters->getDirection() .
+                        ', prenom_adh ' . $this->filters->getDirection();
                 }
                 break;
         }

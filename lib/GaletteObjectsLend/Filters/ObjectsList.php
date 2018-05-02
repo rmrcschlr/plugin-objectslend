@@ -255,12 +255,12 @@ class ObjectsList extends Pagination
     /**
      * Set commons filters for templates
      *
-     * @param Preferences $prefs Preferences instance
-     * @param Smarty      $tpl   Smarty template reference
+     * @param LendsPreferences $prefs Preferences instance
+     * @param Smarty           $view  Smarty template reference
      *
      * @return void
      */
-    public function setTplCommonsFilters($prefs, $tpl)
+    public function setViewCommonsFilters($prefs, \Smarty $view)
     {
         $prefs = $prefs->getPreferences();
 
@@ -274,7 +274,7 @@ class ObjectsList extends Pagination
             $options[Objects::FILTER_DIM] = _T("Dimensions", "objectslend");
         }
 
-        $tpl->assign(
+        $view->assign(
             'field_filter_options',
             $options
         );

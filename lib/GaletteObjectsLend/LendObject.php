@@ -43,6 +43,8 @@ namespace GaletteObjectsLend;
 
 use Analog\Analog;
 use \Zend\Db\Sql\Predicate;
+use Galette\Core\Db;
+use Galette\Core\Plugins;
 use Galette\Entity\Adherent;
 use GaletteObjectsLend\Filters\ObjectsList;
 use GaletteObjectsLend\Repository\Objects;
@@ -104,6 +106,9 @@ class LendObject
         'last_rent' => false
     ];
 
+    private $zdb;
+    private $plugins;
+
     /**
      * @var LendRent[]
      * Rents list for the object
@@ -113,13 +118,16 @@ class LendObject
     /**
      * Default constructor
      *
-     * @param int|object $args   Maybe null, an RS object or an id from database
-     * @param boolean    $cloned Ask to clone specified object
-     * @param array      $deps   Dependencies configuration, see LendOb::$deps
+     * @param Db         $zdb     Database instance
+     * @param Plugins    $plugins Pluginsugins instance
+     * @param int|object $args    Maybe null, an RS object or an id from database
+     * @param boolean    $cloned  Ask to clone specified object
+     * @param array      $deps    Dependencies configuration, see LendOb::$deps
      */
-    public function __construct($args = null, $cloned = false, $deps = null)
+    public function __construct(Db $zdb, Plugins $plugins, $args = null, $cloned = false, $deps = null)
     {
-        global $zdb, $plugins;
+        $this->zdb = $zdb;
+        $this->plugins = $plugins;
 
         if ($deps !== null && is_array($deps)) {
             $this->deps = array_merge(
@@ -134,14 +142,14 @@ class LendObject
         }
 
         if ($this->deps['picture'] === true) {
-            $this->picture = new ObjectPicture($plugins);
+            $this->picture = new ObjectPicture($this->plugins);
         }
 
         if (is_int($args)) {
             try {
-                $select = $zdb->select(LEND_PREFIX . self::TABLE)
+                $select = $this->zdb->select(LEND_PREFIX . self::TABLE)
                         ->where(array(self::PK => $args));
-                $results = $zdb->execute($select);
+                $results = $this->zdb->execute($select);
                 if ($results->count() == 1) {
                     $this->loadFromRS($results->current());
                 }
@@ -159,7 +167,7 @@ class LendObject
         if ($args !== null && $cloned) {
             unset($this->object_id);
             if ($this->deps['picture'] === true) {
-                $this->picture = new ObjectPicture($plugins);
+                $this->picture = new ObjectPicture($this->plugins);
             }
         }
     }
@@ -173,16 +181,14 @@ class LendObject
      */
     private function loadFromRS($r)
     {
-        global $plugins;
-
         $this->object_id = $r->object_id;
-        $this->name = self::protectQuote($r->name);
-        $this->description = self::protectQuote($r->description);
-        $this->serial_number = self::protectQuote($r->serial_number);
+        $this->name = $r->name;
+        $this->description = $r->description;
+        $this->serial_number = $r->serial_number;
         $this->price = is_numeric($r->price) ? floatval($r->price) : 0.0;
         $this->rent_price = is_numeric($r->rent_price) ? floatval($r->rent_price) : 0.0;
         $this->price_per_day = $r->price_per_day == '1';
-        $this->dimension = self::protectQuote($r->dimension);
+        $this->dimension = $r->dimension;
         $this->weight = is_numeric($r->weight) ? floatval($r->weight) : 0.0;
         $this->is_active = $r->is_active == '1' ? true : false;
         if (property_exists($r, 'cat_active') && ($r->cat_active == 1 || $r->cat_active === null)) {
@@ -227,20 +233,8 @@ class LendObject
         }
 
         if ($this->deps['picture'] === true) {
-            $this->picture = new ObjectPicture($plugins, (int)$this->object_id);
+            $this->picture = new ObjectPicture($this->plugins, (int)$this->object_id);
         }
-    }
-
-    /**
-     * Protège les guillemets et apostrophes en les transformant en caractères qui ne gênent pas en HTML
-     *
-     * @param string $str Chaîne à transformer
-     *
-     * @return string Chaîne protégée
-     */
-    private static function protectQuote($str)
-    {
-        return str_replace(array('\'', '"'), array(html_entity_decode('&rsquo;'), html_entity_decode('&rdquo;')), $str);
     }
 
     /**
@@ -250,8 +244,6 @@ class LendObject
      */
     public function store()
     {
-        global $zdb;
-
         try {
             $values = array();
 
@@ -260,7 +252,7 @@ class LendObject
                     && $this->$k === false
                 ) {
                     //Handle booleans for postgres ; bugs #18899 and #19354
-                    $values[$k] = $zdb->isPostgres() ? 'false' : 0;
+                    $values[$k] = $this->zdb->isPostgres() ? 'false' : 0;
                 } else {
                     $values[$k] = $this->$k;
                 }
@@ -268,25 +260,25 @@ class LendObject
 
             if (!isset($this->object_id) || $this->object_id == '') {
                 unset($values[self::PK]);
-                $insert = $zdb->insert(LEND_PREFIX . self::TABLE)
+                $insert = $this->zdb->insert(LEND_PREFIX . self::TABLE)
                         ->values($values);
-                $result = $zdb->execute($insert);
+                $result = $this->zdb->execute($insert);
                 if ($result->count() > 0) {
-                    if ( $zdb->isPostgres() ) {
-                        $this->object_id = $zdb->driver->getLastGeneratedValue(
+                    if ( $this->zdb->isPostgres() ) {
+                        $this->object_id = $this->zdb->driver->getLastGeneratedValue(
                             PREFIX_DB . 'lend_objects_id_seq'
                         );
                     } else {
-                        $this->object_id = $zdb->driver->getLastGeneratedValue();
+                        $this->object_id = $this->zdb->driver->getLastGeneratedValue();
                     }
                 } else {
                     throw new \Exception(_T("Object has not been added :(", "objectslend"));
                 }
             } else {
-                $update = $zdb->update(LEND_PREFIX . self::TABLE)
+                $update = $this->zdb->update(LEND_PREFIX . self::TABLE)
                         ->set($values)
                         ->where(array(self::PK => $this->object_id));
-                $zdb->execute($update);
+                $this->zdb->execute($update);
             }
             return true;
         } catch (\Exception $e) {
@@ -295,7 +287,7 @@ class LendObject
                     $e->getTraceAsString(),
                 Analog::ERROR
             );
-            return false;
+            throw $e;
         }
     }
 

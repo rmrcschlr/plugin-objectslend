@@ -1,4 +1,6 @@
-<form action="objects_edit.php" method="post" enctype="multipart/form-data">
+{extends file="page.tpl"}
+{block name="content"}
+<form action="{path_for name="objectslend_object_action" data=["action" => $action, "id" => $object->object_id]}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="object_id" value="{$object->object_id}">
     <div class="bigtable">
         <fieldset class="cssform">
@@ -93,11 +95,11 @@
             <legend class="ui-state-active ui-corner-top">{_T string="Object's photo" domain="objectslend"}</legend>
                 <p>
                     <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</div>
-                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=1"
+                    <img src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}]}{/if}?rand={$time}"
                         class="picture"
                         width="{$object->picture->getOptimalThumbWidth()}"
                         height="{$object->picture->getOptimalThumbHeight()}"
-                        alt="{_T string="Object's photo" domain="objectslend"}"/><br/>
+                        alt="{_T string="Object photo" domain="objectslend"}"/><br/>
                     <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>
                     <input type="file" name="picture" id="object_picture">
                 </p>
@@ -209,3 +211,4 @@
     </table>
 </form>
 {/if}
+{/block}

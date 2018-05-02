@@ -46,6 +46,9 @@ use GaletteObjectsLend\Filters\CategoriesList;
 use GaletteObjectsLend\Repository\Status;
 use GaletteObjectsLend\Filters\StatusList;
 use GaletteObjectsLend\LendStatus;
+use GaletteObjectsLend\LendObject;
+use GaletteObjectsLend\Filters\ObjectsList;
+use GaletteObjectsLend\Repository\Objects;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
@@ -903,3 +906,394 @@ $this->post(
         }*/
     }
 )->setName('objectslend_doremove_status')->add($authenticate);
+
+$this->get(
+    __('/object', 'objectslend_routes') . '/{action:' .
+    __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $action = $args['action'];
+        if ($action === __('edit', 'routes') && !isset($args['id'])) {
+            throw new \RuntimeException(
+                _T("Object ID cannot be null calling edit route!")
+            );
+        } elseif ($action === __('add', 'routes') && isset($args['id'])) {
+             return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_object', ['action' => __('add', 'routes')])
+                );
+        }
+
+        if ($this->session->objectslend_object !== null) {
+            $object = $this->session->objectslend_object;
+            $this->session->objectslend_object = null;
+        } else {
+            $object = new LendObject($this->zdb, $this->plugins, isset($args['id']) ? (int)$args['id'] : null);
+        }
+
+        if ($object->object_id !== null) {
+            $title = _T("Edit object", "objectslend");
+        } else {
+            $title = _T("New object", "objectslend");
+        }
+
+        $params = [
+            'page_title'    => $title,
+            'object'        => $object,
+            'time'          => time(),
+            'action'        => $action
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']objects_edit.tpl',
+            $params
+        );
+        return $response;
+    }
+)->setName('objectslend_object')->add($authenticate);
+
+$this->post(
+    __('/object', 'objectslend_routes') . '/{action:' .
+    __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $action = $args['action'];
+        $post = $request->getParsedBody();
+
+        $object = new LendObject($this->zdb, $this->plugins, isset($args['id']) ? (int)$args['id'] : null);
+        $error_detected = [];
+
+        $object->name = $post['name'];
+        $object->description = $post['description'];
+        //TODO: check if category do exits?
+        $object->category_id = empty($post['category_id']) ? null : $post['category_id'];
+        $object->serial_number = $post['serial'];
+        if ($post['price'] != '') {
+            //FIXME: better currency format handler
+            $object->price = str_replace(' ', '', str_replace(',', '.', $post['price']));
+        }
+        if ($post['rent_price'] != '') {
+            //FIXME: better currency format handler
+            $object->rent_price = str_replace(' ', '', str_replace(',', '.', $post['rent_price']));
+        }
+        $object->price_per_day = $post['price_per_day'] == 'true';
+        $object->dimension = $post['dimension'];
+        if ($post['weight'] != '') {
+            //FIXME: better format handler
+            $object->weight = str_replace(' ', '', str_replace(',', '.', $post['weight']));
+        }
+        $object->is_active = $post['is_active'] == 'true';
+
+        if ($object->store()) {
+            $success_detected[] = _T("Object has been successfully stored!", "objectslend");
+            if (isset($pot['1st_status'])) {
+                $rent = new LendRent();
+                $rent->object_id = $object->object_id;
+                $rent->status_id = $post['1st_status'];
+                $rent->store();
+            }
+
+            $object_id = $object->object_id;
+
+            /* Modification du statut */
+            if ($post['status']) {
+                LendRent::closeAllRentsForObject(intval($object_id), $post['new_comment']);
+
+                $rent = new LendRent();
+                $rent->object_id = $object_id;
+                $rent->status_id = $post['new_status'];
+                if (filter_input(INPUT_POST, 'new_adh') != 'null') {
+                    $rent->adherent_id = $post['new_adh'];
+                }
+                $rent->store();
+            }
+            // picture upload
+            if (isset($_FILES['picture'])) {
+                if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+                    if ($_FILES['picture']['tmp_name'] !='') {
+                        if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
+                            $res = $object->picture->store($_FILES['picture']);
+                            if ($res < 0) {
+                                $error_detected[] = $object->picture->getErrorMessage($res);
+                            }
+                        }
+                    }
+                } elseif ($_FILES['picture']['error'] !== UPLOAD_ERR_NO_FILE) {
+                    Analog::log(
+                        $object->picture->getPhpErrorMessage($_FILES['picture']['error']),
+                        Analog::WARNING
+                    );
+                    $error_detected[] = $object->picture->getPhpErrorMessage(
+                        $_FILES['picture']['error']
+                    );
+                }
+            }
+
+            if (isset($post['del_picture'])) {
+                if (!$object->picture->delete($object->object_id)) {
+                    $error_detected[] = _T("Delete failed", "objectslend");
+                    Analog::log(
+                        'Unable to delete picture for object ' . $object->name,
+                        Analog::ERROR
+                    );
+                }
+            }
+
+/*
+
+$show_status = false;
+$statuses = LendStatus::getActiveStatuses();
+$adherents = LendRent::getAllActivesAdherents();
+
+$tpl->assign('page_title', $title);
+$tpl->assign('object', $object);
+$tpl->assign('rents', $rents);
+$tpl->assign('show_status', $show_status);
+$tpl->assign('statuses', $statuses);
+$tpl->assign('adherents', $adherents);
+$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
+$tpl->assign('olendsprefs', $lendsprefs);
+$tpl->assign('categories', LendCategory::getActiveCategories());
+$tpl->assign('time', time());
+$tpl->assign('success_detected', $success_detected);
+$tpl->assign('error_detected', $error_detected);
+$tpl->assign('warning_detected', $warning_detected);
+
+ */
+        } else {
+            $error_detected[] = _T("Something went wrong saving object :(", "objectslend");
+        }
+
+
+
+        if (count($error_detected)) {
+            $this->session->objectslend_object = $object;
+            foreach ($error_detected as $error) {
+                $this->flash->addMessage(
+                    'error_detected',
+                    $error
+                );
+            }
+
+            return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_object', $args)
+                );
+        } else {
+            //redirect to objects list
+            $this->flash->addMessage(
+                'success_detected',
+                _T("Object has been saved", "objectslend")
+            );
+
+            return $response
+                ->withStatus(301)
+                ->withHeader(
+                    'Location',
+                    $this->router->pathFor('objectslend_objects', $args)
+                );
+        }
+    }
+)->setName('objectslend_object_action')->add($authenticate);
+
+$this->get(
+    __('/objects', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
+    __('order', 'routes') . '}/{value:\d+}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $option = null;
+        if (isset($args['option'])) {
+            $option = $args['option'];
+        }
+        $value = null;
+        if (isset($args['value'])) {
+            $value = $args['value'];
+        }
+
+        if (isset($this->session->objectslend_filter_objects)) {
+            $filters = $this->session->objectslend_filter_objects;
+        } else {
+            $filters = new ObjectsList();
+        }
+
+        if ($option !== null) {
+            switch ($option) {
+                case __('page', 'routes'):
+                    $filters->current_page = (int)$value;
+                    break;
+                case __('order', 'routes'):
+                    $filters->orderby = $value;
+                    break;
+            }
+        }
+
+        $lendsprefs = new Preferences($this->zdb);
+        $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $filters);
+        $list = $objects->getObjectsList(true);
+
+        $this->session->objectslend_filter_objects = $filters;
+
+        //assign pagination variables to the template and add pagination links
+        $filters->setViewCommonsFilters($lendsprefs, $this->view->getSmarty());
+        $filters->setSmartyPagination($this->router, $this->view->getSmarty(), false);
+
+        // display page
+        $this->view->render(
+            $response,
+            'file:[' . $module['route'] . ']objects_list.tpl',
+            array(
+                'page_title'            => _T("Objects list", "objectslend"),
+                'require_dialog'        => true,
+                'objects'               => $list,
+                'nb_objects'            => count($list),
+                'filters'               => $filters,
+                'olendsprefs'           => $lendsprefs,
+                'time'                  => time(),
+                'module_id'             => $module_id
+            )
+        );
+        return $response;
+    }
+)->setName('objectslend_objects')->add($authenticate);
+
+//objects list filtering
+$this->post(
+    __('/objects', 'objectslend_routes') . __('/filter', 'routes'),
+    function ($request, $response) {
+        $post = $request->getParsedBody();
+        if (isset($this->session->objectslend_filter_objects)) {
+            $filters = $this->session->objectslend_filter_objects;
+        } else {
+            $filters = new ObjectsList();
+        }
+
+        //reintialize filters
+        if (isset($post['clear_filter'])) {
+            $filters->reinit();
+        } else {
+            //string to filter
+            if (isset($post['filter_str'])) { //filter search string
+                $filters->filter_str = stripslashes(
+                    htmlspecialchars($post['filter_str'], ENT_QUOTES)
+                );
+            }
+            //activity to filter
+            if (isset($post['active_filter'])) {
+                if (is_numeric($post['active_filter'])) {
+                    $filters->active_filter = $post['active_filter'];
+                }
+            }
+            //number of rows to show
+            if (isset($post['nbshow'])) {
+                $filters->show = $post['nbshow'];
+            }
+        }
+
+        $this->session->objectslend_filter_objects = $filters;
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
+    }
+)->setName('objectslend_filter_objects')->add($authenticate);
+
+/*
+$this->get(
+    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+
+        $data = [
+            'id'            => $args['id'],
+            'redirect_uri'  => $this->router->pathFor('objectslend_categories')
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'confirm_removal.tpl',
+            array(
+                'type'          => _T("Category", "objectslend"),
+                'mode'          => $request->isXhr() ? 'ajax' : '',
+                'page_title'    => sprintf(
+                    _T('Remove category %1$s', 'objectslend'),
+                    $category->name
+                ),
+                'form_url'      => $this->router->pathFor(
+                    'objectslend_doremove_category',
+                    ['id' => $category->category_id]
+                ),
+                'cancel_uri'    => $this->router->pathFor('objectslend_categories'),
+                'data'          => $data
+            )
+        );
+        return $response;
+    }
+)->setName('objectslend_remove_category')->add($authenticate);
+
+$this->post(
+    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        $post = $request->getParsedBody();
+        $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
+        $success = false;
+
+        $uri = isset($post['redirect_uri']) ?
+            $post['redirect_uri'] :
+            $this->router->pathFor('slash');
+
+        if (!isset($post['confirm'])) {
+            $this->flash->addMessage(
+                'error_detected',
+                _T("Removal has not been confirmed!")
+            );
+        } else {
+            $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+            $del = $category->delete();
+
+            if ($del !== true) {
+                $error_detected = str_replace(
+                    '%category',
+                    $category->name,
+                    _T("An error occured trying to remove category %category :/")
+                );
+
+                $this->flash->addMessage(
+                    'error_detected',
+                    $error_detected
+                );
+            } else {
+                $success_detected = str_replace(
+                    '%category',
+                    $category->name,
+                    _T("Category %category has been successfully deleted.")
+                );
+
+                $this->flash->addMessage(
+                    'success_detected',
+                    $success_detected
+                );
+
+                $success = true;
+            }
+        }
+
+        if (!$ajax) {
+            return $response
+                ->withStatus(301)
+                ->withHeader('Location', $uri);
+        } else {
+            return $response->withJson(
+                [
+                    'success'   => $success
+                ]
+            );
+        }
+    }
+)->setName('objectslend_doremove_category')->add($authenticate);
+
+
+ */

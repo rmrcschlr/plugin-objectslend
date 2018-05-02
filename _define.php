@@ -8,7 +8,7 @@
  * PHP version 5
  *
  * Copyright © 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * Copyright © 2017-2018 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -31,11 +31,9 @@
  * @author    Mélissa Djebel <melissa.djebel@gmx.net>
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * @copyright 2017-2018 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   0.7
  * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7
  */
 
 $this->register(
@@ -62,6 +60,10 @@ $this->register(
         'objectslend_statuses'          => 'staff',
         'objectslend_filter_statuses'   => 'staff',
         'objectslend_remove_status'     => 'staff',
-        'objectslend_doremove_status'   => 'staff'
+        'objectslend_doremove_status'   => 'staff',
+        'objectslend_object'            => 'staff',
+        'objectslend_object_action'     => 'staff',
+        'objectslend_objects'           => 'staff',
+        'objectslend_filter_objects'    => 'staff'
     ]
 );

@@ -1,5 +1,7 @@
+{extends file="page.tpl"}
+{block name="content"}
 <div id="lend_content">
-    <form id="filtre" method="get" action="objects_list.php">
+    <form id="filtre" method="POST" action="{path_for name="objectslend_filter_objects"}">
         <div id="listfilter">
             <label for="filter_str">{_T string="Search:"}&nbsp;</label>
             <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
@@ -9,20 +11,29 @@
             </select>
             {if $login->isAdmin() or $login->isStaff()}
                 {_T string="Active:" domain="objectslend"}
-                <input type="radio" name="active_filter" id="filter_dc_active" value="{php}echo GaletteObjectsLend\Repository\Objects::ALL_OBJECTS;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
+                <input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Objects::ALL_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_dc_active" >{_T string="Don't care"}</label>
-                <input type="radio" name="active_filter" id="filter_yes_active" value="{php}echo GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
+                <input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_yes_active" >{_T string="Yes"}</label>
-                <input type="radio" name="active_filter" id="filter_no_active" value="{php}echo GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS;{/php}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS')} checked="checked"{/if}>
+                <input type="radio" name="active_filter" id="filter_no_active" value="{GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_no_active" >{_T string="No"}</label>
             {/if}
             <input type="submit" class="inline" value="{_T string="Filter"}"/>
             <input name="clear_filter" type="submit" value="{_T string="Clear filter"}">
         </div>
+        <div class="infoline">
+            {$nb_objects} {if $nb_objects gt 1}{_T string="objects" domain="objectslend"}{else}{_T string="object" domain="objectslend"}{/if}
+            <div class="fright">
+                <label for="nbshow">{_T string="Records per page:"}</label>
+                <select name="nbshow" id="nbshow">
+                    {html_options options=$nbshow_options selected=$numrows}
+                </select>
+                <noscript> <span><input type="submit" value="{_T string="Change"}" /></span></noscript>
+            </div>
+        </div>
     </form>
 
     {if $lendsprefs.VIEW_CATEGORY and $categories|@count gt 0}
-
         <section id="categories">
             <header class="ui-state-default ui-state-active">
                 {_T string="Categories" domain="objectslend"}
@@ -48,7 +59,7 @@
                         {$categ->objects_price_sum} &euro;
 
                         {if $categ->is_active}
-                            <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Category is active" domain="objectslend"}"/>
+                            <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Category is active" domain="objectslend"}"/>
                         {/if}
 
                     {/if}
@@ -60,27 +71,12 @@
         </section>
     {/if}
 
-    <form action="objects_list.php" method="get">
-        <table class="infoline">
-            <tr>
-                <td class="left">{$nb_objects} {if $nb_objects gt 1}{_T string="objects" domain="objectslend"}{else}{_T string="object" domain="objectslend"}{/if}</td>
-                <td class="right">
-                    <label for="nbshow">{_T string="Records per page:"}</label>
-                    <select name="nbshow" id="nbshow">
-                        {html_options options=$nbshow_options selected=$numrows}
-                    </select>
-                    <noscript> <span><input type="submit" value="{_T string="Change"}" /></span></noscript>
-                </td>
-            </tr>
-        </table>
-    </form>
-
         <form action="objects_list.php" method="post" id="objects_list">
             <table class="listing">
                 <thead>
                     <tr>
                         {if $login->isAdmin() || $login->isStaff()}
-                            <th  class="id_row">&nbsp;</th>
+                            <th  class="id_row">#</th>
                         {/if}
                         {if $olendsprefs->imagesInLists()}
                             <th class="id_row">
@@ -88,26 +84,26 @@
                             </th>
                         {/if}
                             <th>
-                                <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_NAME;{/php}">
+                                <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_NAME"|constant]}">
                                     {_T string="Name" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_NAME')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                         {else}
-                                    <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                         {/if}
                                     {/if}
                                 </a>
                             </th>
                         {if $lendsprefs.VIEW_SERIAL}
                             <th>
-                                <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL;{/php}">
+                                <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL"|constant]}">
                                     {_T string="Serial" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                            <img src="{$template_subdir}images/down.png"/>
+                                            <img src="{base_url}/{$template_subdir}images/down.png"/>
                                         {else}
-                                            <img src="{$template_subdir}images/up.png"/>
+                                            <img src="{base_url}/{$template_subdir}images/up.png"/>
                                         {/if}
                                     {/if}
                                 </a>
@@ -115,13 +111,13 @@
                         {/if}
                         {if $lendsprefs.VIEW_PRICE}
                             <th>
-                                <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE;{/php}">
+                                <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE"|constant]}">
                                     {_T string="Price" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                         {else}
-                                    <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                         {/if}
                                     {/if}
                                 </a>
@@ -129,13 +125,13 @@
                         {/if}
                         {if $lendsprefs.VIEW_LEND_PRICE}
                             <th>
-                                <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE;{/php}">
+                                <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE"|constant]}">
                                     {_T string="Borrow price" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                         {else}
-                                    <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                         {/if}
                                     {/if}
                                 </a>
@@ -148,63 +144,63 @@
                         {/if}
                         {if $lendsprefs.VIEW_WEIGHT}
                             <th>
-                                <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT;{/php}">
+                                <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT"|constant]}">
                                     {_T string="Weight" domain="objectslend"}
                                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT')}
                                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                         {else}
-                                    <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                         {/if}
                                     {/if}
                                 </a>
                             </th>
                         {/if}
                         <th>
-                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS;{/php}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS"|constant]}">
                                 {_T string="Status" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
                         </th>
                         <th>
-                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE;{/php}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE"|constant]}">
                                 {_T string="Since" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
                         </th>
                         <th>
-                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER;{/php}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER"|constant]}">
                                 {_T string="By" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
                         </th>
                         {if $lendsprefs.VIEW_DATE_FORECAST}
                         <th>
-                            <a href="{$galette_base_path}{$lend_dir}objects_list.php?tri={php}echo GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE;{/php}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string='order' domain="routes"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE"|constant]}">
                                 {_T string="Return" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                <img src="{$template_subdir}images/down.png" width="10" height="6" alt=""/>
+                                <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                <img src="{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                <img src="{{base_url}/$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
@@ -227,11 +223,11 @@
                             {if $login->isAdmin() || $login->isStaff()}
                                 <td class="center">
                                     <input type="checkbox" name="object_ids[]" value="{$object->object_id}">
-                                </td>
-                            {/if}
+                            </td>
+                        {/if}
     {if $olendsprefs->imagesInLists()}
-                            <td class="center">
-                                <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=1"
+                        <td class="center">
+                            <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=1"
                                     class="picture"
                                     width="{$object->picture->getOptimalThumbWidth()}"
                                     height="{$object->picture->getOptimalThumbHeight()}"
@@ -293,31 +289,31 @@
                             {/if}
                             <td class="center">
                                 {if $object->isActive()}
-                                    <img src="{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Object is active" domain="objectslend"}"/>
+                                    <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Object is active" domain="objectslend"}"/>
                                 {/if}
                             </td>
                             <td class="center nowrap">
                                 {if !$object->rent_id or $object->in_stock}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
                                         <a class="take_object" href="take_object.php?object_id={$object->object_id}">
-                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-takeaway.png" alt="{_T string="Take away" domain="objectslend"}" title="{_T string="Take object away" domain="objectslend"}"/>
+                                            <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-takeaway.png"]}" alt="{_T string="Take away" domain="objectslend"}" title="{_T string="Take object away" domain="objectslend"}"/>
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $object->id_adh}
                                         <a class="give_object" href="give_object_back.php?object_id={$object->object_id}">
-                                            <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-giveback.png" alt="{_T string="Give back" domain="objectslend"}" title="{_T string="Give object back" domain="objectslend"}"/>
+                                            <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-giveback.png"]}" alt="{_T string="Give back" domain="objectslend"}" title="{_T string="Give object back" domain="objectslend"}"/>
                                         </a>
                                 {/if}
 
     {if $login->isAdmin() || $login->isStaff()}
-                                <a href="objects_edit.php?object_id={$object->object_id}">
-                                    <img src="{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object" domain="objectslend"}"/>
+                                <a href="{path_for name="objectslend_object" data=["action" => {_T string="edit" domain="routes"}, "id" => $object->object_id]}">
+                                    <img src="{base_url}/{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object" domain="objectslend"}"/>
                                 </a>
                                 <a href="objects_edit.php?clone_object_id={$object->object_id}">
-                                    <img src="{$galette_base_path}{$lend_tpl_dir}images/icon-dup.png" title="{_T string="Duplicate object" domain="objectslend"}"/>
+                                    <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-dup.png"]}" alt="{_T string="Duplicate object" domain="objectslend"}" title="{_T string="Duplicate object" domain="objectslend"}"/>
                                 </a>
                                 <a href="objects_print.php?object_id={$object->object_id}">
-                                    <img src="{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
+                                    <img src="{base_url}/{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
                                 </a>
                             </td>
     {/if}
@@ -366,7 +362,11 @@
 {/if}
             </table>
     </form>
-<script>
+</div>
+{/block}
+
+{block name="javascripts"}
+<script type="text/javascript">
 {if $nb_objects != 0}
         var _is_checked = true;
         var _bind_check = function(){
@@ -644,4 +644,4 @@
     {/if}
 {/if}
         </script>
-</div>
+{/block}
