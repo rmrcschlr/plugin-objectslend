@@ -151,52 +151,52 @@ VALUES
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_SERIAL', FALSE, FALSE, TRUE, 0, 0, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_THUMBNAIL', FALSE, FALSE, TRUE, 0, 1, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_FULLSIZE', FALSE, FALSE, TRUE, 0, 1, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_DESCRIPTION', FALSE, FALSE, TRUE, 0, 1, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_PRICE', FALSE, FALSE, TRUE, 0, 0, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_DIMENSION', FALSE, FALSE, TRUE, 0, 0, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_WEIGHT', FALSE, FALSE, TRUE, 0, 0, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_LEND_PRICE', FALSE, FALSE, TRUE, 0, 0, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('THUMB_MAX_WIDTH', FALSE, FALSE, TRUE, 0, 128, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('THUMB_MAX_HEIGHT', FALSE, FALSE, TRUE, 0, 128, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
@@ -211,20 +211,20 @@ values
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, value_text, date_creation, date_modification)
-values
+VALUES
 ('GENERATED_CONTRIB_INFO_TEXT', FALSE, TRUE, FALSE, 'Location de {NAME} {DESCRIPTION} {SERIAL_NUMBER}', NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('ENABLE_MEMBER_RENT_OBJECT', FALSE, FALSE, TRUE, 0, 1, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_DATE_FORECAST', FALSE, FALSE, TRUE, 0, 1, NOW(), NOW());
 
 INSERT INTO galette_lend_parameters
 (code, is_date, is_text, is_numeric, nb_digits, value_numeric, date_creation, date_modification)
-values
+VALUES
 ('VIEW_LIST_PRICE_SUM', FALSE, FALSE, TRUE, 0, 0, NOW(), NOW());
