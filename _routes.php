@@ -1175,15 +1175,14 @@ $this->post(
     }
 )->setName('objectslend_filter_objects')->add($authenticate);
 
-/*
 $this->get(
-    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/object', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
     function ($request, $response, $args) {
-        $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
+        $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
 
         $data = [
             'id'            => $args['id'],
-            'redirect_uri'  => $this->router->pathFor('objectslend_categories')
+            'redirect_uri'  => $this->router->pathFor('objectslend_objects')
         ];
 
         // display page
@@ -1191,26 +1190,26 @@ $this->get(
             $response,
             'confirm_removal.tpl',
             array(
-                'type'          => _T("Category", "objectslend"),
+                'type'          => _T("Object", "objectslend"),
                 'mode'          => $request->isXhr() ? 'ajax' : '',
                 'page_title'    => sprintf(
-                    _T('Remove category %1$s', 'objectslend'),
-                    $category->name
+                    _T('Remove object %1$s', 'objectslend'),
+                    $object->name
                 ),
                 'form_url'      => $this->router->pathFor(
-                    'objectslend_doremove_category',
-                    ['id' => $category->category_id]
+                    'objectslend_doremove_object',
+                    ['id' => $object->object_id]
                 ),
-                'cancel_uri'    => $this->router->pathFor('objectslend_categories'),
+                'cancel_uri'    => $this->router->pathFor('objectslend_objects'),
                 'data'          => $data
             )
         );
         return $response;
     }
-)->setName('objectslend_remove_category')->add($authenticate);
+)->setName('objectslend_remove_object')->add($authenticate);
 
 $this->post(
-    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/object', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
     function ($request, $response, $args) {
         $post = $request->getParsedBody();
         $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
@@ -1226,14 +1225,14 @@ $this->post(
                 _T("Removal has not been confirmed!")
             );
         } else {
-            $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
-            $del = $category->delete();
+            $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
+            $del = $object->delete();
 
             if ($del !== true) {
                 $error_detected = str_replace(
-                    '%category',
-                    $category->name,
-                    _T("An error occured trying to remove category %category :/")
+                    '%object',
+                    $object->name,
+                    _T("An error occured trying to remove object %object :/")
                 );
 
                 $this->flash->addMessage(
@@ -1242,9 +1241,9 @@ $this->post(
                 );
             } else {
                 $success_detected = str_replace(
-                    '%category',
+                    '%object',
                     $category->name,
-                    _T("Category %category has been successfully deleted.")
+                    _T("Object %object has been successfully deleted.")
                 );
 
                 $this->flash->addMessage(
@@ -1268,7 +1267,4 @@ $this->post(
             );
         }
     }
-)->setName('objectslend_doremove_category')->add($authenticate);
-
-
- */
+)->setName('objectslend_doremove_object')->add($authenticate);

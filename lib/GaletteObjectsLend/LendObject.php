@@ -585,4 +585,26 @@ class LendObject
     {
         return $this->getHighlighted($filters, 'dimension');
     }
+
+    /**
+     * Delete object
+     *
+     * @return boolean
+     */
+    public function delete()
+    {
+        try {
+            $delete = $this->zdb->delete(LEND_PREFIX . self::TABLE)
+                    ->where(array(self::PK => $this->object_id));
+            $this->zdb->execute($delete);
+            return true;
+        } catch (\Exception $e) {
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                    $e->getTraceAsString(),
+                Analog::ERROR
+            );
+            throw $e;
+        }
+    }
 }

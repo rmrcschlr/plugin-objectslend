@@ -315,6 +315,8 @@
                                 <a href="objects_print.php?object_id={$object->object_id}">
                                     <img src="{base_url}/{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
                                 </a>
+
+                                <a class="delete" href="{path_for name="objectslend_remove_object" data=["id" => $object->object_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %object from database" domain="objectslend" pattern="/%object/" replace=$object->name}"/></a>
                             </td>
     {/if}
                         </tr>
@@ -387,6 +389,7 @@
 
         {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
         $(function(){
+            {include file="js_removal.tpl"}
             $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string="(Un)Check all"}</a> | <a href="#" id="checkinvert">{_T string="Invert selection"}</a></span></td></tr>');
             _bind_check();
             $('#nbshow').change(function() {
