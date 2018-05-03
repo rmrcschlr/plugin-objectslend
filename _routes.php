@@ -1039,33 +1039,9 @@ $this->post(
                     );
                 }
             }
-
-/*
-
-$show_status = false;
-$statuses = LendStatus::getActiveStatuses();
-$adherents = LendRent::getAllActivesAdherents();
-
-$tpl->assign('page_title', $title);
-$tpl->assign('object', $object);
-$tpl->assign('rents', $rents);
-$tpl->assign('show_status', $show_status);
-$tpl->assign('statuses', $statuses);
-$tpl->assign('adherents', $adherents);
-$tpl->assign('lendsprefs', $lendsprefs->getpreferences());
-$tpl->assign('olendsprefs', $lendsprefs);
-$tpl->assign('categories', LendCategory::getActiveCategories());
-$tpl->assign('time', time());
-$tpl->assign('success_detected', $success_detected);
-$tpl->assign('error_detected', $error_detected);
-$tpl->assign('warning_detected', $warning_detected);
-
- */
         } else {
             $error_detected[] = _T("Something went wrong saving object :(", "objectslend");
         }
-
-
 
         if (count($error_detected)) {
             $this->session->objectslend_object = $object;
