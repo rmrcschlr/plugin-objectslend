@@ -227,7 +227,7 @@
                         {/if}
     {if $olendsprefs->imagesInLists()}
                         <td class="center">
-                            <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=1"
+                            <img src="{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $object->object_id]}"
                                     class="picture"
                                     width="{$object->picture->getOptimalThumbWidth()}"
                                     height="{$object->picture->getOptimalThumbHeight()}"
