@@ -1209,7 +1209,7 @@ $this->get(
 )->setName('objectslend_remove_object')->add($authenticate);
 
 $this->post(
-    __('/object', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/object', 'objectslend_routes') . __('/remove', 'routes') . '[/{id:\d+}]',
     function ($request, $response, $args) {
         $post = $request->getParsedBody();
         $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
@@ -1225,26 +1225,53 @@ $this->post(
                 _T("Removal has not been confirmed!")
             );
         } else {
-            $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
-            $del = $object->delete();
+            if (isset($this->session->objectslend_filter_objects)) {
+                $filters =  $this->session->objectslend_filter_objects;
+            } else {
+                $filters = new ObjectsList();
+            }
+            $lendsprefs = new Preferences($this->zdb);
+            $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $filters);
+
+            if (!is_array($post['id'])) {
+                //delete object
+                $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
+                $ids = (array)$post['id'];
+            } else {
+                $ids = $post['id'];
+            }
+
+            $del = $objects->removeObjects($ids);
 
             if ($del !== true) {
-                $error_detected = str_replace(
-                    '%object',
-                    $object->name,
-                    _T("An error occured trying to remove object %object :/")
-                );
+                if (count($ids) === 1) {
+                    $error_detected = str_replace(
+                        '%name',
+                        $object->name,
+                        _T("An error occured trying to remove object %name :/")
+                    );
+                } else {
+                    $error_detected = _T("An error occured trying to remove objects :/");
+                }
 
                 $this->flash->addMessage(
                     'error_detected',
                     $error_detected
                 );
             } else {
-                $success_detected = str_replace(
-                    '%object',
-                    $category->name,
-                    _T("Object %object has been successfully deleted.")
-                );
+                if (!is_array($post['id'])) {
+                    $success_detected = str_replace(
+                        '%name',
+                        $object->name,
+                        _T("Object %name has been successfully deleted.")
+                    );
+                } else {
+                    $success_detected = str_replace(
+                        '%count',
+                        count($ids),
+                        _T("%count objects have been successfully deleted.")
+                    );
+                }
 
                 $this->flash->addMessage(
                     'success_detected',
@@ -1268,3 +1295,69 @@ $this->post(
         }
     }
 )->setName('objectslend_doremove_object')->add($authenticate);
+
+//Batch actions on objects list
+$this->post(
+    __('/objects', 'objectslend_routes') . __('/batch', 'routes'),
+    function ($request, $response) {
+        $post = $request->getParsedBody();
+
+        if (isset($post['objects_ids'])) {
+            if (isset($this->session->filter_members)) {
+                $filters = $this->session->objectslend_filter_objects;
+            } else {
+                $filters = new ObjectsList();
+            }
+
+            $filters->selected = $post['objects_ids'];
+            $this->session->objectslend_filter_objects = $filters;
+
+            if (isset($post['delete'])) {
+                return $response
+                    ->withStatus(301)
+                    ->withHeader('Location', $this->router->pathFor('objectslend_remove_objects'));
+            }
+        } else {
+            $this->flash->addMessage(
+                'error_detected',
+                _T("No object was selected, please check at least one.")
+            );
+
+            return $response
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
+        }
+    }
+)->setName('objectslend_batch-objectslist')->add($authenticate);
+
+$this->get(
+    __('/objects', 'objectslend_routes') . __('/remove', 'routes'),
+    function ($request, $response) {
+        $filters =  $this->session->objectslend_filter_objects;
+
+        $data = [
+            'id'            => $filters->selected,
+            'redirect_uri'  => $this->router->pathFor('objectslend_objects')
+        ];
+
+        // display page
+        $this->view->render(
+            $response,
+            'confirm_removal.tpl',
+            array(
+                'type'          => _T("Object"),
+                'mode'          => $request->isXhr() ? 'ajax' : '',
+                'page_title'    => _T('Remove objects'),
+                'message'       => str_replace(
+                    '%count',
+                    count($data['id']),
+                    _T('You are about to remove %count objects.')
+                ),
+                'form_url'      => $this->router->pathFor('objectslend_doremove_object'),
+                'cancel_uri'    => $this->router->pathFor('objectslend_objects'),
+                'data'          => $data
+            )
+        );
+        return $response;
+    }
+)->setName('objectslend_remove_objects')->add($authenticate);

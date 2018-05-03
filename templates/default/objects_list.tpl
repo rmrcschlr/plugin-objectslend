@@ -71,7 +71,7 @@
         </section>
     {/if}
 
-        <form action="objects_list.php" method="post" id="objects_list">
+        <form action="{path_for name="objectslend_batch-objectslist"}" method="post" id="objects_list">
             <table class="listing">
                 <thead>
                     <tr>
@@ -315,7 +315,6 @@
                                 <a href="objects_print.php?object_id={$object->object_id}">
                                     <img src="{base_url}/{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
                                 </a>
-
                                 <a class="delete" href="{path_for name="objectslend_remove_object" data=["id" => $object->object_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %object from database" domain="objectslend" pattern="/%object/" replace=$object->name}"/></a>
                             </td>
     {/if}
@@ -348,7 +347,7 @@
                                 <input type="submit" value="{_T string="Disable" domain="objectslend"}" onclick="return confirmDelete(false);">
                             </li>
                             <li>
-                                <input type="submit" id="delete" value="{_T string="Delete" domain="objectslend"}" onclick="return confirmDelete(true);">
+                                <input type="submit" id="delete" value="{_T string="Delete" domain="objectslend"}">
                             </li>
     {/if}
                         </ul>
@@ -390,6 +389,7 @@
         {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
         $(function(){
             {include file="js_removal.tpl"}
+            {include file="js_removal.tpl" selector="#delete" deleteurl="'{path_for name="objectslend_batch-objectslist"}'" extra_check="if (!_checkselection()) {ldelim}return false;{rdelim}" extra_data="delete: true, objects_ids: $('#objects_list input[type=\"checkbox\"]:checked').map(function(){ return $(this).val(); }).get()" method="POST"}
             $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string="(Un)Check all"}</a> | <a href="#" id="checkinvert">{_T string="Invert selection"}</a></span></td></tr>');
             _bind_check();
             $('#nbshow').change(function() {
@@ -410,24 +410,12 @@
                 return false;
             });*}
             $('.selection_menu input[type="submit"], .selection_menu input[type="button"]').click(function(){
-                var _checkeds = $('table.listing').find('input[type=checkbox]:checked').length;
-                if ( _checkeds == 0 ) {
-                    var _el = $('<div id="pleaseselect" title="{_T string="No object selected" domain="objectslend" escape="js"}">{_T string="Please make sure to select at least one object from the list to perform this action." domain="objectslend" escape="js"}</div>');
-                    _el.appendTo('body').dialog({
-                        modal: true,
-                        buttons: {
-                            Ok: function() {
-                                $(this).dialog( "close" );
-                            }
-                        },
-                        close: function(event, ui){
-                            _el.remove();
-                        }
-                    });
-                    return false;
-                } else {
-                    return true;
+                if ( this.id == 'delete' ) {
+                    //mass removal is handled from 2 steps removal
+                    return;
                 }
+
+                return _checkselection();
             });
 
             $('.take_object').on('click', function(e) {
@@ -522,25 +510,26 @@
         });
 
     {if $login->isAdmin() || $login->isStaff()}
-            function confirmDelete(isDelete) {
-                var nbSelected = $(':checkbox:checked').length;
-                if (!nbSelected) {
+            var _checkselection = function() {
+                var _checkeds = $('table.listing').find('input[type=checkbox]:checked').length;
+                if ( _checkeds == 0 ) {
+                    var _el = $('<div id="pleaseselect" title="{_T string="No object selected" domain="objectslend" escape="js"}">{_T string="Please make sure to select at least one object from the list to perform this action." domain="objectslend" escape="js"}</div>');
+                    _el.appendTo('body').dialog({
+                        modal: true,
+                        buttons: {
+                            Ok: function() {
+                                $(this).dialog( "close" );
+                            }
+                        },
+                        close: function(event, ui){
+                            _el.remove();
+                        }
+                    });
                     return false;
+                } else {
+                    return true;
                 }
-                var objectsIds = '';
-                $(':checkbox:checked').each(function () {
-                    objectsIds += $(this).val() + ',';
-                });
-
-                var msg = isDelete ? '{_T string="Are you sure you want to delete %count objects? This cannot be undone." domain="objectslend" escape="js"}'
-                    : '{_T string="Are you sure you want to disable %count objects?" domain="objectslend" escape="js"}';
-                msg = msg.replace('%count', nbSelected);
-                if (nbSelected > 0 && confirm(msg)) {
-                    window.location = 'objects_delete.php?' + (isDelete ? 'delete' : 'disable') + '=1&objects_ids=' + objectsIds;
-                }
-                return false;
             }
-
             $('#objects_take_away').click(function (e) {
                 e.preventDefault();
                 var _this = $(this);

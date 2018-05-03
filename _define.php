@@ -66,6 +66,8 @@ $this->register(
         'objectslend_objects'           => 'staff',
         'objectslend_filter_objects'    => 'staff',
         'objectslend_remove_object'     => 'staff',
-        'objectslend_doremove_object'   => 'staff'
+        'objectslend_doremove_object'   => 'staff',
+        'objectslend_batch-objectslist' => 'staff',
+        'objectslend_remove_objects'    => 'staff'
     ]
 );
