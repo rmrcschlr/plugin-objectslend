@@ -7,7 +7,9 @@ PHP_SOURCES = $(shell find ../ -maxdepth 1 -name \*.php) \
               $(shell find ../templates -name \*.tpl)
 
 
-all : messages.po lang check
+all : extract po mo php check
+
+po :
 	@echo "Generating PO files:"
 	@for l in ${LANGUAGES}; do \
 	  for d in ${DOMAINS}; do \
@@ -18,6 +20,13 @@ all : messages.po lang check
 	      echo "  Creating of $${d}_$${l}.po"; \
 	      msginit -o $${d}_$${l}.po -i $$d.pot >/dev/null ; \
 	    fi; \
+	  done \
+	done
+
+mo :
+	@echo "Generating MO files:"
+	@for l in ${LANGUAGES}; do \
+	  for d in ${DOMAINS}; do \
 	    mkdir -p ${INSTALLDIR}/$${l}/LC_MESSAGES; \
 	    echo "    formatting ${INSTALLDIR}/$${l}/LC_MESSAGES/$${d}.mo."; \
 	    msgfmt $${d}_$${l}.po -o ${INSTALLDIR}/$${l}/LC_MESSAGES/$${d}.mo.new; \
@@ -31,8 +40,7 @@ all : messages.po lang check
 	  done \
 	done
 
-
-lang :
+php :
 	@echo "Generating PHP lang files:"
 	@for l in ${LANGUAGES}; do \
 	  for d in ${DOMAINS}; do \
@@ -51,7 +59,7 @@ lang :
 	  done \
 	done
 
-messages.po : ${PHP_SOURCES} Makefile xgettext.py
+extract : ${PHP_SOURCES} Makefile xgettext.py
 	./xgettext.py ${PHP_SOURCES}
 
 check:

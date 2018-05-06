@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-05-06 11:32+0200\n"
+"PO-Revision-Date: 2018-05-06 12:28+0200\n"
 "Last-Translator: Johan Cwiklinski <johan@x-tnd.be>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -32,9 +32,9 @@ msgstr "New object"
 msgid "No category"
 msgstr "No category"
 
-#: ../objects_list_print.php:102
-msgid "Printed on %date"
-msgstr "Printed on %date"
+#: ../templates/default/status_list.tpl:147
+msgid "No status has been found"
+msgstr "No status has been found"
 
 #: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:268
 msgid "Name/description"
@@ -59,6 +59,10 @@ msgstr "Add an object"
 #: ../objects_print.php:157 ../objects_list_print.php:135
 msgid "Description"
 msgstr "Description"
+
+#: ../_routes.php:177
+msgid "Read error."
+msgstr "Read error."
 
 #: ../templates/default/take_more_objects_away.tpl:119
 #: ../templates/default/take_object.tpl:110
@@ -127,6 +131,10 @@ msgstr "View description"
 msgid "Duplicate object"
 msgstr "Duplicate object"
 
+#: ../templates/default/preferences.tpl:15
+msgid "Generate contribution:"
+msgstr "Generate contribution:"
+
 #: ../templates/default/preferences.tpl:33
 msgid ""
 "Comment text to add on generated contribution. Automatically replaced values "
@@ -185,9 +193,9 @@ msgstr "Available"
 msgid "Give back object"
 msgstr "Give back object"
 
-#: ../objects_list_print.php:212
-msgid "Borrowed"
-msgstr "Borrowed"
+#: ../objects_list_print.php:102
+msgid "Printed on %date"
+msgstr "Printed on %date"
 
 #: ../objects_list.php:142
 msgid "The object is not available!"
@@ -335,6 +343,10 @@ msgstr "End"
 msgid "Since"
 msgstr "Since"
 
+#: ../objects_list.php:151
+msgid "Object has not been returned! Don't forget it!"
+msgstr "Object has not been returned! Don't forget it!"
+
 #: ../objects_edit.php:77
 msgid "Edit an object"
 msgstr "Edit an object"
@@ -368,9 +380,9 @@ msgstr "You are cloning this object, not editing it!"
 msgid "At home:"
 msgstr "At home:"
 
-#: ../objects_list.php:151
-msgid "Object has not been returned! Don't forget it!"
-msgstr "Object has not been returned! Don't forget it!"
+#: ../_routes.php:178
+msgid "Seek error."
+msgstr "Seek error."
 
 #: ../templates/default/objects_list.tpl:516
 msgid "No object selected"
@@ -404,9 +416,17 @@ msgstr "Add a status"
 msgid "Object has not been added :("
 msgstr "Object has not been added :("
 
+#: ../_routes.php:208
+msgid "File %filename does not exists"
+msgstr "File %filename does not exists"
+
 #: ../templates/default/admin_picture.tpl:6
 msgid "Backup objects pictures"
 msgstr "Backup objects pictures"
+
+#: ../_routes.php:173
+msgid "Memory allocation failure."
+msgstr "Memory allocation failure."
 
 #: ../templates/default/category_edit.tpl:16
 msgid "Is active"
@@ -416,6 +436,10 @@ msgstr "Is active"
 msgid "Max thumb width (in px)"
 msgstr "Max thumb width (in px)"
 
+#: ../objects_list_print.php:212
+msgid "Borrowed"
+msgstr "Borrowed"
+
 #: ../objects_list.php:148
 msgid "Object has been returned!"
 msgstr "Object has been returned!"
@@ -424,9 +448,9 @@ msgstr "Object has been returned!"
 msgid "I have read and I agree with terms and conditions"
 msgstr "I have read and I agree with terms and conditions"
 
-#: ../templates/default/preferences.tpl:15
-msgid "Generate contribution:"
-msgstr "Generate contribution:"
+#: ../objects_list.php:175
+msgid "Objects managment"
+msgstr "Objects managment"
 
 #: ../objects_print.php:161 ../_routes.php:517
 #: ../templates/default/category_edit.tpl:7
@@ -447,9 +471,9 @@ msgstr "Categories"
 msgid "You must agree with terms and conditions in order to take."
 msgstr "You must agree with terms and conditions in order to take."
 
-#: ../templates/default/take_object.tpl:101
-msgid "Expected return:"
-msgstr "Expected return:"
+#: ../_routes.php:171
+msgid "Zip archive inconsistent."
+msgstr "Zip archive inconsistent."
 
 #: ../templates/default/objects_edit.tpl:57
 msgid "Price per rental day:"
@@ -532,6 +556,10 @@ msgstr "Not in stock"
 msgid "Give object"
 msgstr "Give object"
 
+#: ../_routes.php:172
+msgid "Invalid argument."
+msgstr "Invalid argument."
+
 #: ../templates/default/preferences.tpl:55
 msgid "Show fullsize image or just thumbs"
 msgstr "Show fullsize image or just thumbs"
@@ -585,6 +613,14 @@ msgstr "Edit status %status"
 #: ../objects_edit.php:117 ../_routes.php:989
 msgid "Object has been successfully stored!"
 msgstr "Object has been successfully stored!"
+
+#: ../_routes.php:185
+msgid "Unknown error."
+msgstr "Unknown error."
+
+#: ../_routes.php:175
+msgid "Not a zip archive."
+msgstr "Not a zip archive."
 
 #: ../_routes.php:1065
 msgid "Object has been saved"
@@ -722,6 +758,10 @@ msgstr "Print objects cards"
 msgid "Objects"
 msgstr "Objects"
 
+#: ../_routes.php:170
+msgid "File already exists."
+msgstr "File already exists."
+
 #: ../_routes.php:447
 msgid "Categories list"
 msgstr "Categories list"
@@ -802,6 +842,10 @@ msgstr "In stock"
 msgid "Where is the object?"
 msgstr "Where is the object?"
 
+#: ../templates/default/take_object.tpl:101
+msgid "Expected return:"
+msgstr "Expected return:"
+
 #: ../objects_list.php:78
 msgid "No object was selected, please check at least one name."
 msgstr "No object was selected, please check at least one name."
@@ -825,9 +869,9 @@ msgstr "Member:"
 msgid "Unable to store preferences :("
 msgstr "Unable to store preferences :("
 
-#: ../templates/default/status_list.tpl:147
-msgid "No status has been found"
-msgstr "No status has been found"
+#: ../_routes.php:176
+msgid "Can't open file."
+msgstr "Can't open file."
 
 #: ../objects_list_print.php:204
 msgid "Sum:"
@@ -894,9 +938,9 @@ msgstr "Object has been took"
 msgid "Dimensions"
 msgstr "Dimensions"
 
-#: ../objects_list.php:175
-msgid "Objects managment"
-msgstr "Objects managment"
+#: ../_routes.php:153
+msgid "Unable to create backup directory `%dir`"
+msgstr "Unable to create backup directory `%dir`"
 
 #: ../objects_list.php:160 ../objects_list.php:163
 msgid "Objects have been disabled!"
@@ -909,6 +953,10 @@ msgstr "By"
 #: ../templates/default/objects_list.tpl:431
 msgid "Take object"
 msgstr "Take object"
+
+#: ../_routes.php:174
+msgid "No such file."
+msgstr "No such file."
 
 #: ../objects_list_print.php:136
 #: ../templates/default/take_more_objects_away.tpl:18
@@ -943,11 +991,10 @@ msgstr "Restore categories pictures from database"
 msgid "Price"
 msgstr "Price"
 
-#: ../_routes.php:1123 ../objects_list_print.php:88
-#: ../objects_list_print.php:98 ../templates/default/menu.tpl:9
-#: ../templates/default/menu.tpl:14
-msgid "Objects list"
-msgstr "Objects list"
+#: ../templates/default/take_more_objects_away.tpl:96
+#: ../templates/default/take_object.tpl:75
+msgid "--- Select a member ---"
+msgstr "--- Select a member ---"
 
 #: ../templates/default/preferences.tpl:56
 msgid ""
@@ -980,10 +1027,11 @@ msgstr "Is object at home or borrowed"
 msgid "Description:"
 msgstr "Description:"
 
-#: ../templates/default/take_more_objects_away.tpl:96
-#: ../templates/default/take_object.tpl:75
-msgid "--- Select a member ---"
-msgstr "--- Select a member ---"
+#: ../_routes.php:1123 ../objects_list_print.php:88
+#: ../objects_list_print.php:98 ../templates/default/menu.tpl:9
+#: ../templates/default/menu.tpl:14
+msgid "Objects list"
+msgstr "Objects list"
 
 #~ msgid "Do you really want to delete this category from the base?"
 #~ msgstr "Do you really want to delete this category from the base?"

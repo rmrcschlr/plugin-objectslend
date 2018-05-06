@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sun May  6 09:37:39 2018 (GMT)
+// This file was automatically generated on Sun May  6 10:29:01 2018 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -47,6 +47,9 @@ $lang['objectslend']['Give back'] = 'Retour';
 
 // ../status_list.php:71 
 $lang['objectslend']['Status edition has been canceled'] = 'L\'édition du status a été annulée';
+
+// ../_routes.php:185 
+$lang['objectslend']['Unknown error.'] = 'Erreur inconnue.';
 
 // ../give_object_back.php:55 
 $lang['objectslend']['Give back object'] = 'Retourner un objet';
@@ -105,6 +108,9 @@ $lang['objectslend']['Remove status %1$s'] = 'Supprimer le statut %1$s';
 // ../templates/default/preferences.tpl:22 
 $lang['objectslend']['Contribution type:'] = 'Type de contribution&nbsp;:';
 
+// ../_routes.php:175 
+$lang['objectslend']['Not a zip archive.'] = 'Pas une archive zip.';
+
 // ../templates/default/objects_edit.tpl:57 
 $lang['objectslend']['Price per rental day:'] = 'Prix par jour de location&nbsp;:';
 
@@ -138,11 +144,11 @@ $lang['objectslend']['Give object back'] = 'Retourner un objet';
 // ../objects_edit.php:85 
 $lang['objectslend']['Create an object'] = 'Créer un objet';
 
+// ../objects_list_print.php:204 
+$lang['objectslend']['Sum:'] = 'Somme :';
+
 // ../templates/default/objects_list.tpl:62 
 $lang['objectslend']['Category is active'] = 'La catégorie est active';
-
-// ../templates/default/status_list.tpl:147 
-$lang['objectslend']['No status has been found'] = 'Aucun statut trouvé';
 
 // ../templates/default/categories_list.tpl:18 
 $lang['objectslend']['categories'] = 'catégories';
@@ -161,6 +167,9 @@ $lang['objectslend']['Display preferences'] = 'Préférences d\'affichage';
 
 // ../_routes.php:343 
 $lang['objectslend']['An error occured while storing the category.'] = 'Une erreur est survenue à l\'enregistrement de la catégorie.';
+
+// ../_routes.php:173 
+$lang['objectslend']['Memory allocation failure.'] = 'Échec d\'allocation mémoire.';
 
 // ../templates/default/preferences.tpl:41 
 $lang['objectslend']['Max thumb height (in px)'] = 'Taille maxi miniature (en px)';
@@ -204,14 +213,20 @@ $lang['objectslend']['At home:'] = 'En stock&nbsp;:';
 // ../templates/default/preferences.tpl:45 
 $lang['objectslend']['Max thumb width (in px)'] = 'Taille max. minitaure (en px)';
 
+// ../objects_list_print.php:212 
+$lang['objectslend']['Borrowed'] = 'Emprunté';
+
 // ../templates/default/objects_edit.tpl:56 ../templates/default/objects_edit.tpl:59 
 $lang['objectslend']['- Checked = the price applies to each rental day <br/> - Unchecked = the price applies once'] = '- Coché = le prix s\'applique pour chaque jour de location <br/>- Non coché = le prix s\'applique une seule fois';
+
+// ../_routes.php:172 
+$lang['objectslend']['Invalid argument.'] = 'Argument invalide.';
 
 // ../templates/default/objects_edit.tpl:65 ../templates/default/take_object.tpl:56 
 $lang['objectslend']['Dimensions (cm):'] = 'Dimensions (cm)&nbsp;:';
 
-// ../objects_list_print.php:212 
-$lang['objectslend']['Borrowed'] = 'Emprunté';
+// ../templates/default/categories_list.tpl:18 
+$lang['objectslend']['category'] = 'catégorie';
 
 // ../templates/default/take_more_objects_away.tpl:10 
 $lang['objectslend']['Picture'] = 'Image';
@@ -252,8 +267,8 @@ $lang['objectslend']['Days for rent'] = 'Jours de location';
 // ../templates/default/menu.tpl:25 
 $lang['objectslend']['Add a status'] = 'Ajouter un statut';
 
-// ../templates/default/preferences.tpl:15 ../templates/default/preferences.tpl:16 
-$lang['objectslend']['Automatically generate a contribution for the member of the amount of the rental price of the object'] = 'Générer automatiquement une contribution pour l\'adhérent du montant de la location de cet objet';
+// ../templates/default/preferences.tpl:15 
+$lang['objectslend']['Generate contribution:'] = 'Générer une contribution&nbsp;:';
 
 // ../_routes.php:1123 ../objects_list_print.php:88 ../objects_list_print.php:98 ../templates/default/menu.tpl:9 ../templates/default/menu.tpl:14 
 $lang['objectslend']['Objects list'] = 'Liste des objets';
@@ -306,9 +321,6 @@ $lang['objectslend']['You can\'t return an object that you don\'t borrow!'] = 'V
 // ../templates/default/objects_list.tpl:310 
 $lang['objectslend']['Edit the object'] = 'Modifier l\'objet';
 
-// ../templates/default/preferences.tpl:15 
-$lang['objectslend']['Generate contribution:'] = 'Générer une contribution&nbsp;:';
-
 // ../templates/default/take_more_objects_away.tpl:117 ../templates/default/take_object.tpl:108 
 $lang['objectslend']['Payment type:'] = 'Type de paiement&nbsp;:';
 
@@ -321,14 +333,17 @@ $lang['objectslend']['Plugin preferences'] = 'Préférences du plugin';
 // ../templates/default/objects_edit.tpl:25 
 $lang['objectslend']['--- Select a category ---'] = '--- Choisissez une catégorie ---';
 
+// ../_routes.php:208 
+$lang['objectslend']['File %filename does not exists'] = 'Le fichier %filename n\'existe pas';
+
 // ../_routes.php:276 
 $lang['objectslend']['New category'] = 'Nouvelle catégorie';
 
 // ../_routes.php:335 ../_routes.php:1035 
 $lang['objectslend']['Delete failed'] = 'La suppression a échoué';
 
-// ../templates/default/take_more_objects_away.tpl:94 ../templates/default/objects_edit.tpl:167 ../templates/default/take_object.tpl:73 
-$lang['objectslend']['Member:'] = 'Adhérent&nbsp;:';
+// ../objects_list.php:154 
+$lang['objectslend']['Action has been canceled!'] = 'L\'action a été annulée';
 
 // ../objects_print.php:161 ../_routes.php:517 ../templates/default/category_edit.tpl:7 
 $lang['objectslend']['Category'] = 'Catégorie';
@@ -347,6 +362,9 @@ $lang['objectslend']['Remove %object from database'] = 'Supprimer %object de la 
 
 // ../objects_print.php:214 ../templates/default/objects_edit.tpl:137 
 $lang['objectslend']['Comments'] = 'Commentaires';
+
+// ../_routes.php:178 
+$lang['objectslend']['Seek error.'] = 'Erreur de seek.';
 
 // ../templates/default/preferences.tpl:69 
 $lang['objectslend']['View forecast return date:'] = 'Voir la date de retour prévue&nbsp;:';
@@ -368,6 +386,9 @@ $lang['objectslend']['Duplicate'] = 'Dupliquer';
 
 // ../templates/default/categories_list.tpl:85 
 $lang['objectslend']['Remove %category from database'] = 'Supprimer %category de la base';
+
+// ../_routes.php:447 
+$lang['objectslend']['Categories list'] = 'Liste des catégories';
 
 // ../objects_list.php:145 
 $lang['objectslend']['Object has been took'] = 'L\'objet a été sorti';
@@ -426,8 +447,11 @@ $lang['objectslend']['Picture:'] = 'Image&nbsp;:';
 // ../objects_print.php:186 ../objects_list_print.php:142 ../templates/default/objects_list.tpl:173 
 $lang['objectslend']['Since'] = 'Depuis';
 
-// ../_routes.php:447 
-$lang['objectslend']['Categories list'] = 'Liste des catégories';
+// ../templates/default/status_list.tpl:147 
+$lang['objectslend']['No status has been found'] = 'Aucun statut trouvé';
+
+// ../_routes.php:153 
+$lang['objectslend']['Unable to create backup directory `%dir`'] = 'Impossible de créer le dossier de sauvegarde « %dir »';
 
 // ../templates/default/objects_edit.tpl:50 ../templates/default/take_object.tpl:44 
 $lang['objectslend']['Borrow price (%currency):'] = 'Prix d\'emprunt (%currency)&nbsp;:';
@@ -444,8 +468,8 @@ $lang['objectslend']['Printed on %date'] = 'Imprimé le %date';
 // ../templates/default/take_object.tpl:101 
 $lang['objectslend']['Expected return:'] = 'Retour escompté&nbsp;:';
 
-// ../objects_list_print.php:204 
-$lang['objectslend']['Sum:'] = 'Somme :';
+// ../_routes.php:176 
+$lang['objectslend']['Can\'t open file.'] = 'Le fichier ne peut être ouvert.';
 
 // ../templates/default/objects_edit.tpl:133 
 $lang['objectslend']['End date'] = 'Date de fin';
@@ -474,6 +498,9 @@ $lang['objectslend']['Inactive'] = 'Inactif';
 // ../_routes.php:124 ../templates/default/menu.tpl:37 
 $lang['objectslend']['Pictures administration'] = 'Administration images';
 
+// ../_routes.php:174 
+$lang['objectslend']['No such file.'] = 'Le fichier n\'existe pas.';
+
 // ../objects_edit.php:81 ../templates/default/objects_list.tpl:313 
 $lang['objectslend']['Duplicate object'] = 'Dupliquer l\'objet';
 
@@ -495,8 +522,8 @@ $lang['objectslend']['Images related'] = 'Relatif aux images';
 // ../_routes.php:733 ../status_list.php:78 
 $lang['objectslend']['You should add at last 1 status \'on site\' to ensure the plugin works well!'] = 'Vous devez ajouter au moins un status \'en stock\' pour que le plugin fonctionne correctement&nbsp;!';
 
-// ../objects_list.php:154 
-$lang['objectslend']['Action has been canceled!'] = 'L\'action a été annulée';
+// ../_routes.php:171 
+$lang['objectslend']['Zip archive inconsistent.'] = 'Archive Zip incohérente.';
 
 // ../templates/default/preferences.tpl:105 
 $lang['objectslend']['View weight'] = 'Voir le poids';
@@ -546,6 +573,9 @@ $lang['objectslend']['Price'] = 'Prix';
 // ../templates/default/take_more_objects_away.tpl:107 ../templates/default/take_more_objects_away.tpl:136 ../templates/default/take_object.tpl:87 ../templates/default/take_object.tpl:127 
 $lang['objectslend']['--- Select a status ---'] = '--- Choisissez un status ---';
 
+// ../_routes.php:177 
+$lang['objectslend']['Read error.'] = 'Erreur de lecture.';
+
 // ../templates/default/objects_list.tpl:347 
 $lang['objectslend']['Disable'] = 'Désactiver';
 
@@ -567,8 +597,8 @@ $lang['objectslend']['--- Select a member ---'] = '--- Choisissez un adhérent -
 // ../templates/default/status_list.tpl:25 
 $lang['objectslend']['status'] = 'status';
 
-// ../templates/default/categories_list.tpl:18 
-$lang['objectslend']['category'] = 'catégorie';
+// ../objects_list_print.php:215 
+$lang['objectslend']['Available'] = 'Disponible';
 
 // ../_routes.php:739 ../status_list.php:81 
 $lang['objectslend']['You should add at last 1 status \'object borrowed\' to ensure the plugin works well!'] = 'Vous devez ajouter au moins un status \'sorti\' pour que le plugin fonctionne correctement&nbsp;!';
@@ -576,8 +606,8 @@ $lang['objectslend']['You should add at last 1 status \'object borrowed\' to ens
 // ../objects_print.php:155 ../objects_list_print.php:134 ../lib/GaletteObjectsLend/Filters/ObjectsList.php:268 ../templates/default/take_more_objects_away.tpl:14 ../templates/default/objects_list.tpl:88 ../templates/default/categories_list.tpl:34 ../templates/default/category_edit.tpl:10 
 $lang['objectslend']['Name'] = 'Nom';
 
-// ../objects_list_print.php:215 
-$lang['objectslend']['Available'] = 'Disponible';
+// ../templates/default/preferences.tpl:15 ../templates/default/preferences.tpl:16 
+$lang['objectslend']['Automatically generate a contribution for the member of the amount of the rental price of the object'] = 'Générer automatiquement une contribution pour l\'adhérent du montant de la location de cet objet';
 
 // ../_routes.php:937 
 $lang['objectslend']['New object'] = 'Nouvel objet';
@@ -597,6 +627,9 @@ $lang['objectslend']['Take out several objects at once'] = 'Emprunter plusieurs 
 // ../objects_list.php:142 
 $lang['objectslend']['The object is not available!'] = 'L\'objet n\'est pas disponible&nbsp;!';
 
+// ../_routes.php:170 
+$lang['objectslend']['File already exists.'] = 'Le fichier existe déjà.';
+
 // ../templates/default/take_more_objects_away.tpl:148 ../templates/default/take_object.tpl:145 
 $lang['objectslend']['remaining characters'] = 'caractères restants';
 
@@ -614,6 +647,9 @@ $lang['objectslend']['Show fullsize image or just thumbs'] = 'Afficher les image
 
 // ../lib/GaletteObjectsLend/LendObject.php:275 
 $lang['objectslend']['Object has not been added :('] = 'L\'objet n\'a pas été ajouté :(';
+
+// ../templates/default/take_more_objects_away.tpl:94 ../templates/default/objects_edit.tpl:167 ../templates/default/take_object.tpl:73 
+$lang['objectslend']['Member:'] = 'Adhérent&nbsp;:';
 
 // ../templates/default/status_list.tpl:143 
 $lang['objectslend']['Remove %status from database'] = 'Supprimer %status de la base';

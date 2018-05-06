@@ -150,7 +150,7 @@ $this->post(
                     $error_detected[] = str_replace(
                         '%dir',
                         $zip_file,
-                        _T('Unable to create backup directory "%dir"', 'objectslends')
+                        _T('Unable to create backup directory `%dir`', 'objectslend')
                     );
                 } else {
                     Analog::log(
@@ -167,22 +167,22 @@ $this->post(
                 $zip = new \ZipArchive();
 
                 $ZIP_ERROR = [
-                    ZipArchive::ER_EXISTS   => _T('File already exists.', 'objectslends'),
-                    ZipArchive::ER_INCONS   => _T('Zip archive inconsistent.', 'objectslends'),
-                    ZipArchive::ER_INVAL    => _T('Invalid argument.', 'objectslends'),
-                    ZipArchive::ER_MEMORY   => _T('Memory allocation failure.', 'objectslends'),
-                    ZipArchive::ER_NOENT    => _T('No such file.', 'objectslends'),
-                    ZipArchive::ER_NOZIP    => _T('Not a zip archive.', 'objectslends'),
-                    ZipArchive::ER_OPEN     => _T("Can't open file.", "objectslends"),
-                    ZipArchive::ER_READ     => _T('Read error.', 'objectslends'),
-                    ZipArchive::ER_SEEK     => _T('Seek error.', 'objectslends'),
+                    ZipArchive::ER_EXISTS   => _T('File already exists.', 'objectslend'),
+                    ZipArchive::ER_INCONS   => _T('Zip archive inconsistent.', 'objectslend'),
+                    ZipArchive::ER_INVAL    => _T('Invalid argument.', 'objectslend'),
+                    ZipArchive::ER_MEMORY   => _T('Memory allocation failure.', 'objectslend'),
+                    ZipArchive::ER_NOENT    => _T('No such file.', 'objectslend'),
+                    ZipArchive::ER_NOZIP    => _T('Not a zip archive.', 'objectslend'),
+                    ZipArchive::ER_OPEN     => _T("Can't open file.", "objectslend"),
+                    ZipArchive::ER_READ     => _T('Read error.', 'objectslend'),
+                    ZipArchive::ER_SEEK     => _T('Seek error.', 'objectslend'),
                 ];
 
                 $result_code = $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
                 if ($result_code !== true) {
                     $error_detected[] = isset($ZIP_ERROR[$result_code]) ?
                         $ZIP_ERROR[$result_code] :
-                        _T('Unknown error.', 'objectslends');
+                        _T('Unknown error.', 'objectslend');
                 } else {
                     $dir_pictures = opendir($picture->getDir());
                     while (($file = readdir($dir_pictures)) !== false) {
@@ -205,7 +205,7 @@ $this->post(
                         $error_detected[] = str_replace(
                             '%filename',
                             $zip_filename,
-                            _T('File %filename does not exists', 'objectslends')
+                            _T('File %filename does not exists', 'objectslend')
                         );
                     }
                 }
