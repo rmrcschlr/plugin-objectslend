@@ -224,7 +224,7 @@ class LendObject
             }
         }
 
-        if ($this->object_id && $deps['rents'] === true) {
+        if ($this->object_id && $this->deps['rents'] === true) {
             $only_last = false;
             if ($this->deps['rents'] === false && $this->deps['last_rent'] === true) {
                 $only_last = true;

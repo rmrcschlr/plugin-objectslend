@@ -152,7 +152,7 @@ class Objects
             $objects = array();
             if ($as_objects) {
                 foreach ($rows as $row) {
-                    //$deps = ['last_rent' => true];
+                    $deps = ['last_rent' => true];
                     if ($all_rents === true) {
                         $deps['rents'] = true;
                     }
@@ -167,6 +167,7 @@ class Objects
                 'Cannot list objects | ' . $e->getMessage(),
                 Analog::WARNING
             );
+            throw $e;
         }
     }
 
