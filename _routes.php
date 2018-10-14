@@ -1306,14 +1306,14 @@ $this->post(
     function ($request, $response) {
         $post = $request->getParsedBody();
 
-        if (isset($post['objects_ids'])) {
+        if (isset($post['object_ids'])) {
             if (isset($this->session->filter_members)) {
                 $filters = $this->session->objectslend_filter_objects;
             } else {
                 $filters = new ObjectsList();
             }
 
-            $filters->selected = $post['objects_ids'];
+            $filters->selected = $post['object_ids'];
             $this->session->objectslend_filter_objects = $filters;
 
             if (isset($post['delete'])) {
@@ -1321,16 +1321,21 @@ $this->post(
                     ->withStatus(301)
                     ->withHeader('Location', $this->router->pathFor('objectslend_remove_objects'));
             }
+
+            $this->flash->addMessage(
+                'error_detected',
+                _T("No action was found. Please contact plugin developpers.")
+            );
         } else {
             $this->flash->addMessage(
                 'error_detected',
                 _T("No object was selected, please check at least one.")
             );
-
-            return $response
-                ->withStatus(301)
-                ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
         }
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
     }
 )->setName('objectslend_batch-objectslist')->add($authenticate);
 

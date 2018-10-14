@@ -22,7 +22,7 @@ function get_checked_objets_ids() {
 function take_more_objects() {
     show_ajax(Math.min(200 + $(':checkbox:checked').length * 100, 600));
     var ids = get_checked_objets_ids();
-    $.get('take_more_objects_away.php?mode=ajax&objects_ids=' + ids, function (data) {
+    $.get('take_more_objects_away.php?mode=ajax&object_ids=' + ids, function (data) {
         $('#ajax_lend').html(data);
     });
 }
@@ -53,7 +53,7 @@ function give_more_objects_back() {
     show_ajax(Math.min(200 + $(':checkbox:checked').length * 100, 600));
 
     var ids = get_checked_objets_ids();
-    $.get('give_more_objects_back.php?mode=ajax&objects_ids=' + ids, function (data) {
+    $.get('give_more_objects_back.php?mode=ajax&object_ids=' + ids, function (data) {
         $('#ajax_lend').html(data);
     });
 }

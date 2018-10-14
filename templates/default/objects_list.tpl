@@ -389,7 +389,7 @@
         {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
         $(function(){
             {include file="js_removal.tpl"}
-            {include file="js_removal.tpl" selector="#delete" deleteurl="'{path_for name="objectslend_batch-objectslist"}'" extra_check="if (!_checkselection()) {ldelim}return false;{rdelim}" extra_data="delete: true, objects_ids: $('#objects_list input[type=\"checkbox\"]:checked').map(function(){ return $(this).val(); }).get()" method="POST"}
+            {include file="js_removal.tpl" selector="#delete" deleteurl="'{path_for name="objectslend_batch-objectslist"}'" extra_check="if (!_checkselection()) {ldelim}return false;{rdelim}" extra_data="delete: true, object_ids: $('#objects_list input[type=\"checkbox\"]:checked').map(function(){ return $(this).val(); }).get()" method="POST"}
             $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string="(Un)Check all"}</a> | <a href="#" id="checkinvert">{_T string="Invert selection"}</a></span></td></tr>');
             _bind_check();
             $('#nbshow').change(function() {
@@ -538,7 +538,7 @@
                     url: 'take_more_objects_away.php?mode=ajax',
                     type: 'GET',
                     data: {
-                        objects_ids: get_checked_objets_ids()
+                        object_ids: get_checked_objets_ids()
                     },
                     datatype: 'html',
                     {include file="../../../../templates/default/js_loader.tpl"},
@@ -584,7 +584,7 @@
                     url: 'give_more_objects_back.php?mode=ajax',
                     type: 'GET',
                     data: {
-                        objects_ids: get_checked_objets_ids()
+                        object_ids: get_checked_objets_ids()
                     },
                     datatype: 'html',
                     {include file="../../../../templates/default/js_loader.tpl"},
@@ -630,7 +630,7 @@
                 $(':checkbox:checked').each(function () {
                     objectsIds += $(this).val() + ',';
                 });
-                window.location = (isAway ? 'take_more_objects_away' : 'give_more_objects_back') + '.php?objects_ids=' + objectsIds;
+                window.location = (isAway ? 'take_more_objects_away' : 'give_more_objects_back') + '.php?object_ids=' + objectsIds;
                 return false;
             }
     {/if}
