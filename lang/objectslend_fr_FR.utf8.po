@@ -153,7 +153,7 @@ msgid ""
 "Check if the object is available to be borrowed;<br/>uncheck if object is "
 "already borrowed and should be given back"
 msgstr ""
-"Cocher si l'objet est disponible,<br/>décohcer si l'objet est déjà loué et "
+"Cocher si l'objet est disponible,<br/>décocher si l'objet est déjà loué et "
 "doit être retourné"
 
 #: ../objects_print.php:187 ../objects_print.php:213
