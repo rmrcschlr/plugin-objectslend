@@ -97,8 +97,8 @@
                     <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</div>
                     <img src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}]}{/if}?rand={$time}"
                         class="picture"
-                        width="{$object->picture->getOptimalThumbWidth()}"
-                        height="{$object->picture->getOptimalThumbHeight()}"
+                        width="{$object->picture->getOptimalThumbWidth($olendsprefs)}"
+                        height="{$object->picture->getOptimalThumbHeight($olendsprefs)}"
                         alt="{_T string="Object photo" domain="objectslend"}"/><br/>
                     <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>
                     <input type="file" name="picture" id="object_picture">

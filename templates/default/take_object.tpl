@@ -6,11 +6,11 @@
             <div>
                 <p>
 
-                    <img src="picture.php?object_id={$object->object_id}&amp;rand={$time}&amp;thumb=1"
+                    <img src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}]}{/if}?rand={$time}"
                         class="picture fright"
                         width="{$object->picture->getOptimalThumbWidth()}"
                         height="{$object->picture->getOptimalThumbHeight()}"
-                        alt="{_T string="Object's photo" domain="objectslend"}"/>
+                        alt="{_T string="Object photo" domain="objectslend"}"/>
                     <span class="bline">{_T string="Name:" domain="objectslend"}</span>
                     {$object->name}
                 </p>

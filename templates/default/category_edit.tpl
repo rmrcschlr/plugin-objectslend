@@ -26,8 +26,8 @@
                     <span class="bline">{_T string="Picture:" domain="objectslend"}</span>
                     <img src="{if $category->category_id}{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $category->category_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}]}{/if}?rand={$time}"
                         class="picture"
-                        width="{$category->picture->getOptimalThumbWidth()}"
-                        height="{$category->picture->getOptimalThumbHeight()}"
+                        width="{$category->picture->getOptimalThumbWidth($olendsprefs)}"
+                        height="{$category->picture->getOptimalThumbHeight($olendsprefs)}"
                         alt="{_T string="Category photo" domain="objectslend"}"/><br/>
     {if $category->picture->hasPicture()}
                     <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>

@@ -49,8 +49,8 @@
             {if $categ->is_active || $categ->category_id eq -1}
                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={$categ->category_id}"{if $filters->category_filter eq $categ->category_id} class="active"{/if}>
                     <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
-                        width="{$categ->picture->getOptimalThumbWidth()}"
-                        height="{$categ->picture->getOptimalThumbHeight()}"
+                        width="{$categ->picture->getOptimalThumbWidth($olendsprefs)}"
+                        height="{$categ->picture->getOptimalThumbHeight($olendsprefs)}"
                         alt=""/>
                     <br/>
                     {$categ->getName()}
@@ -229,8 +229,8 @@
                         <td class="center">
                             <img src="{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $object->object_id]}"
                                     class="picture"
-                                    width="{$object->picture->getOptimalThumbWidth()}"
-                                    height="{$object->picture->getOptimalThumbHeight()}"
+                                    width="{$object->picture->getOptimalThumbWidth($olendsprefs)}"
+                                    height="{$object->picture->getOptimalThumbHeight($olendsprefs)}"
                                     alt="{_T string="Object's photo" domain="objectslend"}"/>
                             </td>
     {/if}

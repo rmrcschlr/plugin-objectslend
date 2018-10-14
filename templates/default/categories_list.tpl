@@ -67,8 +67,8 @@
     {if $olendsprefs->imagesInLists()}
                     <img src="{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $categ->category_id]}"
                         class="picture"
-                        width="{$categ->picture->getOptimalThumbWidth()}"
-                        height="{$categ->picture->getOptimalThumbHeight()}"
+                        width="{$categ->picture->getOptimalThumbWidth($olendsprefs)}"
+                        height="{$categ->picture->getOptimalThumbHeight($olendsprefs)}"
                         alt=""/>
     {/if}
                     {$categ->name}

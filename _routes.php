@@ -276,11 +276,13 @@ $this->get(
             $title = _T("New category", "objectslend");
         }
 
+        $lendsprefs = new Preferences($this->zdb);
         $params = [
             'page_title'    => $title,
             'category'      => $category,
             'time'          => time(),
-            'action'        => $action
+            'action'        => $action,
+            'olendsprefs'   => $lendsprefs
         ];
 
         // display page
@@ -937,11 +939,13 @@ $this->get(
             $title = _T("New object", "objectslend");
         }
 
+        $lendsprefs = new Preferences($this->zdb);
         $params = [
             'page_title'    => $title,
             'object'        => $object,
             'time'          => time(),
-            'action'        => $action
+            'action'        => $action,
+            'olendsprefs'   => $lendsprefs
         ];
 
         // display page

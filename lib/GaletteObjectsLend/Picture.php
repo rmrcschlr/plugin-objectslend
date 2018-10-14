@@ -266,9 +266,9 @@ class Picture extends \Galette\Core\Picture
     {
         //find and delete any thumb
         $ext = strlen(pathinfo($this->file_path, PATHINFO_EXTENSION)) + 1;
-        $filename = substr($this->file_path, 0, strlen($this->file_path) - $ext);
+        $filename = substr($this->file_path, 0, strlen($this->file_path) - strlen($ext));
 
-        $thumb = $filename . '_th.png';
+        $thumb = $filename . '_th.' . $ext;
 
         if (file_exists($thumb)) {
             unlink($thumb);
@@ -287,8 +287,9 @@ class Picture extends \Galette\Core\Picture
      */
     public function store($file, $ajax = false)
     {
-        $filename = substr($this->file_path, 0, strlen($this->file_path) - 4);
-        $thumb = $filename . '_th.png';
+        $ext = strlen(pathinfo($this->file_path, PATHINFO_EXTENSION)) + 1;
+        $filename = substr($this->file_path, 0, strlen($this->file_path) - strlen($ext));
+        $thumb = $filename . '_th.' . $ext;
 
         if (is_file($thumb)) {
             unlink($thumb);
@@ -373,8 +374,18 @@ class Picture extends \Galette\Core\Picture
      *
      * @return void
      */
-    private function setThumbSizes()
+    private function setThumbSizes(Preferences $prefs)
     {
+        $thumb = $this->getThumbPath();
+        $this->thumb_max_width = $prefs->getThumbWidth();
+        $this->thumb_max_height = $prefs->getThumbHeight();
+
+        // Create if missing
+        if (!is_file($thumb)) {
+            $ext = pathinfo($this->file_path, PATHINFO_EXTENSION);
+            $this->createThumb($this->file_path, $ext, $thumb);
+        }
+
         list($width, $height) = getimagesize($this->getThumbPath());
         $this->thumb_optimal_height = $height;
         $this->thumb_optimal_width = $width;
@@ -385,10 +396,10 @@ class Picture extends \Galette\Core\Picture
      *
      * @return int optimal height
      */
-    public function getOptimalThumbHeight()
+    public function getOptimalThumbHeight(Preferences $prefs)
     {
         if (!$this->thumb_optimal_height) {
-            $this->setThumbSizes();
+            $this->setThumbSizes($prefs);
         }
         return round($this->thumb_optimal_height);
     }
@@ -398,10 +409,10 @@ class Picture extends \Galette\Core\Picture
      *
      * @return int optimal width
      */
-    public function getOptimalThumbWidth()
+    public function getOptimalThumbWidth(Preferences $prefs)
     {
         if (!$this->thumb_optimal_width) {
-            $this->setThumbSizes();
+            $this->setThumbSizes($prefs);
         }
         return round($this->thumb_optimal_width);
     }
