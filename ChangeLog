@@ -1,4 +1,4 @@
-* (unreleased) - 0.5
+* (unreleased) - 1.0
 - Rework all pages
 - Use Galette core capabilities instead of SQL queries
 - Rework icons
@@ -7,6 +7,7 @@
 - Add missing changes in 0.4.x migrations
 - Add filtering on lists
 - Galette 0.9 compatible
+- Add postgres support
 
 * 2017-05-01 - 0.5beta
 - Beta release for 0.5
