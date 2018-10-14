@@ -108,7 +108,7 @@
     <div class="button-container">
         <input type="submit" id="btnsave" name="save" value="{_T string="Save"}">
         {if $object->object_id ne ''}
-            <a href="objects_edit.php?clone_object_id={$object->object_id}" class="button" id="btnduplicate">
+            <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}" class="button" id="btnduplicate">
                 {_T string="Duplicate" domain="objectslend"}
             </a>
             <a href="objects_print.php?object_id={$object->object_id}" id="btnlabels" class="button">{_T string="Print card"}</a>

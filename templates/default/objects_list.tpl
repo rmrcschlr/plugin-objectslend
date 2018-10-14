@@ -309,7 +309,7 @@
                                 <a href="{path_for name="objectslend_object" data=["action" => {_T string="edit" domain="routes"}, "id" => $object->object_id]}">
                                     <img src="{base_url}/{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object" domain="objectslend"}"/>
                                 </a>
-                                <a href="objects_edit.php?clone_object_id={$object->object_id}">
+                                <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}">
                                     <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-dup.png"]}" alt="{_T string="Duplicate object" domain="objectslend"}" title="{_T string="Duplicate object" domain="objectslend"}"/>
                                 </a>
                                 <a href="objects_print.php?object_id={$object->object_id}">

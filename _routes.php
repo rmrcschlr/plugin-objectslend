@@ -958,6 +958,42 @@ $this->get(
     }
 )->setName('objectslend_object')->add($authenticate);
 
+$this->get(
+    __('/object', 'objectslend_routes') . '/' . __('clone', 'objectslend') . '/{id:\d+}',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
+
+        if ($object->clone()) {
+            $this->flash->addMessage(
+                'success_detected',
+                str_replace(
+                    '%id',
+                    $args['id'],
+                    _T('Successfully cloned from #%id.<br/>You can now edit it.', 'objectslend')
+                )
+            );
+        } else {
+            $this->flash->addMessage(
+                'error_detected',
+                _T('An error occured cloning object :(', 'objectslend')
+            );
+        }
+
+        return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor(
+                    'objectslend_object',
+                    [
+                        'action'    => __('edit', 'routes'),
+                        'id'        => $object->object_id
+                    ]
+                )
+            );
+    }
+)->setName('objectslend_object_clone')->add($authenticate);
+
 $this->post(
     __('/object', 'objectslend_routes') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',

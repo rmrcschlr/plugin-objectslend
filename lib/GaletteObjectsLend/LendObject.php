@@ -32,9 +32,8 @@
  * @author    Mélissa Djebel <melissa.djebel@gmx.net>
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * @Copyright © 2017-2018 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   0.7
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
@@ -121,10 +120,9 @@ class LendObject
      * @param Db         $zdb     Database instance
      * @param Plugins    $plugins Pluginsugins instance
      * @param int|object $args    Maybe null, an RS object or an id from database
-     * @param boolean    $cloned  Ask to clone specified object
      * @param array      $deps    Dependencies configuration, see LendOb::$deps
      */
-    public function __construct(Db $zdb, Plugins $plugins, $args = null, $cloned = false, $deps = null)
+    public function __construct(Db $zdb, Plugins $plugins, $args = null, $deps = null)
     {
         $this->zdb = $zdb;
         $this->plugins = $plugins;
@@ -162,13 +160,6 @@ class LendObject
             }
         } elseif (is_object($args)) {
             $this->loadFromRS($args);
-        }
-
-        if ($args !== null && $cloned) {
-            unset($this->object_id);
-            if ($this->deps['picture'] === true) {
-                $this->picture = new ObjectPicture($this->plugins);
-            }
         }
     }
 
@@ -264,7 +255,7 @@ class LendObject
                         ->values($values);
                 $result = $this->zdb->execute($insert);
                 if ($result->count() > 0) {
-                    if ( $this->zdb->isPostgres() ) {
+                    if ($this->zdb->isPostgres()) {
                         $this->object_id = $this->zdb->driver->getLastGeneratedValue(
                             PREFIX_DB . 'lend_objects_id_seq'
                         );
@@ -292,11 +283,11 @@ class LendObject
     }
 
     /**
-     * Exécute une requête SQL pour récupérer le statut de location d'un objet, ainsi que l'utilisateur
-     * qui loue l'objet.
-     * Ne retourne rien.
+     * Get object rent status and rent user informations.
      *
      * @param LendObject $object L'objet dont on cherche le statut. Est automatiquement modifié.
+     *
+     * @return void
      */
     public static function getStatusForObject($object)
     {
@@ -304,8 +295,17 @@ class LendObject
 
         // Statut
         $select_rent = $zdb->select(LEND_PREFIX . LendRent::TABLE)
-                ->join(PREFIX_DB . LEND_PREFIX . LendStatus::TABLE, PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.status_id = ' . PREFIX_DB . LEND_PREFIX . LendStatus::TABLE . '.status_id')
-                ->join(PREFIX_DB . Adherent::TABLE, PREFIX_DB . Adherent::TABLE . '.id_adh = ' . PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.adherent_id', '*', 'left')
+            ->join(
+                PREFIX_DB . LEND_PREFIX . LendStatus::TABLE,
+                PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.status_id = ' .
+                PREFIX_DB . LEND_PREFIX . LendStatus::TABLE . '.status_id'
+            )
+            ->join(
+                PREFIX_DB . Adherent::TABLE,
+                PREFIX_DB . Adherent::TABLE . '.id_adh = ' . PREFIX_DB . LEND_PREFIX . LendRent::TABLE . '.adherent_id',
+                '*',
+                'left'
+            )
                 ->where(array('object_id' => $object->object_id))
                 ->limit(1)
                 ->offset(0)
@@ -606,5 +606,19 @@ class LendObject
             );
             throw $e;
         }
+    }
+
+    /**
+     * Clone object
+     *
+     * @return boolean
+     */
+    public function clone()
+    {
+        //unset id so this is considered as new object
+        $this->object_id = null;
+        //unset image
+        $this->picture = new ObjectPicture($this->plugins);
+        return $this->store();
     }
 }

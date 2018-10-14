@@ -63,6 +63,7 @@ $this->register(
         'objectslend_doremove_status'   => 'staff',
         'objectslend_object'            => 'staff',
         'objectslend_object_action'     => 'staff',
+        'objectslend_object_clone'      => 'staff',
         'objectslend_objects'           => 'staff',
         'objectslend_filter_objects'    => 'staff',
         'objectslend_remove_object'     => 'staff',
