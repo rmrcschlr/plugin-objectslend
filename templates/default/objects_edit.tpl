@@ -111,7 +111,7 @@
             <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}" class="button" id="btnduplicate">
                 {_T string="Duplicate" domain="objectslend"}
             </a>
-            <a href="objects_print.php?object_id={$object->object_id}" id="btnlabels" class="button">{_T string="Print card"}</a>
+            <a href="objects_print.php?object_id={$object->object_id}" id="btnlabels" class="button">{_T string="Print object" domain="objectslend"}</a>
         {/if}
         <p>
             <a href="{path_for name="objectslend_objects"}" class="button" id="btnback">

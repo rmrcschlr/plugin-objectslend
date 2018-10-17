@@ -1367,6 +1367,12 @@ $this->post(
                     ->withHeader('Location', $this->router->pathFor('objectslend_remove_objects'));
             }
 
+            if (isset($post['print_list'])) {
+                return $response
+                    ->withStatus(301)
+                    ->withHeader('Location', $this->router->pathFor('objectslend_objects_print'));
+            }
+
             $this->flash->addMessage(
                 'error_detected',
                 _T("No action was found. Please contact plugin developpers.")
@@ -1415,3 +1421,37 @@ $this->get(
         return $response;
     }
 )->setName('objectslend_remove_objects')->add($authenticate);
+$this->get(
+    __('/objects', 'objectslend_routes') . __('/print', 'objectslend_routes') . '[/{id:\d+}]',
+    function ($request, $response, $args) {
+        $lendsprefs = new Preferences($this->zdb);
+
+        if (isset($this->session->objectslend_filter_objects)) {
+            $filters =  $this->session->objectslend_filter_objects;
+        } else {
+            $filters = new ObjectsList();
+        }
+
+        $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $filters);
+        $list = $objects->getObjectsList(true, null, true, false);
+
+        $pdf = new GaletteObjectsLend\IO\PdfObjects(
+            $this->zdb,
+            $this->preferences,
+            $lendsprefs,
+            $filters,
+            $this->login
+        );
+
+        $pdf->drawList($list);
+        $pdf->Output(_T("objects_list", "objectslend") . '.pdf', 'D');
+    }
+)->setName('objectslend_objects_print')->add($authenticate);
+
+$this->get(
+    __('/object', 'objectslend_routes') . __('/print', 'objectslend_routes') . '/{id:\d+}',
+    function ($request, $response, $args) {
+        $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
+        $lendsprefs = new Preferences($this->zdb);
+    }
+)->setName('objectslend_object_print')->add($authenticate);
