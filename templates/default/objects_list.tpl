@@ -40,7 +40,8 @@
             </header>
             <div>
                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter=none"{if $filters->category_filter eq null} class="active"{/if}>
-                    <img src="picture.php?category_id=0&amp;rand={$time}&thumb=1"
+                    <img src="{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => 0]}"
+                        class="picture"
                         alt=""/>
                     <br/>
                     {_T string="All"}
@@ -48,7 +49,8 @@
         {foreach from=$categories item=categ}
             {if $categ->is_active || $categ->category_id eq -1}
                 <a href="{$galette_base_path}{$lend_dir}objects_list.php?category_filter={$categ->category_id}"{if $filters->category_filter eq $categ->category_id} class="active"{/if}>
-                    <img src="picture.php?category_id={$categ->category_id}&amp;rand={$time}&thumb=1"
+                    <img src="{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $categ->category_id]}"
+                        class="picture"
                         width="{$categ->picture->getOptimalThumbWidth($olendsprefs)}"
                         height="{$categ->picture->getOptimalThumbHeight($olendsprefs)}"
                         alt=""/>

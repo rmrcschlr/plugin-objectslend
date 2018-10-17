@@ -114,7 +114,7 @@
             <a href="objects_print.php?object_id={$object->object_id}" id="btnlabels" class="button">{_T string="Print card"}</a>
         {/if}
         <p>
-            <a href="objects_list.php" class="button" id="btnback">
+            <a href="{path_for name="objectslend_objects"}" class="button" id="btnback">
                 {_T string="Back to list"}
             </a>
         </p>

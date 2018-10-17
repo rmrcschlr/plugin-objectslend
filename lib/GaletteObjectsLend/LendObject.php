@@ -86,7 +86,7 @@ class LendObject
     private $date_forecast;
     private $date_end;
     private $status_text;
-    private $is_home_location;
+    private $is_home_location = true;
     // Requête sur l'adhérent associé au statut
     private $nom_adh = '';
     private $prenom_adh = '';

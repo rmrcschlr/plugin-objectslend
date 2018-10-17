@@ -465,7 +465,6 @@ $this->post(
     function ($request, $response) {
         $post = $request->getParsedBody();
         if (isset($this->session->objectslend_filter_categories)) {
-            //CAUTION: this one may be simple or advanced, display must change
             $filters = $this->session->objectslend_filter_categories;
         } else {
             $filters = new CategoriesList();
@@ -933,6 +932,9 @@ $this->get(
             $object = new LendObject($this->zdb, $this->plugins, isset($args['id']) ? (int)$args['id'] : null);
         }
 
+        $categories = new Categories($this->zdb, $this->login, $this->plugins);
+        $categories_list = $categories->getCategoriesList(true);
+
         if ($object->object_id !== null) {
             $title = _T("Edit object", "objectslend");
         } else {
@@ -945,7 +947,9 @@ $this->get(
             'object'        => $object,
             'time'          => time(),
             'action'        => $action,
-            'olendsprefs'   => $lendsprefs
+            'lendsprefs'    => $lendsprefs->getpreferences(),
+            'olendsprefs'   => $lendsprefs,
+            'categories'    => $categories_list
         ];
 
         // display page
@@ -1155,6 +1159,9 @@ $this->get(
         $filters->setViewCommonsFilters($lendsprefs, $this->view->getSmarty());
         $filters->setSmartyPagination($this->router, $this->view->getSmarty(), false);
 
+        $categories = new Categories($this->zdb, $this->login, $this->plugins);
+        $categories_list = $categories->getCategoriesList(true);
+
         // display page
         $this->view->render(
             $response,
@@ -1165,9 +1172,11 @@ $this->get(
                 'objects'               => $list,
                 'nb_objects'            => count($list),
                 'filters'               => $filters,
+                'lendsprefs'            => $lendsprefs->getpreferences(),
                 'olendsprefs'           => $lendsprefs,
                 'time'                  => time(),
-                'module_id'             => $module_id
+                'module_id'             => $module_id,
+                'categories'            => $categories_list
             )
         );
         return $response;
@@ -1343,7 +1352,7 @@ $this->post(
         $post = $request->getParsedBody();
 
         if (isset($post['object_ids'])) {
-            if (isset($this->session->filter_members)) {
+            if (isset($this->session->objectslend_filter_objects)) {
                 $filters = $this->session->objectslend_filter_objects;
             } else {
                 $filters = new ObjectsList();
