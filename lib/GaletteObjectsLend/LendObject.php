@@ -189,7 +189,6 @@ class LendObject
         }
         $this->category_id = $r->category_id;
         $this->nb_available = $r->nb_available;
-        $this->category_name = isset($r->category_name) ? $r->category_name : '';
         $this->rent_id = $r->rent_id;
 
         //load last rent infos (status, member, and so on

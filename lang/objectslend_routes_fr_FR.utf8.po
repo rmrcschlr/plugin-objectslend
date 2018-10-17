@@ -49,7 +49,7 @@ msgstr "/images"
 #: ../templates/default/categories_list.tpl:68
 #: ../templates/default/category_edit.tpl:27
 msgid "category"
-msgstr "cetagorie"
+msgstr "categorie"
 
 #: ../_routes.php:380 ../_routes.php:390
 #: ../templates/default/objects_list.tpl:230
