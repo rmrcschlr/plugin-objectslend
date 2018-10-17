@@ -79,7 +79,7 @@ class Categories
     private $filters = false;
     private $count = null;
     private $errors = array();
-    protected $plugins;
+    private $plugins;
 
     /**
      * Default constructor
@@ -123,7 +123,7 @@ class Categories
         $limit = true
     ) {
         try {
-            $select = $this->buildSelect($fields, false, $count);
+            $select = $this->buildSelect($fields, $count);
 
             //add limits to retrieve only relevant rows
             if ($limit === true) {
@@ -175,21 +175,33 @@ class Categories
      * Builds the SELECT statement
      *
      * @param array $fields fields list to retrieve
-     * @param bool  $photos true if we want to get only members with photos
-     *                      Default to false, only relevant for SHOW_PUBLIC_LIST
      * @param bool  $count  true if we want to count members, defaults to false
      *
      * @return Select SELECT statement
      */
-    private function buildSelect($fields, $photos, $count = false)
+    private function buildSelect($fields, $count = false)
     {
         try {
-            $fieldsList = ( $fields != null )
-                            ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
-                            : $fields) : (array)'*';
+            $fieldsList = [
+                '*',
+                'objects_count'     => new Expression('COUNT(o.' . self::PK . ')'),
+                'objects_price_sum' => new Expression('SUM(o.price)')
+            ];
+
+            if ($fields !== null && is_array($fields)) {
+                array_merge($fieldsList, $fields);
+            }
 
             $select = $this->zdb->select(LEND_PREFIX . self::TABLE, 'c');
             $select->columns($fieldsList);
+
+            $select->join(
+                array('o' => PREFIX_DB . LEND_PREFIX . LendObject::TABLE),
+                'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
+                [],
+                $select::JOIN_LEFT
+            );
+
 
             if ($this->filters !== false) {
                 $this->buildWhereClause($select);
@@ -200,10 +212,14 @@ class Categories
                 $this->proceedCount($select);
             }
 
+            $select->group(
+                'c.category_id'
+            );
+
             return $select;
         } catch (\Exception $e) {
             Analog::log(
-                'Cannot build SELECT clause for members | ' . $e->getMessage(),
+                'Cannot build SELECT clause for categories | ' . $e->getMessage(),
                 Analog::WARNING
             );
             return false;
@@ -224,6 +240,7 @@ class Categories
             $countSelect->reset($countSelect::COLUMNS);
             $countSelect->reset($countSelect::ORDER);
             $countSelect->reset($countSelect::HAVING);
+            $countSelect->reset($countSelect::JOINS);
             $countSelect->columns(
                 array(
                     'count' => new Expression('count(c.' . self::PK . ')')
@@ -235,6 +252,16 @@ class Categories
                 foreach ($have->getPredicates() as $h) {
                     $countSelect->where($h);
                 }
+            }
+
+            $joins = $select->getRawState($select::JOINS);
+            foreach ($joins as $join) {
+                $countSelect->join(
+                    $join['name'],
+                    $join['on'],
+                    [],
+                    $join['type']
+                );
             }
 
             $results = $this->zdb->execute($countSelect);
