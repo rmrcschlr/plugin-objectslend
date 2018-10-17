@@ -1121,7 +1121,7 @@ $this->post(
 
 $this->get(
     __('/objects', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
-    __('order', 'routes') . '}/{value:\d+}]',
+    __('order', 'routes') . '|' . __('category', 'objectslend_routes') . '}/{value:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option = null;
         if (isset($args['option'])) {
@@ -1145,6 +1145,12 @@ $this->get(
                     break;
                 case __('order', 'routes'):
                     $filters->orderby = $value;
+                    break;
+                case __('category', 'objectslend_routes'):
+                    if ($value == 0) {
+                        $value = null;
+                    }
+                    $filters->category_filter = $value;
                     break;
             }
         }
