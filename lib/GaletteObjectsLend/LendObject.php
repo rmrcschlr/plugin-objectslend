@@ -79,8 +79,6 @@ class LendObject
     private $is_active = true;
     private $category_id;
     private $nb_available = 1;
-    // Nom de la catégorie
-    private $category_name = '';
     // Requête sur le dernier statut de l'objet
     private $date_begin;
     private $date_forecast;
