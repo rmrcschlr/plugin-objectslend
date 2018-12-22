@@ -41,9 +41,9 @@ $this->register(
     'Manage rent/lend of object',       //Short description
     'Mélissa Djebel, Johan Cwiklinski', //Author
     '1.0-dev',                          //Version
-    '0.9',                              //Galette version compatibility
+    '0.9.2',                            //Galette version compatibility
     'objectslend',                      //routing name and translation domain
-    '2018-10-14',                       //Date
+    '2018-12-22',                       //Date
     [   //Permissions needed - not yet implemented
         'objectslend_preferences'       => 'admin',
         'store_objectlend_preferences'  => 'admin',
