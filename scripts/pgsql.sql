@@ -66,6 +66,21 @@ CREATE TABLE galette_lend_status (
 );
 
 
+DROP TABLE IF EXISTS galette_lend_rents CASCADE;
+CREATE TABLE galette_lend_rents (
+    rent_id integer DEFAULT nextval('galette_lend_rents_id_seq'::text) NOT NULL,
+    object_id integer,
+    date_begin timestamp NOT NULL,
+    date_forecast timestamp NULL DEFAULT NULL,
+    date_end timestamp DEFAULT NULL,
+    status_id integer REFERENCES galette_lend_status (status_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    adherent_id integer REFERENCES galette_adherents (id_adh) ON DELETE CASCADE ON UPDATE CASCADE,
+    comments character varying(200) NOT NULL,
+    PRIMARY KEY (rent_id)
+);
+
+
+
 DROP TABLE IF EXISTS galette_lend_objects CASCADE;
 CREATE TABLE galette_lend_objects (
     object_id integer DEFAULT nextval('galette_lend_objects_id_seq'::text) NOT NULL,
@@ -84,6 +99,7 @@ CREATE TABLE galette_lend_objects (
     PRIMARY KEY (object_id)
 );
 
+ALTER TABLE galette_lend_rents ADD CONSTRAINT galette_lend_rents_object_fkey FOREIGN KEY (object_id) REFERENCES galette_lend_objects(object_id);
 
 DROP TABLE IF EXISTS galette_lend_pictures;
 CREATE TABLE galette_lend_pictures (
@@ -93,19 +109,6 @@ CREATE TABLE galette_lend_pictures (
   PRIMARY KEY (object_id)
 );
 
-
-DROP TABLE IF EXISTS galette_lend_rents CASCADE;
-CREATE TABLE galette_lend_rents (
-    rent_id integer DEFAULT nextval('galette_lend_rents_id_seq'::text) NOT NULL,
-    object_id integer REFERENCES galette_lend_objects (object_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    date_begin timestamp NOT NULL,
-    date_forecast timestamp NULL DEFAULT NULL,
-    date_end timestamp DEFAULT NULL,
-    status_id integer REFERENCES galette_lend_status (status_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    adherent_id integer REFERENCES galette_adherents (id_adh) ON DELETE CASCADE ON UPDATE CASCADE,
-    comments character varying(200) NOT NULL,
-    PRIMARY KEY (rent_id)
-);
 
 DROP TABLE IF EXISTS galette_lend_parameters CASCADE;
 CREATE TABLE IF NOT EXISTS galette_lend_parameters (
