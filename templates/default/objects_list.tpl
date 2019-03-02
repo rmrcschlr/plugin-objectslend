@@ -279,7 +279,7 @@
                             </td>
                             <td>
                                 {if $object->id_adh}
-                                    <a href="../../ajouter_adherent.php?id_adh={$object->id_adh}">{memberName id=$object->id_adh}</a>
+                                    <a href="{path_for name="member" data=["id" => $object->id_adh]}">{memberName id=$object->id_adh}</a>
                                 {else}-{/if}
                             </td>
                             {if $lendsprefs.VIEW_DATE_FORECAST}
@@ -314,7 +314,7 @@
                                 <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}">
                                     <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-dup.png"]}" alt="{_T string="Duplicate object" domain="objectslend"}" title="{_T string="Duplicate object" domain="objectslend"}"/>
                                 </a>
-                                <a href="objects_print.php?object_id={$object->object_id}">
+                                <a href="{path_for name="objectslend_object_print" data=["id" => $object->object_id]}">
                                     <img src="{base_url}/{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
                                 </a>
                                 <a class="delete" href="{path_for name="objectslend_remove_object" data=["id" => $object->object_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %object from database" domain="objectslend" pattern="/%object/" replace=$object->name}"/></a>

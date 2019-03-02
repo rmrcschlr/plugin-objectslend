@@ -1427,6 +1427,7 @@ $this->get(
         return $response;
     }
 )->setName('objectslend_remove_objects')->add($authenticate);
+
 $this->get(
     __('/objects', 'objectslend_routes') . __('/print', 'objectslend_routes') . '[/{id:\d+}]',
     function ($request, $response, $args) {
