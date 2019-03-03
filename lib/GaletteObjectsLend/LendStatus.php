@@ -166,37 +166,6 @@ class LendStatus
     }
 
     /**
-     * Renvoi tous les statuts triés par le tri indiqué
-     *
-     * @param Db     $zdb       Database instance
-     * @param string $tri       Colonne de tri
-     * @param string $direction asc ou desc
-     *
-     * @return LendStatus[] La liste des statuts triés par le tri donné
-     */
-    public static function getAllStatuses(Db $zdb, $tri, $direction)
-    {
-        try {
-            $select = $zdb->select(LEND_PREFIX . self::TABLE)
-                    ->order($tri . ' ' . $direction);
-
-            $status = array();
-            $result = $zdb->execute($select);
-            foreach ($result as $r) {
-                $status[] = new LendStatus($zdb, $r);
-            }
-            return $status;
-        } catch (\Exception $e) {
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                    $e->getTraceAsString(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
      * Renvoi tous les statuts actifs triés par nom
      *
      * @param Db     $zdb       Database instance
