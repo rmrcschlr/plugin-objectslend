@@ -941,6 +941,11 @@ $this->get(
             $title = _T("New object", "objectslend");
         }
 
+        $sfilter = new StatusList();
+        $sfilter->active_filter = \GaletteObjectsLend\Repository\Status::ACTIVE;
+        $statuses = new Status($this->zdb, $this->login, $sfilter);
+        $slist = $statuses->getStatusList(true);
+
         $lendsprefs = new Preferences($this->zdb);
         $params = [
             'page_title'    => $title,
@@ -949,7 +954,8 @@ $this->get(
             'action'        => $action,
             'lendsprefs'    => $lendsprefs->getpreferences(),
             'olendsprefs'   => $lendsprefs,
-            'categories'    => $categories_list
+            'categories'    => $categories_list,
+            'statuses'      => $slist
         ];
 
         // display page
