@@ -61,7 +61,10 @@
                         {$categ->objects_price_sum} &euro;
 
                         {if $categ->is_active}
-                            <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Category is active" domain="objectslend"}"/>
+                            <span class="use tooltip" title="{_T string="Category is active" domain="objectslend"}">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span class="sr-only">{_T string="Active" domain="objectslend"}</span>
+                            </span>
                         {/if}
 
                     {/if}
@@ -289,35 +292,69 @@
                                 {else}-{/if}
                             </td>
                             {/if}
-                            <td class="center">
+                            <td class="center {if $object->isActive()}use{else}delete{/if}">
+                                <i class="fas fa-thumbs-{if $object->isActive()}up{else}down{/if}" title="{if $object->isActive()}{_T string="Object is active" domain="objectslend"}{else}{_T string="Object is inactive" domain="objectslend"}{/if}"></i>
+                                <span class="sr-only">{_T string="Active" domain="objectslend"}</span>
                                 {if $object->isActive()}
-                                    <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" title="{_T string="Object is active" domain="objectslend"}"/>
+                                    <img src="{base_url}/{$template_subdir}images/icon-on.png" alt=""/>
                                 {/if}
                             </td>
                             <td class="center nowrap">
                                 {if !$object->rent_id or $object->in_stock}
                                     {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
-                                        <a class="take_object" href="take_object.php?object_id={$object->object_id}">
-                                            <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-takeaway.png"]}" alt="{_T string="Take away" domain="objectslend"}" title="{_T string="Take object away" domain="objectslend"}"/>
+                                        <a
+                                            class="take_object tooltip"
+                                            href="take_object.php?object_id={$object->object_id}"
+                                            title="{_T string="Take object away" domain="objectslend"}"
+                                        >
+                                            <i class="fas fa-cart-arrow-down"></i>
+                                            <span class="sr-only">{_T string="Take away" domain="objectslend"}</span>
                                         </a>
                                     {/if}
                                 {elseif $login->isAdmin() || $login->isStaff() || $login->id == $object->id_adh}
-                                        <a class="give_object" href="give_object_back.php?object_id={$object->object_id}">
-                                            <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-giveback.png"]}" alt="{_T string="Give back" domain="objectslend"}" title="{_T string="Give object back" domain="objectslend"}"/>
+                                        <a
+                                            class="give_object tooltip"
+                                            href="give_object_back.php?object_id={$object->object_id}"
+                                            title="{_T string="Give object back" domain="objectslend"}"
+                                        >
+                                            <i class="fas fa-sign-in-alt"></i>
+                                            <span class="sr-only">{_T string="Give back" domain="objectslend"}</span>
                                         </a>
                                 {/if}
 
     {if $login->isAdmin() || $login->isStaff()}
-                                <a href="{path_for name="objectslend_object" data=["action" => {_T string="edit" domain="routes"}, "id" => $object->object_id]}">
-                                    <img src="{base_url}/{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit the object" domain="objectslend"}"/>
+                                <a
+                                    class="tooltip action"
+                                    href="{path_for name="objectslend_object" data=["action" => "edit", "id" => $object->object_id]}"
+                                    title="{_T string="Edit the object" domain="objectslend"}"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                    <span class="sr-only">{_T string="Edit the object" domain="objectslend"}</span>
                                 </a>
-                                <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}">
-                                    <img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/icon-dup.png"]}" alt="{_T string="Duplicate object" domain="objectslend"}" title="{_T string="Duplicate object" domain="objectslend"}"/>
+                                <a
+                                    class="tooltip"
+                                    href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}"
+                                    title="{_T string="Duplicate object" domain="objectslend"}"
+                                >
+                                    <i class="fas fa-clone"></i>
+                                    <span class="sr-only">{_T string="Duplicate object" domain="objectslend"}</span>
                                 </a>
-                                <a href="{path_for name="objectslend_object_print" data=["id" => $object->object_id]}">
-                                    <img src="{base_url}/{$template_subdir}images/icon-pdf.png" title="{_T string="Object card in PDF" domain="objectslend"}"/>
+                                <a
+                                    class="tooltip"
+                                    href="{path_for name="objectslend_object_print" data=["id" => $object->object_id]}"
+                                    title="{_T string="Object card in PDF" domain="objectslend"}"
+                                >
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span class="sr-only">{_T string="Object card in PDF" domain="objectslend"}</span>
                                 </a>
-                                <a class="delete" href="{path_for name="objectslend_remove_object" data=["id" => $object->object_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %object from database" domain="objectslend" pattern="/%object/" replace=$object->name}"/></a>
+                                <a
+                                    class="delete tooltip"
+                                    href="{path_for name="objectslend_remove_object" data=["id" => $object->object_id]}"
+                                    title="{_T string="Remove %object from database" domain="objectslend" pattern="/%object/" replace=$object->name}"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                    <span class="sr-only">{_T string="Remove %object from database" domain="objectslend" pattern="/%object/" replace=$object->name}</span>
+                                </a>
                             </td>
     {/if}
                         </tr>
@@ -333,11 +370,17 @@
                         <ul class="selection_menu">
                             <li>{_T string="For the selection:"}</li>
                             <li>
-                                <input type="submit" name="print_list" class="button btnpdf" value="{_T string="Print objects list" domain="objectslend"}">
+                                <button type="submit" name="print_list" class="button">
+                                    <i class="fas fa-file-pdf"></i>
+                                    {_T string="Print objects list" domain="objectslend"}
+                                </button>
                             </li>
     {if $login->isAdmin() || $login->isStaff()}
                             <li>
-                                <input type="submit" name="print_objects" class="button btnpdf" value="{_T string="Print objects cards" domain="objectslend"}">
+                                <button type="submit" name="print_objects" class="button">
+                                    <i class="fas fa-file-pdf"></i>
+                                    {_T string="Print objects cards" domain="objectslend"}
+                                </button>
                             </li>
                             <li>
                                 <input type="submit" value="{_T string="Take out" domain="objectslend"}" id="objects_take_away" class="button">
@@ -349,7 +392,10 @@
                                 <input type="submit" value="{_T string="Disable" domain="objectslend"}" onclick="return confirmDelete(false);">
                             </li>
                             <li>
-                                <input type="submit" id="delete" value="{_T string="Delete" domain="objectslend"}">
+                                <button type="submit" id="delete">
+                                    <i class="fas fa-trash"></i>
+                                    {_T string="Delete" domain="objectslend"}
+                                </button>
                             </li>
     {/if}
                         </ul>

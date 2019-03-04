@@ -115,18 +115,22 @@
                 <td>
                     {$sttus->status_text}
                 </td>
-                <td align="center">
+                <td class="center {if $sttus->is_active}use{else}delete{/if}">
                     {if $sttus->is_active}
-                        <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="Active" domain="objectslend"}" width="16" height="16"/>
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="sr-only">{_T string="Active" domain="objectslend"}</span>
                     {else}
-                        <img src="{base_url}/{$template_subdir}images/icon-off.png" alt="{_T string="Inactive" domain="objectslend"}" width="16" height="16"/>
+                        <i class="fas fa-thumbs-down"></i>
+                        <span class="sr-only">{_T string="Inactive" domain="objectslend"}</span>
                     {/if}
                 </td>
-                <td align="center">
+                <td class="center {if $sttus->is_home_location}use{else}delete{/if}">
                     {if $sttus->is_home_location}
-                        <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="In stock" domain="objectslend"}" width="16" height="16"/>
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="sr-only">{_T string="In stock" domain="objectslend"}</span>
                     {else}
-                        <img src="{base_url}/{$template_subdir}images/icon-off.png" alt="{_T string="Not in stock" domain="objectslend"}" width="16" height="16"/>
+                        <i class="fas fa-thumbs-down"></i>
+                        <span class="sr-only">{_T string="Not in stock" domain="objectslend"}</span>
                     {/if}
                 </td>
                 <td>
@@ -137,10 +141,22 @@
                     {/if}
                 </td>
                 <td class="center nowrap">
-                    <a href="{path_for name="objectslend_status" data=["action" => {_T string="edit" domain="routes"}, "id" => $sttus->status_id]}">
-                        <img src="{base_url}/{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit %status" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}"/>
+                    <a
+                        class="action tooltip"
+                        href="{path_for name="objectslend_status" data=["action" => {_T string="edit" domain="routes"}, "id" => $sttus->status_id]}"
+                        title="{_T string="Edit %status" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}"
+                    >
+                        <i class="fas fa-edit"></i>
+                        <span class="sr-only">{_T string="Edit %status" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}</span>
                     </a>
-                    <a class="delete" href="{path_for name="objectslend_remove_status" data=["id" => $sttus->status_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %status from database" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}"/></a>
+                    <a
+                        class="delete tooltip"
+                        href="{path_for name="objectslend_remove_status" data=["id" => $sttus->status_id]}"
+                        title="{_T string="Remove %status from database" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}"
+                    >
+                        <i class="fas fa-trash"></i>
+                        <span class="sr-only">{_T string="Remove %status from database" domain="objectslend" pattern="/%status/" replace=$sttus->status_text}</span>
+                    </a>
                 </td>
             </tr>
         {foreachelse}

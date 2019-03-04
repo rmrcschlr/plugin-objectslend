@@ -109,7 +109,10 @@
         </fieldset>
     </div>
     <div class="button-container">
-        <input type="submit" id="btnsave" name="saveprefs" value="{_T string="Save"}">
+        <button type="submit" name="saveprefs" class="action">
+            <i class="fas fa-save"></i>
+            {_T string="Save"}
+        </button>
     </div>
 </form>
 {/block}

@@ -73,16 +73,27 @@
     {/if}
                     {$categ->name}
                 </td>
-                <td align="center">
-                    {if $categ->is_active}
-                        <img src="{base_url}/{$template_subdir}images/icon-on.png" alt="{_T string="Active"}" width="16" height="16"/>
-                    {/if}
+                <td class="center {if $categ->is_active}use{else}delete{/if}">
+                    <i class="fas fa-thumbs-{if $categ->is_active}up{else}down{/if}"></i>
+                    <span class="sr-only">{_T string="Active"}</span>
                 </td>
                 <td class="center nowrap">
-                    <a href="{path_for name="objectslend_category" data=["action" => {_T string="edit" domain="routes"}, "id" => $categ->category_id]}">
-                        <img src="{base_url}/{$template_subdir}images/icon-edit.png" alt="{_T string="[mod]"}" width="16" height="16" title="{_T string="Edit %category" pattern="/%category/" domain="objectslend" replace=$categ->name}"/>
+                    <a
+                        class="action"
+                        href="{path_for name="objectslend_category" data=["action" => {_T string="edit" domain="routes"}, "id" => $categ->category_id]}"
+                        title="{_T string="Edit %category" pattern="/%category/" domain="objectslend" replace=$categ->name}"
+                    >
+                        <i class="fas fa-edit"></i>
+                        <span class="sr-only">{_T string="Edit %category" pattern="/%category/" domain="objectslend" replace=$categ->name}</span>
                     </a>
-                    <a class="delete" href="{path_for name="objectslend_remove_category" data=["id" => $categ->category_id]}"><img src="{base_url}/{$template_subdir}images/icon-trash.png" alt="{_T string="[del]"}" width="16" height="16" title="{_T string="Remove %category from database" domain="objectslend" pattern="/%category/" replace=$categ->name}"/></a>
+                    <a
+                        class="delete"
+                        href="{path_for name="objectslend_remove_category" data=["id" => $categ->category_id]}"
+                        title="{_T string="Remove %category from database" domain="objectslend" pattern="/%category/" replace=$categ->name}"
+                    >
+                        <i class="fas fa-trash"></i>
+                        <span class="sr-only">{_T string="Remove %category from database" domain="objectslend" pattern="/%category/" replace=$categ->name}</span>
+                    </a>
                 </td>
             </tr>
         {/foreach}

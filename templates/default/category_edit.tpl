@@ -39,8 +39,14 @@
         </fieldset>
     </div>
     <div class="button-container">
-        <input type="submit" id="btnsave" name="save" value="{_T string="Save"}">
-        <a href="categories_list.php?msg=canceled" class="button" id="btncancel">{_T string="Cancel"}</a>
+        <button type="submit" name="save" class="action">
+            <i class="fas fa-save"></i>
+            {_T string="Save"}
+        </button>
+        <a href="categories_list.php?msg=canceled" class="button">
+            <i class="fas fa-th-list"></i>
+            {_T string="Back to list" domain="objectslend"}
+        </a>
     </div>
 </form>
 {/block}
