@@ -43,7 +43,7 @@ $this->register(
     '1.0-dev',                          //Version
     '0.9.2',                            //Galette version compatibility
     'objectslend',                      //routing name and translation domain
-    '2018-12-22',                       //Date
+    '2019-03-04',                       //Date
     [   //Permissions needed - not yet implemented
         'objectslend_preferences'       => 'admin',
         'store_objectlend_preferences'  => 'admin',
