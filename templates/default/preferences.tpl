@@ -1,5 +1,6 @@
 {extends file="page.tpl"}
 {block name="content"}
+{*debug*}
 <form action="{path_for name="store_objectlend_preferences"}" method="post">
     <div id="prefs_tabs">
         <fieldset class="cssform" id="objectslend">
@@ -84,6 +85,11 @@
                 <span class="bline">{_T string="View borrow price:" domain="objectslend"}</span>
                 <input type="radio" name="VIEW_LEND_PRICE" id="yes_view_lendprice" value="1" {if $lendsprefs.VIEW_LEND_PRICE eq '1'}checked="checked"{/if}/><label for="yes_view_lendprice">{_T string="Yes"}</label>
                 <input type="radio" name="VIEW_LEND_PRICE" id="no_view_lendprice" value="0" {if $lendsprefs.VIEW_LEND_PRICE eq '0'}checked="checked"{/if}/><label for="no_view_lendprice">{_T string="No"}</label>
+            </p>
+            <p>
+                <span class="bline">{_T string="Give borrow price:" domain="objectslend"}</span>
+                <input type="radio" name="GIVE_PRICE" id="yes_give_price" value="1" {if $lendsprefs.GIVE_PRICE eq '1'}checked="checked"{/if}/><label for="yes_give_price">{_T string="Yes"}</label>
+                <input type="radio" name="GIVE_PRICE" id="no_give_price" value="0" {if $lendsprefs.GIVE_PRICE eq '0'}checked="checked"{/if}/><label for="no_give_price">{_T string="No"}</label>
             </p>
             <p>
                 <span class="bline tooltip" title="{_T string="View the objects buy price sum on the list under the category" domain="objectslend"}">{_T string="View price sum:" domain="objectslend"}</span>
