@@ -1,5 +1,6 @@
 {extends file="page.tpl"}
 {block name="content"}
+{*debug*}
 <form action="{path_for name="objectslend_status_action" data=["action" => $action, "id" => $status->status_id]}" method="post">
     <input type="hidden" name="status_id" value="{$status->status_id}">
     <div class="bigtable">
@@ -40,7 +41,7 @@
     <div class="button-container">
         <button type="submit" name="save" class="action">
             <i class="fas fa-save"></i>
-            {_T string="Save"}
+            {_T string="Save" domain="objectslend"}
         </button>
         <a href="status_list.php?msg=canceled" class="button">
             <i class="fas fa-th-list"></i>
