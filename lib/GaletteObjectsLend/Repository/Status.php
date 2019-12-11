@@ -43,11 +43,11 @@ use Galette\Core\Db;
 use Zend\Db\Sql\Expression;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\StatusList;
-use GaletteObjectsLend\Preferences;
-use GaletteObjectsLend\LendObject;
-use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendRent;
-use GaletteObjectsLend\LendStatus;
+use GaletteObjectsLend\Repository\Preferences;
+use GaletteObjectsLend\Repository\LendObject;
+use GaletteObjectsLend\Repository\LendCategory;
+use GaletteObjectsLend\Repository\LendRent;
+use GaletteObjectsLend\Repository\LendStatus;
 use Galette\Core\Login;
 
 /**
@@ -167,7 +167,7 @@ class Status
      */
     public function getList($as_stt = false, $fields = null)
     {
-        return $this->getStatusListList(
+        return $this->getStatusList(
             $as_stt,
             $fields,
             false,

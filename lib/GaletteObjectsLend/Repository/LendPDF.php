@@ -39,7 +39,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend;
+namespace GaletteObjectsLend\Repository;
 
 use Galette\Core\Preferences as CorePreferences;
 

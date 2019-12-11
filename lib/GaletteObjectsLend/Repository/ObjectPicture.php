@@ -38,7 +38,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend;
+namespace GaletteObjectsLend\Repository;
 
 use Analog\Analog;
 use Galette\Core\Plugins;

@@ -44,11 +44,11 @@ use Zend\Db\Sql\Expression;
 use Galette\Entity\Adherent;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\ObjectsList;
-use GaletteObjectsLend\Preferences;
-use GaletteObjectsLend\LendObject;
-use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendRent;
-use GaletteObjectsLend\LendStatus;
+use GaletteObjectsLend\RepositoryPreferences;
+use GaletteObjectsLend\Repository\LendObject;
+use GaletteObjectsLend\Repository\LendCategory;
+use GaletteObjectsLend\Repository\LendRent;
+use GaletteObjectsLend\Repository\LendStatus;
 use Galette\Core\Plugins;
 
 /**
@@ -137,12 +137,10 @@ class Objects
     ) {
         try {
             $select = $this->buildSelect($fields, $count);
-
             //add limits to retrieve only relevant rows
             if ($limit === true) {
                 $this->filters->setLimit($select);
             }
-
             $rows = $this->zdb->execute($select);
             $this->filters->query = $this->zdb->query_string;
 
@@ -153,7 +151,7 @@ class Objects
                     if ($all_rents === true) {
                         $deps['rents'] = true;
                     }
-                    $objects[] = new LendObject($this->zdb, $this->plugins, $row, false, $deps);
+                    $objects[] = new LendObject($this->zdb, $this->plugins, $row, $deps);
                 }
             } else {
                 $objects = $rows;
@@ -168,54 +166,7 @@ class Objects
         }
     }
 
-    /**
-     * Remove specified objects, and their full history
-     *
-     * @param array $ids Objects identifiers to delete
-     *
-     * @return boolean
-     */
-    public function removeObjects(array $ids)
-    {
-        try {
-            $this->zdb->connection->beginTransaction();
 
-            $delete = $this->zdb->delete(LEND_PREFIX . LendRent::TABLE);
-            $delete->where->in(
-                self::PK,
-                $ids
-            );
-            $result = $this->zdb->execute($delete);
-
-            $delete = $this->zdb->delete(LEND_PREFIX . self::TABLE);
-            $delete->where->in(
-                self::PK,
-                $ids
-            );
-            $result = $this->zdb->execute($delete);
-            $this->zdb->connection->commit();
-        } catch (\Exception $e) {
-            $this->zdb->connection->rollBack();
-
-            if ($e instanceof \Zend_Db_Statement_Exception
-                && $e->getCode() == 23000
-            ) {
-                Analog::log(
-                    'Object mays still have existing dependencies in the ' .
-                    'database.' .
-                    'Please remove dependencies before trying ' .
-                    'to remove it.',
-                    Analog::ERROR
-                );
-            } else {
-                Analog::log(
-                    'Unable to delete selected object(s) |' .
-                    $e->getMessage(),
-                    Analog::ERROR
-                );
-            }
-        }
-    }
 
     /**
      * Disable selected objects
@@ -227,13 +178,31 @@ class Objects
     public function disableObjects(array $ids)
     {
         $update = $this->zdb->update(LEND_PREFIX . self::TABLE);
-        $update->set(['is_active' => false]);
+        $update->set(['is_active' => '0']);
         $update->where->in(
             self::PK,
             $ids
         );
         $result = $this->zdb->execute($update);
-        return $results;
+        return $result;
+    }
+    /**
+     * Enable selected objects
+     *
+     * @param array $ids List of objects id to enable
+     *
+     * @return boolean
+     */
+    public function enableObjects(array $ids)
+    {
+        $update = $this->zdb->update(LEND_PREFIX . self::TABLE);
+        $update->set(['is_active' => '1']);
+        $update->where->in(
+            self::PK,
+            $ids
+        );
+        $result = $this->zdb->execute($update);
+        return $result;
     }
 
     /**
@@ -254,7 +223,6 @@ class Objects
             $fields,
             false,
             false,
-            false,
             false
         );
     }
@@ -270,27 +238,32 @@ class Objects
     private function buildSelect($fields, $count = false)
     {
         global $zdb, $login;
-
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE, 'o');
 
             $fieldsList = ( $fields != null )
                             ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
                             : $fields) : (array)'*';
-
             $select->columns($fieldsList);
 
             $select->join(
                 ['r' => PREFIX_DB . LEND_PREFIX . LendRent::TABLE],
                 'o.' . LendRent::PK . '=r.' . LendRent::PK,
-                ['date_begin', 'date_forecast'],
+                ['date_begin', 'date_forecast', 'date_end','comments'],
                 $select::JOIN_LEFT
             );
 
             $select->join(
                 ['s' => PREFIX_DB . LEND_PREFIX . LendStatus::TABLE],
                 'r.' . LendStatus::PK . '=s.' . LendStatus::PK,
-                ['status_text', 'is_home_location'],
+                ['status_id', 'status_text', 'is_home_location'],
+                $select::JOIN_LEFT
+            );
+
+            $select->join(
+                ['c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE],
+                'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
+                [],
                 $select::JOIN_LEFT
             );
 
@@ -301,17 +274,9 @@ class Objects
                 $select::JOIN_LEFT
             );
 
-            $select->join(
-                array('c' => PREFIX_DB . LEND_PREFIX . LendCategory::TABLE),
-                'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
-                [],
-                $select::JOIN_LEFT
-            );
-
             if ($this->filters !== false) {
                 $this->buildWhereClause($select);
             }
-
             $select->order($this->buildOrderClause($fields));
 
             if ($count) {

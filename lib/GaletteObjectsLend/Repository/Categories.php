@@ -43,11 +43,11 @@ use Galette\Core\Db;
 use Zend\Db\Sql\Expression;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\CategoriesList;
-use GaletteObjectsLend\Preferences;
-use GaletteObjectsLend\LendObject;
-use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\LendRent;
-use GaletteObjectsLend\LendStatus;
+use GaletteObjectsLend\Repository\Preferences;
+//use GaletteObjectsLend\Repository\LendObject;
+use GaletteObjectsLend\Repository\LendCategory;
+//use GaletteObjectsLend\Repository\LendRent;
+//use GaletteObjectsLend\Repository\LendStatus;
 use Galette\Core\Login;
 use Galette\Core\Plugins;
 
@@ -124,7 +124,6 @@ class Categories
     ) {
         try {
             $select = $this->buildSelect($fields, $count);
-
             //add limits to retrieve only relevant rows
             if ($limit === true) {
                 $this->filters->setLimit($select);
@@ -132,7 +131,6 @@ class Categories
 
             $rows = $this->zdb->execute($select);
             $this->filters->query = $this->zdb->query_string;
-
             $categories = array();
             if ($as_cat) {
                 foreach ($rows as $row) {
@@ -182,26 +180,12 @@ class Categories
     private function buildSelect($fields, $count = false)
     {
         try {
-            $fieldsList = [
-                '*',
-                'objects_count'     => new Expression('COUNT(o.' . self::PK . ')'),
-                'objects_price_sum' => new Expression('SUM(o.price)')
-            ];
-
-            if ($fields !== null && is_array($fields)) {
-                array_merge($fieldsList, $fields);
-            }
+			$fieldsList = ( $fields != null )
+                            ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
+                            : $fields) : (array)'*';
 
             $select = $this->zdb->select(LEND_PREFIX . self::TABLE, 'c');
             $select->columns($fieldsList);
-
-            $select->join(
-                array('o' => PREFIX_DB . LEND_PREFIX . LendObject::TABLE),
-                'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
-                [],
-                $select::JOIN_LEFT
-            );
-
 
             if ($this->filters !== false) {
                 $this->buildWhereClause($select);
@@ -211,10 +195,6 @@ class Categories
             if ($count) {
                 $this->proceedCount($select);
             }
-
-            $select->group(
-                'c.category_id'
-            );
 
             return $select;
         } catch (\Exception $e) {
@@ -289,6 +269,8 @@ class Categories
      */
     private function buildOrderClause($fields = null)
     {
+
+
         $order = array();
         switch ($this->filters->orderby) {
             case self::ORDERBY_NAME:
@@ -324,7 +306,7 @@ class Categories
                 );
 
                 $select->where(
-                    'c.name LIKE ' . $token
+                    'c.status_text LIKE ' . $token
                 );
             }
         } catch (\Exception $e) {

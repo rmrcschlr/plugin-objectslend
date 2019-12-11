@@ -38,7 +38,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend;
+namespace GaletteObjectsLend\Repository;
 
 use Analog\Analog;
 use Galette\Core\Plugins;
@@ -57,6 +57,7 @@ class CategoryPicture extends Picture
     public function __construct(Plugins $plugins, $objectid = '')
     {
         $this->store_path = GALETTE_PHOTOS_PATH . 'objectslend/categories/';
+
         parent::__construct($plugins, $objectid);
     }
 }

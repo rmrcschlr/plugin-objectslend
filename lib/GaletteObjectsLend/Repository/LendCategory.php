@@ -39,12 +39,13 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend;
+namespace GaletteObjectsLend\Repository;
 
 use Analog\Analog;
 use Galette\Core\Db;
 use Galette\Core\Plugins;
 use \Zend\Db\Sql\Predicate;
+use GaletteObjectsLend\Repository\CategoryPicture;
 
 class LendCategory
 {

@@ -37,7 +37,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend;
+namespace GaletteObjectsLend\Repository;
 
 use Analog\Analog;
 use Galette\Core\Plugins;
@@ -49,11 +49,11 @@ class Picture extends \Galette\Core\Picture
     protected $max_width = 800;
     protected $max_height = 800;
 
-    protected $thumb_max_width;
-    protected $thumb_max_height;
+    protected $thumb_max_width=256;
+    protected $thumb_max_height=256;
 
-    protected $thumb_optimal_height;
-    protected $thumb_optimal_width;
+    protected $thumb_optimal_height=64;
+    protected $thumb_optimal_width=64;
 
     protected $plugins;
 
@@ -66,6 +66,9 @@ class Picture extends \Galette\Core\Picture
     public function __construct(Plugins $plugins, $objectid = '')
     {
         $this->plugins = $plugins;
+        if (!isset($this->db_id)) {
+                $this->db_id = '2';
+            }
 
         if (!file_exists($this->store_path)) {
             if (!mkdir($this->store_path, 0755, true)) {
@@ -119,6 +122,7 @@ class Picture extends \Galette\Core\Picture
         $thumb = $this->getThumbPath();
         $this->thumb_max_width = $prefs->getThumbWidth();
         $this->thumb_max_height = $prefs->getThumbHeight();
+
 
         // Create if missing
         if (!is_file($thumb)) {
@@ -385,7 +389,6 @@ class Picture extends \Galette\Core\Picture
             $ext = pathinfo($this->file_path, PATHINFO_EXTENSION);
             $this->createThumb($this->file_path, $ext, $thumb);
         }
-
         list($width, $height) = getimagesize($this->getThumbPath());
         $this->thumb_optimal_height = $height;
         $this->thumb_optimal_width = $width;
@@ -398,6 +401,7 @@ class Picture extends \Galette\Core\Picture
      */
     public function getOptimalThumbHeight(Preferences $prefs)
     {
+
         if (!$this->thumb_optimal_height) {
             $this->setThumbSizes($prefs);
         }
