@@ -65,7 +65,7 @@ class CategoriesList extends Pagination
 
     protected $query;
 
-    protected $objectslist_fields = array(
+    protected $categorylist_fields = array(
         'filter_str',
         'active_filter',
         'query'
@@ -86,7 +86,7 @@ class CategoriesList extends Pagination
      */
     protected function getDefaultOrder()
     {
-        return 'name';
+        return 'name ';
     }
 
     /**
@@ -96,6 +96,7 @@ class CategoriesList extends Pagination
      */
     public function reinit()
     {
+
         parent::reinit();
         $this->filter_str = null;
         $this->active_filter = null;
@@ -119,7 +120,7 @@ class CategoriesList extends Pagination
         if (in_array($name, $this->pagination_fields)) {
             return parent::__get($name);
         } else {
-            if (in_array($name, $this->objectslist_fields)) {
+            if (in_array($name, $this->categorylist_fields)) {
                 return $this->$name;
             } else {
                 Analog::log(
@@ -192,6 +193,8 @@ class CategoriesList extends Pagination
      */
     public function setLimit($select)
     {
+
+
         return $this->setLimits($select);
     }
 
@@ -204,6 +207,7 @@ class CategoriesList extends Pagination
      */
     public function setCounter($c)
     {
+        $option = null;
         $this->counter = (int)$c;
         $this->countPages();
     }
