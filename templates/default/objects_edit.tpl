@@ -1,5 +1,6 @@
 {extends file="page.tpl"}
 {block name="content"}
+{*debug*}
 <form action="{path_for name="objectslend_object_action" data=["action" => $action, "id" => $object->object_id]}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="object_id" value="{$object->object_id}">
     <div class="bigtable">
@@ -21,7 +22,7 @@
                     {foreach from=$categories item=categ}
                         <option value="{$categ->category_id}"{if $object->category_id eq $categ->category_id} selected="selected"{/if}>
                             {$categ->name}
-                            ({$categ->objects_nb})
+
                         </option>
                     {/foreach}
                 </select>
@@ -72,8 +73,8 @@
         <fieldset>
             <legend class="ui-state-active ui-corner-top">{_T string="Object's photo" domain="objectslend"}</legend>
                 <p>
-                    <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"}</div>
-                    <img src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}]}{/if}?rand={$time}"
+                    <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"  domain="objectslend"}</div>
+                    <img src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}]}{/if}?rand={$time}"
                         class="picture"
                         width="{$object->picture->getOptimalThumbWidth($olendsprefs)}"
                         height="{$object->picture->getOptimalThumbHeight($olendsprefs)}"
@@ -85,95 +86,65 @@
     </div>
     <div class="button-container">
         <button type="submit" name="save" class="action">
-            <i class="fas fa-save fa-fw"></i> {_T string="Save"}
+            <i class="fas fa-save fa-fw"></i> {_T string="Save"  domain="objectslend"}
         </button>
         {if $object->object_id ne ''}
             <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}" class="button">
                 <i class="fas fa-clone"></i> {_T string="Duplicate" domain="objectslend"}
             </a>
-            <a href="objects_print.php?object_id={$object->object_id}" class="button">
+            <a href="{path_for name="objectslend_objects_print" data=["id" => $object->object_id]}" class="button">
                 <i class="fas fa-print"></i> {_T string="Print object" domain="objectslend"}
             </a>
         {/if}
         <p>
             <a href="{path_for name="objectslend_objects"}" class="button">
-                <i class="fas fa-th-list"></i> {_T string="Back to list"}
+                <i class="fas fa-th-list"></i> {_T string="Back to list" domain="objectslend"}
             </a>
         </p>
     </div>
 </form>
 {if $object->object_id}
-   <table class="listing">
-        <caption>{_T string="History of object loans" domain="objectslend"}</caption>
-        <thead>
-            <tr>
-                <th>{_T string="Begin date" domain="objectslend"}</th>
-                <th>{_T string="End date" domain="objectslend"}</th>
-                <th>{_T string="Status" domain="objectslend"}</th>
-                <th>{_T string="At home" domain="objectslend"}</th>
-                <th>{_T string="Member" domain="objectslend"}</th>
-                <th>{_T string="Comments" domain="objectslend"}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {foreach from=$rents item=rt name=rent}
-                <tr>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_begin}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_end}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->status_text}</td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if} center">
-                        {if $rt->is_home_location}
-                            <img src="{$template_subdir}images/icon-on.png" alt="{_T string="At home" domain="objectslend"}"/>
-                        {/if}
-                    </td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">
-                        {if $rt->nom_adh ne ''}
-                            {if $rt->email_adh ne ''}
-                                <a href="mailto:{$rt->email_adh}">{$rt->nom_adh} {$rt->prenom_adh}</a>
-                            {else}
-                                {$rt->nom_adh} {$rt->prenom_adh}
-                            {/if}
-                        {else}
-                            -
-                        {/if}
-                    </td>
-                    <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->comments}</td>
-                </tr>
-            {/foreach}
-        </tbody>
-    </table>
+	<fieldset>
+		<legend class="ui-state-active ui-corner-top">{_T string="History of object loans" domain="objectslend"}</legend>
+		<table class="listing">
 
-<form action="{path_for name="objectslend_object_action" data=["action" => $action, "id" => $object->object_id]}" method="post" class="cssform">
-    <fieldset class="cssform">
-        <legend class="ui-state-active ui-corner-top">{_T string="Change status" domain="objectslend"}</legend>
-        <p>
-            <label class="bline" for="new_status">{_T string="Status"}</label>
-            <input type="hidden" name="object_id" value="{$object->object_id}">
-            <select name="new_status">
-                {foreach from=$statuses item=sta}
-                    <option value="{$sta->status_id}"{if $sta->is_home_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_home_location} (@Galette){/if}</option>
-                {/foreach}
-            </select>
-        </p>
-        <p>
-            <label for="new_comment" class="bline">{_T string="Comments" domain="objectslend"}</label>
-            <input type="text" name="new_comment" maxlength="200" size="60"/>
-        </p>
-        <p>
-            <label class="bline" for="new_adh">{_T string="Member"}</label>
-            <select name="new_adh">
-                <option value="null">{_T string="No member" domain="objectslend"}</option>
-                {foreach from=$adherents item=adh}
-                    <option value="{$adh->id}">{$adh->name} {$adh->surname}</option>
-                {/foreach}
-            </select>
-        </p>
-    </fieldset>
-    <div class="button-container">
-        <button type="submit" name="status" class="action">
-            <i class="fas fa-save fa-fw"></i> {_T string="Change status" domain="objectslend"}
-        </button>
-    </div>
-</form>
+			<thead>
+				<tr>
+					<th>{_T string="Begin date" domain="objectslend"}</th>
+					<th>{_T string="End date" domain="objectslend"}</th>
+					<th>{_T string="Status" domain="objectslend"}</th>
+					<th>{_T string="At home" domain="objectslend"}</th>
+					<th>{_T string="Member" domain="objectslend"}</th>
+					<th>{_T string="Comments" domain="objectslend"}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$rents item=rt name=rent}
+					<tr>
+						<td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_begin}</td>
+						<td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->date_end}</td>
+						<td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->status_text}</td>
+						<td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if} center">
+							{if $rt->is_home_location}
+								<img src="{$template_subdir}images/icon-on.png" alt="{_T string="At home" domain="objectslend"}"/>
+							{/if}
+						</td>
+						<td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">
+							{if $rt->nom_adh ne ''}
+								{if $rt->email_adh ne ''}
+									<a href="mailto:{$rt->email_adh}">{$rt->nom_adh} {$rt->prenom_adh}</a>
+								{else}
+									{$rt->nom_adh} {$rt->prenom_adh}
+								{/if}
+							{else}
+								-
+							{/if}
+						</td>
+						<td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">{$rt->comments}</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</fieldset>
 {/if}
 {/block}
