@@ -41,8 +41,8 @@ use Galette\Core\Preferences;
 use Galette\Core\Login;
 use Analog\Analog;
 use GaletteObjectsLend\Filters\ObjectsList;
-use GaletteObjectsLend\LendCategory;
-use GaletteObjectsLend\Preferences as LendPreferences;
+use GaletteObjectsLend\Repository\LendCategory;
+use GaletteObjectsLend\Repository\Preferences as LendPreferences;
 
 /**
  * Object labels PDF
@@ -135,7 +135,6 @@ class PdfObjects extends Pdf
             'M'
         );
     }
-
     /**
      * Draw objects list
      *
@@ -189,9 +188,9 @@ class PdfObjects extends Pdf
         $row = 0;
 
         foreach ($objects as $object) {
-            if ($this->lendsprefs->{LendPreferences::PARAM_VIEW_CATEGORY}
-                && $current_category !== $object->category_id
-            ) {
+			$rents = $object->rents;
+
+            if ($this->lendsprefs->{LendPreferences::PARAM_VIEW_CATEGORY} && $current_category !== $object->category_id) {
                 $this->SetFont('', 'B');
 
                 if (($this->login->isAdmin() || $this->login->isStaff()) && $sum_price > 0) {
@@ -201,11 +200,11 @@ class PdfObjects extends Pdf
                     $this->Ln();
                 }
 
-                if (!empty($object->category_id)) {
-                    $category = new LendCategory($this->zdb, $this->plugins, (int)$object->category_id);
+                if ($object->category_name) {
+
                     $text = str_replace(
                         '%category',
-                        $category->name,
+                        $object->category_name,
                         _T("Category: %category", "objectslend")
                     );
                 } else {
@@ -222,7 +221,8 @@ class PdfObjects extends Pdf
                 $this->SetFillColor(255, 214, 135);
             }
 
-            $fill = !$object->is_home_location;
+			$fill=!$object->is_home_location;
+
             $this->Cell($w_checkbox, 0, '□', 'B', 0, 'L', $fill);
             $this->Cell($w_name, 0, $this->cut($object->name, $w_name), 'B', 0, 'L', $fill);
             $this->Cell($w_description, 0, $this->cut($object->description, $w_description), 'B', 0, 'L', $fill);
@@ -248,7 +248,7 @@ class PdfObjects extends Pdf
             $this->Ln();
             $this->Ln();
 
-            $this->Cell($width, 0, _T("Total:", "objectslend") . ' ' . number_format($grant_total, 2, ',', ''), '', 0, 'R');
+            $this->Cell($width, 0, _T("Sum:", "objectslend") . ' ' . number_format($grant_total, 2, ',', ''), '', 0, 'R');
             $this->Ln();
         }
 
@@ -260,6 +260,63 @@ class PdfObjects extends Pdf
         $this->Cell(0, 0, _T("Available", "objectslend"), 0, 1);
 
         $current_category = $object->category_id;
+    }
+
+    /**
+     * Draw objects Info
+     *
+     * @param LendObject[] $objects List of objects
+     *
+     * @return void
+     */
+    public function drawList1($objects)
+    {
+		$this->Open();
+        $this->AddPage();
+
+        $this->Ln(10); //for Header
+
+        if ($this->filters->category_filter > 0) {
+            $category = new LendCategory((int)$filters->category_filter);
+        }
+
+        // Header
+        $this->SetFillColor(255, 255, 255);
+
+
+
+		$col_begin = 33;
+		$col_end = 33;
+		$col_status = 30;
+		$col_home = 20;
+		$col_adh = 30;
+		$col_comments = 128;
+
+		$this->SetFont(Pdf::FONT, 'B', 10);
+		$this->Cell(0, 0, _T("History of objects loans", "objectslend"), 0, 1, 'C');
+		$this->Ln();
+		$this->Cell($col_begin, 0,$this->cut(_T("Begin", "objectslend"), $col_begin), 'B');
+		$this->Cell($col_end, 0,$this->cut(_T("End", "objectslend"), $col_end), 'B');
+		$this->Cell($col_status, 0,$this->cut(_T("Status", "objectslend"), $col_status), 'B');
+		$this->Cell($col_home, 0,$this->cut(_T("On site", "objectslend"), $col_home), 'B');
+		$this->Cell($col_adh, 0,$this->cut(_T("Member", "objectslend"), $col_adh), 'B');
+		$this->Cell($col_comments, 0,$this->cut(_T("Comments", "objectslend"), $col_comments), 'B');
+		$this->Ln();
+		$this->SetFont(Pdf::FONT, '', 9);
+
+		foreach ($objects as $object) {
+			 $rents = $object->rents;
+			foreach ($rents as $rt) {
+				$this->Cell($col_begin, 0,$this->cut($rt->date_begin, $col_begin), 'B');
+				$this->Cell($col_end, 0,$this->cut($rt->date_end, $col_end), 'B');
+				$this->Cell($col_status, 0,$this->cut($rt->status_text, $col_status), 'B');
+				$this->Cell($col_home, 0, $rt->is_home_location ? '    X' : '', 'B');
+				$this->Cell($col_adh, 0,$this->cut($rt->nom_adh . ' ' . $rt->prenom_adh, $col_adh), 'B');
+				$this->Cell($col_comments, 0,$this->cut($rt->comments, $col_comments), 'B');
+				$this->Ln();
+			}
+		}
+
     }
 
     /**
