@@ -12,653 +12,668 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.7\n"
 
-#: ../templates/default/preferences.tpl:89
+#: ../templates/default/preferences.tpl:95
 msgid "View price sum:"
 msgstr "View price sum:"
 
-#: ../_routes.php:365
+#: ../_routes.php:381
 msgid "Category has been saved"
 msgstr "Category has been saved"
 
-#: ../objects_print.php:120
-msgid "Object card"
-msgstr "Object card"
+#: ../_routes.php:1901
+msgid "List rents"
+msgstr ""
 
-#: ../_routes.php:937
+#: ../_routes.php:958
 msgid "New object"
 msgstr "New object"
 
-#: ../lib/GaletteObjectsLend/LendCategory.php:330
+#: ../templates/default/objects_list.tpl:23
+#: ../templates/default/categories_list.tpl:16
+#: ../templates/default/status_list.tpl:23
+msgid "Clear filter"
+msgstr "Clear filter"
+
+#: ../lib/GaletteObjectsLend/Repository/LendCategory.php:331
 msgid "No category"
 msgstr "No category"
 
-#: ../templates/default/status_list.tpl:147
-msgid "No status has been found"
-msgstr "No status has been found"
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:125
+msgid "Printed on %date"
+msgstr "Printed on %date"
 
 #: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:268
 msgid "Name/description"
 msgstr "Name/description"
 
-#: ../objects_print.php:211 ../_routes.php:830 ../objects_list_print.php:141
-#: ../templates/default/status_edit.tpl:7
-#: ../templates/default/objects_list.tpl:161
-#: ../templates/default/objects_edit.tpl:134
-#: ../templates/default/status_list.tpl:52
+#: ../_routes.php:848 ../lib/GaletteObjectsLend/IO/PdfObjects.php:178
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:300
+#: ../templates/default/objects_edit.tpl:115
+#: ../templates/default/list_lent_object.tpl:32
+#: ../templates/default/objects_list.tpl:166
+#: ../templates/default/status_list.tpl:53
+#: ../templates/default/status_edit.tpl:8
 msgid "Status"
 msgstr "Status"
 
-#: ../_routes.php:335 ../_routes.php:1035
+#: ../_routes.php:351 ../_routes.php:1103
 msgid "Delete failed"
 msgstr "Delete failed"
 
-#: ../templates/default/menu.tpl:19
-msgid "Add an object"
-msgstr "Add an object"
+#: ../templates/default/preferences.tpl:95
+#: ../templates/default/preferences.tpl:96
+msgid "View the objects buy price sum on the list under the category"
+msgstr "View the objects buy price sum on the list under the category"
 
-#: ../objects_print.php:157 ../objects_list_print.php:135
+#: ../_routes.php:990
+msgid "clone"
+msgstr ""
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:172
 msgid "Description"
 msgstr "Description"
 
-#: ../_routes.php:177
+#: ../_routes.php:191
 msgid "Read error."
 msgstr "Read error."
 
-#: ../templates/default/take_more_objects_away.tpl:119
-#: ../templates/default/take_object.tpl:110
-msgid "--- Select a payment type ---"
-msgstr "--- Select a payment type ---"
-
 #: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:270
+#: ../templates/default/list_lent_object.tpl:31
 msgid "Id"
 msgstr "Id"
 
-#: ../objects_list_print.php:106
-msgid "Selected category: %category"
-msgstr "Selected category: %category"
-
-#: ../templates/default/take_object.tpl:92
-#: ../templates/default/status_list.tpl:134
+#: ../templates/default/take_object.tpl:116
+#: ../templates/default/status_list.tpl:139
 msgid "%days days"
 msgstr "%days days"
 
-#: ../objects_print.php:182 ../objects_list_print.php:140
-#: ../templates/default/take_more_objects_away.tpl:38
-#: ../templates/default/objects_list.tpl:148
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:177
+#: ../templates/default/objects_list.tpl:153
 msgid "Weight"
 msgstr "Weight"
 
-#: ../templates/default/objects_edit.tpl:135
-#: ../templates/default/objects_edit.tpl:193
+#: ../templates/default/objects_list.tpl:377
+msgid "Print objects list"
+msgstr "Print objects list"
+
+#: ../templates/default/objects_edit.tpl:116
+#: ../templates/default/objects_edit.tpl:129
 msgid "At home"
 msgstr "At home"
 
-#: ../objects_edit.php:85
-msgid "Create an object"
-msgstr "Create an object"
-
-#: ../templates/default/take_object.tpl:136
-msgid "Time:"
-msgstr "Time:"
-
-#: ../templates/default/take_more_objects_away.tpl:155
-#: ../templates/default/objects_list.tpl:304
-#: ../templates/default/take_object.tpl:160
+#: ../templates/default/objects_list.tpl:324
+#: ../templates/default/objects_list.tpl:397
 msgid "Give back"
 msgstr "Give back"
 
-#: ../objects_list.php:157
-msgid "You can't return an object that you don't borrow!"
-msgstr "You can't return an object that you don't borrow!"
+#: ../templates/default/categories_list.tpl:85
+#, fuzzy
+msgid "Edit the Category"
+msgstr "Edit category"
 
-#: ../lib/GaletteObjectsLend/LendStatus.php:149
+#: ../lib/GaletteObjectsLend/Repository/LendStatus.php:149
 msgid "Status has not been added :("
 msgstr "Status has not been added :("
 
-#: ../templates/default/preferences.tpl:79
-msgid "View dimensions:"
-msgstr "View dimensions:"
-
-#: ../templates/default/preferences.tpl:105
-msgid "View weight"
-msgstr "View weight"
-
-#: ../templates/default/preferences.tpl:74
-msgid "View description"
-msgstr "View description"
-
-#: ../objects_edit.php:81 ../templates/default/objects_list.tpl:313
-msgid "Duplicate object"
-msgstr "Duplicate object"
-
-#: ../templates/default/preferences.tpl:15
-msgid "Generate contribution:"
-msgstr "Generate contribution:"
-
-#: ../templates/default/preferences.tpl:33
-msgid ""
-"Comment text to add on generated contribution. Automatically replaced values "
-"(put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: "
-"Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- "
-"RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"
-msgstr ""
-"Comment text to add on generated contribution. Automatically replaced values "
-"(put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: "
-"Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- "
-"RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"
-
-#: ../templates/default/status_edit.tpl:19
-msgid ""
-"Check if the object is available to be borrowed;<br/>uncheck if object is "
-"already borrowed and should be given back"
-msgstr ""
-"Check if the object is available to be borrowed;<br/>uncheck if object is "
-"already borrowed and should be given back"
-
-#: ../objects_print.php:187 ../objects_print.php:213
-#: ../objects_list_print.php:143 ../templates/default/objects_edit.tpl:136
-msgid "Member"
-msgstr "Member"
-
-#: ../lib/GaletteObjectsLend/LendRent.php:175
-msgid "Rent has not been added"
-msgstr "Rent has not been added"
-
-#: ../templates/default/preferences.tpl:50
-msgid "Display images in objects and categories lists"
-msgstr "Display images in objects and categories lists"
-
-#: ../templates/default/objects_list.tpl:299
+#: ../templates/default/objects_list.tpl:312
 msgid "Take object away"
 msgstr "Take object away"
 
-#: ../templates/default/objects_list.tpl:347
-msgid "Disable"
-msgstr "Disable"
+#: ../templates/default/preferences.tpl:111
+msgid "View weight"
+msgstr "View weight"
 
-#: ../objects_print.php:155 ../objects_list_print.php:134
+#: ../templates/default/preferences.tpl:75
+msgid "View description"
+msgstr "View description"
+
+#: ../templates/default/objects_list.tpl:337
+#: ../templates/default/objects_list.tpl:339
+msgid "Duplicate object"
+msgstr "Duplicate object"
+
+#: ../templates/default/preferences.tpl:34
+msgid ""
+"Comment text to add on generated contribution. Automatically replaced values "
+"(put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: "
+"Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- "
+"RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"
+msgstr ""
+"Comment text to add on generated contribution. Automatically replaced values "
+"(put into curly brackets): <br/>- NAME: Name<br/>- DESCRIPTION: "
+"Description<br/>- SERIAL_NUMBER: Serial number<br/>- PRICE: Price<br/>- "
+"RENT_PRICE: Borrow price<br/>- WEIGHT: Weight<br/>- DIMENSION: Dimensions"
+
 #: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:268
-#: ../templates/default/take_more_objects_away.tpl:14
-#: ../templates/default/objects_list.tpl:88
-#: ../templates/default/categories_list.tpl:34
-#: ../templates/default/category_edit.tpl:10
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:171
+#: ../templates/default/objects_list.tpl:93
+#: ../templates/default/categories_list.tpl:35
+#: ../templates/default/category_edit.tpl:11
 msgid "Name"
 msgstr "Name"
 
-#: ../objects_list_print.php:215
+#: ../templates/default/objects_list.tpl:355
+#: ../templates/default/objects_list.tpl:357
+msgid "Remove %object from database"
+msgstr "Remove %object from database"
+
+#: ../templates/default/categories_list.tpl:93
+#: ../templates/default/categories_list.tpl:95
+#, fuzzy
+msgid "Remove the Category"
+msgstr "Remove category %1$s"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:180
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:302
+#: ../templates/default/objects_edit.tpl:117
+msgid "Member"
+msgstr "Member"
+
+#: ../lib/GaletteObjectsLend/Repository/LendRent.php:174
+msgid "Rent has not been added"
+msgstr "Rent has not been added"
+
+#: ../templates/default/objects_list.tpl:221
+#: ../templates/default/categories_list.tpl:49
+#: ../templates/default/status_list.tpl:99
+msgid "Actions"
+msgstr "Actions"
+
+#: ../templates/default/preferences.tpl:80
+msgid "View dimensions:"
+msgstr "View dimensions:"
+
+#: ../templates/default/objects_list.tpl:403
+msgid "Disable"
+msgstr "Disable"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:208
+#, fuzzy
+msgid "Category: %category"
+msgstr "Selected category: %category"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:260
 msgid "Available"
 msgstr "Available"
 
-#: ../give_object_back.php:55
+#: ../_routes.php:1533
 msgid "Give back object"
 msgstr "Give back object"
 
-#: ../objects_list_print.php:102
-msgid "Printed on %date"
-msgstr "Printed on %date"
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:258
+msgid "Borrowed"
+msgstr "Borrowed"
 
-#: ../objects_list.php:142
-msgid "The object is not available!"
-msgstr "The object is not available!"
-
-#: ../_routes.php:274
+#: ../_routes.php:288
 msgid "Edit category"
 msgstr "Edit category"
 
-#: ../_routes.php:935
+#: ../_routes.php:956
 msgid "Edit object"
 msgstr "Edit object"
 
-#: ../templates/default/category_edit.tpl:31
+#: ../templates/default/category_edit.tpl:32
 msgid "Category photo"
 msgstr "Category photo"
 
-#: ../templates/default/preferences.tpl:84
+#: ../templates/default/preferences.tpl:85
 msgid "View borrow price:"
 msgstr "View borrow price:"
 
-#: ../objects_print.php:164
+#: ../templates/default/objects_list.tpl:9
+msgid "in:"
+msgstr "in:"
+
 #: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:269
 msgid "Serial number"
 msgstr "Serial number"
 
-#: ../templates/default/objects_list.tpl:546
-msgid "Take objects"
-msgstr "Take objects"
-
-#: ../templates/default/preferences.tpl:41
+#: ../templates/default/preferences.tpl:42
 msgid "Max thumb height (in px)"
 msgstr "Max thumb height (in px)"
 
-#: ../status_edit.php:67 ../_routes.php:628
+#: ../_routes.php:646
 msgid "New status"
 msgstr "New status"
 
-#: ../templates/default/objects_edit.tpl:143
-#: ../templates/default/objects_edit.tpl:180
-msgid "Change status"
-msgstr "Change status"
-
-#: ../templates/default/preferences.tpl:22
-msgid "Contribution type:"
-msgstr "Contribution type:"
-
-#: ../templates/default/preferences.tpl:95
-msgid "View buy price:"
-msgstr "View buy price:"
-
-#: ../templates/default/objects_edit.tpl:25
-msgid "--- Select a category ---"
-msgstr "--- Select a category ---"
-
-#: ../templates/default/take_more_objects_away.tpl:107
-#: ../templates/default/take_more_objects_away.tpl:136
-#: ../templates/default/take_object.tpl:87
-#: ../templates/default/take_object.tpl:127
-msgid "--- Select a status ---"
-msgstr "--- Select a status ---"
-
-#: ../templates/default/preferences.tpl:39
-msgid "Images related"
-msgstr "Images related"
-
-#: ../templates/default/menu.tpl:34
-msgid "Preferences"
-msgstr "Preferences"
-
-#: ../templates/default/objects_edit.tpl:171
-msgid "No member"
-msgstr "No member"
-
-#: ../templates/default/preferences.tpl:69
-msgid "View forecast return date:"
-msgstr "View forecast return date:"
-
-#: ../templates/default/objects_edit.tpl:71
-#: ../templates/default/take_object.tpl:64
-msgid "Weight (kg):"
-msgstr "Weight (kg):"
-
-#: ../_routes.php:520
-msgid "Remove category %1$s"
-msgstr "Remove category %1$s"
-
-#: ../templates/default/preferences.tpl:8
-msgid "Members can borrow:"
-msgstr "Members can borrow:"
-
-#: ../templates/default/preferences.tpl:8
-#: ../templates/default/preferences.tpl:9
-msgid ""
-"Allow a member (not staff neither admin) to borrow an object. If set to "
-"'No', only admin and staff members can access the 'Take object' page"
-msgstr ""
-"Allow a member (not staff neither admin) to borrow an object. If set to "
-"'No', only admin and staff members can access the 'Take object' page"
-
-#: ../templates/default/preferences.tpl:15
-#: ../templates/default/preferences.tpl:16
-msgid ""
-"Automatically generate a contribution for the member of the amount of the "
-"rental price of the object"
-msgstr ""
-"Automatically generate a contribution for the member of the amount of the "
-"rental price of the object"
-
-#: ../templates/default/menu.tpl:31
-msgid "Add a category"
-msgstr "Add a category"
-
-#: ../_routes.php:833
-msgid "Remove status %1$s"
-msgstr "Remove status %1$s"
-
-#: ../_routes.php:69
-msgid "ObjectsLend preferences"
-msgstr "ObjectsLend preferences"
-
-#: ../templates/default/objects_list.tpl:62
-msgid "Category is active"
-msgstr "Category is active"
-
-#: ../_routes.php:684 ../status_list.php:68
-msgid "Status has been saved"
-msgstr "Status has been saved"
-
-#: ../templates/default/take_more_objects_away.tpl:105
-#: ../templates/default/take_more_objects_away.tpl:134
-#: ../templates/default/status_edit.tpl:10
-#: ../templates/default/objects_edit.tpl:147
-#: ../templates/default/take_object.tpl:85
-#: ../templates/default/take_object.tpl:125
-msgid "Status:"
-msgstr "Status:"
-
-#: ../objects_print.php:210
-msgid "End"
-msgstr "End"
-
-#: ../objects_print.php:186 ../objects_list_print.php:142
-#: ../templates/default/objects_list.tpl:173
-msgid "Since"
-msgstr "Since"
-
-#: ../objects_list.php:151
-msgid "Object has not been returned! Don't forget it!"
-msgstr "Object has not been returned! Don't forget it!"
-
-#: ../objects_edit.php:77
-msgid "Edit an object"
-msgstr "Edit an object"
-
-#: ../objects_print.php:212
-msgid "On site"
-msgstr "On site"
-
-#: ../templates/default/objects_edit.tpl:112
-msgid "Duplicate"
-msgstr "Duplicate"
-
-#: ../templates/default/objects_list.tpl:316
-msgid "Object card in PDF"
-msgstr "Object card in PDF"
-
-#: ../templates/default/objects_list.tpl:459
-#: ../templates/default/objects_list.tpl:574
-msgid "An error occured loading 'Take away' display :("
-msgstr "An error occured loading 'Take away' display :("
-
-#: ../templates/default/admin_picture.tpl:7
-msgid "Restore objects pictures from database"
-msgstr "Restore objects pictures from database"
-
-#: ../objects_edit.php:82
-msgid "You are cloning this object, not editing it!"
-msgstr "You are cloning this object, not editing it!"
-
-#: ../templates/default/status_edit.tpl:17
-msgid "At home:"
-msgstr "At home:"
-
-#: ../_routes.php:178
-msgid "Seek error."
-msgstr "Seek error."
-
-#: ../templates/default/objects_list.tpl:516
-msgid "No object selected"
-msgstr "No object selected"
-
-#: ../templates/default/status_list.tpl:122
-msgid "Inactive"
-msgstr "Inactive"
-
-#: ../templates/default/objects_list.tpl:310
-msgid "Edit the object"
-msgstr "Edit the object"
-
-#: ../templates/default/categories_list.tpl:18
-msgid "category"
-msgstr "category"
-
-#: ../templates/default/categories_list.tpl:18
-msgid "categories"
-msgstr "categories"
-
-#: ../objects_list_print.php:111 ../templates/default/objects_list.tpl:25
-msgid "objects"
-msgstr "objects"
-
-#: ../templates/default/menu.tpl:25
-msgid "Add a status"
-msgstr "Add a status"
-
-#: ../lib/GaletteObjectsLend/LendObject.php:275
-msgid "Object has not been added :("
-msgstr "Object has not been added :("
-
-#: ../_routes.php:208
-msgid "File %filename does not exists"
-msgstr "File %filename does not exists"
-
-#: ../templates/default/admin_picture.tpl:6
-msgid "Backup objects pictures"
-msgstr "Backup objects pictures"
-
-#: ../_routes.php:173
-msgid "Memory allocation failure."
-msgstr "Memory allocation failure."
-
-#: ../templates/default/category_edit.tpl:16
-msgid "Is active"
-msgstr "Is active"
-
-#: ../templates/default/preferences.tpl:45
-msgid "Max thumb width (in px)"
-msgstr "Max thumb width (in px)"
-
-#: ../objects_list_print.php:212
-msgid "Borrowed"
-msgstr "Borrowed"
-
-#: ../objects_list.php:148
-msgid "Object has been returned!"
-msgstr "Object has been returned!"
-
-#: ../templates/default/take_object.tpl:154
-msgid "I have read and I agree with terms and conditions"
-msgstr "I have read and I agree with terms and conditions"
-
-#: ../objects_list.php:175
-msgid "Objects managment"
-msgstr "Objects managment"
-
-#: ../objects_print.php:161 ../_routes.php:517
-#: ../templates/default/category_edit.tpl:7
-msgid "Category"
-msgstr "Category"
-
-#: ../_routes.php:733 ../status_list.php:78
-msgid ""
-"You should add at last 1 status 'on site' to ensure the plugin works well!"
-msgstr ""
-"You should add at last 1 status 'on site' to ensure the plugin works well!"
-
-#: ../templates/default/objects_list.tpl:39
-msgid "Categories"
-msgstr "Categories"
-
-#: ../templates/default/take_object.tpl:191
-msgid "You must agree with terms and conditions in order to take."
-msgstr "You must agree with terms and conditions in order to take."
-
-#: ../_routes.php:171
-msgid "Zip archive inconsistent."
-msgstr "Zip archive inconsistent."
-
-#: ../templates/default/objects_edit.tpl:57
-msgid "Price per rental day:"
-msgstr "Price per rental day:"
-
-#: ../templates/default/status_list.tpl:141
-msgid "Edit %status"
-msgstr "Edit %status"
-
-#: ../templates/default/preferences.tpl:6
-msgid "Plugin preferences"
-msgstr "Plugin preferences"
-
-#: ../objects_print.php:184 ../templates/default/objects_list.tpl:62
-#: ../templates/default/objects_list.tpl:212
-#: ../templates/default/objects_list.tpl:292
-#: ../templates/default/categories_list.tpl:45
-#: ../templates/default/status_list.tpl:64
-#: ../templates/default/status_list.tpl:120
-msgid "Active"
-msgstr "Active"
-
-#: ../templates/default/objects_edit.tpl:159
-msgid "Comment:"
-msgstr "Comment:"
-
-#: ../templates/default/objects_edit.tpl:50
-#: ../templates/default/take_object.tpl:44
-msgid "Borrow price (%currency):"
-msgstr "Borrow price (%currency):"
-
-#: ../_routes.php:343
-msgid "An error occured while storing the category."
-msgstr "An error occured while storing the category."
-
-#: ../templates/default/status_edit.tpl:32
-#: ../templates/default/status_list.tpl:88
-msgid "Days for rent"
-msgstr "Days for rent"
-
-#: ../templates/default/objects_edit.tpl:102
-msgid "Object photo"
-msgstr "Object photo"
-
-#: ../templates/default/objects_edit.tpl:10
-#: ../templates/default/take_object.tpl:14
-msgid "Name:"
-msgstr "Name:"
-
-#: ../templates/default/objects_list.tpl:324
-msgid "No object has been found"
-msgstr "No object has been found"
-
-#: ../templates/default/objects_list.tpl:292
-msgid "Object is active"
-msgstr "Object is active"
-
-#: ../templates/default/status_list.tpl:14
-msgid "In stock:"
-msgstr "In stock:"
-
-#: ../_routes.php:1193 ../templates/default/objects_edit.tpl:7
-#: ../templates/default/take_object.tpl:5
-msgid "Object"
-msgstr "Object"
-
-#: ../status_list.php:65
-msgid "Status has not been deleted. Maybe it is still in use?"
-msgstr "Status has not been deleted. Maybe it is still in use?"
-
-#: ../templates/default/admin_picture.tpl:5
-msgid "Backup categories pictures"
-msgstr "Backup categories pictures"
-
-#: ../templates/default/status_list.tpl:129
-msgid "Not in stock"
-msgstr "Not in stock"
-
-#: ../templates/default/objects_list.tpl:474
-msgid "Give object"
-msgstr "Give object"
-
-#: ../_routes.php:172
-msgid "Invalid argument."
-msgstr "Invalid argument."
-
-#: ../templates/default/preferences.tpl:55
-msgid "Show fullsize image or just thumbs"
-msgstr "Show fullsize image or just thumbs"
-
-#: ../templates/default/preferences.tpl:24
-msgid "Choose a contribution type"
-msgstr "Choose a contribution type"
-
-#: ../templates/default/preferences.tpl:55
-msgid "Enable fullsize:"
-msgstr "Enable fullsize:"
-
-#: ../templates/default/status_list.tpl:76
+#: ../templates/default/status_list.tpl:77
 msgid "Stock"
 msgstr "Stock"
 
-#: ../templates/default/objects_edit.tpl:44
+#: ../templates/default/preferences.tpl:23
+msgid "Contribution type:"
+msgstr "Contribution type:"
+
+#: ../_routes.php:1000
+msgid "Successfully cloned from #%id.<br/>You can now edit it."
+msgstr ""
+
+#: ../templates/default/preferences.tpl:101
+msgid "View buy price:"
+msgstr "View buy price:"
+
+#: ../templates/default/take_object.tpl:111
+msgid "--- Select a status ---"
+msgstr "--- Select a status ---"
+
+#: ../templates/default/preferences.tpl:40
+msgid "Images related"
+msgstr "Images related"
+
+#: ../templates/default/menu.tpl:28
+msgid "Preferences"
+msgstr "Preferences"
+
+#: ../templates/default/objects_edit.tpl:96
+#, fuzzy
+msgid "Print object"
+msgstr "Print objects list"
+
+#: ../templates/default/objects_edit.tpl:55
+#: ../templates/default/take_object.tpl:88
+msgid "Weight (kg):"
+msgstr "Weight (kg):"
+
+#: ../_routes.php:538
+msgid "Remove category %1$s"
+msgstr "Remove category %1$s"
+
+#: ../templates/default/preferences.tpl:9
+msgid "Members can borrow:"
+msgstr "Members can borrow:"
+
+#: ../templates/default/objects_list.tpl:301
+msgid "Object is active"
+msgstr "Object is active"
+
+#: ../templates/default/menu.tpl:25
+msgid "Add a category"
+msgstr "Add a category"
+
+#: ../_routes.php:851
+msgid "Remove status %1$s"
+msgstr "Remove status %1$s"
+
+#: ../_routes.php:83
+msgid "ObjectsLend preferences"
+msgstr "ObjectsLend preferences"
+
+#: ../templates/default/objects_edit.tpl:14
+#: ../templates/default/list_lent_object.tpl:22
 #: ../templates/default/take_object.tpl:37
+msgid "Description:"
+msgstr "Description:"
+
+#: ../_routes.php:702
+msgid "Status has been saved"
+msgstr "Status has been saved"
+
+#: ../templates/default/take_object.tpl:109
+#: ../templates/default/status_edit.tpl:11
+msgid "Status:"
+msgstr "Status:"
+
+#: ../templates/default/status_edit.tpl:18
+msgid "At home:"
+msgstr "At home:"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:299
+msgid "End"
+msgstr "End"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:179
+#: ../templates/default/objects_list.tpl:178
+msgid "Since"
+msgstr "Since"
+
+#: ../templates/default/objects_list.tpl:22
+#: ../templates/default/status_list.tpl:22
+msgid "Filter"
+msgstr "Filter"
+
+#: ../templates/default/status_list.tpl:148
+#: ../templates/default/status_list.tpl:151
+msgid "Edit %status"
+msgstr "Edit %status"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:301
+msgid "On site"
+msgstr "On site"
+
+#: ../templates/default/objects_edit.tpl:93
+msgid "Duplicate"
+msgstr "Duplicate"
+
+#: ../templates/default/objects_list.tpl:349
+#: ../templates/default/objects_list.tpl:351
+msgid "Object card in PDF"
+msgstr "Object card in PDF"
+
+#: ../templates/default/objects_edit.tpl:21
+msgid "--- Select a category ---"
+msgstr "--- Select a category ---"
+
+#: ../templates/default/admin_picture.tpl:15
+msgid "Restore objects pictures from database"
+msgstr "Restore objects pictures from database"
+
+#: ../templates/default/objects_list.tpl:32
+#: ../templates/default/categories_list.tpl:25
+#: ../templates/default/status_list.tpl:32
+msgid "Change"
+msgstr "Change"
+
+#: ../_routes.php:192
+msgid "Seek error."
+msgstr "Seek error."
+
+#: ../templates/default/objects_list.tpl:494
+msgid "No object selected"
+msgstr "No object selected"
+
+#: ../templates/default/status_list.tpl:125
+msgid "Inactive"
+msgstr "Inactive"
+
+#: ../templates/default/objects_list.tpl:331
+#: ../templates/default/objects_list.tpl:333
+#: ../templates/default/categories_list.tpl:87
+msgid "Edit the object"
+msgstr "Edit the object"
+
+#: ../templates/default/objects_list.tpl:28
+msgid "Records per page:"
+msgstr "Records per page:"
+
+#: ../templates/default/objects_list.tpl:44
+#: ../templates/default/objects_list.tpl:53
+#: ../templates/default/categories_list.tpl:19
+#: ../templates/default/categories_list.tpl:69
+#: ../templates/default/category_edit.tpl:28
+msgid "category"
+msgstr "category"
+
+#: ../templates/default/categories_list.tpl:19
+msgid "categories"
+msgstr "categories"
+
+#: ../templates/default/objects_edit.tpl:40
+#: ../templates/default/take_object.tpl:62
+#: ../templates/default/take_object.tpl:70
+msgid "Borrow price (%currency):"
+msgstr "Borrow price (%currency):"
+
+#: ../templates/default/objects_list.tpl:467
+msgid "Show legend"
+msgstr "Show legend"
+
+#: ../templates/default/preferences.tpl:25
+msgid "Choose a contribution type"
+msgstr "Choose a contribution type"
+
+#: ../lib/GaletteObjectsLend/Repository/LendObject.php:275
+msgid "Object has not been added :("
+msgstr "Object has not been added :("
+
+#: ../_routes.php:222
+msgid "File %filename does not exists"
+msgstr "File %filename does not exists"
+
+#: ../templates/default/status_edit.tpl:20
+msgid ""
+"Check if the object is available to be borrowed;<br/>uncheck if object is "
+"already borrowed and should be given back"
+msgstr ""
+"Check if the object is available to be borrowed;<br/>uncheck if object is "
+"already borrowed and should be given back"
+
+#: ../templates/default/admin_picture.tpl:11
+msgid "Backup objects pictures"
+msgstr "Backup objects pictures"
+
+#: ../_routes.php:187
+msgid "Memory allocation failure."
+msgstr "Memory allocation failure."
+
+#: ../templates/default/status_edit.tpl:44
+msgid "Save"
+msgstr "Save"
+
+#: ../templates/default/category_edit.tpl:17
+msgid "Is active"
+msgstr "Is active"
+
+#: ../templates/default/preferences.tpl:46
+msgid "Max thumb width (in px)"
+msgstr "Max thumb width (in px)"
+
+#: ../templates/default/take_object.tpl:159
+msgid "I have read and I agree with terms and conditions"
+msgstr "I have read and I agree with terms and conditions"
+
+#: ../templates/default/preferences.tpl:16
+msgid "Generate contribution:"
+msgstr "Generate contribution:"
+
+#: ../_routes.php:535 ../templates/default/category_edit.tpl:8
+msgid "Category"
+msgstr "Category"
+
+#: ../_routes.php:751
+msgid ""
+"You should add at last 1 status 'on site' to ensure the plugin works well!"
+msgstr ""
+"You should add at last 1 status 'on site' to ensure the plugin works well!"
+
+#: ../templates/default/objects_list.tpl:40
+msgid "Categories"
+msgstr "Categories"
+
+#: ../templates/default/objects_list.tpl:365
+msgid "No object has been found"
+msgstr "No object has been found"
+
+#: ../_routes.php:185
+msgid "Zip archive inconsistent."
+msgstr "Zip archive inconsistent."
+
+#: ../templates/default/objects_list.tpl:16
+#: ../templates/default/categories_list.tpl:10
+#: ../templates/default/status_list.tpl:10
+#: ../templates/default/status_list.tpl:17
+msgid "Don't care"
+msgstr "Don't care"
+
+#: ../templates/default/take_object.tpl:166
+msgid "Cancel"
+msgstr "Cancel"
+
+#: ../templates/default/objects_edit.tpl:45
+msgid "Price per rental day:"
+msgstr "Price per rental day:"
+
+#: ../templates/default/preferences.tpl:7
+msgid "Plugin preferences"
+msgstr "Plugin preferences"
+
+#: ../templates/default/objects_list.tpl:67
+#: ../templates/default/objects_list.tpl:217
+#: ../templates/default/objects_list.tpl:302
+#: ../templates/default/categories_list.tpl:46
+#: ../templates/default/status_list.tpl:65
+#: ../templates/default/status_list.tpl:122
+msgid "Active"
+msgstr "Active"
+
+#: ../templates/default/preferences.tpl:51
+msgid "Display images in objects and categories lists"
+msgstr "Display images in objects and categories lists"
+
+#: ../_routes.php:359
+msgid "An error occured while storing the category."
+msgstr "An error occured while storing the category."
+
+#: ../templates/default/objects_list.tpl:190
+msgid "By"
+msgstr "By"
+
+#: ../templates/default/objects_list.tpl:261
+msgid "(per day)"
+msgstr "(per day)"
+
+#: ../templates/default/status_list.tpl:89
+#: ../templates/default/status_edit.tpl:33
+msgid "Days for rent"
+msgstr "Days for rent"
+
+#: ../templates/default/objects_edit.tpl:81
+msgid "Object photo"
+msgstr "Object photo"
+
+#: ../templates/default/objects_list.tpl:26
+msgid "objects"
+msgstr "objects"
+
+#: ../templates/default/give_object_back.tpl:24
+#: ../templates/default/objects_edit.tpl:10
+#: ../templates/default/list_lent_object.tpl:18
+#: ../templates/default/list_lent_object.tpl:36
+#: ../templates/default/take_object.tpl:30
+msgid "Name:"
+msgstr "Name:"
+
+#: ../templates/default/preferences.tpl:70
+msgid "View forecast return date:"
+msgstr "View forecast return date:"
+
+#: ../templates/default/preferences.tpl:16
+#: ../templates/default/preferences.tpl:17
+msgid ""
+"Automatically generate a contribution for the member of the amount of the "
+"rental price of the object"
+msgstr ""
+"Automatically generate a contribution for the member of the amount of the "
+"rental price of the object"
+
+#: ../templates/default/status_list.tpl:15
+msgid "In stock:"
+msgstr "In stock:"
+
+#: ../_routes.php:1275 ../_routes.php:1300
+#: ../templates/default/give_object_back.tpl:20
+#: ../templates/default/objects_edit.tpl:8
+#: ../templates/default/list_lent_object.tpl:11
+#: ../templates/default/take_object.tpl:27
+msgid "Object"
+msgstr "Object"
+
+#: ../templates/default/admin_picture.tpl:8
+msgid "Backup categories pictures"
+msgstr "Backup categories pictures"
+
+#: ../templates/default/status_list.tpl:134
+msgid "Not in stock"
+msgstr "Not in stock"
+
+#: ../_routes.php:186
+msgid "Invalid argument."
+msgstr "Invalid argument."
+
+#: ../templates/default/preferences.tpl:56
+msgid "Show fullsize image or just thumbs"
+msgstr "Show fullsize image or just thumbs"
+
+#: ../templates/default/menu.tpl:19
+msgid "Add a status"
+msgstr "Add a status"
+
+#: ../templates/default/preferences.tpl:56
+msgid "Enable fullsize:"
+msgstr "Enable fullsize:"
+
+#: ../templates/default/objects_edit.tpl:36
 msgid "Price:"
 msgstr "Price:"
 
-#: ../_routes.php:124 ../templates/default/menu.tpl:37
+#: ../_routes.php:138 ../templates/default/menu.tpl:31
 msgid "Pictures administration"
 msgstr "Pictures administration"
 
-#: ../templates/default/take_more_objects_away.tpl:145
-#: ../templates/default/take_object.tpl:142
+#: ../templates/default/give_object_back.tpl:36
+#: ../templates/default/list_lent_object.tpl:37
+#: ../templates/default/take_object.tpl:139
 msgid "Comments:"
 msgstr "Comments:"
 
-#: ../templates/default/status_list.tpl:143
+#: ../_routes.php:1006
+#, fuzzy
+msgid "An error occured cloning object :("
+msgstr "An error occured :("
+
+#: ../templates/default/status_list.tpl:156
+#: ../templates/default/status_list.tpl:159
 msgid "Remove %status from database"
 msgstr "Remove %status from database"
 
-#: ../templates/default/preferences.tpl:64
+#: ../templates/default/preferences.tpl:65
 msgid "View category:"
 msgstr "View category:"
 
-#: ../objects_edit.php:119 ../_routes.php:1043
+#: ../_routes.php:1111
 msgid "Something went wrong saving object :("
 msgstr "Something went wrong saving object :("
 
-#: ../templates/default/objects_edit.tpl:133
+#: ../templates/default/give_object_back.tpl:32
+#: ../templates/default/objects_edit.tpl:114
+#: ../templates/default/list_lent_object.tpl:34
+#: ../templates/default/take_object.tpl:133
 msgid "End date"
 msgstr "End date"
 
-#: ../status_edit.php:63 ../_routes.php:625
+#: ../_routes.php:643
 msgid "Edit status %status"
 msgstr "Edit status %status"
 
-#: ../objects_edit.php:117 ../_routes.php:989
+#: ../_routes.php:1057
 msgid "Object has been successfully stored!"
 msgstr "Object has been successfully stored!"
 
-#: ../_routes.php:185
+#: ../_routes.php:199
 msgid "Unknown error."
 msgstr "Unknown error."
 
-#: ../_routes.php:175
+#: ../_routes.php:189
 msgid "Not a zip archive."
 msgstr "Not a zip archive."
 
-#: ../_routes.php:1065
+#: ../_routes.php:1133
 msgid "Object has been saved"
 msgstr "Object has been saved"
 
-#: ../templates/default/objects_list.tpl:334
-msgid "Print objects list"
-msgstr "Print objects list"
+#: ../templates/default/preferences.tpl:33
+msgid "Contribution text:"
+msgstr "Contribution text:"
 
-#: ../templates/default/objects_list.tpl:502
-#: ../templates/default/objects_list.tpl:620
-msgid "An error occured loading 'Give back' display :("
-msgstr "An error occured loading 'Give back' display :("
-
-#: ../templates/default/take_more_objects_away.tpl:155
-#: ../templates/default/objects_list.tpl:299
-#: ../templates/default/take_object.tpl:160
+#: ../templates/default/objects_list.tpl:315
+#: ../templates/default/objects_list.tpl:391
+#: ../templates/default/take_object.tpl:165
 msgid "Take away"
 msgstr "Take away"
 
-#: ../templates/default/objects_edit.tpl:38
-#: ../templates/default/take_object.tpl:29
+#: ../templates/default/objects_edit.tpl:32
+#: ../templates/default/take_object.tpl:45
 msgid "Serial number:"
 msgstr "Serial number:"
 
-#: ../templates/default/menu.tpl:28
+#: ../templates/default/menu.tpl:22
 msgid "Object categories"
 msgstr "Object categories"
 
-#: ../status_list.php:71
-msgid "Status edition has been canceled"
-msgstr "Status edition has been canceled"
-
-#: ../_routes.php:276
+#: ../_routes.php:290
 msgid "New category"
 msgstr "New category"
 
-#: ../_routes.php:739 ../status_list.php:81
+#: ../_routes.php:757
 msgid ""
 "You should add at last 1 status 'object borrowed' to ensure the plugin works "
 "well!"
@@ -666,11 +681,16 @@ msgstr ""
 "You should add at last 1 status 'object borrowed' to ensure the plugin works "
 "well!"
 
-#: ../take_more_objects_away.php:144
-msgid "Take out several objects at once"
-msgstr "Take out several objects at once"
+#: ../templates/default/objects_list.tpl:301
+#, fuzzy
+msgid "Object is inactive"
+msgstr "Object is active"
 
-#: ../templates/default/take_object.tpl:156
+#: ../templates/default/status_list.tpl:147
+msgid "edit"
+msgstr ""
+
+#: ../templates/default/take_object.tpl:161
 msgid ""
 "The items offered for rent are in good condition and verification rental "
 "contradictory to their status is at the time of withdrawal. No claims will "
@@ -702,94 +722,78 @@ msgstr ""
 "other cases not listed above and at the discretion of the seller, the "
 "deposit check may also be collected in whole or party."
 
-#: ../templates/default/categories_list.tpl:85
-msgid "Remove %category from database"
-msgstr "Remove %category from database"
-
-#: ../templates/default/preferences.tpl:89
-#: ../templates/default/preferences.tpl:90
-msgid "View the objects buy price sum on the list under the category"
-msgstr "View the objects buy price sum on the list under the category"
-
-#: ../templates/default/take_more_objects_away.tpl:52
-#: ../templates/default/objects_list.tpl:234
-#: ../templates/default/objects_edit.tpl:95
-#: ../templates/default/take_object.tpl:13
+#: ../templates/default/objects_edit.tpl:74
+#: ../templates/default/objects_list.tpl:240
 msgid "Object's photo"
 msgstr "Object's photo"
 
-#: ../templates/default/menu.tpl:22
+#: ../templates/default/menu.tpl:16
 msgid "Borrow status"
 msgstr "Borrow status"
 
-#: ../templates/default/preferences.tpl:32
-msgid "Comment text to add on generated contribution"
-msgstr "Comment text to add on generated contribution"
-
-#: ../templates/default/take_object.tpl:155
+#: ../templates/default/take_object.tpl:160
 msgid "Show terms and conditions"
 msgstr "Show terms and conditions"
 
-#: ../templates/default/objects_list.tpl:304
+#: ../templates/default/objects_list.tpl:321
 msgid "Give object back"
 msgstr "Give object back"
 
-#: ../_routes.php:754 ../status_list.php:51
+#: ../_routes.php:772
 msgid "Status list"
 msgstr "Status list"
 
-#: ../templates/default/objects_list.tpl:341
-msgid "Take out"
-msgstr "Take out"
-
-#: ../templates/default/status_list.tpl:25
+#: ../templates/default/status_list.tpl:26
 msgid "status"
 msgstr "status"
 
-#: ../templates/default/objects_edit.tpl:132
+#: ../templates/default/objects_edit.tpl:113
+#: ../templates/default/list_lent_object.tpl:33
+#: ../templates/default/take_object.tpl:126
 msgid "Begin date"
 msgstr "Begin date"
 
-#: ../templates/default/objects_list.tpl:338
+#: ../templates/default/objects_list.tpl:385
 msgid "Print objects cards"
 msgstr "Print objects cards"
 
-#: ../templates/default/take_more_objects_away.tpl:4
-msgid "Objects"
-msgstr "Objects"
+#: ../templates/default/objects_edit.tpl:101
+#: ../templates/default/category_edit.tpl:49
+#: ../templates/default/status_edit.tpl:48
+msgid "Back to list"
+msgstr "Back to list"
 
-#: ../_routes.php:170
+#: ../_routes.php:184
 msgid "File already exists."
 msgstr "File already exists."
 
-#: ../_routes.php:447
+#: ../templates/default/objects_list.tpl:8
+#: ../templates/default/categories_list.tpl:7
+#: ../templates/default/status_list.tpl:7
+msgid "Enter a value"
+msgstr "Enter a value"
+
+#: ../_routes.php:462
 msgid "Categories list"
 msgstr "Categories list"
 
-#: ../status_list.php:62
-msgid "Status has been successfully deleted"
-msgstr "Status has been successfully deleted"
-
-#: ../objects_list_print.php:113 ../templates/default/objects_list.tpl:25
+#: ../templates/default/objects_edit.tpl:77
+#: ../templates/default/objects_list.tpl:26
+#: ../templates/default/objects_list.tpl:236
 msgid "object"
 msgstr "object"
 
-#: ../templates/default/objects_edit.tpl:103
-#: ../templates/default/category_edit.tpl:33
+#: ../templates/default/objects_edit.tpl:82
+#: ../templates/default/category_edit.tpl:34
 msgid "Delete image"
 msgstr "Delete image"
 
-#: ../templates/default/objects_edit.tpl:23
+#: ../templates/default/objects_edit.tpl:19
 msgid "Category:"
 msgstr "Category:"
 
-#: ../templates/default/take_more_objects_away.tpl:148
-#: ../templates/default/take_object.tpl:145
-msgid "remaining characters"
-msgstr "remaining characters"
-
-#: ../templates/default/objects_edit.tpl:56
-#: ../templates/default/objects_edit.tpl:59
+#: ../templates/default/objects_edit.tpl:44
+#: ../templates/default/objects_edit.tpl:47
 msgid ""
 "- Checked = the price applies to each rental day <br/> - Unchecked = the "
 "price applies once"
@@ -797,97 +801,96 @@ msgstr ""
 "- Checked = the price applies to each rental day <br/> - Unchecked = the "
 "price applies once"
 
-#: ../templates/default/category_edit.tpl:26
+#: ../templates/default/category_edit.tpl:27
 msgid "Picture:"
 msgstr "Picture:"
 
-#: ../objects_list.php:154
-msgid "Action has been canceled!"
-msgstr "Action has been canceled!"
-
-#: ../objects_print.php:214 ../templates/default/objects_edit.tpl:137
-msgid "Comments"
-msgstr "Comments"
-
-#: ../objects_print.php:185 ../objects_list_print.php:145
-msgid "Location"
-msgstr "Location"
-
-#: ../templates/default/status_edit.tpl:31
-#: ../templates/default/status_edit.tpl:34
+#: ../templates/default/status_edit.tpl:32
+#: ../templates/default/status_edit.tpl:35
 msgid "Number of days to rent per default"
 msgstr "Number of days to rent per default"
 
-#: ../status_edit.php:83 ../_routes.php:662
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:303
+#: ../templates/default/objects_edit.tpl:118
+msgid "Comments"
+msgstr "Comments"
+
+#: ../templates/default/objects_list.tpl:48
+msgid "All"
+msgstr ""
+
+#: ../templates/default/objects_list.tpl:461
+msgid "(Un)Check all"
+msgstr "(Un)Check all"
+
+#: ../templates/default/objects_list.tpl:88
+msgid "Picture"
+msgstr "Picture"
+
+#: ../_routes.php:680
 msgid "An error occured while storing the status."
 msgstr "An error occured while storing the status."
 
-#: ../templates/default/preferences.tpl:62
+#: ../templates/default/preferences.tpl:63
 msgid "Display preferences"
 msgstr "Display preferences"
 
-#: ../templates/default/objects_list.tpl:516
-msgid ""
-"Please make sure to select at least one object from the list to perform this "
-"action."
-msgstr ""
-"Please make sure to select at least one object from the list to perform this "
-"action."
-
-#: ../templates/default/status_list.tpl:127
+#: ../templates/default/status_list.tpl:131
 msgid "In stock"
 msgstr "In stock"
 
-#: ../templates/default/objects_edit.tpl:84
+#: ../templates/default/objects_edit.tpl:64
 msgid "Where is the object?"
 msgstr "Where is the object?"
 
-#: ../templates/default/take_object.tpl:101
-msgid "Expected return:"
-msgstr "Expected return:"
+#: ../templates/default/objects_list.tpl:20
+#: ../templates/default/categories_list.tpl:14
+#: ../templates/default/status_list.tpl:14
+#: ../templates/default/status_list.tpl:21
+msgid "No"
+msgstr "No"
 
-#: ../objects_list.php:78
-msgid "No object was selected, please check at least one name."
-msgstr "No object was selected, please check at least one name."
-
-#: ../templates/default/objects_list.tpl:318
-msgid "Remove %object from database"
-msgstr "Remove %object from database"
-
-#: ../templates/default/objects_edit.tpl:65
-#: ../templates/default/take_object.tpl:56
+#: ../templates/default/objects_edit.tpl:51
+#: ../templates/default/take_object.tpl:80
 msgid "Dimensions (cm):"
 msgstr "Dimensions (cm):"
 
-#: ../templates/default/take_more_objects_away.tpl:94
-#: ../templates/default/objects_edit.tpl:167
-#: ../templates/default/take_object.tpl:73
+#: ../templates/default/take_object.tpl:96
 msgid "Member:"
 msgstr "Member:"
 
-#: ../lib/GaletteObjectsLend/Preferences.php:284
+#: ../lib/GaletteObjectsLend/Repository/Preferences.php:284
 msgid "Unable to store preferences :("
 msgstr "Unable to store preferences :("
 
-#: ../_routes.php:176
+#: ../_routes.php:190
 msgid "Can't open file."
 msgstr "Can't open file."
 
-#: ../objects_list_print.php:204
+#: ../templates/default/status_list.tpl:164
+msgid "No status has been found"
+msgstr "No status has been found"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:251
 msgid "Sum:"
 msgstr "Sum:"
 
-#: ../objects_list_print.php:138
-#: ../templates/default/take_more_objects_away.tpl:28
-#: ../templates/default/objects_list.tpl:129
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:175
+#: ../templates/default/objects_list.tpl:134
 msgid "Borrow price"
 msgstr "Borrow price"
 
-#: ../take_object.php:55
-msgid "Borrow an object"
-msgstr "Borrow an object"
+#: ../templates/default/objects_list.tpl:410
+#, fuzzy
+msgid "Activate"
+msgstr "Active"
 
-#: ../templates/default/preferences.tpl:49
+#: ../templates/default/give_object_back.tpl:45
+#, fuzzy
+msgid "Return comments"
+msgstr "Comments"
+
+#: ../templates/default/preferences.tpl:50
 msgid "Images in lists:"
 msgstr "Images in lists:"
 
@@ -895,108 +898,162 @@ msgstr "Images in lists:"
 msgid "Click to view fullsize image"
 msgstr "Click to view fullsize image"
 
+#: ../templates/default/list_lent_object.tpl:14
+#, fuzzy
+msgid "Object ID:"
+msgstr "Object"
+
 #: ../templates/default/menu.tpl:2
 msgid "Objects lend"
 msgstr "Objects lend"
 
-#: ../templates/default/objects_list.tpl:350
-msgid "Delete"
-msgstr "Delete"
-
-#: ../objects_print.php:207 ../templates/default/objects_edit.tpl:125
-msgid "History of object loans"
-msgstr "History of object loans"
-
-#: ../give_more_objects_back.php:77 ../templates/default/objects_list.tpl:592
-msgid "Give back objects"
-msgstr "Give back objects"
-
-#: ../_routes.php:95
-msgid "Preferences have been successfully stored!"
-msgstr "Preferences have been successfully stored!"
-
-#: ../templates/default/preferences.tpl:100
-msgid "View serial number:"
-msgstr "View serial number:"
-
-#: ../objects_print.php:209
-msgid "Begin"
-msgstr "Begin"
-
-#: ../templates/default/preferences.tpl:32
-msgid "Contribution text:"
-msgstr "Contribution text:"
-
-#: ../objects_list.php:145
-msgid "Object has been took"
-msgstr "Object has been took"
-
-#: ../objects_print.php:179 ../objects_list_print.php:139
-#: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:274
-#: ../templates/default/take_more_objects_away.tpl:33
-#: ../templates/default/objects_list.tpl:142
-msgid "Dimensions"
-msgstr "Dimensions"
-
-#: ../_routes.php:153
-msgid "Unable to create backup directory `%dir`"
-msgstr "Unable to create backup directory `%dir`"
-
-#: ../objects_list.php:160 ../objects_list.php:163
-msgid "Objects have been disabled!"
-msgstr "Objects have been disabled!"
-
-#: ../templates/default/objects_list.tpl:185
-msgid "By"
-msgstr "By"
-
-#: ../templates/default/objects_list.tpl:431
-msgid "Take object"
-msgstr "Take object"
-
-#: ../_routes.php:174
-msgid "No such file."
-msgstr "No such file."
-
-#: ../objects_list_print.php:136
-#: ../templates/default/take_more_objects_away.tpl:18
-#: ../templates/default/objects_list.tpl:101
-msgid "Serial"
-msgstr "Serial"
-
-#: ../templates/default/status_edit.tpl:25
-#: ../templates/default/objects_list.tpl:13
-#: ../templates/default/objects_edit.tpl:77
-#: ../templates/default/categories_list.tpl:7
-#: ../templates/default/status_list.tpl:7
-msgid "Active:"
-msgstr "Active:"
-
-#: ../templates/default/take_more_objects_away.tpl:117
-#: ../templates/default/take_object.tpl:108
-msgid "Payment type:"
-msgstr "Payment type:"
-
-#: ../_routes.php:1196
-msgid "Remove object %1$s"
-msgstr "Remove object %1$s"
-
-#: ../templates/default/admin_picture.tpl:8
-msgid "Restore categories pictures from database"
-msgstr "Restore categories pictures from database"
-
-#: ../objects_print.php:167 ../objects_list_print.php:137
-#: ../templates/default/take_more_objects_away.tpl:23
-#: ../templates/default/objects_list.tpl:115
-msgid "Price"
-msgstr "Price"
-
-#: ../templates/default/take_more_objects_away.tpl:96
-#: ../templates/default/take_object.tpl:75
+#: ../templates/default/take_object.tpl:98
 msgid "--- Select a member ---"
 msgstr "--- Select a member ---"
 
-#: ../templates/default/preferences.tpl:56
+#: ../templates/default/objects_list.tpl:417
+msgid "Delete"
+msgstr "Delete"
+
+#: ../templates/default/objects_edit.tpl:108
+msgid "History of object loans"
+msgstr "History of object loans"
+
+#: ../_routes.php:109
+msgid "Preferences have been successfully stored!"
+msgstr "Preferences have been successfully stored!"
+
+#: ../templates/default/objects_list.tpl:426
+#: ../templates/default/categories_list.tpl:56
+#: ../templates/default/status_list.tpl:105
+msgid "Pages:"
+msgstr "Pages:"
+
+#: ../templates/default/preferences.tpl:106
+msgid "View serial number:"
+msgstr "View serial number:"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:298
+msgid "Begin"
+msgstr "Begin"
+
+#: ../templates/default/objects_list.tpl:7
+#: ../templates/default/categories_list.tpl:6
+#: ../templates/default/status_list.tpl:6
+msgid "Search:"
+msgstr "Search:"
+
+#: ../lib/GaletteObjectsLend/Filters/ObjectsList.php:274
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:176
+#: ../templates/default/objects_list.tpl:147
+msgid "Dimensions"
+msgstr "Dimensions"
+
+#: ../_routes.php:167
+msgid "Unable to create backup directory `%dir`"
+msgstr "Unable to create backup directory `%dir`"
+
+#: ../templates/default/objects_list.tpl:18
+#: ../templates/default/categories_list.tpl:12
+#: ../templates/default/status_list.tpl:12
+#: ../templates/default/status_list.tpl:19
+msgid "Yes"
+msgstr "Yes"
+
+#: ../templates/default/preferences.tpl:9
+#: ../templates/default/preferences.tpl:10
+msgid ""
+"Allow a member (not staff neither admin) to borrow an object. If set to "
+"'No', only admin and staff members can access the 'Take object' page"
+msgstr ""
+"Allow a member (not staff neither admin) to borrow an object. If set to "
+"'No', only admin and staff members can access the 'Take object' page"
+
+#: ../templates/default/give_object_back.tpl:28
+#, fuzzy
+msgid "Begin date:"
+msgstr "Begin date"
+
+#: ../_routes.php:1640
+msgid "Take object"
+msgstr "Take object"
+
+#: ../templates/default/take_object.tpl:53
+#, fuzzy
+msgid "Buy price (%currency):"
+msgstr "Buy price (%currency):"
+
+#: ../_routes.php:188
+msgid "No such file."
+msgstr "No such file."
+
+#: ../templates/default/menu.tpl:13
+msgid "Add an object"
+msgstr "Add an object"
+
+#: ../templates/default/objects_list.tpl:343
+#, fuzzy
+msgid "Show object lents"
+msgstr "No object selected"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:173
+#: ../templates/default/objects_list.tpl:106
+msgid "Serial"
+msgstr "Serial"
+
+#: ../templates/default/objects_edit.tpl:59
+#: ../templates/default/objects_list.tpl:14
+#: ../templates/default/categories_list.tpl:8
+#: ../templates/default/status_list.tpl:8
+#: ../templates/default/status_edit.tpl:26
+msgid "Active:"
+msgstr "Active:"
+
+#: ../templates/default/preferences.tpl:33
+msgid "Comment text to add on generated contribution"
+msgstr "Comment text to add on generated contribution"
+
+#: ../templates/default/objects_list.tpl:373
+msgid "For the selection:"
+msgstr "For the selection:"
+
+#: ../_routes.php:1303
+msgid "Remove object %1$s"
+msgstr "Remove object %1$s"
+
+#: ../templates/default/admin_picture.tpl:19
+msgid "Restore categories pictures from database"
+msgstr "Restore categories pictures from database"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:296
+#, fuzzy
+msgid "History of objects loans"
+msgstr "History of object loans"
+
+#: ../templates/default/objects_list.tpl:345
+#, fuzzy
+msgid "Show object"
+msgstr "No object selected"
+
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:174
+#: ../templates/default/objects_list.tpl:120
+msgid "Price"
+msgstr "Price"
+
+#: ../templates/default/preferences.tpl:90
+#, fuzzy
+msgid "Give borrow price:"
+msgstr "View borrow price:"
+
+#: ../templates/default/objects_list.tpl:494
+msgid ""
+"Please make sure to select at least one object from the list to perform this "
+"action."
+msgstr ""
+"Please make sure to select at least one object from the list to perform this "
+"action."
+
+#: ../templates/default/preferences.tpl:57
 msgid ""
 "Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, "
 "only thumbnails will be displayed, but full images are still kept."
@@ -1004,34 +1061,168 @@ msgstr ""
 "Will permit to see fullsize image clicking on thumbnails.<br/>If disabled, "
 "only thumbnails will be displayed, but full images are still kept."
 
-#: ../templates/default/take_more_objects_away.tpl:10
-msgid "Picture"
-msgstr "Picture"
+#: ../templates/default/objects_edit.tpl:77
+#: ../templates/default/objects_list.tpl:44
+#: ../templates/default/objects_list.tpl:53
+#: ../templates/default/objects_list.tpl:236
+#: ../templates/default/categories_list.tpl:69
+#: ../templates/default/category_edit.tpl:28
+#, fuzzy
+msgid "thumbnail"
+msgstr "Thumbnail:"
 
-#: ../templates/default/status_edit.tpl:34
+#: ../templates/default/status_edit.tpl:35
 msgid "used to compute return date"
 msgstr "used to compute return date"
 
-#: ../objects_print.php:189 ../objects_list_print.php:144
-#: ../templates/default/objects_list.tpl:198
-#: ../templates/default/objects_list.tpl:344
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:181
+#: ../templates/default/give_object_back.tpl:42
+#: ../templates/default/give_object_back.tpl:50
+#: ../templates/default/list_lent_object.tpl:35
+#: ../templates/default/list_lent_object.tpl:61
+#: ../templates/default/objects_list.tpl:203
 msgid "Return"
 msgstr "Return"
 
-#: ../templates/default/status_edit.tpl:16
+#: ../templates/default/status_edit.tpl:17
 msgid "Is object at home or borrowed"
 msgstr "Is object at home or borrowed"
 
-#: ../templates/default/objects_edit.tpl:16
-#: ../templates/default/take_object.tpl:21
-msgid "Description:"
-msgstr "Description:"
+#: ../templates/default/objects_list.tpl:65
+msgid "Category is active"
+msgstr "Category is active"
 
-#: ../_routes.php:1123 ../objects_list_print.php:88
-#: ../objects_list_print.php:98 ../templates/default/menu.tpl:9
-#: ../templates/default/menu.tpl:14
+#: ../_routes.php:1200 ../_routes.php:1487 ../_routes.php:1521
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:99
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:101
+#: ../lib/GaletteObjectsLend/IO/PdfObjects.php:116
+#: ../templates/default/menu.tpl:8
 msgid "Objects list"
 msgstr "Objects list"
+
+#, fuzzy
+#~ msgid "Objects_list"
+#~ msgstr "Objects list"
+
+#, fuzzy
+#~ msgid "End Date"
+#~ msgstr "End date"
+
+#, fuzzy
+#~ msgid "Buy price"
+#~ msgstr "View buy price:"
+
+#, fuzzy
+#~ msgid "Show object object"
+#~ msgstr "No object selected"
+
+#~ msgid "Object card"
+#~ msgstr "Object card"
+
+#~ msgid "--- Select a payment type ---"
+#~ msgstr "--- Select a payment type ---"
+
+#~ msgid "Create an object"
+#~ msgstr "Create an object"
+
+#~ msgid "Time:"
+#~ msgstr "Time:"
+
+#~ msgid "You can't return an object that you don't borrow!"
+#~ msgstr "You can't return an object that you don't borrow!"
+
+#~ msgid "The object is not available!"
+#~ msgstr "The object is not available!"
+
+#~ msgid "Take objects"
+#~ msgstr "Take objects"
+
+#~ msgid "Change status"
+#~ msgstr "Change status"
+
+#~ msgid "No member"
+#~ msgstr "No member"
+
+#~ msgid "Object has not been returned! Don't forget it!"
+#~ msgstr "Object has not been returned! Don't forget it!"
+
+#~ msgid "Edit an object"
+#~ msgstr "Edit an object"
+
+#~ msgid "An error occured loading 'Take away' display :("
+#~ msgstr "An error occured loading 'Take away' display :("
+
+#~ msgid "You are cloning this object, not editing it!"
+#~ msgstr "You are cloning this object, not editing it!"
+
+#~ msgid "Object has been returned!"
+#~ msgstr "Object has been returned!"
+
+#~ msgid "Objects managment"
+#~ msgstr "Objects managment"
+
+#~ msgid "You must agree with terms and conditions in order to take."
+#~ msgstr "You must agree with terms and conditions in order to take."
+
+#~ msgid "Comment:"
+#~ msgstr "Comment:"
+
+#~ msgid "Status has not been deleted. Maybe it is still in use?"
+#~ msgstr "Status has not been deleted. Maybe it is still in use?"
+
+#~ msgid "Give object"
+#~ msgstr "Give object"
+
+#~ msgid "An error occured loading 'Give back' display :("
+#~ msgstr "An error occured loading 'Give back' display :("
+
+#~ msgid "Status edition has been canceled"
+#~ msgstr "Status edition has been canceled"
+
+#~ msgid "Take out several objects at once"
+#~ msgstr "Take out several objects at once"
+
+#~ msgid "Remove %category from database"
+#~ msgstr "Remove %category from database"
+
+#~ msgid "Take out"
+#~ msgstr "Take out"
+
+#~ msgid "Objects"
+#~ msgstr "Objects"
+
+#~ msgid "Status has been successfully deleted"
+#~ msgstr "Status has been successfully deleted"
+
+#~ msgid "remaining characters"
+#~ msgstr "remaining characters"
+
+#~ msgid "Action has been canceled!"
+#~ msgstr "Action has been canceled!"
+
+#~ msgid "Location"
+#~ msgstr "Location"
+
+#~ msgid "Expected return:"
+#~ msgstr "Expected return:"
+
+#~ msgid "No object was selected, please check at least one name."
+#~ msgstr "No object was selected, please check at least one name."
+
+#~ msgid "Borrow an object"
+#~ msgstr "Borrow an object"
+
+#~ msgid "Give back objects"
+#~ msgstr "Give back objects"
+
+#~ msgid "Object has been took"
+#~ msgstr "Object has been took"
+
+#~ msgid "Objects have been disabled!"
+#~ msgstr "Objects have been disabled!"
+
+#~ msgid "Payment type:"
+#~ msgstr "Payment type:"
 
 #~ msgid "Do you really want to delete this category from the base?"
 #~ msgstr "Do you really want to delete this category from the base?"
@@ -1059,20 +1250,11 @@ msgstr "Objects list"
 #~ msgid "Credit card"
 #~ msgstr "Credit card"
 
-#~ msgid "Clear filter"
-#~ msgstr "Clear filter"
-
 #~ msgid "Picture '%path' written"
 #~ msgstr "Picture '%path' written"
 
 #~ msgid "Borrow price (%currency)"
 #~ msgstr "Borrow price (%currency)"
-
-#~ msgid "Show legend"
-#~ msgstr "Show legend"
-
-#~ msgid "Actions"
-#~ msgstr "Actions"
 
 #~ msgid "[del]"
 #~ msgstr "[del]"
@@ -1082,9 +1264,6 @@ msgstr "Objects list"
 
 #~ msgid "to"
 #~ msgstr "to"
-
-#~ msgid "in:"
-#~ msgstr "in:"
 
 #~ msgid "[mod]"
 #~ msgstr "[mod]"
@@ -1098,32 +1277,11 @@ msgstr "Objects list"
 #~ msgid "Only in '%cat' category"
 #~ msgstr "Only in '%cat' category"
 
-#~ msgid "Change"
-#~ msgstr "Change"
-
 #~ msgid "Check"
 #~ msgstr "Check"
 
-#~ msgid "Filter"
-#~ msgstr "Filter"
-
 #~ msgid "An SQL error has occured."
 #~ msgstr "An SQL error has occured."
-
-#~ msgid "Records per page:"
-#~ msgstr "Records per page:"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancel"
-
-#~ msgid "Search:"
-#~ msgstr "Search:"
-
-#~ msgid "Save"
-#~ msgstr "Save"
-
-#~ msgid "For the selection:"
-#~ msgstr "For the selection:"
 
 #~ msgid "Print card"
 #~ msgstr "Print card"
@@ -1131,20 +1289,11 @@ msgstr "Objects list"
 #~ msgid "Found %count pictures in database"
 #~ msgstr "Found %count pictures in database"
 
-#~ msgid "Yes"
-#~ msgstr "Yes"
-
-#~ msgid "(per day)"
-#~ msgstr "(per day)"
-
 #~ msgid "Mime-Type not allowed"
 #~ msgstr "Mime-Type not allowed"
 
 #~ msgid "Choose a category"
 #~ msgstr "Choose a category"
-
-#~ msgid "Don't care"
-#~ msgstr "Don't care"
 
 #~ msgid "Only without category"
 #~ msgstr "Only without category"
@@ -1155,29 +1304,14 @@ msgstr "Objects list"
 #~ msgid "Cash"
 #~ msgstr "Cash"
 
-#~ msgid "Back to list"
-#~ msgstr "Back to list"
-
-#~ msgid "Enter a value"
-#~ msgstr "Enter a value"
-
-#~ msgid "(Un)Check all"
-#~ msgstr "(Un)Check all"
-
 #~ msgid "Picture '%path' deleted"
 #~ msgstr "Picture '%path' deleted"
-
-#~ msgid "No"
-#~ msgstr "No"
 
 #~ msgid "Invert selection"
 #~ msgstr "Invert selection"
 
 #~ msgid "From"
 #~ msgstr "From"
-
-#~ msgid "An error occured :("
-#~ msgstr "An error occured :("
 
 #~ msgid "Edit %category"
 #~ msgstr "Edit %category"
@@ -1194,9 +1328,6 @@ msgstr "Objects list"
 
 #~ msgid "Y-m-d"
 #~ msgstr "Y-m-d"
-
-#~ msgid "Pages:"
-#~ msgstr "Pages:"
 
 #~ msgid ""
 #~ "- Filename or extension is incorrect. Only %s files are allowed. File "
@@ -1481,9 +1612,6 @@ msgstr "Objects list"
 
 #~ msgid "TAKE OBJECT.WEIGHT"
 #~ msgstr "TAKE OBJECT.WEIGHT"
-
-#~ msgid "Thumbnail:"
-#~ msgstr "Thumbnail:"
 
 #~ msgid "TAKE OBJECT.PAGE TITLE"
 #~ msgstr "TAKE OBJECT.PAGE TITLE"
