@@ -212,3 +212,29 @@
     background-color: #ffb619;
     font-weight: normal; color: #212121;
 }
+
+.true > i, button.true i {
+    color: rgba(0, 128, 0, .5);
+}
+
+
+.true:hover > i, button.true:hover i {
+    color: rgba(0, 128, 0, 1);
+}
+
+.false > i, button.false i {
+    color: rgba(128, 0, 0, .5);
+}
+
+
+.false:hover > i, button.false:hover i {
+    color: rgba(128, 0, 0, 1);
+}
+
+.remove > i, button.remove i {
+    color: rgba(255, 0, 0, .5);
+}
+
+.remove:hover > i, button.remove:hover i {
+    color: rgba(255, 0, 0, 1);
+}
