@@ -1,5 +1,6 @@
 {extends file="page.tpl"}
 {block name="content"}
+{*debug*}
 <form action="{path_for name="objectslend_category_action" data=["action" => $action, "id" => $category->category_id]}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="category_id" value="{$category->category_id}">
     <div class="bigtable">
@@ -24,7 +25,7 @@
             <div>
                 <p>
                     <span class="bline">{_T string="Picture:" domain="objectslend"}</span>
-                    <img src="{if $category->category_id}{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}, "id" => $category->category_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="category" domain="objectslend_routes"}, "mode" => {_T string="thumbnail" domain="objectslend_routes"}]}{/if}?rand={$time}"
+                    <img src="{if $category->category_id}{path_for name="objectslend_photo" data=["type" => "category", "mode" => "thumbnail", "id" => $category->category_id]}{else}{path_for name="objectslend_photo" data=["type" => "category" , "mode" => "thumbnail" ]}{/if}?rand={$time}"
                         class="picture"
                         width="{$category->picture->getOptimalThumbWidth($olendsprefs)}"
                         height="{$category->picture->getOptimalThumbHeight($olendsprefs)}"
@@ -41,7 +42,7 @@
     <div class="button-container">
         <button type="submit" name="save" class="action">
             <i class="fas fa-save"></i>
-            {_T string="Save"}
+            {_T string="Save"  domain="objectslend"}
         </button>
         <a href="categories_list.php?msg=canceled" class="button">
             <i class="fas fa-th-list"></i>
