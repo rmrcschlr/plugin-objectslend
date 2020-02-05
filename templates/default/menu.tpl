@@ -1,35 +1,35 @@
 <h1 class="nojs">
-    {_T string="Objects lend" domain="objectslend"}
+    {_T string="Objects lend" domain='objectslend'}
 </h1>
 {if $login->isLogged()}
-	<ul>
-		<li{if $cur_route eq "objectslend_objects"} class="selected"{/if}>
-		   <a href="{path_for name="objectslend_objects"}">
-			   {_T string="Objects list" domain="objectslend"}
-		   </a>
-		</li>
-		{if $login->isAdmin() || $login->isStaff()}
-			<li{if $cur_route eq "objectslend_rents"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_object" data=["action" => {_T string="add" domain="routes"}]}">{_T string="Add an object" domain="objectslend"}</a>
-			</li>
-			<li{if $cur_route eq "objectslend_statuses"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_statuses"}">{_T string="Borrow status" domain="objectslend"}</a>
-			</li>
-			<li{if $cur_route eq "objectslend_status"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_status" data=["action" => {_T string="add" domain="routes"}]}">{_T string="Add a status" domain="objectslend"}</a>
-			</li>
-			<li{if $cur_route eq "objectslend_categories"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_categories"}">{_T string="Object categories" domain="objectslend"}</a>
-			</li>
-			<li{if $cur_route eq "objectslend_category"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_category" data=["action" => {_T string="add" domain="routes"}]}">{_T string="Add a category" domain="objectslend"}</a>
-			</li>
-			<li{if $cur_route eq "objectslend_preferences"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_preferences"}">{_T string="Preferences" domain="objectslend"}</a>
-			</li>
-			<li{if $cur_route eq "objectslend_adminimages"} class="selected"{/if}>
-				<a href="{path_for name="objectslend_adminimages"}">{_T string="Pictures administration" domain="objectslend"}</a>
-			</li>
-		{/if}
-	</ul>
+<ul>
+	<li{if $cur_route eq "objectslend_objects"} class="selected"{/if}>
+	   <a href="{path_for name="objectslend_objects"}">
+		   {_T string="Objects list" domain='objectslend'}
+	   </a>
+	</li>
+	{if $login->isAdmin() || $login->isStaff()}
+	<li{if $cur_route eq "objectslend_rents"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_object" data=["action" => {_T string="add" domain="routes"}]}">{_T string="Add an object" domain='objectslend'}</a>
+	</li>
+	<li{if $cur_route eq "objectslend_statuses"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_statuses"}">{_T string="Borrow status" domain='objectslend'}</a>
+	</li>
+	<li{if $cur_route eq "objectslend_status"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_status" data=["action" => {_T string="add" domain="routes"}]}">{_T string="Add a status" domain='objectslend'}</a>
+	</li>
+	<li{if $cur_route eq "objectslend_categories"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_categories"}">{_T string="Object categories" domain='objectslend'}</a>
+	</li>
+	<li{if $cur_route eq "objectslend_category"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_category" data=["action" => {_T string="add" domain="routes"}]}">{_T string="Add a category" domain='objectslend'}</a>
+	</li>
+	<li{if $cur_route eq "objectslend_preferences"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_preferences"}">{_T string="Preferences" domain='objectslend'}</a>
+	</li>
+	<li{if $cur_route eq "objectslend_adminimages"} class="selected"{/if}>
+		<a href="{path_for name="objectslend_adminimages"}">{_T string="Pictures administration" domain='objectslend'}</a>
+	</li>
+	{/if}
+</ul>
 {/if}

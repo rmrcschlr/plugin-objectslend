@@ -11,7 +11,7 @@
                 var _img = $(p.currentTarget);
                 _img.attr('data-fullsrc', _img.attr('src').replace(/&thumb=1/, ''));
             }
-        }).css('cursor', 'pointer').attr('title', '{_T string="Click to view fullsize image" domain="objectslend" escape="js"}');
+        }).css('cursor', 'pointer').attr('title', '{_T string="Click to view fullsize image" domain='objectslend' escape="js"}');
     }
 
     $(function(){
