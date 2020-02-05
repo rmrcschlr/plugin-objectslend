@@ -71,14 +71,14 @@ $this->register(
         'objectslend_batch-objectslist' => 'staff',
         'objectslend_objects_print'     => 'staff',
         'objectslend_objects_printobject'      => 'staff',
-		'objectslend_take_object'    	=> 'staff',
-		'objectslend_show_object_lend'	=> 'staff',
-		'objectslend_do_take_lend'		=> 'staff',
-		'objectslend_give_object_back'	=> 'staff',
-		'objectslend_do_giveback_lend'	=>	'staff',
-		'objectslend_do_add_object'		=> 'staff',
-		'objectslend_doremove_lend'		=>	'admin',
-		'objectslend_disable_objects'	=>	'staff',
-		'objectslend_enable_objects'	=>	'staff'
+        'objectslend_take_object'       => 'staff',
+        'objectslend_show_object_lend'  => 'staff',
+        'objectslend_do_take_lend'      => 'staff',
+        'objectslend_give_object_back'  => 'staff',
+        'objectslend_do_giveback_lend'  =>  'staff',
+        'objectslend_do_add_object'     => 'staff',
+        'objectslend_doremove_lend'     =>  'admin',
+        'objectslend_disable_objects'   =>  'staff',
+        'objectslend_enable_objects'    =>  'staff'
     ]
 );
