@@ -43,11 +43,8 @@ use Galette\Core\Db;
 use Zend\Db\Sql\Expression;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\CategoriesList;
-use GaletteObjectsLend\Repository\Preferences;
-//use GaletteObjectsLend\Repository\LendObject;
-use GaletteObjectsLend\Repository\LendCategory;
-//use GaletteObjectsLend\Repository\LendRent;
-//use GaletteObjectsLend\Repository\LendStatus;
+use GaletteObjectsLend\Entity\Preferences;
+use GaletteObjectsLend\Entity\LendCategory;
 use Galette\Core\Login;
 use Galette\Core\Plugins;
 
@@ -180,7 +177,7 @@ class Categories
     private function buildSelect($fields, $count = false)
     {
         try {
-			$fieldsList = ( $fields != null )
+            $fieldsList = ( $fields != null )
                             ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
                             : $fields) : (array)'*';
 

@@ -37,7 +37,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend\Repository;
+namespace GaletteObjectsLend\Entity;
 
 use Analog\Analog;
 use Galette\Core\Plugins;
@@ -68,7 +68,7 @@ class Picture extends \Galette\Core\Picture
         $this->plugins = $plugins;
         if (!isset($this->db_id)) {
                 $this->db_id = '2';
-            }
+        }
 
         if (!file_exists($this->store_path)) {
             if (!mkdir($this->store_path, 0755, true)) {
@@ -365,8 +365,6 @@ class Picture extends \Galette\Core\Picture
             $this->getDefaultPicture();
             $filename = $this->file_path;
             $infos = pathinfo($this->file_path);
-            /*$filename = $this->store_path . $infos['filename'] . '_th.' . $infos['extension'];
-            $filename = $this->store_path . $infos['filename'] . '.' . $infos['extension'];*/
         }
         return $filename;
     }

@@ -41,9 +41,6 @@ use Analog\Analog;
 use Galette\Core\Pagination;
 use GaletteObjectsLend\Repository\Categories;
 
-//use Galette\Entity\Group;
-//use Galette\Repository\Members;
-
 /**
  * Categories list filters and paginator
  *

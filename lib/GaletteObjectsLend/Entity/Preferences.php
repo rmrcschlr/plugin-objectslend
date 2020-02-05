@@ -39,7 +39,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend\Repository;
+namespace GaletteObjectsLend\Entity;
 
 use Analog\Analog;
 use \Zend\Db\Sql\Predicate;

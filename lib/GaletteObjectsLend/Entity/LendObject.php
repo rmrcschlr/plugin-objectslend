@@ -38,7 +38,7 @@
  * @since     Available since 0.7
  */
 
-namespace GaletteObjectsLend\Repository;
+namespace GaletteObjectsLend\Entity;
 
 use Analog\Analog;
 use \Zend\Db\Sql\Predicate;
@@ -93,7 +93,7 @@ class LendObject
     private $email_adh = '';
     private $id_adh;
     private $rent_id;
-	private $comments;
+    private $comments;
     private $currency = '€';
     private $picture;
     private $cat_active = true;
@@ -190,38 +190,38 @@ class LendObject
         $this->nb_available = $r->nb_available;
         $this->rent_id = $r->rent_id;
 
-		if (property_exists($r, 'status_text')) {
-			$this->status_text = $r->status_text;
-		}
-		if (property_exists($r, 'status_id')) {
-			$this->status_id = $r->status_id;
-		}
-		if (property_exists($r, 'comments')) {
-			$this->comments = $r->comments;
-		}
-		if (property_exists($r, 'date_begin')) {
-			$this->date_begin = $r->date_begin;
-		}
+        if (property_exists($r, 'status_text')) {
+            $this->status_text = $r->status_text;
+        }
+        if (property_exists($r, 'status_id')) {
+            $this->status_id = $r->status_id;
+        }
+        if (property_exists($r, 'comments')) {
+            $this->comments = $r->comments;
+        }
+        if (property_exists($r, 'date_begin')) {
+            $this->date_begin = $r->date_begin;
+        }
 
-		if (property_exists($r, 'date_forecast')) {
-			$this->date_forecast = $r->date_forecast;
-		}
+        if (property_exists($r, 'date_forecast')) {
+            $this->date_forecast = $r->date_forecast;
+        }
 
-		if (property_exists($r, 'date_end')) {
-			$this->date_end = $r->date_end;
-		}
+        if (property_exists($r, 'date_end')) {
+            $this->date_end = $r->date_end;
+        }
 
-		if (property_exists($r, Adherent::PK)) {
-			$this->id_adh = $r->{Adherent::PK};
-		}
+        if (property_exists($r, Adherent::PK)) {
+            $this->id_adh = $r->{Adherent::PK};
+        }
 
-		if ($r->is_home_location == null) {
-			$this->is_home_location = true;
-		} else {
-				$this->is_home_location = $r->is_home_location;
-		}
-		$this->category_id = $r->category_id;
-		$this->category_name = $r->name;
+        if ($r->is_home_location == null) {
+            $this->is_home_location = true;
+        } else {
+                $this->is_home_location = $r->is_home_location;
+        }
+        $this->category_id = $r->category_id;
+        $this->category_name = $r->name;
 
 
         if ($this->object_id && $this->deps['rents'] === true) {
@@ -327,7 +327,7 @@ class LendObject
             $object->date_forecast = $rent->date_forecast;
             $object->date_end = $rent->date_end;
             $object->status_text = $rent->status_text;
-			$object->comments = $rent->comments;
+            $object->comments = $rent->comments;
             $object->is_home_location = $rent->is_home_location == '1' ? true : false;
             $object->nom_adh = $rent->nom_adh;
             $object->prenom_adh = $rent->prenom_adh;
@@ -606,7 +606,7 @@ class LendObject
             );
             throw $e;
         }
-return $this->object_id;
+        return $this->object_id;
     }
 
     /**
