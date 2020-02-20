@@ -1828,7 +1828,7 @@ $this->post(
                 );
         } else {
             $success_detected =
-                _T("Transaction has been successfully stored")
+                _T("Object has been successfully stored", "objectslend")
                 . " : <b>" . $member->name . " " . $member->surname . " " . $object->name . " " . $_POST['date_begin'] . " " . $_POST['date_forecast'] . "</b>";
             $this->flash->addMessage(
                 'success_detected',
