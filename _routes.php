@@ -1808,7 +1808,7 @@ $this->post(
             }
         }
 
-        $id_adh=intval($_POST['adherent_id']);
+        $id_adh=(int)$_POST['adherent_id'];
         $member = new Adherent($this->zdb, $id_adh);
 
 
