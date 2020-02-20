@@ -1815,7 +1815,6 @@ $this->post(
 
         if ($ok === false) {
             $error_detected =
-                _T("Error")
                 . " : " . $member->name . " " . $member->surname . " " . $object->name . " " . $_POST['date_begin'] . " " . $_POST['date_forecast'] ;
             $this->flash->addMessage(
                 'error_detected',
