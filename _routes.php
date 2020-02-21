@@ -132,7 +132,7 @@ $this->post(
 )->setName('store_objectlend_preferences')->add($authenticate);
 
 $this->get(
-    __('/administration', 'objectslend_routes') . __('/images', 'objectslend_routes'),
+    __('/administration') . __('/images'),
     function ($request, $response) use ($module, $module_id) {
         // display page
         $this->view->render(
@@ -147,7 +147,7 @@ $this->get(
 )->setName('objectslend_adminimages')->add($authenticate);
 
 $this->post(
-    __('/administration', 'objectslend_routes') . __('/images', 'objectslend_routes'),
+    __('/administration') . __('/images'),
     function ($request, $response, $args) use ($module, $module_id) {
         $post = $request->getParsedBody();
         $success_detected = [];
@@ -264,7 +264,7 @@ $this->post(
 )->setName('objectslend_adminimages_action')->add($authenticate);
 
 $this->get(
-    __('/category', 'objectslend_routes') . '/{action:' .
+    __('/category') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $action = $args['action'];
@@ -314,7 +314,7 @@ $this->get(
 )->setName('objectslend_category')->add($authenticate);
 
 $this->post(
-    __('/category', 'objectslend_routes') . '/{action:' .
+    __('/category') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $action = $args['action'];
@@ -396,18 +396,18 @@ $this->post(
 )->setName('objectslend_category_action')->add($authenticate);
 
 $this->get(
-    '/{type:' . __('category', 'objectslend_routes') .'|' . __('object', 'objectslend_routes') . '}' .
-    '/{mode:' . __('photo', 'objectslend_routes') . '|' . __('thumbnail', 'objectslend_routes') . '}[/{id:\d+}]',
+    '/{type:' . __('category') .'|' . __('object') . '}' .
+    '/{mode:' . __('photo') . '|' . __('thumbnail') . '}[/{id:\d+}]',
     function ($request, $response, $args) {
         $id = isset($args['id']) ? $args['id'] : '';
         $type = $args['type'];
         $class = '\GaletteObjectsLend\Entity\\' .
-            ($type == __('category', 'objectslend_routes') ? 'CategoryPicture' : 'ObjectPicture');
+            ($type == __('category') ? 'CategoryPicture' : 'ObjectPicture');
         $picture = new $class($this->plugins, $id);
 
         $lendsprefs = new Preferences($this->zdb);
         $thumb = false;
-        if (!$lendsprefs->showFullsize() || $args['mode'] == __('thumbnail', 'objectslend_routes')) {
+        if (!$lendsprefs->showFullsize() || $args['mode'] == __('thumbnail')) {
             //force thumbnail display from preferences
             $thumb = true;
         }
@@ -421,7 +421,7 @@ $this->get(
 )->setName('objectslend_photo');
 
 $this->get(
-    __('/categories', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
+    __('/categories') . '[/{option:' . __('page', 'routes') . '|' .
     __('order', 'routes') . '}/{value:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option = null;
@@ -477,7 +477,7 @@ $this->get(
 
 //categories list filtering
 $this->post(
-    __('/categories', 'objectslend_routes') . __('/filter', 'routes'),
+    __('/categories') . __('/filter', 'routes'),
     function ($request, $response) {
         $post = $request->getParsedBody();
         if (isset($this->session->objectslend_filter_categories)) {
@@ -519,7 +519,7 @@ $this->post(
 )->setName('objectslend_filter_categories')->add($authenticate);
 
 $this->get(
-    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/category') . __('/remove', 'routes') . '/{id:\d+}',
     function ($request, $response, $args) {
         $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
 
@@ -552,7 +552,7 @@ $this->get(
 )->setName('objectslend_remove_category')->add($authenticate);
 
 $this->post(
-    __('/category', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/category') . __('/remove', 'routes') . '/{id:\d+}',
     function ($request, $response, $args) {
         $post = $request->getParsedBody();
         $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
@@ -613,7 +613,7 @@ $this->post(
 )->setName('objectslend_doremove_category')->add($authenticate);
 
 $this->get(
-    __('/status', 'objectslend_routes') . '/{action:' .
+    __('/status') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $action = $args['action'];
@@ -664,7 +664,7 @@ $this->get(
 )->setName('objectslend_status')->add($authenticate);
 
 $this->post(
-    __('/status', 'objectslend_routes') . '/{action:' .
+    __('/status') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $action = $args['action'];
@@ -714,7 +714,7 @@ $this->post(
 )->setName('objectslend_status_action')->add($authenticate);
 
 $this->get(
-    __('/statuses', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
+    __('/statuses') . '[/{option:' . __('page', 'routes') . '|' .
     __('order', 'routes') . '}/{value:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option = null;
@@ -785,7 +785,7 @@ $this->get(
 
 //status list filtering
 $this->post(
-    __('/statuses', 'objectslend_routes') . __('/filter', 'routes'),
+    __('/statuses') . __('/filter', 'routes'),
     function ($request, $response) {
         $post = $request->getParsedBody();
         if (isset($this->session->objectslend_filter_statuses)) {
@@ -832,7 +832,7 @@ $this->post(
 )->setName('objectslend_filter_statuses')->add($authenticate);
 
 $this->get(
-    __('/status', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/status') . __('/remove', 'routes') . '/{id:\d+}',
     function ($request, $response, $args) {
         $status = new LendStatus($this->zdb, (int)$args['id']);
 
@@ -865,7 +865,7 @@ $this->get(
 )->setName('objectslend_remove_status')->add($authenticate);
 
 $this->post(
-    __('/status', 'objectslend_routes') . __('/remove', 'routes') . '/{id:\d+}',
+    __('/status') . __('/remove', 'routes') . '/{id:\d+}',
     function ($request, $response, $args) {
         $post = $request->getParsedBody();
         $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
@@ -926,7 +926,7 @@ $this->post(
 )->setName('objectslend_doremove_status')->add($authenticate);
 
 $this->get(
-    __('/object', 'objectslend_routes') . '/{action:' .
+    __('/object') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option = null;
@@ -959,12 +959,16 @@ $this->get(
         } else {
             $title = _T("New object", "objectslend");
         }
+        // Modif préconisée par trasher
+        $sfilter = new StatusList();
+        $sfilter->active_filter = \GaletteObjectsLend\Repository\Status::ACTIVE;
+        $statuses = new Status($this->zdb, $this->login, $sfilter);
 
-        if (isset($this->session->objectslend_filter_statuses)) {
+        //if (isset($this->session->objectslend_filter_statuses)) {
             $filters = $this->session->objectslend_filter_statuses;
-        } else {
+        //} else {
             $filters = new StatusList();
-        }
+        //}
 
         if ($option !== null) {
             switch ($option) {
@@ -1003,7 +1007,7 @@ $this->get(
 )->setName('objectslend_object')->add($authenticate);
 
 $this->get(
-    __('/object', 'objectslend_routes') . '/' . __('clone', 'objectslend') . '/{id:\d+}',
+    __('/object') . '/' . __('clone', 'objectslend') . '/{id:\d+}',
     function ($request, $response, $args) use ($module, $module_id) {
         $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
 
@@ -1039,7 +1043,7 @@ $this->get(
 )->setName('objectslend_object_clone')->add($authenticate);
 
 $this->post(
-    __('/object', 'objectslend_routes') . '/{action:' .
+    __('/object') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $action = $args['action'];
@@ -1160,8 +1164,8 @@ $this->post(
 )->setName('objectslend_object_action')->add($authenticate);
 
 $this->get(
-    __('/objects', 'objectslend_routes') . '[/{option:' . __('page', 'routes') . '|' .
-    __('order', 'routes') . '|' . __('category', 'objectslend_routes') . '}/{value:\d+}]',
+    __('/objects') . '[/{option:' . __('page', 'routes') . '|' .
+    __('order', 'routes') . '|' . __('category') . '}/{value:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option = null;
         if (isset($args['option'])) {
@@ -1186,7 +1190,7 @@ $this->get(
                 case __('order', 'routes'):
                     $filters->orderby = $value;
                     break;
-                case __('category', 'objectslend_routes'):
+                case __('category'):
                     if ($value == 0) {
                         $value = null;
                     }
@@ -1208,7 +1212,7 @@ $this->get(
         $categories = new Categories($this->zdb, $this->login, $this->plugins);
         $categories_list = $categories->getCategoriesList(true);
 
-        // display page
+         // display page
         $this->view->render(
             $response,
             'file:[' . $module['route'] . ']objects_list.tpl',
@@ -1231,7 +1235,7 @@ $this->get(
 
 //objects list filtering
 $this->post(
-    __('/objects', 'objectslend_routes') . __('/filter', 'routes'),
+    __('/objects') . __('/filter', 'routes'),
     function ($request, $response) {
 
         $post = $request->getParsedBody();
@@ -1273,7 +1277,7 @@ $this->post(
 
 //Remove Objects
 $this->get(
-    __('/object', 'objectslend_routes') . __('/remove', 'routes') . '[/{id:\d+}]',
+    __('/object') . __('/remove', 'routes') . '[/{id:\d+}]',
     function ($request, $response, $args) {
         //$post = $request->getParsedBody();
         $object = new LendObject($this->zdb, $this->plugins, (int)$args['id']);
@@ -1334,7 +1338,7 @@ $this->get(
 
 
 $this->post(
-    __('/object', 'objectslend_routes') . __('/doremove', 'routes') . '[/{id:\d+}]',
+    __('/object') . __('/doremove', 'routes') . '[/{id:\d+}]',
     function ($request, $response, $args) {
         $post = $request->getParsedBody();
         $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
@@ -1413,7 +1417,7 @@ $this->post(
 
 //Batch actions on objects list
 $this->post(
-    __('/objects', 'objectslend_routes') . __('/batch', 'routes'),
+    __('/objects') . __('/batch', 'routes'),
     function ($request, $response) {
         $post = $request->getParsedBody();
 
@@ -1478,21 +1482,25 @@ $this->post(
 
 
 $this->get(
-    __('/objects', 'objectslend_routes') . __('/print', 'objectslend_routes') . '[/{id:\d+}]',
+    __('/objects') . __('/print') . '[/{id:\d+}]',
     function ($request, $response, $args) {
         $lendsprefs = new Preferences($this->zdb);
 
-        if (isset($args['id'])) {
-            $filters = new ObjectsList();
-            $id[]=$args['id'];
-            $filters->selected = $id;
-            $this->session->objectslend_filter_objects = $filters;
-        } else {
+        if (isset($this->session->objectslend_filter_objects)) {
             $filters =  $this->session->objectslend_filter_objects;
+        } else {
+            $filters = new ObjectsList();
+        }
+        if (isset($args['id'])) {
+            $sfilters = new ObjectsList();
+            $id[]=$args['id'];
+            $sfilters->selected = $id;
+        } else {
+            $sfilters = $filters;
         }
 
-        $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $filters);
-        //getObjectsList($as_objects = false,$fields = null,$count = true,$limit = true,$all_rents = false)
+        $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $sfilters);
+
         $list = $objects->getObjectsList(true, null, true, false, true);
 
         $pdf = new GaletteObjectsLend\IO\PdfObjects(
@@ -1506,49 +1514,52 @@ $this->get(
 
         $pdf->drawList($list);
         $pdf->Output(_T("Objects list", "objectslend") . '.pdf', 'D');
-        $filters = new ObjectsList();
-        $this->session->objectslend_filter_objects = $filters;
+        //$filters = new ObjectsList();
+        //$this->session->objectslend_filter_objects = $filters;
     }
 )->setName('objectslend_objects_print')->add($authenticate);
 
 
 $this->get(
-    __('/objects', 'objectslend_routes') . __('/printobject', 'objectslend_routes') . '[/{id:\d+}]',
+    __('/objects') . __('/printobject') . '[/{id:\d+}]',
     function ($request, $response, $args) {
         $lendsprefs = new Preferences($this->zdb);
-        if (isset($args['id'])) {
-            $filters = new ObjectsList();
-            $id[]=$args['id'];
-            $filters->selected = $id;
-            $this->session->objectslend_filter_objects = $filters;
-        } else {
+        if (isset($this->session->objectslend_filter_objects)) {
             $filters =  $this->session->objectslend_filter_objects;
+        } else {
+            $filters = new ObjectsList();
+        }
+        if (isset($args['id'])) {
+            $sfilters = new ObjectsList();
+            $id[]=$args['id'];
+            $sfilters->selected = $id;
+        } else {
+            $sfilters = $filters;
         }
 
-        $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $filters);
-        //getObjectsList($as_objects = false,$fields = null,$count = true,$limit = true,$all_rents = false)
+        $objects = new Objects($this->zdb, $this->plugins, $lendsprefs, $sfilters);
         $list = $objects->getObjectsList(true, null, true, false, true);
 
         $pdf = new GaletteObjectsLend\IO\PdfObjects(
             $this->zdb,
             $this->preferences,
             $lendsprefs,
-            $filters,
+            $sfilters,
             $this->login
         );
         // a changer pour imprimer les locations
         $pdf->drawList($list);
         $pdf->drawList1($list);
         $pdf->Output(_T("Objects list", "objectslend") . '.pdf', 'D');
-        $filters = new ObjectsList();
-        $this->session->objectslend_filter_objects = $filters;
+        //$filters = new ObjectsList();
+        //$this->session->objectslend_filter_objects = $filters;
     }
 )->setName('objectslend_objects_printobject')->add($authenticate);
 
 
 //  GiveBack Objects
 $this->get(
-    __('/object', 'objectslend_routes') . __('/give_object_back', 'objectslend_routes') . '[/{id:\d+}]',
+    __('/object') . __('/give_object_back') . '[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option=null;
         $action = $args['action'];
@@ -1595,9 +1606,11 @@ $this->get(
             foreach ($list_members as $member) {
                 $pk = Adherent::PK;
 
-                $sname = mb_strtoupper($member->nom_adh, 'UTF-8') .
-                    ' ' . ucwords(mb_strtolower($member->prenom_adh, 'UTF-8')) .
-                    ' (' . $member->id_adh . ')';
+
+                //$sname = mb_strtoupper($member->nom_adh, 'UTF-8') .
+                //    ' ' . ucwords(mb_strtolower($member->prenom_adh, 'UTF-8')) .
+                //    ' (' . $member->id_adh . ')';
+                $sname=Adherent::getNameWithCase($member->nom_adh, $member->prenom_adh);
                 $members[$member->$pk] = $sname;
             }
         }
@@ -1635,7 +1648,7 @@ $this->get(
 
 
 $this->post(
-    __('/do_giveback_lend', 'objectslend_routes'),
+    __('/do_giveback_lend'),
     function ($request, $response, $args) use ($module, $module_id) {
         $ok=true;
         foreach ($_POST['ids'] as $object_id) {
@@ -1671,7 +1684,7 @@ $this->post(
 
 // Take Objects
 $this->get(
-    __('/object', 'objectslend_routes') . __('/take_object', 'objectslend_routes') . '[/{id:\d+}]',
+    __('/object') . __('/take_object') . '[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $option=null;
         $action = $args['action'];
@@ -1718,9 +1731,11 @@ $this->get(
             foreach ($list_members as $member) {
                 $pk = Adherent::PK;
 
-                $sname = mb_strtoupper($member->nom_adh, 'UTF-8') .
-                    ' ' . ucwords(mb_strtolower($member->prenom_adh, 'UTF-8')) .
-                    ' (' . $member->id_adh . ')';
+                //$sname = mb_strtoupper($member->nom_adh, 'UTF-8') .
+                //    ' ' . ucwords(mb_strtolower($member->prenom_adh, 'UTF-8')) .
+                //    ' (' . $member->id_adh . ')';
+                //      ' (' . $member->id_adh . ')';
+                $sname=Adherent::getNameWithCase($member->nom_adh, $member->prenom_adh);
                 $members[$member->$pk] = $sname;
             }
         }
@@ -1761,7 +1776,7 @@ $this->get(
 )->setName('objectslend_take_object')->add($authenticate);
 
 $this->post(
-    __('/object', 'objectslend_routes') . __('/dotake_lend', 'objectslend_routes'),
+    __('/object') . __('/dotake_lend'),
     function ($request, $response, $args) {
         $ok=true;
             $adherent_id=$_POST['adherent_id'];
@@ -1815,6 +1830,7 @@ $this->post(
 
         if ($ok === false) {
             $error_detected =
+                _T("Error")
                 . " : " . $member->name . " " . $member->surname . " " . $object->name . " " . $_POST['date_begin'] . " " . $_POST['date_forecast'] ;
             $this->flash->addMessage(
                 'error_detected',
@@ -1847,7 +1863,7 @@ $this->post(
 
 // Disable Objects
 $this->get(
-    __('/object', 'objectslend_routes') . __('/disable_objects', 'objectslend_routes'),
+    __('/object') . __('/disable_objects'),
     function ($request, $response, $args) {
 
         $filters =  $this->session->objectslend_filter_objects;
@@ -1858,9 +1874,7 @@ $this->get(
 
         $disable=$objects->disableObjects($ids);
         if ($disable === false) {
-                $error_detected =
-                    _T("Error")
-                    . " : <b> xx</b>";
+                $error_detected = $disable;
                 $this->flash->addMessage(
                     'error_detected',
                     $error_detected
@@ -1874,7 +1888,7 @@ $this->get(
         } else {
             $success_detected =
                 _T("Transaction has been successfully stored")
-                . " : <b> xx </b>";
+                . " : OK";
             $this->flash->addMessage(
                 'success_detected',
                 $success_detected
@@ -1892,7 +1906,7 @@ $this->get(
 
 // Enable Objects
 $this->get(
-    __('/object', 'objectslend_routes') . __('/enable_objects', 'objectslend_routes'),
+    __('/object') . __('/enable_objects'),
     function ($request, $response, $args) {
 
         $filters =  $this->session->objectslend_filter_objects;
@@ -1903,9 +1917,7 @@ $this->get(
 
         $enable=$objects->enableObjects($ids);
         if ($enable === false) {
-                $error_detected =
-                    _T("Error")
-                    . " : <b> xx</b>";
+              $error_detected = $enable;
                 $this->flash->addMessage(
                     'error_detected',
                     $error_detected
@@ -1937,7 +1949,7 @@ $this->get(
 
 // Show all rents
 $this->get(
-    __('/object', 'objectslend_routes') . __('/show', 'objectslend_routes') . '/{id:\d+}',
+    __('/object') . __('/show') . '/{id:\d+}',
     function ($request, $response, $args) use ($module, $module_id) {
 
         $option = null;
