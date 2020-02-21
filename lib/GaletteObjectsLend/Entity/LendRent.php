@@ -256,6 +256,7 @@ class LendRent
     public static function closeAllRentsForObject($object_id, $comments)
     {
         global $zdb;
+        global $hist;
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->where(array(
@@ -271,6 +272,12 @@ class LendRent
                 $rent->status_id = 1;
                 $rent->store();
             }
+            // logging
+            $hist->add(
+                _T("Objectslend GiveBack object", "objectlend"),
+                "object_id:" . $object_id . " - comments:" . $comments
+            );
+
 
             return true;
         } catch (\Exception $e) {
@@ -278,6 +285,11 @@ class LendRent
                 'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
                     $e->getTraceAsString(),
                 Analog::ERROR
+            );
+            // logging
+            $hist->add(
+                _T("Objectslend GiveBack object Error", "objectlend"),
+                "object_id:" . $object_id . " - comments:" . $comments
             );
             return false;
         }
@@ -390,6 +402,8 @@ class LendRent
         $success = false;
 
         global $zdb;
+        global $hist;
+
         $rent = new LendRent();
         $rent->object_id = $object_id;
         $rent->date_begin = $date_begin;
@@ -400,6 +414,12 @@ class LendRent
         $rent->comments = $comments;
 
         $success=$rent->store();
+        // logging
+        $hist->add(
+            _T("Objectslend Take object", "objectlend"),
+            "object_id:" . $object_id . " - adherent_id:" . $adherent_id . " - status_id:".
+            $status_id . " - comments: " .  $comments
+        );
         return $success;
     }
 }
