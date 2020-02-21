@@ -3,38 +3,37 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * ObjectsLend routes
- *
- * PHP version 5
- *
- * Copyright © 2017 The Galette Team
- *
- * This file is part of Galette (http://galette.tuxfamily.org).
- *
- * Galette is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Galette is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Galette. If not, see <http://www.gnu.org/licenses/>.
- *
- * @category Plugins
- * @package  GaletteObjectsLend
- *
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2017 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   SVN: $Id$
- * @link      http://galette.tuxfamily.org
- * @since     2017-11-19
- */
-
+* ObjectsLend routes
+*
+* PHP version 5
+*
+* Copyright © 2017 The Galette Team
+*
+* This file is part of Galette (http://galette.tuxfamily.org).
+*
+* Galette is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Galette is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Galette. If not, see <http://www.gnu.org/licenses/>.
+*
+* @category Plugins
+* @package  GaletteObjectsLend
+*
+* @author    Johan Cwiklinski <johan@x-tnd.be>
+* @copyright 2017 The Galette Team
+* @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
+* @version   SVN: $Id$
+* @link      http://galette.tuxfamily.org
+* @since     2017-11-19
+*/
 
 use Analog\Analog;
 use Galette\Entity\ContributionsTypes;
@@ -65,8 +64,8 @@ use GaletteObjectsLend\Filters\StatusList;
 use GaletteObjectsLend\Filters\ObjectsList;
 use GaletteObjectsLend\Filters\CategoriesList;
 
-    const ACTIVE = 1;
-    const INACTIVE = 2;
+const ACTIVE = 1;
+const INACTIVE = 2;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
@@ -84,9 +83,9 @@ $this->get(
         $ctypes = new ContributionsTypes($this->zdb);
 
         $params = [
-            'page_title'    => _T('ObjectsLend preferences', 'objectslend'),
-            'ctypes'        => $ctypes->getList(),
-            'lendsprefs'    => $lendsprefs->getpreferences()
+        'page_title'    => _T('ObjectsLend preferences', 'objectslend'),
+        'ctypes'        => $ctypes->getList(),
+        'lendsprefs'    => $lendsprefs->getpreferences()
         ];
 
         // display page
@@ -110,7 +109,7 @@ $this->post(
         if ($lendsprefs->store($post, $error_detected)) {
             $this->flash->addMessage(
                 'success_detected',
-                _T("Preferences have been successfully stored!", "objectslend")
+                _T('Preferences have been successfully stored!', 'objectslend')
             );
         } else {
             $this->session->objectslend_preferences = $lendsprefs;
@@ -123,11 +122,11 @@ $this->post(
         }
 
         return $response
-            ->withStatus(301)
-            ->withHeader(
-                'Location',
-                $this->router->pathFor('objectslend_preferences')
-            );
+        ->withStatus(301)
+        ->withHeader(
+            'Location',
+            $this->router->pathFor('objectslend_preferences')
+        );
     }
 )->setName('store_objectlend_preferences')->add($authenticate);
 
@@ -139,7 +138,7 @@ $this->get(
             $response,
             'file:[' . $module['route'] . ']admin_picture.tpl',
             [
-                'page_title' => _T("Pictures administration", "objectslend")
+            'page_title' => _T('Pictures administration', 'objectslend')
             ]
         );
         return $response;
@@ -185,22 +184,22 @@ $this->post(
                 $zip = new \ZipArchive();
 
                 $ZIP_ERROR = [
-                    ZipArchive::ER_EXISTS   => _T('File already exists.', 'objectslend'),
-                    ZipArchive::ER_INCONS   => _T('Zip archive inconsistent.', 'objectslend'),
-                    ZipArchive::ER_INVAL    => _T('Invalid argument.', 'objectslend'),
-                    ZipArchive::ER_MEMORY   => _T('Memory allocation failure.', 'objectslend'),
-                    ZipArchive::ER_NOENT    => _T('No such file.', 'objectslend'),
-                    ZipArchive::ER_NOZIP    => _T('Not a zip archive.', 'objectslend'),
-                    ZipArchive::ER_OPEN     => _T("Can't open file.", "objectslend"),
-                    ZipArchive::ER_READ     => _T('Read error.', 'objectslend'),
-                    ZipArchive::ER_SEEK     => _T('Seek error.', 'objectslend'),
+                ZipArchive::ER_EXISTS   => _T('File already exists.', 'objectslend'),
+                ZipArchive::ER_INCONS   => _T('Zip archive inconsistent.', 'objectslend'),
+                ZipArchive::ER_INVAL    => _T('Invalid argument.', 'objectslend'),
+                ZipArchive::ER_MEMORY   => _T('Memory allocation failure.', 'objectslend'),
+                ZipArchive::ER_NOENT    => _T('No such file.', 'objectslend'),
+                ZipArchive::ER_NOZIP    => _T('Not a zip archive.', 'objectslend'),
+                ZipArchive::ER_OPEN     => _T('Cannot open file.', 'objectslend'),
+                ZipArchive::ER_READ     => _T('Read error.', 'objectslend'),
+                ZipArchive::ER_SEEK     => _T('Seek error.', 'objectslend'),
                 ];
 
                 $result_code = $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
                 if ($result_code !== true) {
                     $error_detected[] = isset($ZIP_ERROR[$result_code]) ?
-                        $ZIP_ERROR[$result_code] :
-                        _T('Unknown error.', 'objectslend');
+                    $ZIP_ERROR[$result_code] :
+                    _T('Unknown error.', 'objectslend');
                 } else {
                     $dir_pictures = opendir($picture->getDir());
                     while (($file = readdir($dir_pictures)) !== false) {
@@ -255,11 +254,11 @@ $this->post(
         }
 
         return $response
-            ->withStatus(301)
-            ->withHeader(
-                'Location',
-                $this->router->pathFor('objectslend_adminimages')
-            );
+        ->withStatus(301)
+        ->withHeader(
+            'Location',
+            $this->router->pathFor('objectslend_adminimages')
+        );
     }
 )->setName('objectslend_adminimages_action')->add($authenticate);
 
@@ -270,15 +269,15 @@ $this->get(
         $action = $args['action'];
         if ($action === __('edit', 'routes') && !isset($args['id'])) {
             throw new \RuntimeException(
-                _T("Category ID cannot be null calling edit route!")
+                _T('Category ID cannot be null calling edit route!')
             );
         } elseif ($action === __('add', 'routes') && isset($args['id'])) {
-             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_category', ['action' => __('add', 'routes')])
-                );
+            return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_category', ['action' => __('add', 'routes')])
+            );
         }
 
         if ($this->session->objectslend_category !== null) {
@@ -289,18 +288,18 @@ $this->get(
         }
 
         if ($category->category_id !== null) {
-            $title = _T("Edit category", "objectslend");
+            $title = _T('Edit category', 'objectslend');
         } else {
-            $title = _T("New category", "objectslend");
+            $title = _T('New category', 'objectslend');
         }
 
         $lendsprefs = new Preferences($this->zdb);
         $params = [
-            'page_title'    => $title,
-            'category'      => $category,
-            'time'          => time(),
-            'action'        => $action,
-            'olendsprefs'   => $lendsprefs
+        'page_title'    => $title,
+        'category'      => $category,
+        'time'          => time(),
+        'action'        => $action,
+        'olendsprefs'   => $lendsprefs
         ];
 
         // display page
@@ -314,7 +313,7 @@ $this->get(
 )->setName('objectslend_category')->add($authenticate);
 
 $this->post(
-    __('/category') . '/{action:' .
+    __('/category', 'objectslend_routes') . '/{action:' .
     __('edit', 'routes') . '|' . __('add', 'routes') . '}[/{id:\d+}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $action = $args['action'];
@@ -328,7 +327,7 @@ $this->post(
         $category->name = $post['name'];
         $category->is_active = $post['is_active'] == 'true';
         if ($category->store()) {
-            // picture upload
+        // picture upload
             if (isset($_FILES['picture'])) {
                 if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
                     if ($_FILES['picture']['tmp_name'] !='') {
@@ -352,7 +351,7 @@ $this->post(
 
             if (isset($post['del_picture'])) {
                 if (!$category->picture->delete($category->category_id)) {
-                    $error_detected[] = _T("Delete failed", "objectslend");
+                    $error_detected[] = _T('Delete failed', 'objectslend');
                     Analog::log(
                         'Unable to delete picture for category ' . $category->name,
                         Analog::ERROR
@@ -360,7 +359,7 @@ $this->post(
                 }
             }
         } else {
-            $error_detected[] = _T("An error occured while storing the category.", "objectslend");
+            $error_detected[] = _T('An error occured while storing the category.', 'objectslend');
         }
 
         if (count($error_detected)) {
@@ -373,24 +372,24 @@ $this->post(
             }
 
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_category', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_category', $args)
+            );
         } else {
-            //redirect to categories list
+        //redirect to categories list
             $this->flash->addMessage(
                 'success_detected',
-                _T("Category has been saved", "objectslend")
+                _T('Category has been saved', 'objectslend')
             );
 
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_categories', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_categories', $args)
+            );
         }
     }
 )->setName('objectslend_category_action')->add($authenticate);
@@ -402,13 +401,13 @@ $this->get(
         $id = isset($args['id']) ? $args['id'] : '';
         $type = $args['type'];
         $class = '\GaletteObjectsLend\Entity\\' .
-            ($type == __('category') ? 'CategoryPicture' : 'ObjectPicture');
+        ($type == __('category') ? 'CategoryPicture' : 'ObjectPicture');
         $picture = new $class($this->plugins, $id);
 
         $lendsprefs = new Preferences($this->zdb);
         $thumb = false;
         if (!$lendsprefs->showFullsize() || $args['mode'] == __('thumbnail')) {
-            //force thumbnail display from preferences
+        //force thumbnail display from preferences
             $thumb = true;
         }
 
@@ -449,7 +448,6 @@ $this->get(
             }
         }
 
-
         $categories = new Categories($this->zdb, $this->login, $this->plugins, $filters);
         $categories_list = $categories->getCategoriesList(true);
         $this->session->objectslend_filter_categories = $filters;
@@ -457,18 +455,18 @@ $this->get(
         $filters->setSmartyPagination($this->router, $this->view->getSmarty(), false);
 
         $lendsprefs = new Preferences($this->zdb);
-        $title = _T("Categories list", "objectslend");
+        $title = _T('Categories list', 'objectslend');
         // display page
         $this->view->render(
             $response,
             'file:[' . $module['route'] . ']categories_list.tpl',
             array(
-                'page_title'            => $title,
-                'require_dialog'        => true,
-                'categories'            => $categories_list,
-                'filters'               => $filters,
-                'olendsprefs'           => $lendsprefs,
-                'time'                  => time()
+            'page_title'            => $title,
+            'require_dialog'        => true,
+            'categories'            => $categories_list,
+            'filters'               => $filters,
+            'olendsprefs'           => $lendsprefs,
+            'time'                  => time()
             )
         );
         return $response;
@@ -489,15 +487,15 @@ $this->post(
         //reintialize filters
         if (isset($post['clear_filter'])) {
             $filters = new CategoriesList();
-            //$filters->reinit();
+        //$filters->reinit();
         } else {
-            //string to filter
+        //string to filter
             if (isset($post['filter_str'])) { //filter search string
                 $filters->filter_str = stripslashes(
                     htmlspecialchars($post['filter_str'], ENT_QUOTES)
                 );
             }
-            //activity to filter
+        //activity to filter
             if (isset($post['active_filter'])) {
                 if (is_numeric($post['active_filter'])) {
                     $filters->active_filter = $post['active_filter'];
@@ -505,7 +503,7 @@ $this->post(
                     $filters->active_filter = 0;
                 }
             }
-            //number of rows to show
+        //number of rows to show
             if (isset($post['nbshow'])) {
                 $filters->show = $post['nbshow'];
             }
@@ -513,8 +511,8 @@ $this->post(
 
         $this->session->objectslend_filter_categories = $filters;
         return $response
-            ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('objectslend_categories'));
+        ->withStatus(301)
+        ->withHeader('Location', $this->router->pathFor('objectslend_categories'));
     }
 )->setName('objectslend_filter_categories')->add($authenticate);
 
@@ -524,8 +522,8 @@ $this->get(
         $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
 
         $data = [
-            'id'            => $args['id'],
-            'redirect_uri'  => $this->router->pathFor('objectslend_categories')
+        'id'            => $args['id'],
+        'redirect_uri'  => $this->router->pathFor('objectslend_categories')
         ];
 
         // display page
@@ -533,18 +531,18 @@ $this->get(
             $response,
             'confirm_removal.tpl',
             array(
-                'type'          => _T("Category", "objectslend"),
-                'mode'          => $request->isXhr() ? 'ajax' : '',
-                'page_title'    => sprintf(
-                    _T('Remove category %1$s', 'objectslend'),
-                    $category->name
-                ),
-                'form_url'      => $this->router->pathFor(
-                    'objectslend_doremove_category',
-                    ['id' => $category->category_id]
-                ),
-                'cancel_uri'    => $this->router->pathFor('objectslend_categories'),
-                'data'          => $data
+            'type'          => _T('Category', 'objectslend'),
+            'mode'          => $request->isXhr() ? 'ajax' : '',
+            'page_title'    => sprintf(
+                _T('Remove category %1$s', 'objectslend'),
+                $category->name
+            ),
+            'form_url'      => $this->router->pathFor(
+                'objectslend_doremove_category',
+                ['id' => $category->category_id]
+            ),
+            'cancel_uri'    => $this->router->pathFor('objectslend_categories'),
+            'data'          => $data
             )
         );
         return $response;
@@ -559,13 +557,13 @@ $this->post(
         $success = false;
 
         $uri = isset($post['redirect_uri']) ?
-            $post['redirect_uri'] :
-            $this->router->pathFor('slash');
+        $post['redirect_uri'] :
+        $this->router->pathFor('slash');
 
         if (!isset($post['confirm'])) {
             $this->flash->addMessage(
                 'error_detected',
-                _T("Removal has not been confirmed!")
+                _T('Removal has not been confirmed!')
             );
         } else {
             $category = new LendCategory($this->zdb, $this->plugins, (int)$args['id']);
@@ -575,7 +573,7 @@ $this->post(
                 $error_detected = str_replace(
                     '%category',
                     $category->name,
-                    _T("An error occured trying to remove category %category :/")
+                    _T('An error occured trying to remove category %category :/')
                 );
 
                 $this->flash->addMessage(
@@ -586,7 +584,7 @@ $this->post(
                 $success_detected = str_replace(
                     '%category',
                     $category->name,
-                    _T("Category %category has been successfully deleted.")
+                    _T('Category %category has been successfully deleted.')
                 );
 
                 $this->flash->addMessage(
@@ -600,12 +598,12 @@ $this->post(
 
         if (!$ajax) {
             return $response
-                ->withStatus(301)
-                ->withHeader('Location', $uri);
+            ->withStatus(301)
+            ->withHeader('Location', $uri);
         } else {
             return $response->withJson(
                 [
-                    'success'   => $success
+                'success'   => $success
                 ]
             );
         }
@@ -619,15 +617,15 @@ $this->get(
         $action = $args['action'];
         if ($action === __('edit', 'routes') && !isset($args['id'])) {
             throw new \RuntimeException(
-                _T("Status ID cannot be null calling edit route!")
+                _T('Status ID cannot be null calling edit route!')
             );
         } elseif ($action === __('add', 'routes') && isset($args['id'])) {
-             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_status', ['action' => __('add', 'routes')])
-                );
+            return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_status', ['action' => __('add', 'routes')])
+            );
         }
 
         if ($this->session->objectslend_status !== null) {
@@ -641,16 +639,16 @@ $this->get(
             $title = str_replace(
                 '%status',
                 $status->status_text,
-                _T("Edit status %status", "objectslend")
+                _T('Edit status %status', 'objectslend')
             );
         } else {
-            $title = _T("New status", "objectslend");
+            $title = _T('New status', 'objectslend');
         }
 
         $params = [
-            'page_title'    => $title,
-            'status'        => $status,
-            'action'        => $action
+        'page_title'    => $title,
+        'status'        => $status,
+        'action'        => $action
         ];
 
         // display page
@@ -678,7 +676,7 @@ $this->post(
         $days = trim($post['rent_day_number']);
         $status->rent_day_number = strlen($days) > 0 ? intval($days) : null;
         if (!$status->store()) {
-            $error_detected[] = _T("An error occured while storing the status.", "objectslend");
+            $error_detected[] = _T('An error occured while storing the status.', 'objectslend');
         }
 
         if (count($error_detected)) {
@@ -691,24 +689,24 @@ $this->post(
             }
 
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_status', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_status', $args)
+            );
         } else {
-            //redirect to categories list
+        //redirect to categories list
             $this->flash->addMessage(
                 'success_detected',
-                _T("Status has been saved", "objectslend")
+                _T('Status has been saved', 'objectslend')
             );
 
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_statuses', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_statuses', $args)
+            );
         }
     }
 )->setName('objectslend_status_action')->add($authenticate);
@@ -749,13 +747,13 @@ $this->get(
         if (count(LendStatus::getActiveHomeStatuses($this->zdb)) == 0) {
             $this->flash->addMessage(
                 'error_detected',
-                _T("You should add at last 1 status 'on site' to ensure the plugin works well!", "objectslend")
+                _T('You should add at last 1 status "on site" to ensure the plugin works well!', 'objectslend')
             );
         }
         if (count(LendStatus::getActiveTakeAwayStatuses($this->zdb)) == 0) {
             $this->flash->addMessage(
                 'error_detected',
-                _T("You should add at last 1 status 'object borrowed' to ensure the plugin works well!", "objectslend")
+                _T('You should add at last 1 status "object borrowed" to ensure the plugin works well!', 'objectslend')
             );
         }
 
@@ -770,13 +768,13 @@ $this->get(
             $response,
             'file:[' . $module['route'] . ']status_list.tpl',
             array(
-                'page_title'            => _T("Status list", "objectslend"),
-                'require_dialog'        => true,
-                'statuses'              => $list,
-                'nb_status'             => count($list),
-                'olendsprefs'           => $lendsprefs,
-                'filters'               => $filters,
-                'time'                  => time()
+            'page_title'            => _T('Status list', 'objectslend'),
+            'require_dialog'        => true,
+            'statuses'              => $list,
+            'nb_status'             => count($list),
+            'olendsprefs'           => $lendsprefs,
+            'filters'               => $filters,
+            'time'                  => time()
             )
         );
         return $response;
@@ -798,26 +796,26 @@ $this->post(
         if (isset($post['clear_filter'])) {
             $filters->reinit();
         } else {
-            //string to filter
+        //string to filter
             if (isset($post['filter_str'])) { //filter search string
                 $filters->filter_str = stripslashes(
                     htmlspecialchars($post['filter_str'], ENT_QUOTES)
                 );
             }
-            //activity to filter
+        //activity to filter
             if (isset($post['active_filter'])) {
                 if (is_numeric($post['active_filter'])) {
                     $filters->active_filter = $post['active_filter'];
                 }
             }
-            //stock to filter
+        //stock to filter
             if (isset($post['stock_filter'])) {
                 if (is_numeric($post['stock_filter'])) {
                     $filters->stock_filter = $post['stock_filter'];
                 }
             }
 
-            //number of rows to show
+        //number of rows to show
             if (isset($post['nbshow'])) {
                 $filters->show = $post['nbshow'];
             }
@@ -826,8 +824,8 @@ $this->post(
         $this->session->objectslend_filter_statuses = $filters;
 
         return $response
-            ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('objectslend_statuses'));
+        ->withStatus(301)
+        ->withHeader('Location', $this->router->pathFor('objectslend_statuses'));
     }
 )->setName('objectslend_filter_statuses')->add($authenticate);
 
@@ -837,8 +835,8 @@ $this->get(
         $status = new LendStatus($this->zdb, (int)$args['id']);
 
         $data = [
-            'id'            => $args['id'],
-            'redirect_uri'  => $this->router->pathFor('objectslend_statuses')
+        'id'            => $args['id'],
+        'redirect_uri'  => $this->router->pathFor('objectslend_statuses')
         ];
 
         // display page
@@ -846,18 +844,18 @@ $this->get(
             $response,
             'confirm_removal.tpl',
             array(
-                'type'          => _T("Status", "objectslend"),
-                'mode'          => $request->isXhr() ? 'ajax' : '',
-                'page_title'    => sprintf(
-                    _T('Remove status %1$s', 'objectslend'),
-                    $status->status_text
-                ),
-                'form_url'      => $this->router->pathFor(
-                    'objectslend_doremove_status',
-                    ['id' => $status->status_id]
-                ),
-                'cancel_uri'    => $this->router->pathFor('objectslend_statuses'),
-                'data'          => $data
+            'type'          => _T('Status', 'objectslend'),
+            'mode'          => $request->isXhr() ? 'ajax' : '',
+            'page_title'    => sprintf(
+                _T('Remove status %1$s', 'objectslend'),
+                $status->status_text
+            ),
+            'form_url'      => $this->router->pathFor(
+                'objectslend_doremove_status',
+                ['id' => $status->status_id]
+            ),
+            'cancel_uri'    => $this->router->pathFor('objectslend_statuses'),
+            'data'          => $data
             )
         );
         return $response;
@@ -872,13 +870,13 @@ $this->post(
         $success = false;
 
         $uri = isset($post['redirect_uri']) ?
-            $post['redirect_uri'] :
-            $this->router->pathFor('slash');
+        $post['redirect_uri'] :
+        $this->router->pathFor('slash');
 
         if (!isset($post['confirm'])) {
             $this->flash->addMessage(
                 'error_detected',
-                _T("Removal has not been confirmed!")
+                _T('Removal has not been confirmed!')
             );
         } else {
             $status = new LendStatus($this->zdb, (int)$args['id']);
@@ -888,7 +886,7 @@ $this->post(
                 $error_detected = str_replace(
                     '%status',
                     $status->status_text,
-                    _T("An error occured trying to remove status %status :/")
+                    _T('An error occured trying to remove status %status :/')
                 );
 
                 $this->flash->addMessage(
@@ -899,7 +897,7 @@ $this->post(
                 $success_detected = str_replace(
                     '%status',
                     $status->status_text,
-                    _T("Status %status has been successfully deleted.")
+                    _T('Status %status has been successfully deleted.')
                 );
 
                 $this->flash->addMessage(
@@ -913,12 +911,12 @@ $this->post(
 
         if (!$ajax) {
             return $response
-                ->withStatus(301)
-                ->withHeader('Location', $uri);
+            ->withStatus(301)
+            ->withHeader('Location', $uri);
         } else {
             return $response->withJson(
                 [
-                    'success'   => $success
+                'success'   => $success
                 ]
             );
         }
@@ -933,15 +931,15 @@ $this->get(
         $action = $args['action'];
         if ($action === __('edit', 'routes') && !isset($args['id'])) {
             throw new \RuntimeException(
-                _T("Object ID cannot be null calling edit route!")
+                _T('Object ID cannot be null calling edit route!')
             );
         } elseif ($action === __('add', 'routes') && isset($args['id'])) {
-             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_object', ['action' => __('add', 'routes')])
-                );
+            return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_object', ['action' => __('add', 'routes')])
+            );
         }
 
         if ($this->session->objectslend_object !== null) {
@@ -955,20 +953,14 @@ $this->get(
         $categories_list = $categories->getCategoriesList(true);
 
         if ($object->object_id !== null) {
-            $title = _T("Edit object", "objectslend");
+            $title = _T('Edit object', 'objectslend');
         } else {
-            $title = _T("New object", "objectslend");
+            $title = _T('New object', 'objectslend');
         }
         // Modif préconisée par trasher
         $sfilter = new StatusList();
         $sfilter->active_filter = \GaletteObjectsLend\Repository\Status::ACTIVE;
         $statuses = new Status($this->zdb, $this->login, $sfilter);
-
-        //if (isset($this->session->objectslend_filter_statuses)) {
-            $filters = $this->session->objectslend_filter_statuses;
-        //} else {
-            $filters = new StatusList();
-        //}
 
         if ($option !== null) {
             switch ($option) {
@@ -985,15 +977,15 @@ $this->get(
 
         $lendsprefs = new Preferences($this->zdb);
         $params = [
-            'page_title'    => $title,
-            'object'        => $object,
-            'rents'         => $rents,
-            'time'          => time(),
-            'action'        => $action,
-            'lendsprefs'    => $lendsprefs->getpreferences(),
-            'olendsprefs'   => $lendsprefs,
-            'categories'    => $categories_list,
-            'statuses'      => $slist
+        'page_title'    => $title,
+        'object'        => $object,
+        'rents'         => $rents,
+        'time'          => time(),
+        'action'        => $action,
+        'lendsprefs'    => $lendsprefs->getpreferences(),
+        'olendsprefs'   => $lendsprefs,
+        'categories'    => $categories_list,
+        'statuses'      => $slist
         ];
 
         // display page
@@ -1028,17 +1020,17 @@ $this->get(
         }
 
         return $response
-            ->withStatus(301)
-            ->withHeader(
-                'Location',
-                $this->router->pathFor(
-                    'objectslend_object',
-                    [
-                        'action'    => __('edit', 'routes'),
-                        'id'        => $object->object_id
-                    ]
-                )
-            );
+        ->withStatus(301)
+        ->withHeader(
+            'Location',
+            $this->router->pathFor(
+                'objectslend_object',
+                [
+                'action'    => __('edit', 'routes'),
+                'id'        => $object->object_id
+                ]
+            )
+        );
     }
 )->setName('objectslend_object_clone')->add($authenticate);
 
@@ -1058,23 +1050,23 @@ $this->post(
         $object->category_id = empty($post['category_id']) ? null : $post['category_id'];
         $object->serial_number = $post['serial'];
         if ($post['price'] != '') {
-            //FIXME: better currency format handler
+        //FIXME: better currency format handler
             $object->price = str_replace(' ', '', str_replace(',', '.', $post['price']));
         }
         if ($post['rent_price'] != '') {
-            //FIXME: better currency format handler
+        //FIXME: better currency format handler
             $object->rent_price = str_replace(' ', '', str_replace(',', '.', $post['rent_price']));
         }
         $object->price_per_day = $post['price_per_day'] == 'true';
         $object->dimension = $post['dimension'];
         if ($post['weight'] != '') {
-            //FIXME: better format handler
+        //FIXME: better format handler
             $object->weight = str_replace(' ', '', str_replace(',', '.', $post['weight']));
         }
         $object->is_active = $post['is_active'] == 'true';
 
         if ($object->store()) {
-            $success_detected[] = _T("Object has been successfully stored!", "objectslend");
+            $success_detected[] = _T('Object has been successfully stored!', 'objectslend');
             if (isset($pot['1st_status'])) {
                 $rent = new LendRent();
                 $rent->object_id = $object->object_id;
@@ -1084,7 +1076,7 @@ $this->post(
 
             $object_id = $object->object_id;
 
-            /* Modification du statut */
+        /* Modification du statut */
             if ($post['status']) {
                 LendRent::closeAllRentsForObject(intval($object_id), $post['new_comment']);
 
@@ -1096,7 +1088,7 @@ $this->post(
                 }
                 $rent->store();
             }
-            // picture upload
+        // picture upload
             if (isset($_FILES['picture'])) {
                 if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
                     if ($_FILES['picture']['tmp_name'] !='') {
@@ -1120,7 +1112,7 @@ $this->post(
 
             if (isset($post['del_picture'])) {
                 if (!$object->picture->delete($object->object_id)) {
-                    $error_detected[] = _T("Delete failed", "objectslend");
+                    $error_detected[] = _T('Delete failed', 'objectslend');
                     Analog::log(
                         'Unable to delete picture for object ' . $object->name,
                         Analog::ERROR
@@ -1128,7 +1120,7 @@ $this->post(
                 }
             }
         } else {
-            $error_detected[] = _T("Something went wrong saving object :(", "objectslend");
+            $error_detected[] = _T('Something went wrong saving object', 'objectslend');
         }
 
         if (count($error_detected)) {
@@ -1141,24 +1133,24 @@ $this->post(
             }
 
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_object', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_object', $args)
+            );
         } else {
-            //redirect to objects list
+        //redirect to objects list
             $this->flash->addMessage(
                 'success_detected',
-                _T("Object has been saved", "objectslend")
+                _T('Object has been saved', 'objectslend')
             );
 
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_objects', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_objects', $args)
+            );
         }
     }
 )->setName('objectslend_object_action')->add($authenticate);
@@ -1212,21 +1204,21 @@ $this->get(
         $categories = new Categories($this->zdb, $this->login, $this->plugins);
         $categories_list = $categories->getCategoriesList(true);
 
-         // display page
+        // display page
         $this->view->render(
             $response,
             'file:[' . $module['route'] . ']objects_list.tpl',
             array(
-                'page_title'            => _T("Objects list", "objectslend"),
-                'require_dialog'        => true,
-                'objects'               => $list,
-                'nb_objects'            => count($list),
-                'filters'               => $filters,
-                'lendsprefs'            => $lendsprefs->getpreferences(),
-                'olendsprefs'           => $lendsprefs,
-                'time'                  => time(),
-                'module_id'             => $module_id,
-                'categories'            => $categories_list
+            'page_title'            => _T('Objects list', 'objectslend'),
+            'require_dialog'        => true,
+            'objects'               => $list,
+            'nb_objects'            => count($list),
+            'filters'               => $filters,
+            'lendsprefs'            => $lendsprefs->getpreferences(),
+            'olendsprefs'           => $lendsprefs,
+            'time'                  => time(),
+            'module_id'             => $module_id,
+            'categories'            => $categories_list
             )
         );
         return $response;
@@ -1249,19 +1241,19 @@ $this->post(
         if (isset($post['clear_filter'])) {
             $filters->reinit();
         } else {
-            //string to filter
+        //string to filter
             if (isset($post['filter_str'])) { //filter search string
                 $filters->filter_str = stripslashes(
                     htmlspecialchars($post['filter_str'], ENT_QUOTES)
                 );
             }
-            //activity to filter
+        //activity to filter
             if (isset($post['active_filter'])) {
                 if (is_numeric($post['active_filter'])) {
                     $filters->active_filter = $post['active_filter'];
                 }
             }
-            //number of rows to show
+        //number of rows to show
             if (isset($post['nbshow'])) {
                 $filters->show = $post['nbshow'];
             }
@@ -1270,8 +1262,8 @@ $this->post(
         $this->session->objectslend_filter_objects = $filters;
 
         return $response
-            ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
+        ->withStatus(301)
+        ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
     }
 )->setName('objectslend_filter_objects')->add($authenticate);
 
@@ -1284,58 +1276,56 @@ $this->get(
         if (!(int)$args['id']) {
             $filters =  $this->session->objectslend_filter_objects;
             $data = [
-                'id'            => $filters->selected,
-                'redirect_uri'  => $this->router->pathFor('objectslend_objects')
+            'id'            => $filters->selected,
+            'redirect_uri'  => $this->router->pathFor('objectslend_objects')
             ];
-            // display page
+        // display page
             $this->view->render(
                 $response,
                 'confirm_removal.tpl',
                 array(
-                    'type'          => _T("Object", "objectslend"),
-                    'mode'          => $request->isXhr() ? 'ajax' : '',
-                    'page_title'    => _T('Remove objects'),
-                    'message'       => str_replace(
-                        '%count',
-                        count($data['id']),
-                        _T('You are about to remove %count objects.')
-                    ),
-                    'form_url'      => $this->router->pathFor('objectslend_doremove_object'),
-                    'cancel_uri'    => $this->router->pathFor('objectslend_objects'),
-                    'data'          => $data
+                'type'          => _T('Object', 'objectslend'),
+                'mode'          => $request->isXhr() ? 'ajax' : '',
+                'page_title'    => _T('Remove objects'),
+                'message'       => str_replace(
+                    '%count',
+                    count($data['id']),
+                    _T('You are about to remove %count objects.')
+                ),
+                'form_url'      => $this->router->pathFor('objectslend_doremove_object'),
+                'cancel_uri'    => $this->router->pathFor('objectslend_objects'),
+                'data'          => $data
                 )
             );
             return $response;
         } else {
             $data = [
-                'id'            => $args['id'],
-                'redirect_uri'  => $this->router->pathFor('objectslend_objects')
+            'id'            => $args['id'],
+            'redirect_uri'  => $this->router->pathFor('objectslend_objects')
             ];
-            // display page
+        // display page
             $this->view->render(
                 $response,
                 'confirm_removal.tpl',
                 array(
-                    'type'          => _T("Object", "objectslend"),
-                    'mode'          => $request->isXhr() ? 'ajax' : '',
-                    'page_title'    => sprintf(
-                        _T('Remove object %1$s', 'objectslend'),
-                        $object->name
-                    ),
-                    'form_url'      => $this->router->pathFor(
-                        'objectslend_doremove_object',
-                        ['id' => $object->object_id]
-                    ),
-                    'cancel_uri'    => $this->router->pathFor('objectslend_objects'),
-                    'data'          => $data
+                'type'          => _T('Object', 'objectslend'),
+                'mode'          => $request->isXhr() ? 'ajax' : '',
+                'page_title'    => sprintf(
+                    _T('Remove object %1$s', 'objectslend'),
+                    $object->name
+                ),
+                'form_url'      => $this->router->pathFor(
+                    'objectslend_doremove_object',
+                    ['id' => $object->object_id]
+                ),
+                'cancel_uri'    => $this->router->pathFor('objectslend_objects'),
+                'data'          => $data
                 )
             );
             return $response;
         }
     }
 )->setName('objectslend_remove_object')->add($authenticate);
-
-
 
 $this->post(
     __('/object') . __('/doremove', 'routes') . '[/{id:\d+}]',
@@ -1349,13 +1339,13 @@ $this->post(
         if (!isset($post['confirm'])) {
             $this->flash->addMessage(
                 'error_detected',
-                _T("Removal has not been confirmed!")
+                _T('Removal has not been confirmed!')
             );
         } else {
             $success = true;
             $name="";
             if (is_array($post['id'])) {
-                //delete multiple objects
+            //delete multiple objects
                 foreach ($post['id'] as $id) {
                     $name=  $id. ", " . $name ;
                     $object = new LendObject($this->zdb, $this->plugins, (int)$id);
@@ -1365,7 +1355,7 @@ $this->post(
                     }
                 }
             } else {
-                //delete one  object
+            //delete one  object
                 $id=$args['id'];
                 $name=$id;
                 $object = new LendObject($this->zdb, $this->plugins, (int)$id);
@@ -1379,9 +1369,8 @@ $this->post(
                 $error_detected = str_replace(
                     '%name',
                     $name,
-                    _T("An error occured trying to remove object²	 %name :/")
+                    _T('An error occured trying to remove object %name :/')
                 );
-
                 $this->flash->addMessage(
                     'error_detected',
                     $error_detected
@@ -1390,9 +1379,8 @@ $this->post(
                 $success_detected = str_replace(
                     '%name',
                     $name,
-                    _T("Object %name has been successfully deleted.")
+                    _T('Object %name has been successfully deleted.')
                 );
-
                 $this->flash->addMessage(
                     'success_detected',
                     $success_detected
@@ -1403,12 +1391,12 @@ $this->post(
         }
         if (!$ajax) {
             return $response
-                ->withStatus(301)
-                ->withHeader('Location', $uri);
+            ->withStatus(301)
+            ->withHeader('Location', $uri);
         } else {
             return $response->withJson(
                 [
-                    'success'   => $success
+                'success'   => $success
                 ]
             );
         }
@@ -1431,55 +1419,51 @@ $this->post(
             $filters->selected = $post['object_ids'];
             $this->session->objectslend_filter_objects = $filters;
 
-
-
             if (isset($post['Delete'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_remove_object'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_remove_object'));
             } elseif (isset($post['TakeAway'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_take_object'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_take_object'));
             } elseif (isset($post['GiveBack'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_give_object_back'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_give_object_back'));
             } elseif (isset($post['Disable'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_disable_objects'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_disable_objects'));
             } elseif (isset($post['Enable'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_enable_objects'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_enable_objects'));
             } elseif (isset($post['print_list'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_objects_print'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_objects_print'));
             } elseif (isset($post['print_objects'])) {
                 return $response
-                    ->withStatus(301)
-                    ->withHeader('Location', $this->router->pathFor('objectslend_objects_printobject'));
+                ->withStatus(301)
+                ->withHeader('Location', $this->router->pathFor('objectslend_objects_printobject'));
             } else {
                 $this->flash->addMessage(
                     'error_detected',
-                    _T("No action was found. Please contact plugin developpers.")
+                    _T('No action was found. Please contact plugin developpers.')
                 );
             }
         } else {
             $this->flash->addMessage(
                 'error_detected',
-                _T("No object was selected, please check at least one.")
+                _T('No object was selected, please check at least one.')
             );
         }
         return $response
-            ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
+        ->withStatus(301)
+        ->withHeader('Location', $this->router->pathFor('objectslend_objects'));
     }
 )->setName('objectslend_batch-objectslist')->add($authenticate);
-
-
 
 $this->get(
     __('/objects') . __('/print') . '[/{id:\d+}]',
@@ -1511,14 +1495,12 @@ $this->get(
             $this->login
         );
 
-
         $pdf->drawList($list);
-        $pdf->Output(_T("Objects list", "objectslend") . '.pdf', 'D');
+        $pdf->Output(_T('Objects list', 'objectslend') . '.pdf', 'D');
         //$filters = new ObjectsList();
         //$this->session->objectslend_filter_objects = $filters;
     }
 )->setName('objectslend_objects_print')->add($authenticate);
-
 
 $this->get(
     __('/objects') . __('/printobject') . '[/{id:\d+}]',
@@ -1550,12 +1532,11 @@ $this->get(
         // a changer pour imprimer les locations
         $pdf->drawList($list);
         $pdf->drawList1($list);
-        $pdf->Output(_T("Objects list", "objectslend") . '.pdf', 'D');
+        $pdf->Output(_T('Objects list', 'objectslend') . '.pdf', 'D');
         //$filters = new ObjectsList();
         //$this->session->objectslend_filter_objects = $filters;
     }
 )->setName('objectslend_objects_printobject')->add($authenticate);
-
 
 //  GiveBack Objects
 $this->get(
@@ -1563,7 +1544,7 @@ $this->get(
     function ($request, $response, $args) use ($module, $module_id) {
         $option=null;
         $action = $args['action'];
-        $title = _T("Give back object", "objectslend");
+        $title = _T('Give back object', 'objectslend');
 
         if (isset($this->session->objectslend_filter_statuses)) {
             $filters = $this->session->objectslend_filter_statuses;
@@ -1582,7 +1563,6 @@ $this->get(
             }
         }
 
-
         $statuses = new Status($this->zdb, $this->login, $filters);
         $slist = $statuses->getStatusList(true);
         $lendsprefs = new Preferences($this->zdb);
@@ -1596,20 +1576,15 @@ $this->get(
         $members = [];
         $m = new Members();
         $required_fields = array(
-            'id_adh',
-            'nom_adh',
-            'prenom_adh'
+        'id_adh',
+        'nom_adh',
+        'prenom_adh'
         );
         $list_members = $m->getMembersList(false, $required_fields, true, false, false, false);
 
         if (count($list_members) > 0) {
             foreach ($list_members as $member) {
                 $pk = Adherent::PK;
-
-
-                //$sname = mb_strtoupper($member->nom_adh, 'UTF-8') .
-                //    ' ' . ucwords(mb_strtolower($member->prenom_adh, 'UTF-8')) .
-                //    ' (' . $member->id_adh . ')';
                 $sname=Adherent::getNameWithCase($member->nom_adh, $member->prenom_adh);
                 $members[$member->$pk] = $sname;
             }
@@ -1622,18 +1597,18 @@ $this->get(
             $ids[]=$args['id'];
         }
         $params = [
-            'require_calendar'  => true,
-            'id'            => $ids,
-            'page_title'    => $title,
-            'members'       =>$members,
-            'objects'       => $objects_list,
-            'object'        => $object,
-            'time'          => time(),
-            'action'        => $action,
-            'lendsprefs'    => $lendsprefs->getpreferences(),
-            'olendsprefs'   => $lendsprefs,
-            'categories'    => $categories_list,
-            'statuses'      => $slist
+        'require_calendar'  => true,
+        'id'            => $ids,
+        'page_title'    => $title,
+        'members'       =>$members,
+        'objects'       => $objects_list,
+        'object'        => $object,
+        'time'          => time(),
+        'action'        => $action,
+        'lendsprefs'    => $lendsprefs->getpreferences(),
+        'olendsprefs'   => $lendsprefs,
+        'categories'    => $categories_list,
+        'statuses'      => $slist
         ];
 
         // display page
@@ -1645,7 +1620,6 @@ $this->get(
         return $response;
     }
 )->setName('objectslend_give_object_back')->add($authenticate);
-
 
 $this->post(
     __('/do_giveback_lend'),
@@ -1659,16 +1633,15 @@ $this->post(
             }
         }
 
-
         if ($ok !== true) {
             $error_detected = $del;
             $this->flash->addMessage('error_detected', $error_detected);
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_objects', $args)
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_objects', $args)
+            );
         } else {
             $success_detected = "OK";
             $this->flash->addMessage('success_detected', $success_detected);
@@ -1688,7 +1661,7 @@ $this->get(
     function ($request, $response, $args) use ($module, $module_id) {
         $option=null;
         $action = $args['action'];
-        $title = _T("Take object", "objectslend");
+        $title = _T('Take object', 'objectslend');
 
         if (isset($this->session->objectslend_filter_statuses)) {
             $filter = $this->session->objectslend_filter_statuses;
@@ -1721,20 +1694,15 @@ $this->get(
         $members = [];
         $m = new Members();
         $required_fields = array(
-            'id_adh',
-            'nom_adh',
-            'prenom_adh'
+        'id_adh',
+        'nom_adh',
+        'prenom_adh'
         );
         $list_members = $m->getMembersList(false, $required_fields, true, false, false, false);
 
         if (count($list_members) > 0) {
             foreach ($list_members as $member) {
                 $pk = Adherent::PK;
-
-                //$sname = mb_strtoupper($member->nom_adh, 'UTF-8') .
-                //    ' ' . ucwords(mb_strtolower($member->prenom_adh, 'UTF-8')) .
-                //    ' (' . $member->id_adh . ')';
-                //      ' (' . $member->id_adh . ')';
                 $sname=Adherent::getNameWithCase($member->nom_adh, $member->prenom_adh);
                 $members[$member->$pk] = $sname;
             }
@@ -1747,21 +1715,20 @@ $this->get(
             $ids[]=$args['id'];
         }
 
-
         $params = [
-            'require_calendar'  => true,
-            'id'            => $ids,
-            'page_title'    => $title,
-            'members'       =>$members,
-            'objects'       => $objects_list,
-            'object'        => $object,
-            'time'          => time(),
-            'action'        => $action,
-            'lendsprefs'    => $lendsprefs->getpreferences(),
-            'olendsprefs'   => $lendsprefs,
-            'categories'    => $categories_list,
-            'contribution'  => $contributions_types,
-            'statuses'      => $slist
+        'require_calendar'  => true,
+        'id'            => $ids,
+        'page_title'    => $title,
+        'members'       =>$members,
+        'objects'       => $objects_list,
+        'object'        => $object,
+        'time'          => time(),
+        'action'        => $action,
+        'lendsprefs'    => $lendsprefs->getpreferences(),
+        'olendsprefs'   => $lendsprefs,
+        'categories'    => $categories_list,
+        'contribution'  => $contributions_types,
+        'statuses'      => $slist
         ];
 
         // display page
@@ -1779,13 +1746,12 @@ $this->post(
     __('/object') . __('/dotake_lend'),
     function ($request, $response, $args) {
         $ok=true;
-            $adherent_id=$_POST['adherent_id'];
-            $payment_type=intval($_POST['payment_type']);
-            $date_begin=$_POST['date_begin'];
-            $date_forecast=$_POST['date_forecast'];
-            $status_id=$_POST['status_id'];
-            $comments=$_POST['comments'];
-            $comments=$_POST['comments'];
+        $adherent_id=$_POST['adherent_id'];
+        $payment_type=intval($_POST['payment_type']);
+        $date_begin=$_POST['date_begin'];
+        $date_forecast=$_POST['date_forecast'];
+        $status_id=$_POST['status_id'];
+        $comments=$_POST['comments'];
 
         $ct = new ContributionsTypes($this->zdb);
         $contributions_types = $ct->getList($args['type'] === 'fee');
@@ -1793,59 +1759,64 @@ $this->post(
         foreach ($_POST['ids'] as $object_id) {
             $object = new LendObject($this->zdb, $this->plugins, (int)$object_id, true);
             $adherent_id=$_POST['adherent_id'];
-            // ajouter test si objet pris, alors le clore
+        // ajouter test si objet pris, alors le clore
             $close=LendRent::closeAllRentsForObject($object_id, "Take by : " . $_POST['adherent_id']);
-            $new=LendRent::newRentForObject($object_id, $date_begin, $date_forecast, $status_id, $adherent_id, $comments);
+            $new=LendRent::newRentForObject(
+                $object_id,
+                $date_begin,
+                $date_forecast,
+                $status_id,
+                $adherent_id,
+                $comments
+            );
             if ($new == false) {
                 $ok=false;
             }
 
-            // Récupération du prix de location
+        // Récupération du prix de location
             $rentprice = str_replace(',', '.', $object->rent_price);
-            // Ajout d'une contribution
+        // Ajout d'une contribution
             if ($rentprice > 0 && $lendsprefs->{Preferences::PARAM_AUTO_GENERATE_CONTRIBUTION}) {
                 $contrib = new Contribution($this->zdb, $this->login);
-                $info = str_replace(array('{NAME}', '{DESCRIPTION}', '{SERIAL_NUMBER}', '{PRICE}', '{RENT_PRICE}', '{WEIGHT}', '{DIMENSION}'), array($object->name, $object->description, $object->serial_number, $object->price, $object->rent_price, $object->weight, $object->dimension), $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIB_INFO_TEXT});
+                $info = str_replace(
+                    array('{NAME}', '{DESCRIPTION}', '{SERIAL_NUMBER}',
+                    '{PRICE}', '{RENT_PRICE}', '{WEIGHT}', '{DIMENSION}'),
+                    array($object->name, $object->description, $object->serial_number,
+                    $object->price, $object->rent_price,$object->weight, $object->dimension),
+                    $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIB_INFO_TEXT}
+                );
                 $values = array(
-                    'id_adh' => $adherent_id ,
-                    'id_type_cotis' =>  "4" ,
-                    'montant_cotis' => "10",
-                    'contribution_type' => $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID},
-                    'date_enreg' => date(_T("Y-m-d")),
-                    'date_debut_cotis' => date(_T("Y-m-d")),
-                    //'date_fin_cotis' => date(_T("Y-m-d")),
-                    'type_paiement_cotis' => $payment_type,
-                    'info_cotis' => $info
+                'id_adh' => $adherent_id ,
+                'id_type_cotis' =>  "4" ,
+                'montant_cotis' => "10",
+                'contribution_type' => $lendsprefs->{Preferences::PARAM_GENERATED_CONTRIBUTION_TYPE_ID},
+                'date_enreg' => date(_T('Y-m-d')),
+                'date_debut_cotis' => date(_T('Y-m-d')),
+                'type_paiement_cotis' => $payment_type,
+                'info_cotis' => $info
 
                 );
                 $contrib->check($values, array(), array());
                 $contrib->store();
             }
         }
-
         $id_adh=(int)$_POST['adherent_id'];
         $member = new Adherent($this->zdb, $id_adh);
-
-
-
         if ($ok === false) {
-            $error_detected =
-                _T("Error")
-                . " : " . $member->name . " " . $member->surname . " " . $object->name . " " . $_POST['date_begin'] . " " . $_POST['date_forecast'] ;
+            $error_detected = _T('Object lent has not been successfully stored!', 'objectslend');
             $this->flash->addMessage(
                 'error_detected',
                 $error_detected
             );
             return $response
-                ->withStatus(301)
-                ->withHeader(
-                    'Location',
-                    $this->router->pathFor('objectslend_objects')
-                );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_objects')
+            );
         } else {
             $success_detected =
-                _T("Object has been successfully stored", "objectslend")
-                . " : <b>" . $member->name . " " . $member->surname . " " . $object->name . " " . $_POST['date_begin'] . " " . $_POST['date_forecast'] . "</b>";
+            _T('Objectlent has been successfully stored', 'objectslend');
             $this->flash->addMessage(
                 'success_detected',
                 $success_detected
@@ -1874,21 +1845,20 @@ $this->get(
 
         $disable=$objects->disableObjects($ids);
         if ($disable === false) {
-                $error_detected = $disable;
-                $this->flash->addMessage(
-                    'error_detected',
-                    $error_detected
-                );
-                return $response
-                    ->withStatus(301)
-                    ->withHeader(
-                        'Location',
-                        $this->router->pathFor('objectslend_objects')
-                    );
+            $error_detected = $disable;
+            $this->flash->addMessage(
+                'error_detected',
+                $error_detected
+            );
+            return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_objects')
+            );
         } else {
             $success_detected =
-                _T("Transaction has been successfully stored")
-                . " : OK";
+            _T('Transaction has been successfully stored', 'objectslend');
             $this->flash->addMessage(
                 'success_detected',
                 $success_detected
@@ -1917,21 +1887,20 @@ $this->get(
 
         $enable=$objects->enableObjects($ids);
         if ($enable === false) {
-              $error_detected = $enable;
-                $this->flash->addMessage(
-                    'error_detected',
-                    $error_detected
-                );
-                return $response
-                    ->withStatus(301)
-                    ->withHeader(
-                        'Location',
-                        $this->router->pathFor('objectslend_objects')
-                    );
+            $error_detected = $enable;
+            $this->flash->addMessage(
+                'error_detected',
+                $error_detected
+            );
+            return $response
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_objects')
+            );
         } else {
             $success_detected =
-                _T("Transaction has been successfully stored")
-                . " : <b> xx </b>";
+            _T('Transaction has been successfully stored', 'objectslend');
             $this->flash->addMessage(
                 'success_detected',
                 $success_detected
@@ -1960,7 +1929,7 @@ $this->get(
         $categories_list = $categories->getCategoriesList(true);
 
         if ($object->object_id !== null) {
-            $title = _T("List rents", "objectslend");
+            $title = _T('List rents', 'objectslend');
         }
 
         if (isset($this->session->objectslend_filter_statuses)) {
@@ -1984,14 +1953,14 @@ $this->get(
 
         $lendsprefs = new Preferences($this->zdb);
         $params = [
-            'page_title'    => $title,
-            'object'        => $object,
-            'rents'         => $rents,
-            'time'          => time(),
-            'lendsprefs'    => $lendsprefs->getpreferences(),
-            'olendsprefs'   => $lendsprefs,
-            'categories'    => $categories_list,
-            'statuses'      => $slist
+        'page_title'    => $title,
+        'object'        => $object,
+        'rents'         => $rents,
+        'time'          => time(),
+        'lendsprefs'    => $lendsprefs->getpreferences(),
+        'olendsprefs'   => $lendsprefs,
+        'categories'    => $categories_list,
+        'statuses'      => $slist
         ];
 
         // display page
