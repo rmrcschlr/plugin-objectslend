@@ -747,13 +747,13 @@ $this->get(
         if (count(LendStatus::getActiveHomeStatuses($this->zdb)) == 0) {
             $this->flash->addMessage(
                 'error_detected',
-                _T('You should add at last 1 status "on site" to ensure the plugin works well!', 'objectslend')
+                _T('You should add at last 1 status \"on site\" to ensure the plugin works well!', 'objectslend')
             );
         }
         if (count(LendStatus::getActiveTakeAwayStatuses($this->zdb)) == 0) {
             $this->flash->addMessage(
                 'error_detected',
-                _T('You should add at last 1 status "object borrowed" to ensure the plugin works well!', 'objectslend')
+                _T('You should add at last 1 status \"object borrowed\" to ensure the plugin works well!', 'objectslend')
             );
         }
 
@@ -972,7 +972,7 @@ $this->get(
                     break;
             }
         }
-        $statuses = new Status($this->zdb, $this->login, $filters);
+        $statuses = new Status($this->zdb, $this->login, $sfilter);
         $slist = $statuses->getStatusList(true);
 
         $lendsprefs = new Preferences($this->zdb);
