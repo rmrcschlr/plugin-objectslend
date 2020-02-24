@@ -211,6 +211,7 @@ class LendCategory
     public static function getActiveCategories($noobjects = true)
     {
         global $zdb;
+        global $plugin;
 
         try {
             $select_count = $zdb->select(LEND_PREFIX . LendObject::TABLE)
@@ -265,7 +266,7 @@ class LendCategory
             $categs = array();
             $result = $zdb->execute($select);
             foreach ($result as $r) {
-                $cat = new LendCategory($this->zdb, $this->plugins, $r);
+                $cat = new LendCategory($zdb, $plugins, $r);
                 $cat->objects_nb = $r->nb;
                 if (is_numeric($r->sum)) {
                     $cat->objects_price_sum = $r->sum;
