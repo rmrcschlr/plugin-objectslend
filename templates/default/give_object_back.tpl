@@ -15,37 +15,37 @@
 {/foreach}
 	<div class="bigtable">
         <fieldset class="galette_form" id="general">
-            <legend class="ui-state-active ui-corner-top">{_T string="Object" domain='objectslend'}</legend>
+            <legend class="ui-state-active ui-corner-top">{_T string="Object" domain="objectslend"}</legend>
             <div>
                 <p>
-                    <label for="name">{_T string="Name:" domain='objectslend'}</label>
+                    <label for="name">{_T string="Name:" domain="objectslend"}</label>
 					<b>{$name}</b>
                 </p>
 				<p>
-					<label for="begin_date">{_T string="Begin date:" domain='objectslend'}</label>
+					<label for="begin_date">{_T string="Begin date:" domain="objectslend"}</label>
 					<b>{$date_begin}</b>
 		        </p>
 		        <p>
-					<label for="date_forecast">{_T string="End date" domain='objectslend'}</label>
+					<label for="date_forecast">{_T string="End date" domain="objectslend"}</label>
 					<b>{$date_forecast}</b>
 		        </p>
 		        <p>
-					<label for="Comment">{_T string="Comments:" domain='objectslend'}</label>
+					<label for="Comment">{_T string="Comments:" domain="objectslend"}</label>
 					<b>{$comments}</b>
 		        </p>
 			</div>
 		</fieldset>
 		<fieldset class="galette_form" id="general">
-			<legend class="ui-state-active ui-corner-top">{_T string="Return" domain='objectslend'}</legend>
+			<legend class="ui-state-active ui-corner-top">{_T string="Return" domain="objectslend"}</legend>
             <div>
 				<p>
-					<label for="Comments">{_T string="Return comments" domain='objectslend'}</label>
+					<label for="Comments">{_T string="Return comments" domain="objectslend"}</label>
 					<input type="text" id="comments" name="comments" value="{foreach $id as $k=>$v}{foreach $objects as $t=>$u}{if $u->object_id == $v}{$u->comments} {" - "}{/if}{/foreach}{/foreach} - Return :"  size="80">
 				</p>
-				<p><b></b>{_T string="Are you sure you want to proceed?"}{_T string="This can't be undone."  domain='objectslend'}</b></p>
+				<p><b></b>{_T string="Are you sure you want to proceed?"}{_T string="This can't be undone."  domain="objectslend"}</b></p>
 				<div class="button-container">
-					<input type="submit" id="delete" value="{_T string="Return" domain='objectslend'}"/>
-						<a href="{$cancel_uri}" class="button" id="btncancel">{_T string="Cancel"  domain='objectslend'}</a>
+					<input type="submit" id="delete" value="{_T string="Return" domain="objectslend"}"/>
+						<a href="{$cancel_uri}" class="button" id="btncancel">{_T string="Cancel"  domain="objectslend"}</a>
 				</div>
 			 </div>
         </fieldset>

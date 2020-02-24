@@ -37,7 +37,7 @@
     <thead>
         <tr>
             <th class="id_row">
-                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string='order' domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_ID"|constant]}">
+                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_ID"|constant]}">
                     #
                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Status::ORDERBY_ID')}
                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\StatusList::ORDER_ASC')}
@@ -49,7 +49,7 @@
                 </a>
             </th>
             <th>
-                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string='order' domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_NAME"|constant]}">
+                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_NAME"|constant]}">
                     {_T string="Status" domain="objectslend"}
                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Status::ORDERBY_NAME')}
                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\StatusList::ORDER_ASC')}
@@ -61,7 +61,7 @@
                 </a>
             </th>
             <th class="id_row">
-                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string='order' domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_ACTIVE"|constant]}">
+                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_ACTIVE"|constant]}">
                     {_T string="Active" domain="objectslend"}
                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Status::ORDERBY_ACTIVE')}
                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\StatusList::ORDER_ASC')}
@@ -73,7 +73,7 @@
                 </a>
             </th>
             <th class="id_row">
-                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string='order' domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_STOCK"|constant]}">
+                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_STOCK"|constant]}">
                     {_T string="Stock" domain="objectslend"}
                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Status::ORDERBY_STOCK')}
                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\StatusList::ORDER_ASC')}
@@ -85,7 +85,7 @@
                 </a>
             </th>
             <th class="id_row">
-                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string='order' domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_RENTDAYS"|constant]}">
+                <a href="{path_for name="objectslend_statuses" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Status::ORDERBY_RENTDAYS"|constant]}">
                     {_T string="Days for rent" domain="objectslend"}
                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Status::ORDERBY_RENTDAYS')}
                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\StatusList::ORDER_ASC')}

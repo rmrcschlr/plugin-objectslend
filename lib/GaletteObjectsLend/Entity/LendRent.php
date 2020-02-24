@@ -274,7 +274,7 @@ class LendRent
             }
             // logging
             $hist->add(
-                _T("Objectslend GiveBack object", "objectlend"),
+                _T("Objectslend GiveBack object", "objectslend"),
                 "object_id:" . $object_id . " - comments:" . $comments
             );
 
@@ -288,7 +288,7 @@ class LendRent
             );
             // logging
             $hist->add(
-                _T("Objectslend GiveBack object Error", "objectlend"),
+                _T("Objectslend GiveBack object Error", "objectslend"),
                 "object_id:" . $object_id . " - comments:" . $comments
             );
             return false;
@@ -416,7 +416,7 @@ class LendRent
         $success=$rent->store();
         // logging
         $hist->add(
-            _T("Objectslend Take object", "objectlend"),
+            _T("Objectslend Take object", "objectslend"),
             "object_id:" . $object_id . " - adherent_id:" . $adherent_id . " - status_id:".
             $status_id . " - comments: " .  $comments
         );

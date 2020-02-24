@@ -44,7 +44,7 @@
             {_T string="Save" domain="objectslend"}
         </button>
         <a href="{path_for name="objectslend_objects"}" class="button">
-                <i class="fas fa-th-list"></i> {_T string="Back to list" domain='objectslend'}
+                <i class="fas fa-th-list"></i> {_T string="Back to list" domain="objectslend"}
         </a>
     </div>
 </form>
