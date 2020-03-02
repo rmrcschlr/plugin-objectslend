@@ -1,6 +1,7 @@
 {extends file="page.tpl"}
 {block name="content"}
     {*debug*}
+
     <div id="lend_content">
         <form id="filtre" method="POST" action='{path_for name="objectslend_filter_objects" data=["type"=> "list"] }'  method="POST" id="filtre">
         <div id="listfilter">
@@ -93,7 +94,7 @@
                         </th>
                     {/if}
                     <th>
-                        <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_NAME"|constant]}">
+                        <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_NAME"|constant]}">
                             {_T string="Name" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_NAME')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -107,7 +108,7 @@
                     </th>
                     {if $lendsprefs.VIEW_SERIAL}
                         <th>
-                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL"|constant]}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL"|constant]}">
                                 {_T string="Serial" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_SERIAL')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -121,7 +122,7 @@
                     {/if}
                     {if $lendsprefs.VIEW_PRICE}
                     <th>
-                        <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE"|constant]}">
+                        <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE"|constant]}">
                             {_T string="Price" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE')}
                             {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -135,7 +136,7 @@
                     {/if}
                     {if $lendsprefs.VIEW_LEND_PRICE}
                         <th>
-                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE"|constant]}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE"|constant]}">
                                 {_T string="Borrow price" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -156,7 +157,7 @@
                     {/if}
                     {if $lendsprefs.VIEW_WEIGHT}
                         <th>
-                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT"|constant]}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT"|constant]}">
                                 {_T string="Weight" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -171,7 +172,7 @@
                         </th>
                     {/if}
                     <th>
-                        <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS"|constant]}">
+                        <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS"|constant]}">
                             {_T string="Status" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -184,7 +185,7 @@
                         </a>
                     </th>
                     <th>
-                        <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE"|constant]}">
+                        <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE"|constant]}">
                             {_T string="Since" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -197,7 +198,7 @@
                         </a>
                     </th>
                     <th>
-                        <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER"|constant]}">
+                        <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER"|constant]}">
                             {_T string="By" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
@@ -211,7 +212,7 @@
                     </th>
                     {if $lendsprefs.VIEW_DATE_FORECAST}
                         <th>
-                            <a href="{path_for name="objectslend_objects" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE"|constant]}">
+                            <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE"|constant]}">
                                 {_T string="Return" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
