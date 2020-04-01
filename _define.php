@@ -54,7 +54,7 @@ $this->register(
         'objectslend_categories'        => 'staff',
         'objectslend_filter_categories' => 'staff',
         'objectslend_remove_category'   => 'admin',
-        'objectslend_doremove_category' => 'staff',
+        'objectslend_doremove_category' => 'admin',
         'objectslend_status'            => 'staff',
         'objectslend_status_action'     => 'staff',
         'objectslend_statuses'          => 'staff',
@@ -75,10 +75,10 @@ $this->register(
         'objectslend_show_object_lend'  => 'staff',
         'objectslend_do_take_lend'      => 'staff',
         'objectslend_give_object_back'  => 'staff',
-        'objectslend_do_giveback_lend'  =>  'staff',
+        'objectslend_do_giveback_lend'  => 'staff',
         'objectslend_do_add_object'     => 'staff',
-        'objectslend_doremove_lend'     =>  'admin',
-        'objectslend_disable_objects'   =>  'staff',
-        'objectslend_enable_objects'    =>  'staff'
+        'objectslend_doremove_lend'     => 'admin',
+        'objectslend_disable_objects'   => 'staff',
+        'objectslend_enable_objects'    => 'staff'
     ]
 );
