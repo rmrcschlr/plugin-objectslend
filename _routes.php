@@ -62,9 +62,6 @@ use GaletteObjectsLend\Filters\StatusList;
 use GaletteObjectsLend\Filters\ObjectsList;
 use GaletteObjectsLend\Filters\CategoriesList;
 
-const ACTIVE = 1;
-const INACTIVE = 2;
-
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
 
@@ -744,7 +741,10 @@ $this->get(
         if (count(LendStatus::getActiveTakeAwayStatuses($this->zdb)) == 0) {
             $this->flash->addMessage(
                 'error_detected',
-                _T('You should add at last 1 status \"object borrowed\" to ensure the plugin works well!', 'objectslend')
+                _T(
+                    'You should add at last 1 status \"object borrowed\" to ensure the plugin works well!',
+                    'objectslend'
+                )
             );
         }
 
