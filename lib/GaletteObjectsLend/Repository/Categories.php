@@ -266,8 +266,6 @@ class Categories
      */
     private function buildOrderClause($fields = null)
     {
-
-
         $order = array();
         switch ($this->filters->orderby) {
             case self::ORDERBY_NAME:

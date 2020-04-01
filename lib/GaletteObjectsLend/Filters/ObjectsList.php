@@ -262,7 +262,8 @@ class ObjectsList extends Pagination
         $prefs = $prefs->getPreferences();
 
         $options = [
-            Objects::FILTER_NAME    => ($prefs['VIEW_DESCRIPTION'] ? _T("Name/description", "objectslend") :
+            Objects::FILTER_NAME    => ($prefs['VIEW_DESCRIPTION'] ?
+                _T("Name/description", "objectslend") :
                 _T("Name", "objectslend")),
             Objects::FILTER_SERIAL  => _T("Serial number", "objectslend"),
             Objects::FILTER_ID      => _T("Id", "objectslend")

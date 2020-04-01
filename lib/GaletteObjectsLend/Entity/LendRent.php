@@ -248,15 +248,15 @@ class LendRent
     /**
      * Ferme tous les emprunts ouverts pour un objet donné avec le commentaire indiqué
      *
-     * @param int $object_id ID de l'objet surlequel fermer les emprunts
-     * @param string $comments Commentaire à mettre sur les emprunts
+     * @param int    $object_id ID de l'objet surlequel fermer les emprunts
+     * @param string $comments  Commentaire à mettre sur les emprunts
      *
      * @return boolean True si OK, False si une erreur SQL est survenue
      */
     public static function closeAllRentsForObject($object_id, $comments)
     {
-        global $zdb;
-        global $hist;
+        global $zdb, $hist;
+
         try {
             $select = $zdb->select(LEND_PREFIX . self::TABLE)
                     ->where(array(

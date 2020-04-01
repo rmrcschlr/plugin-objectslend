@@ -4,7 +4,7 @@
 <form action="{path_for name="objectslend_adminimages_action"}" method="post">
     <div class="button-container">
         <button type="submit" name="save_categories">
-			<i class="fas fa-hdd" aria-hidden="true"></i>
+            <i class="fas fa-hdd" aria-hidden="true"></i>
             {_T string="Backup categories pictures" domain="objectslend"}
         </button>
         <button type="submit" name="save_objects">

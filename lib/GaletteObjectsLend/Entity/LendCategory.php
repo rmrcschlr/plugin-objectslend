@@ -210,8 +210,7 @@ class LendCategory
      */
     public static function getActiveCategories($noobjects = true)
     {
-        global $zdb;
-        global $plugin;
+        global $zdb, $plugins;
 
         try {
             $select_count = $zdb->select(LEND_PREFIX . LendObject::TABLE)

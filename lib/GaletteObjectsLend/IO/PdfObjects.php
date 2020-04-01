@@ -196,9 +196,10 @@ class PdfObjects extends Pdf
         foreach ($objects as $object) {
             $rents = $object->rents;
 
-            if ($this->lendsprefs->{LendPreferences::PARAM_VIEW_CATEGORY} &&
-                $current_category !== $object->category_id) {
-                    $this->SetFont('', 'B');
+            if ($this->lendsprefs->{LendPreferences::PARAM_VIEW_CATEGORY}
+                && $current_category !== $object->category_id
+            ) {
+                $this->SetFont('', 'B');
 
                 if (($this->login->isAdmin() || $this->login->isStaff()) && $sum_price > 0) {
                     $width = $w_checkbox + $w_name + $w_description + $w_serial + $w_price;
@@ -217,8 +218,8 @@ class PdfObjects extends Pdf
                     $text = _T("No category");
                 }
 
-                    $this->Cell(0, 0, $text, 0, 1, 'C');
-                    $this->SetFont('');
+                $this->Cell(0, 0, $text, 0, 1, 'C');
+                $this->SetFont('');
             }
 
             if ($row++ % 2 == 0) {
@@ -227,7 +228,7 @@ class PdfObjects extends Pdf
                 $this->SetFillColor(255, 214, 135);
             }
 
-            $fill=!$object->is_home_location;
+            $fill = !$object->is_home_location;
 
             $this->Cell($w_checkbox, 0, '□', 'B', 0, 'L', $fill);
             $this->Cell($w_name, 0, $this->cut($object->name, $w_name), 'B', 0, 'L', $fill);
@@ -239,13 +240,13 @@ class PdfObjects extends Pdf
             $this->Cell($w_weight, 0, $this->cut($object->weight, $w_weight), 'B', 0, 'R', $fill);
             $this->Cell($w_status, 0, $this->cut($object->status_text, $w_status), 'B', 0, 'L', $fill);
             $this->Cell($w_date, 0, $this->cut($object->date_begin_short, $w_date), 'B', 0, 'L', $fill);
-            $this->Cell($w_adherent, 0, $this->cut($object->nom_adh . ' ' .
-                $object->prenom_adh, $w_adherent), 'B', 0, 'L', $fill);
+            $nom_adh =$this->cut($object->nom_adh . ' ' . $object->prenom_adh, $w_adherent);
+            $this->Cell($w_adherent, 0, $nom_adh, 'B', 0, 'L', $fill);
             $this->Cell($w_date, 0, $this->cut($object->date_forecast_short, $w_date), 'B', 1, 'L', $fill);
 
             if ($this->login->isAdmin() || $this->login->isStaff()) {
-                $sum_price += floatval(str_replace(array(',', ' '), array('.', ''), $object->price));
-                $grant_total += floatval(str_replace(array(',', ' '), array('.', ''), $object->price));
+                $sum_price += (float)str_replace(array(',', ' '), array('.', ''), $object->price);
+                $grant_total += (float)str_replace(array(',', ' '), array('.', ''), $object->price);
             }
         }
 
@@ -290,8 +291,6 @@ class PdfObjects extends Pdf
 
         // Header
         $this->SetFillColor(255, 255, 255);
-
-
 
         $col_begin = 33;
         $col_end = 33;

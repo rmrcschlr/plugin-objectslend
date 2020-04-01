@@ -190,8 +190,6 @@ class CategoriesList extends Pagination
      */
     public function setLimit($select)
     {
-
-
         return $this->setLimits($select);
     }
 
@@ -204,7 +202,6 @@ class CategoriesList extends Pagination
      */
     public function setCounter($c)
     {
-        $option = null;
         $this->counter = (int)$c;
         $this->countPages();
     }
