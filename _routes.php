@@ -394,7 +394,7 @@ $this->get(
         $type = $args['type'];
         $class = '\GaletteObjectsLend\Entity\\' .
             ($type == 'category' ? 'CategoryPicture' : 'ObjectPicture');
-            $picture = new $class($this->plugins, $id);
+        $picture = new $class($this->plugins, $id);
 
         $lendsprefs = new Preferences($this->zdb);
         $thumb = false;

@@ -35,8 +35,8 @@
                     {html_options options=$nbshow_options selected=$numrows}
                 </select>
                 <noscript> <span>
-					<input type="submit" value="{_T string="Change" domain="objectslend"}"/>
-					</span></noscript>
+                    <input type="submit" value="{_T string="Change" domain="objectslend"}"/>
+                    </span></noscript>
             </div>
         </div>
         </form>
@@ -69,9 +69,9 @@
                                     {if $categ->is_active}
                                         <span class="use tooltip"
                                               title="{_T string="Category is active" domain="objectslend"}">
-						<i class="fas fa-thumb-s-up"></i>
-						<span class="sr-only">{_T string="Active" domain="objectslend"}</span>
-					</span>
+                        <i class="fas fa-thumb-s-up"></i>
+                        <span class="sr-only">{_T string="Active" domain="objectslend"}</span>
+                    </span>
                                     {/if}
                                 {/if}
                             </a>
