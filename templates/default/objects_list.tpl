@@ -14,7 +14,7 @@
                 {_T string="Active:" domain="objectslend"}
                 <input type="radio" name="active_filter" id="filter_dc_active"
                        value="{GaletteObjectsLend\Repository\Objects::ALL_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
-                <label for="filter_dc_active">{_T string="Do not care"}</label>
+                <label for="filter_dc_active">{_T string="Don't care"}</label>
                 <input type="radio" name="active_filter" id="filter_yes_active"
                        value="{GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_yes_active">{_T string="Yes"}</label>
@@ -68,7 +68,7 @@
                                         <span class="use tooltip"
                                               title="{_T string="Category is active" domain="objectslend"}">
                         <i class="fas fa-thumb-s-up"></i>
-                        <span class="sr-only">{_T string="Active" domain="objectslend"}</span>
+                        <span class="sr-only">{_T string="Active"}</span>
                     </span>
                                     {/if}
                                 {/if}
@@ -334,7 +334,7 @@
                         <td class="center {if $object->is_active}use{else}delete{/if}">
                             <i class="fas fa-thumbs-{if $object->is_active}up{else}down{/if}"
                                title="{if $object->is_active}{_T string="Object is active" domain="objectslend"}{else}{_T string="Object is inactive" domain="objectslend"}{/if}"></i>
-                            <span class="sr-only">{_T string="Active" domain="objectslend"}</span>
+                            <span class="sr-only">{_T string="Active"}</span>
                             {if $object->isActive()}
                                 <img src="{base_url}/{$template_subdir}images/icon-on.png" alt=""/>
                             {/if}
@@ -406,7 +406,7 @@
                     <tr>
                         <td colspan="14" id="table_footer">
                             <ul class="selection_menu">
-                                <li>{_T string="For the selection:" domain="objectslend"}</li>
+                                <li>{_T string="For the selection:"}</li>
                                 <li>
                                     <button type="submit" name="print_list" class="tooltip use">
                                         <i class="fas fa-file-pdf"></i>
