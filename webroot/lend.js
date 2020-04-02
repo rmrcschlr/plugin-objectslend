@@ -1,5 +1,4 @@
-function success_take_object(post_data)
-{
+function success_take_object(post_data) {
     var page = $('#actual_page').val();
     if (post_data === "OK") {
         $.get("objects_list.php?mode=ajax&msg=taken&page=" + page, function (get_data) {
@@ -9,8 +8,7 @@ function success_take_object(post_data)
     }
 }
 
-function get_checked_objets_ids()
-{
+function get_checked_objets_ids() {
     if (!$(':checkbox:checked').length) {
         return false;
     }
@@ -21,8 +19,7 @@ function get_checked_objets_ids()
     return objectsIds;
 }
 
-function take_more_objects()
-{
+function take_more_objects() {
     show_ajax(Math.min(200 + $(':checkbox:checked').length * 100, 600));
     var ids = get_checked_objets_ids();
     $.get('take_more_objects_away.php?mode=ajax&object_ids=' + ids, function (data) {
@@ -30,8 +27,7 @@ function take_more_objects()
     });
 }
 
-function ajax_take_more_objects_away()
-{
+function ajax_take_more_objects_away() {
     $('#button_container').html('<img src="picts/wait.png" alt="Loading / Chargement en cours ..." height="32" width="32"/>');
     $.ajax({
         type: "POST",
@@ -43,8 +39,7 @@ function ajax_take_more_objects_away()
 }
 
 
-function success_give_object_back(post_data)
-{
+function success_give_object_back(post_data) {
     var page = $('#actual_page').val();
     if (post_data === "OK") {
         $.get("objects_list.php?mode=ajax&msg=given&page=" + page, function (get_data) {
@@ -54,8 +49,7 @@ function success_give_object_back(post_data)
     }
 }
 
-function give_more_objects_back()
-{
+function give_more_objects_back() {
     show_ajax(Math.min(200 + $(':checkbox:checked').length * 100, 600));
 
     var ids = get_checked_objets_ids();
@@ -64,8 +58,7 @@ function give_more_objects_back()
     });
 }
 
-function ajax_give_more_objects_back()
-{
+function ajax_give_more_objects_back() {
     $('#button_container').html('<img src="picts/wait.png" alt="Loading / Chargement en cours ..." height="32" width="32"/>');
     $.ajax({
         type: "POST",
@@ -76,8 +69,7 @@ function ajax_give_more_objects_back()
     return false;
 }
 
-function show_ajax(top)
-{
+function show_ajax(top) {
     var y = mouseY - 230;
     if (typeof top === 'number' && top > 0) {
         y = mouseY - top;
@@ -90,8 +82,7 @@ function show_ajax(top)
     $('#ajax_lend').css({"top": y});
 }
 
-function close_ajax()
-{
+function close_ajax() {
     $("#ajax_lend").fadeOut(600, function () {
         $("#ajax_overlay").remove();
         $("#ajax_lend").remove();
