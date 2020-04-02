@@ -162,7 +162,7 @@
     {/if}
     <div class="button-container" id="button_container">
         <input type="submit" id="btnsave" name="yes" value="{_T string="Take away" domain="objectslend"}">
-        <a href="{path_for name="objectslend_objects"}" class="button" id="btncancel">{_T string="Cancel" domain="objectslend"}</a>
+        <a href="{path_for name="objectslend_objects"}" class="button" id="btncancel">{_T string="Cancel"}</a>
     </div>
 </form>
 {/block}

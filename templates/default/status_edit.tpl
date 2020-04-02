@@ -40,7 +40,7 @@
     <div class="button-container">
         <button type="submit" name="save" class="action">
             <i class="fas fa-save"></i>
-            {_T string="Save" domain="objectslend"}
+            {_T string="Save"}
         </button>
         <a href="{path_for name="objectslend_objects"}" class="button">
                 <i class="fas fa-th-list"></i> {_T string="Back to list" domain="objectslend"}

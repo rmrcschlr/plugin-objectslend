@@ -41,7 +41,7 @@
                     <label for="Comments">{_T string="Return comments" domain="objectslend"}</label>
                     <input type="text" id="comments" name="comments" value="{foreach $id as $k=>$v}{foreach $objects as $t=>$u}{if $u->object_id == $v}{$u->comments} {" - "}{/if}{/foreach}{/foreach} - Return :"  size="80">
                 </p>
-                <p><b></b>{_T string="Are you sure you want to proceed?" This can't be undone." domain="objectslend"}</b></p>
+                <p><b>{_T string="Are you sure you want to proceed?" This can't be undone." domain="objectslend"}</b></p>
                 <div class="button-container">
                     <input type="submit" id="delete" value="{_T string="Return" domain="objectslend"}"/>
                         <a href="{$cancel_uri}" class="button" id="btncancel">{_T string="Cancel"}</a>

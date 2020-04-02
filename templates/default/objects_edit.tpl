@@ -1,7 +1,6 @@
 {extends file="page.tpl"}
 {block name="content"}
-    <form action="{path_for name="objectslend_object_action" data=["action" => $action, "id" => $object->object_id]}"
-          method="post" enctype="multipart/form-data">
+    <form action="{path_for name="objectslend_object_action" data=["action" => $action, "id" => $object->object_id]}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="object_id" value="{$object->object_id}">
         <div class="bigtable">
             <fieldset class="cssform">
@@ -13,8 +12,7 @@
                 </p>
                 <p>
                     <label for="description" class="bline">{_T string="Description:" domain="objectslend"}</label>
-                    <input type="text" name="description" id="description" maxlength="500" size="80"
-                           value="{$object->description}" required>
+                    <input type="text" name="description" id="description" maxlength="500" size="80" value="{$object->description}" required>
                 </p>
                 {if $lendsprefs.VIEW_CATEGORY}
                     <p>
@@ -31,42 +29,33 @@
                 {/if}
                 <p>
                     <label for="serial" class="bline">{_T string="Serial number:" domain="objectslend"}</label>
-                    <input type="text" name="serial" id="serial" maxlength="30" size="20"
-                           value="{$object->serial_number}">
+                    <input type="text" name="serial" id="serial" maxlength="30" size="20" value="{$object->serial_number}">
                 </p>
                 <p>
                     <label for="price" class="bline">{_T string="Price:" domain="objectslend"}</label>
-                    <input type="text" name="price" id="price" size="10" style="text-align: right"
-                           value="{$object->price}">
+                    <input type="text" name="price" id="price" size="10" style="text-align: right" value="{$object->price}">
                 </p>
                 <p>
-                    <span class="bline">{_T string="Borrow price (%currency):" domain="objectslend" pattern="/%currency/" replace=$object->getCurrency()}</span>
-                    <input type="text" name="rent_price" size="10" style="text-align: right"
-                           value="{$object->rent_price}">
+                    <span class="bline">{_T string="Borrow price:" domain="objectslend"}</span>
+                    <input type="text" name="rent_price" size="10" style="text-align: right" value="{$object->rent_price}">&nbsp;{$object->getCurrency()}
                 </p>
                 <p>
-                    <label class="bline tooltip" for="price_per_day"
-                           title="{_T string="- Checked = the price applies to each rental day <br/> - Unchecked = the price applies once" domain="objectslend"}">
+                    <label class="bline tooltip" for="price_per_day" title="{_T string="The price applies on each rental day if checked, only once otherwise" domain="objectslend"}">
                         {_T string="Price per rental day:" domain="objectslend"}
                     </label>
-                    <span class="tip">{_T string="- Checked = the price applies to each rental day <br/> - Unchecked = the price applies once" domain="objectslend"}</span>
-                    <input type="checkbox" name="price_per_day" id="price_per_day"
-                           value="true"{if $object->price_per_day} checked="checked"{/if}>
+                    <input type="checkbox" name="price_per_day" id="price_per_day" value="true"{if $object->price_per_day} checked="checked"{/if}>
                 </p>
                 <p>
-                    <label for="dimension" class="bline">{_T string="Dimensions (cm):" domain="objectslend"}</label>
-                    <input type="text" name="dimension" id="dimension" maxlength="100" size="60"
-                           value="{$object->dimension}">
+                    <label for="dimension" class="bline">{_T string="Dimensions:" domain="objectslend"}</label>
+                    <input type="text" name="dimension" id="dimension" maxlength="100" size="60" value="{$object->dimension}">&nbsp;{_T string="cm"}
                 </p>
                 <p>
-                    <label for="weight" class="bline">{_T string="Weight (kg):" domain="objectslend"}</label>
-                    <input type="text" name="weight" id="weight" size="10" style="text-align: right"
-                           value="{$object->weight}">
+                    <label for="weight" class="bline">{_T string="Weight:" domain="objectslend"}</label>
+                    <input type="text" name="weight" id="weight" size="10" style="text-align: right" value="{$object->weight}">&nbsp;{_T string="Kg"}
                 </p>
                 <p>
                     <label class="bline" for="is_active">{_T string="Active:" domain="objectslend"}</label>
-                    <input type="checkbox" id="is_active" name="is_active"
-                           value="true"{if $object->is_active} checked="checked"{/if}>
+                    <input type="checkbox" id="is_active" name="is_active" value="true"{if $object->is_active} checked="checked"{/if}>
                 </p>
                 {if !$object->object_id}
                     <p>
@@ -74,7 +63,7 @@
                                class="bline">{_T string="Where is the object?" domain="objectslend"}</label>
                         <select name="1st_status" id="1st_status">
                             {foreach from=$statuses item=sta}
-                                <option value="{$sta->status_id}"{if $sta->is_home_location} selected="selected"{/if}>{$sta->status_text}{if $sta->is_home_location} (@Galette){/if}</option>
+                                <option value="{$sta->status_id}">{$sta->status_text}{if $sta->is_home_location} ({_T string="at home" domain="objectslend"}){/if}</option>
                             {/foreach}
                         </select>
                     </p>
@@ -84,11 +73,13 @@
                 <legend class="ui-state-active ui-corner-top">{_T string="Object's photo" domain="objectslend"}</legend>
                 <p>
                 <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"  domain="objectslend"}</div>
-                <img src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}]}{/if}?rand={$time}"
-                     class="picture"
-                     width="{$object->picture->getOptimalThumbWidth($olendsprefs)}"
-                     height="{$object->picture->getOptimalThumbHeight($olendsprefs)}"
-                     alt="{_T string="Object photo" domain="objectslend"}"/><br/>
+                <img
+                    src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}]}{/if}?rand={$time}"
+                    class="picture"
+                    width="{$object->picture->getOptimalThumbWidth($olendsprefs)}"
+                    height="{$object->picture->getOptimalThumbHeight($olendsprefs)}"
+                    alt="{_T string="Object photo" domain="objectslend"}"
+                /><br/>
                 <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label
                             for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>
                 <input type="file" name="picture" id="object_picture">
@@ -97,7 +88,7 @@
         </div>
         <div class="button-container">
             <button type="submit" name="save" class="action">
-                <i class="fas fa-save fa-fw"></i> {_T string="Save"  domain="objectslend"}
+                <i class="fas fa-save fa-fw"></i> {_T string="Save"}
             </button>
             {if $object->object_id ne ''}
                 <a href="{path_for name="objectslend_object_clone" data=["id" => $object->object_id]}" class="button">

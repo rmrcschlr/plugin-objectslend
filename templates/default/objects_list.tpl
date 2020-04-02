@@ -3,10 +3,10 @@
     <div id="lend_content">
         <form id="filtre" method="POST" action='{path_for name="objectslend_filter_objects" data=["type"=> "list"] }'  method="POST" id="filtre">
         <div id="listfilter">
-            <label for="filter_str">{_T string="Search:" domain="objectslend"}&nbsp;</label>
+            <label for="filter_str">{_T string="Search:"}&nbsp;</label>
             <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search"
-                   placeholder="{_T string="Enter a value" domain="objectslend"}"/>&nbsp;
-            <label for="field_filter"> {_T string="in:" domain="objectslend"}&nbsp;</label>
+                   placeholder="{_T string="Enter a value"}"/>&nbsp;
+            <label for="field_filter"> {_T string="in:"}&nbsp;</label>
             <select name="field_filter" id="field_filter" onchange="form.submit()">
                 {html_options options=$field_filter_options selected=$filters->field_filter}
             </select>
@@ -14,26 +14,26 @@
                 {_T string="Active:" domain="objectslend"}
                 <input type="radio" name="active_filter" id="filter_dc_active"
                        value="{GaletteObjectsLend\Repository\Objects::ALL_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
-                <label for="filter_dc_active">{_T string="Do not care" domain="objectslend"}</label>
+                <label for="filter_dc_active">{_T string="Do not care"}</label>
                 <input type="radio" name="active_filter" id="filter_yes_active"
                        value="{GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
-                <label for="filter_yes_active">{_T string="Yes" domain="objectslend"}</label>
+                <label for="filter_yes_active">{_T string="Yes"}</label>
                 <input type="radio" name="active_filter" id="filter_no_active"
                        value="{GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS')} checked="checked"{/if}>
-                <label for="filter_no_active">{_T string="No" domain="objectslend"}</label>
+                <label for="filter_no_active">{_T string="No"}</label>
             {/if}
-            <input type="submit" class="inline" value="{_T string="Filter" domain="objectslend"}"/>
-            <input name="clear_filter" type="submit" value="{_T string="Clear filter" domain="objectslend"}">
+            <input type="submit" class="inline" value="{_T string="Filter"}"/>
+            <input name="clear_filter" type="submit" value="{_T string="Clear filter"}">
         </div>
         <div class="infoline">
             {$nb_objects} {if $nb_objects gt 1}{_T string="objects" domain="objectslend"}{else}{_T string="object" domain="objectslend"}{/if}
             <div class="fright">
-                <label for="nbshow">{_T string="Records per page:" domain="objectslend"}</label>
+                <label for="nbshow">{_T string="Records per page:"}</label>
                 <select name="nbshow" id="nbshow">
                     {html_options options=$nbshow_options selected=$numrows}
                 </select>
                 <noscript> <span>
-                    <input type="submit" value="{_T string="Change" domain="objectslend"}"/>
+                    <input type="submit" value="{_T string="Change"}"/>
                     </span></noscript>
             </div>
         </div>
@@ -88,7 +88,7 @@
                     {/if}
                     {if $olendsprefs->imagesInLists()}
                         <th class="id_row">
-                            {_T string="Picture" domain="objectslend"}
+                            {_T string="Picture"}
                         </th>
                     {/if}
                     <th>
@@ -227,11 +227,11 @@
                     {/if}
                     {if $login->isAdmin() || $login->isStaff()}
                         <th class="id_row">
-                            {_T string="Active" domain="objectslend"}
+                            {_T string="Active"}
                         </th>
                     {/if}
                     <th class="actions_row">
-                        {_T string="Actions" domain="objectslend"}
+                        {_T string="Actions"}
                     </th>
                 </tr>
                 </thead>
@@ -373,9 +373,9 @@
                                 </a>
                                 <a class="tooltip true"
                                    href="{path_for name="objectslend_show_object_lend" data=["id" => $object->object_id]}"
-                                   title="{_T string="Show object lents" domain="objectslend"}">
+                                   title="{_T string="Show object lends" domain="objectslend"}">
                                     <i class="far fa-file-alt"></i>
-                                    <span class="sr-only">{_T string="Show object" domain="objectslend"}</span>
+                                    <span class="sr-only">{_T string="Show object lends" domain="objectslend"}</span>
                                 </a>
                                 <a class="tooltip"
                                    href="{path_for name="objectslend_objects_printobject" data=["id" => $object->object_id]}"
@@ -450,7 +450,7 @@
                                     <li>
                                         <button type="submit" name="delete" class="tooltip  delete">
                                             <i class="fas fa-trash"></i>
-                                            {_T string="Delete" domain="objectslend"}
+                                            {_T string="Delete"}
                                         </button>
                                     </li>
                                 {/if}
@@ -459,7 +459,7 @@
                     </tr>
                     <tr>
                         <td colspan="14" class="center">
-                            {_T string="Pages:" domain="objectslend"}<br/>
+                            {_T string="Pages:"}<br/>
                             <ul class="pages">{$pagination}</ul>
                         </td>
                     </tr>
@@ -502,12 +502,12 @@
 
         {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
         $(function () {
-            $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string='(Un)Check all' domain='objectslend'}</a> | <a href="#" id="checkinvert">{_T string='Invert selection'}</a></span></td></tr>');
+            $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string='(Un)Check all'}</a> | <a href="#" id="checkinvert">{_T string='Invert selection'}</a></span></td></tr>');
             _bind_check();
 
 
             {* No legend?
-            $('#checkboxes').after('<td class="right" colspan="3"><a href="#" id="show_legend">{_T string='Show legend' domain='objectslend'}</a></td>');
+            $('#checkboxes').after('<td class="right" colspan="3"><a href="#" id="show_legend">{_T string='Show legend'}</a></td>');
             $('#legende h1').remove();
             $('#legende').dialog({
                 autoOpen: false,
@@ -557,7 +557,5 @@
             };
         {/if}
         {/if}
-
-
     </script>
 {/block}

@@ -26,8 +26,8 @@
                         <th>{_T string="Begin date" domain="objectslend"}</th>
                         <th>{_T string="End date" domain="objectslend"}</th>
                         <th>{_T string="Return" domain="objectslend"}</th>
-                        <th>{_T string="Name:" domain="objectslend"}</th>
-                        <th>{_T string="Comments:" domain="objectslend"}</th>
+                        <th>{_T string="Name" domain="objectslend"}</th>
+                        <th>{_T string="Comments" domain="objectslend"}</th>
                     </center></tr>
                 </thead>
                 <tbody>
