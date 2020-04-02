@@ -1,4 +1,0 @@
-#: ../_routes.php:316
-msgid "/category"
-msgstr ""
-
