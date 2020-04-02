@@ -424,33 +424,33 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <button type="submit" name="TakeAway" class="tooltip action">
+                                        <button type="submit" name="take_away" class="tooltip action">
                                             <i class="fas fa-cart-arrow-down"></i>
                                             {_T string="Take away" domain="objectslend"}
                                         </button>
                                     </li>
                                     <li>
-                                        <button type="submit" name="GiveBack" class="tooltip action">
+                                        <button type="submit" name="give_back" class="tooltip action">
                                             <i class="fas fa-sign-in-alt"></i>
                                             {_T string="Give back" domain="objectslend"}
                                         </button>
                                     </li>
                                     <li>
-                                        <button type="submit" name="Disable" class="tooltip  delete">
+                                        <button type="submit" name="disable" class="tooltip  delete">
                                             <i class="fas fa-check-square"></i>
                                             {_T string="Disable" domain="objectslend"}
                                         </button>
 
                                     </li>
                                     <li>
-                                        <button type="submit" name="Enable" class="tooltip true">
+                                        <button type="submit" name="enable" class="tooltip true">
                                             <i class="fas fa-check-square"></i>
                                             {_T string="Activate" domain="objectslend"}
                                         </button>
 
                                     </li>
                                     <li>
-                                        <button type="submit" name="Delete" class="tooltip  delete">
+                                        <button type="submit" name="delete" class="tooltip  delete">
                                             <i class="fas fa-trash"></i>
                                             {_T string="Delete" domain="objectslend"}
                                         </button>

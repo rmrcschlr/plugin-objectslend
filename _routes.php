@@ -455,6 +455,7 @@ $this->get(
                 'page_title'            => $title,
                 'require_dialog'        => true,
                 'categories'            => $categories_list,
+                'nb_categories'         => count($list),
                 'filters'               => $filters,
                 'olendsprefs'           => $lendsprefs,
                 'time'                  => time()
@@ -548,8 +549,8 @@ $this->post(
         $success = false;
 
         $uri = isset($post['redirect_uri']) ?
-        $post['redirect_uri'] :
-        $this->router->pathFor('slash');
+            $post['redirect_uri'] :
+            $this->router->pathFor('slash');
 
         if (!isset($post['confirm'])) {
             $this->flash->addMessage(
@@ -564,7 +565,7 @@ $this->post(
                 $error_detected = str_replace(
                     '%category',
                     $category->name,
-                    _T('An error occured trying to remove category %category :/')
+                    _T('An error occured trying to remove category %category :/', 'objectslend')
                 );
 
                 $this->flash->addMessage(
@@ -575,7 +576,7 @@ $this->post(
                 $success_detected = str_replace(
                     '%category',
                     $category->name,
-                    _T('Category %category has been successfully deleted.')
+                    _T('Category %category has been successfully deleted.', 'objectslend')
                 );
 
                 $this->flash->addMessage(
@@ -684,7 +685,7 @@ $this->post(
                     $this->router->pathFor('objectslend_status', $args)
                 );
         } else {
-        //redirect to categories list
+            //redirect to categories list
             $this->flash->addMessage(
                 'success_detected',
                 _T('Status has been saved', 'objectslend')
@@ -861,8 +862,8 @@ $this->post(
         $success = false;
 
         $uri = isset($post['redirect_uri']) ?
-        $post['redirect_uri'] :
-        $this->router->pathFor('slash');
+            $post['redirect_uri'] :
+            $this->router->pathFor('slash');
 
         if (!isset($post['confirm'])) {
             $this->flash->addMessage(
@@ -947,7 +948,7 @@ $this->get(
         } else {
             $title = _T('New object', 'objectslend');
         }
-        // Modif préconisée par trasher
+
         $sfilter = new StatusList();
         $sfilter->active_filter = \GaletteObjectsLend\Repository\Status::ACTIVE;
         $statuses = new Status($this->zdb, $this->login, $sfilter);
@@ -1016,8 +1017,8 @@ $this->get(
                 $this->router->pathFor(
                     'objectslend_object',
                     [
-                    'action'    => 'edit',
-                    'id'        => $object->object_id
+                        'action'    => 'edit',
+                        'id'        => $object->object_id
                     ]
                 )
             );
@@ -1077,7 +1078,7 @@ $this->post(
                 }
                 $rent->store();
             }
-             // picture upload
+            // picture upload
             if (isset($_FILES['picture'])) {
                 if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
                     if ($_FILES['picture']['tmp_name'] !='') {
@@ -1128,7 +1129,7 @@ $this->post(
                     $this->router->pathFor('objectslend_object', $args)
                 );
         } else {
-        //redirect to objects list
+            //redirect to objects list
             $this->flash->addMessage(
                 'success_detected',
                 _T('Object has been saved', 'objectslend')
@@ -1321,8 +1322,8 @@ $this->post(
         $post = $request->getParsedBody();
         $ajax = isset($post['ajax']) && $post['ajax'] === 'true';
         $uri = isset($post['redirect_uri']) ?
-        $post['redirect_uri'] :
-        $this->router->pathFor('slash');
+            $post['redirect_uri'] :
+            $this->router->pathFor('slash');
 
         if (!isset($post['confirm'])) {
             $this->flash->addMessage(
@@ -1407,23 +1408,23 @@ $this->post(
             $filters->selected = $post['object_ids'];
             $this->session->objectslend_filter_objects = $filters;
 
-            if (isset($post['Delete'])) {
+            if (isset($post['delete'])) {
                 return $response
                     ->withStatus(301)
                     ->withHeader('Location', $this->router->pathFor('objectslend_remove_object'));
-            } elseif (isset($post['TakeAway'])) {
+            } elseif (isset($post['take_away'])) {
                 return $response
                     ->withStatus(301)
                     ->withHeader('Location', $this->router->pathFor('objectslend_take_object'));
-            } elseif (isset($post['GiveBack'])) {
+            } elseif (isset($post['give_back'])) {
                 return $response
                     ->withStatus(301)
                     ->withHeader('Location', $this->router->pathFor('objectslend_give_object_back'));
-            } elseif (isset($post['Disable'])) {
+            } elseif (isset($post['disable'])) {
                 return $response
                     ->withStatus(301)
                     ->withHeader('Location', $this->router->pathFor('objectslend_disable_objects'));
-            } elseif (isset($post['Enable'])) {
+            } elseif (isset($post['enable'])) {
                 return $response
                     ->withStatus(301)
                     ->withHeader('Location', $this->router->pathFor('objectslend_enable_objects'));

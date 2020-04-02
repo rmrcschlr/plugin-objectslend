@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form id="filtre" method="POST" action="{path_for name="objectslend_filter_categories"}">
     <div id="listfilter">
         <label for="filter_str">{_T string="Search:" domain="objectslend"}&nbsp;</label>
@@ -16,6 +15,7 @@
         <input name="clear_filter" type="submit" value="{_T string="Clear filter" domain="objectslend"}">
     </div>
     <div class="infoline">
+            {$nb_categories} {if $nb_categories != 1}{_T string="categories" domain="objectslend"}{else}{_T string="category" domain="objectslend"}{/if}
         <div class="fright">
             <label for="nbshow">{_T string="Records per page:"  domain="objectslend"}</label>
             <select name="nbshow" id="nbshow">
@@ -49,6 +49,14 @@
             </th>
         </tr>
     </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="center">
+                {_T string="Pages:"}<br/>
+                <ul class="pages">{$pagination}</ul>
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
 {foreach from=$categories item=categ}
             <tr class="{if $categ@index is odd}even{else}odd{/if}">
@@ -93,14 +101,6 @@
             </tr>
 {/foreach}
     </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="4" class="center">
-                {_T string="Pages:" domain="objectslend"}<br/>
-                <ul class="pages">{$pagination}</ul>
-            </td>
-        </tr>
-    </tfoot>
 </table>
 {/block}
 
