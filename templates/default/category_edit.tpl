@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form action="{path_for name="objectslend_category_action" data=["action" => $action, "id" => $category->category_id]}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="category_id" value="{$category->category_id}">
     <div class="bigtable">
@@ -42,10 +41,10 @@
     <div class="button-container">
         <button type="submit" name="save" class="action">
             <i class="fas fa-save"></i>
-            {_T string="Save"  domain="objectslend"}
+            {_T string="Save"}
         </button>
         <a href="{path_for name="objectslend_objects"}" class="button">
-                <i class="fas fa-th-list"></i> {_T string="Back to list" domain="objectslend"}
+                <i class="fas fa-th-list"></i> {_T string="Back"}
         </a>
     </div>
 </form>

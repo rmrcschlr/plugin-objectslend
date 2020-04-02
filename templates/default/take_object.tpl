@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form action="{path_for name="objectslend_do_take_lend" data=["action" => $action, "id" => $object->object_id]}" method="post" id="form_take_object" enctype="multipart/form-data">
 {foreach $id as $k=>$v}
     {foreach $objects as $t=>$u}
@@ -185,7 +184,7 @@
                 showOn: 'button',
                 minDate: '-0d',
                 dateFormat: "yy-mm-dd",
-                buttonText: '<i class="far fa-calendar-alt"></i> <span class="sr-only">{_T string="Select a date"  domain="objectslend" escape="js"}</span>',
+                buttonText: '<i class="far fa-calendar-alt"></i> <span class="sr-only">{_T string="Select a date" escape="js"}</span>',
                 onSelect: function(date) {
                     $nmdt1=$('#date_begin').datepicker('getDate') ;
                     $nmdt1.setDate($nmdt1.getDate() +1 );
@@ -200,7 +199,7 @@
                 changeYear: true,
                 showOn: 'button',
                 dateFormat: "yy-mm-dd",
-                buttonText: '<i class="far fa-calendar-alt"></i> <span class="sr-only">{_T string="Select a date"  domain="objectslend" escape="js"}</span>',
+                buttonText: '<i class="far fa-calendar-alt"></i> <span class="sr-only">{_T string="Select a date" escape="js"}</span>',
                 minDate: $("#date_forecast").datepicker("getDate")
           });
         }

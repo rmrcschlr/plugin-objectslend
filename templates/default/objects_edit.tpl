@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-    {*debug*}
     <form action="{path_for name="objectslend_object_action" data=["action" => $action, "id" => $object->object_id]}"
           method="post" enctype="multipart/form-data">
         <input type="hidden" name="object_id" value="{$object->object_id}">

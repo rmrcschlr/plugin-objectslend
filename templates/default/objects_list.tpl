@@ -1,7 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-    {*debug*}
-
     <div id="lend_content">
         <form id="filtre" method="POST" action='{path_for name="objectslend_filter_objects" data=["type"=> "list"] }'  method="POST" id="filtre">
         <div id="listfilter">

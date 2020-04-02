@@ -4,7 +4,7 @@
     <div id="listfilter">
         <label for="filter_str">{_T string="Search:"}&nbsp;</label>
         <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
-        {_T string="Active:" domain="objectslend"}
+        {_T string="Active:"}
         <input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES')} checked="checked"{/if}>
         <label for="filter_dc_active" >{_T string="Don't care"}</label>
         <input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES')} checked="checked"{/if}>
@@ -12,7 +12,7 @@
         <input type="radio" name="active_filter" id="filter_no_active" value="{GaletteObjectsLend\Repository\Categories::INACTIVE_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::INACTIVE_CATEGORIES')} checked="checked"{/if}>
         <label for="filter_no_active" >{_T string="No"}</label>
         <input type="submit" class="inline" value="{_T string="Filter"}"/>
-        <input name="clear_filter" type="submit" value="{_T string="Clear filter" domain="objectslend"}">
+        <input name="clear_filter" type="submit" value="{_T string="Clear filter"}">
     </div>
     <div class="infoline">
             {$nb_categories} {if $nb_categories != 1}{_T string="categories" domain="objectslend"}{else}{_T string="category" domain="objectslend"}{/if}
@@ -42,7 +42,7 @@
                 </a>
             </th>
             <th class="id_row">
-                {_T string="Active" domain="objectslend"}
+                {_T string="Active"}
             </th>
             <th class="actions_row">
                 {_T string="Actions"}
@@ -76,7 +76,7 @@
                 </td>
                 <td class="center {if $categ->is_active}use{else}delete{/if}">
                     <i class="fas fa-thumbs-{if $categ->is_active}up{else}down{/if}"></i>
-                    <span class="sr-only">{_T string="Active"  domain="objectslend"}</span>
+                    <span class="sr-only">{_T string="Active"}</span>
                 </td>
     {if $login->isAdmin() || $login->isStaff()}
                     <td>
@@ -90,9 +90,9 @@
         {if $login->isAdmin()}
                             <a class="tooltip remove "
                                 href="{path_for name="objectslend_remove_category" data=["action" => "remove","id" => $categ->category_id]}"
-                                title="{_T string="Remove the Category" domain="objectslend" }">
+                                title="{_T string="Remove the category" domain="objectslend" }">
                                 <i class="fas fa-trash"></i>
-                                <span class="sr-only">{_T string="Remove the Category" domain="objectslend"}</span>
+                                <span class="sr-only">{_T string="Remove the category" domain="objectslend"}</span>
                             </a>
         {/if}
                     </td>

@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form action="{path_for name="store_objectlend_preferences"}" method="post">
     <div id="prefs_tabs">
         <fieldset class="cssform" id="objectslend">

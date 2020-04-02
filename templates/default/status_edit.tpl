@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form action="{path_for name="objectslend_status_action" data=["action" => $action, "id" => $status->status_id]}" method="post">
     <input type="hidden" name="status_id" value="{$status->status_id}">
     <div class="bigtable">

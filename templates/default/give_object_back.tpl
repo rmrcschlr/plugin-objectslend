@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form action="{path_for name="objectslend_do_giveback_lend" data=["action" => $action, "id" => $id ]}" method="post" id="doremove_lend" enctype="multipart/form-data">
 {foreach $id as $k=>$v}
     {foreach $objects as $t=>$u}
@@ -42,10 +41,10 @@
                     <label for="Comments">{_T string="Return comments" domain="objectslend"}</label>
                     <input type="text" id="comments" name="comments" value="{foreach $id as $k=>$v}{foreach $objects as $t=>$u}{if $u->object_id == $v}{$u->comments} {" - "}{/if}{/foreach}{/foreach} - Return :"  size="80">
                 </p>
-                <p><b></b>{_T string="Are you sure you want to proceed?"}{_T string="This can't be undone."  domain="objectslend"}</b></p>
+                <p><b></b>{_T string="Are you sure you want to proceed?" This can't be undone." domain="objectslend"}</b></p>
                 <div class="button-container">
                     <input type="submit" id="delete" value="{_T string="Return" domain="objectslend"}"/>
-                        <a href="{$cancel_uri}" class="button" id="btncancel">{_T string="Cancel"  domain="objectslend"}</a>
+                        <a href="{$cancel_uri}" class="button" id="btncancel">{_T string="Cancel"}</a>
                 </div>
              </div>
         </fieldset>

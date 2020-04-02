@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form id="filtre" method="POST" action="{path_for name="objectslend_filter_statuses"}">
     <div id="listfilter">
         <label for="filter_str">{_T string="Search:" domain="objectslend"}&nbsp;</label>

@@ -1,6 +1,5 @@
 {extends file="page.tpl"}
 {block name="content"}
-{*debug*}
 <form action="{path_for name="objectslend_adminimages_action"}" method="post">
     <div class="button-container">
         <button type="submit" name="save_categories">
