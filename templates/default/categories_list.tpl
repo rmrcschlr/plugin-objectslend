@@ -2,26 +2,26 @@
 {block name="content"}
 <form id="filtre" method="POST" action="{path_for name="objectslend_filter_categories"}">
     <div id="listfilter">
-        <label for="filter_str">{_T string="Search:" domain="objectslend"}&nbsp;</label>
-        <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value" domain="objectslend"}"/>&nbsp;
+        <label for="filter_str">{_T string="Search:"}&nbsp;</label>
+        <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
         {_T string="Active:" domain="objectslend"}
         <input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES')} checked="checked"{/if}>
-        <label for="filter_dc_active" >{_T string="Don't care" domain="objectslend"}</label>
+        <label for="filter_dc_active" >{_T string="Don't care"}</label>
         <input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES')} checked="checked"{/if}>
-        <label for="filter_yes_active" >{_T string="Yes" domain="objectslend"}</label>
+        <label for="filter_yes_active" >{_T string="Yes"}</label>
         <input type="radio" name="active_filter" id="filter_no_active" value="{GaletteObjectsLend\Repository\Categories::INACTIVE_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::INACTIVE_CATEGORIES')} checked="checked"{/if}>
-        <label for="filter_no_active" >{_T string="No" domain="objectslend"}</label>
+        <label for="filter_no_active" >{_T string="No"}</label>
         <input type="submit" class="inline" value="{_T string="Filter"}"/>
         <input name="clear_filter" type="submit" value="{_T string="Clear filter" domain="objectslend"}">
     </div>
     <div class="infoline">
             {$nb_categories} {if $nb_categories != 1}{_T string="categories" domain="objectslend"}{else}{_T string="category" domain="objectslend"}{/if}
         <div class="fright">
-            <label for="nbshow">{_T string="Records per page:"  domain="objectslend"}</label>
+            <label for="nbshow">{_T string="Records per page:"}</label>
             <select name="nbshow" id="nbshow">
                 {html_options options=$nbshow_options selected=$numrows}
             </select>
-            <noscript> <span><input type="submit" value="{_T string="Change" domain="objectslend"}" /></span></noscript>
+            <noscript> <span><input type="submit" value="{_T string="Change"}" /></span></noscript>
         </div>
     </div>
 </form>
@@ -45,7 +45,7 @@
                 {_T string="Active" domain="objectslend"}
             </th>
             <th class="actions_row">
-                {_T string="Actions" domain="objectslend"}
+                {_T string="Actions"}
             </th>
         </tr>
     </thead>

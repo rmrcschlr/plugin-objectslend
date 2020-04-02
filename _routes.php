@@ -455,7 +455,7 @@ $this->get(
                 'page_title'            => $title,
                 'require_dialog'        => true,
                 'categories'            => $categories_list,
-                'nb_categories'         => count($list),
+                'nb_categories'         => count($categories_list),
                 'filters'               => $filters,
                 'olendsprefs'           => $lendsprefs,
                 'time'                  => time()

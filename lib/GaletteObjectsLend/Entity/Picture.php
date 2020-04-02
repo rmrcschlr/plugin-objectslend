@@ -49,11 +49,11 @@ class Picture extends \Galette\Core\Picture
     protected $max_width = 800;
     protected $max_height = 800;
 
-    protected $thumb_max_width = 256;
-    protected $thumb_max_height = 256;
+    protected $thumb_max_width;
+    protected $thumb_max_height;
 
-    protected $thumb_optimal_height = 64;
-    protected $thumb_optimal_width = 64;
+    protected $thumb_optimal_height;
+    protected $thumb_optimal_width;
 
     protected $plugins;
 
