@@ -2,36 +2,36 @@
 {block name="content"}
 {*debug*}
 <form id="filtre" method="POST" action="{path_for name="objectslend_filter_statuses"}">
-	<div id="listfilter">
-		<label for="filter_str">{_T string="Search:" domain="objectslend"}&nbsp;</label>
-		<input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value" domain="objectslend"}"/>&nbsp;
-		{_T string="Active:" domain="objectslend"}
-		<input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Status::ALL}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Status::ALL')} checked="checked"{/if}>
-		<label for="filter_dc_active" >{_T string="Don't care" domain="objectslend"}</label>
-		<input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Status::ACTIVE}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Status::ACTIVE')} checked="checked"{/if}>
-		<label for="filter_yes_active" >{_T string="Yes" domain="objectslend"}</label>
-		<input type="radio" name="active_filter" id="filter_no_active" value="{GaletteObjectsLend\Repository\Status::INACTIVE}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Status::INACTIVE')} checked="checked"{/if}>
-		<label for="filter_no_active" >{_T string="No" domain="objectslend"}</label>
-		{_T string="In stock:" domain="objectslend"}
-		<input type="radio" name="stock_filter" id="filter_dc_stock" value="{GaletteObjectsLend\Repository\Status::DC_STOCK}"{if $filters->stock_filter eq constant('GaletteObjectsLend\Repository\Status::DC_STOCK')} checked="checked"{/if}>
-		<label for="filter_dc_stock" >{_T string="Don't care" domain="objectslend"}</label>
-		<input type="radio" name="stock_filter" id="filter_yes_stock" value="{GaletteObjectsLend\Repository\Status::IN_STOCK}"{if $filters->stock_filter eq constant('GaletteObjectsLend\Repository\Status::IN_STOCK')} checked="checked"{/if}>
-		<label for="filter_yes_stock" >{_T string="Yes" domain="objectslend"}</label>
-		<input type="radio" name="stock_filter" id="filter_no_stock" value="{GaletteObjectsLend\Repository\Status::OUT_STOCK}"{if $filters->stock_filter eq constant('GaletteObjectsLend\Repository\Status::OUT_STOCK')} checked="checked"{/if}>
-		<label for="filter_no_stock" >{_T string="No" domain="objectslend"}</label>
-		<input type="submit" class="inline" value="{_T string="Filter" domain="objectslend"}"/>
-		<input name="clear_filter" type="submit" value="{_T string="Clear filter" domain="objectslend"}">
-	</div>
-	<div class="infoline">
-		{$nb_status} {_T string="status" domain="objectslend"}
-		<div class="fright">
-			<label for="nbshow">{_T string="Records per page:"  domain="objectslend"}</label>
-			<select name="nbshow" id="nbshow">
-				{html_options options=$nbshow_options selected=$numrows}
-			</select>
-			<noscript> <span><input type="submit" value="{_T string="Change" domain="objectslend"}" /></span></noscript>
-		</div>
-	</div>
+    <div id="listfilter">
+        <label for="filter_str">{_T string="Search:" domain="objectslend"}&nbsp;</label>
+        <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value" domain="objectslend"}"/>&nbsp;
+        {_T string="Active:" domain="objectslend"}
+        <input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Status::ALL}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Status::ALL')} checked="checked"{/if}>
+        <label for="filter_dc_active" >{_T string="Don't care" domain="objectslend"}</label>
+        <input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Status::ACTIVE}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Status::ACTIVE')} checked="checked"{/if}>
+        <label for="filter_yes_active" >{_T string="Yes" domain="objectslend"}</label>
+        <input type="radio" name="active_filter" id="filter_no_active" value="{GaletteObjectsLend\Repository\Status::INACTIVE}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Status::INACTIVE')} checked="checked"{/if}>
+        <label for="filter_no_active" >{_T string="No" domain="objectslend"}</label>
+        {_T string="In stock:" domain="objectslend"}
+        <input type="radio" name="stock_filter" id="filter_dc_stock" value="{GaletteObjectsLend\Repository\Status::DC_STOCK}"{if $filters->stock_filter eq constant('GaletteObjectsLend\Repository\Status::DC_STOCK')} checked="checked"{/if}>
+        <label for="filter_dc_stock" >{_T string="Don't care" domain="objectslend"}</label>
+        <input type="radio" name="stock_filter" id="filter_yes_stock" value="{GaletteObjectsLend\Repository\Status::IN_STOCK}"{if $filters->stock_filter eq constant('GaletteObjectsLend\Repository\Status::IN_STOCK')} checked="checked"{/if}>
+        <label for="filter_yes_stock" >{_T string="Yes" domain="objectslend"}</label>
+        <input type="radio" name="stock_filter" id="filter_no_stock" value="{GaletteObjectsLend\Repository\Status::OUT_STOCK}"{if $filters->stock_filter eq constant('GaletteObjectsLend\Repository\Status::OUT_STOCK')} checked="checked"{/if}>
+        <label for="filter_no_stock" >{_T string="No" domain="objectslend"}</label>
+        <input type="submit" class="inline" value="{_T string="Filter" domain="objectslend"}"/>
+        <input name="clear_filter" type="submit" value="{_T string="Clear filter" domain="objectslend"}">
+    </div>
+    <div class="infoline">
+        {$nb_status} {_T string="status" domain="objectslend"}
+        <div class="fright">
+            <label for="nbshow">{_T string="Records per page:"  domain="objectslend"}</label>
+            <select name="nbshow" id="nbshow">
+                {html_options options=$nbshow_options selected=$numrows}
+            </select>
+            <noscript> <span><input type="submit" value="{_T string="Change" domain="objectslend"}" /></span></noscript>
+        </div>
+    </div>
 </form>
 <table class="listing">
     <thead>
