@@ -1152,10 +1152,12 @@ $this->get(
         if (isset($args['option'])) {
             $option = $args['option'];
         }
+
         $value = null;
         if (isset($args['value'])) {
             $value = $args['value'];
         }
+
         $filters = new ObjectsList();
         if (isset($this->session->objectslend_filter_objects)) {
             $filters = $this->session->objectslend_filter_objects;
@@ -1191,7 +1193,7 @@ $this->get(
         $filters->setSmartyPagination($this->router, $this->view->getSmarty(), false);
 
         $categories = new Categories($this->zdb, $this->login, $this->plugins);
-        $categories_list = $categories->getCategoriesList(true);
+        $categories_list = $categories->getActiveCategories(true);
 
         // display page
         $this->view->render(

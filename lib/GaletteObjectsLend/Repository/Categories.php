@@ -41,10 +41,12 @@ use Galette\Entity\DynamicFields;
 use Analog\Analog;
 use Galette\Core\Db;
 use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Predicate;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\CategoriesList;
 use GaletteObjectsLend\Entity\Preferences;
 use GaletteObjectsLend\Entity\LendCategory;
+use GaletteObjectsLend\Entity\LendObject;
 use Galette\Core\Login;
 use Galette\Core\Plugins;
 
@@ -332,6 +334,81 @@ class Categories
                 'Trying to order by ' . $field_name  . ' while it is not in ' .
                 'selected fields.',
                 Analog::WARNING
+            );
+            return false;
+        }
+    }
+
+    /**
+     * Get all active categories sort by name with number of objects associated
+     *
+     * @param boolean $empty Retrieve empty categories, defaults to true
+     *
+     * @return LendCategory[]
+     */
+    public function getActiveCategories($empty = true)
+    {
+        try {
+            $select_count = $this->zdb->select(LEND_PREFIX . LendObject::TABLE)
+                ->columns(array(new Predicate\Expression('count(*)')))
+                ->where(
+                    array(
+                        'is_active' => 1,
+                        new Predicate\Expression(
+                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
+                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
+                        )
+                    )
+                );
+
+            $select_sum = $this->zdb->select(LEND_PREFIX . LendObject::TABLE)
+                ->columns(array(new Predicate\Expression('sum(price)')))
+                ->where(
+                    array(
+                        'is_active' => 1,
+                        new Predicate\Expression(
+                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
+                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
+                        )
+                    )
+                );
+
+            $select = $this->zdb->select(LEND_PREFIX . self::TABLE)
+                ->columns(
+                    array(
+                        '*',
+                        'nb' => new Predicate\Expression(
+                            '(' . $this->zdb->sql->getSqlStringForSqlObject($select_count) . ')'
+                        ),
+                        'sum' => new Predicate\Expression(
+                            '(' . $this->zdb->sql->getSqlStringForSqlObject($select_sum) . ')'
+                        ),
+                    )
+                )
+                ->where(['is_active' => 1])
+                ->order('name');
+
+            if ($empty === false) {
+                $select->having(new Predicate\Operator('nb', '>', '0'));
+            }
+
+            $categs = array();
+            $result = $this->zdb->execute($select);
+            foreach ($result as $r) {
+                $cat = new LendCategory($this->zdb, $this->plugins, $r);
+                $cat->objects_nb = $r->nb;
+                if (is_numeric($r->sum)) {
+                    $cat->objects_price_sum = $r->sum;
+                }
+                $categs[] = $cat;
+            }
+            return $categs;
+        } catch (\Exception $e) {
+            throw $e;
+            Analog::log(
+                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
+                $e->getTraceAsString(),
+                Analog::ERROR
             );
             return false;
         }
