@@ -1,25 +1,21 @@
 {extends file="page.tpl"}
 {block name="content"}
     <div id="lend_content">
-        <form id="filtre" method="POST" action='{path_for name="objectslend_filter_objects" data=["type"=> "list"] }'  method="POST" id="filtre">
+        <form id="filtre" method="POST" action='{path_for name="objectslend_filter_objects"}'>
         <div id="listfilter">
             <label for="filter_str">{_T string="Search:"}&nbsp;</label>
-            <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search"
-                   placeholder="{_T string="Enter a value"}"/>&nbsp;
+            <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
             <label for="field_filter"> {_T string="in:"}&nbsp;</label>
             <select name="field_filter" id="field_filter" onchange="form.submit()">
                 {html_options options=$field_filter_options selected=$filters->field_filter}
             </select>
             {if $login->isAdmin() or $login->isStaff()}
                 {_T string="Active:" domain="objectslend"}
-                <input type="radio" name="active_filter" id="filter_dc_active"
-                       value="{GaletteObjectsLend\Repository\Objects::ALL_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
+                <input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Objects::ALL_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ALL_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_dc_active">{_T string="Don't care"}</label>
-                <input type="radio" name="active_filter" id="filter_yes_active"
-                       value="{GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
+                <input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::ACTIVE_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_yes_active">{_T string="Yes"}</label>
-                <input type="radio" name="active_filter" id="filter_no_active"
-                       value="{GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS')} checked="checked"{/if}>
+                <input type="radio" name="active_filter" id="filter_no_active" value="{GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Objects::INACTIVE_OBJECTS')} checked="checked"{/if}>
                 <label for="filter_no_active">{_T string="No"}</label>
             {/if}
             <input type="submit" class="inline" value="{_T string="Filter"}"/>
@@ -32,9 +28,11 @@
                 <select name="nbshow" id="nbshow">
                     {html_options options=$nbshow_options selected=$numrows}
                 </select>
-                <noscript> <span>
-                    <input type="submit" value="{_T string="Change"}"/>
-                    </span></noscript>
+                <noscript>
+                    <span>
+                        <input type="submit" value="{_T string="Change"}"/>
+                    </span>
+                </noscript>
             </div>
         </div>
         </form>
@@ -49,7 +47,7 @@
                              class="picture"
                              alt=""/>
                         <br/>
-                        {_T string="All" domain="objectslend"}
+                        {_T string="All"}
                     </a>
                     {foreach from=$categories item=categ}
                         {if $categ->is_active || $categ->category_id eq -1}
@@ -123,12 +121,12 @@
                         <a href="{path_for name="objectslend_objects" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE"|constant]}">
                             {_T string="Price" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_PRICE')}
-                            {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
+                                {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
                                 <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
-                            {else}
+                                {else}
                                 <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
+                                {/if}
                             {/if}
-                            /if}
                         </a>
                     </th>
                     {/if}
@@ -138,11 +136,9 @@
                                 {_T string="Borrow price" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_RENTPRICE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                        <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6"
-                                             alt=""/>
+                                        <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                        <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6"
-                                             alt=""/>
+                                        <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
@@ -159,11 +155,9 @@
                                 {_T string="Weight" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_WEIGHT')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                        <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6"
-                                             alt=""/>
+                                        <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                        <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6"
-                                             alt=""/>
+                                        <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
@@ -174,8 +168,7 @@
                             {_T string="Status" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_STATUS')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6"
-                                         alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                 {else}
                                     <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                 {/if}
@@ -187,8 +180,7 @@
                             {_T string="Since" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_BDATE')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6"
-                                         alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                 {else}
                                     <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                 {/if}
@@ -200,8 +192,7 @@
                             {_T string="By" domain="objectslend"}
                             {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_MEMBER')}
                                 {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6"
-                                         alt=""/>
+                                    <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                 {else}
                                     <img src="{base_url}/{$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                 {/if}
@@ -214,11 +205,9 @@
                                 {_T string="Return" domain="objectslend"}
                                 {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Objects::ORDERBY_FDATE')}
                                     {if $filters->ordered eq constant('GaletteObjectsLend\Filters\ObjectsList::ORDER_ASC')}
-                                        <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6"
-                                             alt=""/>
+                                        <img src="{base_url}/{$template_subdir}images/down.png" width="10" height="6" alt=""/>
                                     {else}
-                                        <img src="{{base_url}/$template_subdir}images/up.png" width="10" height="6"
-                                             alt=""/>
+                                        <img src="{{base_url}/$template_subdir}images/up.png" width="10" height="6" alt=""/>
                                     {/if}
                                 {/if}
                             </a>
@@ -465,7 +454,6 @@
                     </tr>
                     </tfoot>
                 {/if}
-                {/if}
             </table>
         </form>
     </div>
@@ -473,15 +461,6 @@
 
 {block name="javascripts"}
     <script type="text/javascript">
-        $(function () {
-            $('#nbshow').change(function () {
-                this.form.submit();
-            });
-        });
-    </script>
-    <script type="text/javascript" src="../../webroot/lend.js"></script>
-    <script type="text/javascript">
-
         {if $nb_objects != 0}
         var _is_checked = true;
         var _bind_check = function () {
@@ -502,9 +481,14 @@
 
         {* Use of Javascript to draw specific elements that are not relevant is JS is inactive *}
         $(function () {
+            {include file="js_removal.tpl"}
+            {include file="js_removal.tpl" selector="#delete" deleteurl="'{path_for name="objectslend_batch-objectslist"}'" extra_check="if (!_checkselection()) {ldelim}return false;{rdelim}" extra_data="delete: true, object_ids: $('#objects_list input[type=\"checkbox\"]:checked').map(function(){ return $(this).val(); }).get()" method="POST"}
+
             $('#table_footer').parent().before('<tr><td id="checkboxes" colspan="4"><span class="fleft"><a href="#" id="checkall">{_T string='(Un)Check all'}</a> | <a href="#" id="checkinvert">{_T string='Invert selection'}</a></span></td></tr>');
             _bind_check();
-
+            $('#nbshow').change(function () {
+                this.form.submit();
+            });
 
             {* No legend?
             $('#checkboxes').after('<td class="right" colspan="3"><a href="#" id="show_legend">{_T string='Show legend'}</a></td>');
@@ -533,19 +517,13 @@
         var _checkselection = function () {
             var _checkeds = $('table.listing').find('input[type=checkbox]:checked').length;
             if (_checkeds == 0) {
-                var _el = $("
-                    < div;
-                id = 'pleaseselect';
-                title = "{_T string='No object selected' domain='objectslend' escape='js'}" >
-                        {_T string='Please make sure to select at least one object from the list to perform this action.' domain='objectslend' escape='js'}
-                    < /div>;
-                ");;
+                var _el = $("<div id = 'pleaseselect' title = "{_T string='No object selected' domain='objectslend' escape='js'}">{_T string='Please make sure to select at least one object from the list to perform this action.' domain='objectslend' escape='js'}</div>");
                 _el.appendTo('body').dialog({
                     modal: true,
                     buttons: {
                         Ok: function () {
                             $(this).dialog("close");
-                        }Glog2
+                        }
                     },
                     close: function (event, ui) {
                         _el.remove();
@@ -554,7 +532,7 @@
                 return false;
             } else {
                 return true;
-            };
+            }
         {/if}
         {/if}
     </script>

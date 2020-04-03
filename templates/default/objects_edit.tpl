@@ -74,14 +74,14 @@
                 <p>
                 <div class="exemple">{_T string="The file must be smaller than 2 Mb and its name should not contains whitespace!"  domain="objectslend"}</div>
                 <img
-                    src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}, "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => {_T string="object" domain="objectslend"}, "mode" => {_T string="thumbnail" domain="objectslend"}]}{/if}?rand={$time}"
+                    src="{if $object->object_id}{path_for name="objectslend_photo" data=["type" => "object", "mode" => "thumbnail", "id" => $object->object_id]}{else}{path_for name="objectslend_photo" data=["type" => "object", "mode" => "thumbnail"]}{/if}?rand={$time}"
                     class="picture"
                     width="{$object->picture->getOptimalThumbWidth($olendsprefs)}"
                     height="{$object->picture->getOptimalThumbHeight($olendsprefs)}"
                     alt="{_T string="Object photo" domain="objectslend"}"
                 /><br/>
-                <input type="checkbox" name="del_picture" id="del_picture" value="1"/><span class="labelalign"><label
-                            for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>
+                <input type="checkbox" name="del_picture" id="del_picture" value="1"/>
+                <span class="labelalign"><label for="del_picture">{_T string="Delete image" domain="objectslend"}</label></span><br/>
                 <input type="file" name="picture" id="object_picture">
                 </p>
             </fieldset>
@@ -128,7 +128,7 @@
                         <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if} center">
                             {if $rt->is_home_location}
                                 <img src="{$template_subdir}images/icon-on.png"
-                                     alt="{_T string="At home" domain="objectslend"}"/>
+                                     alt="{_T string="At home" domain="objectslend" escape="html"}"/>
                             {/if}
                         </td>
                         <td class="tbl_line_{if $smarty.foreach.rent.index is odd}even{else}odd{/if}">

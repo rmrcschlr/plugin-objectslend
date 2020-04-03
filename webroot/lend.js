@@ -88,11 +88,3 @@ function close_ajax() {
         $("#ajax_lend").remove();
     });
 }
-
-var mouseX = -1;
-var mouseY = -1;
-
-$(document).on("mousemove", function (event) {
-    mouseX = event.pageX;
-    mouseY = event.pageY;
-});

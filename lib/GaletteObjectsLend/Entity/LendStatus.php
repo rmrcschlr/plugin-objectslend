@@ -9,7 +9,7 @@
  * PHP version 5
  *
  * Copyright © 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * Copyright © 2017-2020 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -32,9 +32,8 @@
  * @author    Mélissa Djebel <melissa.djebel@gmx.net>
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2013-2016 Mélissa Djebel
- * Copyright © 2017 The Galette Team
+ * @Copyright 2017-2020 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   0.7
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7
  */
@@ -168,7 +167,7 @@ class LendStatus
     /**
      * Renvoi tous les statuts actifs triés par nom
      *
-     * @param Db     $zdb       Database instance
+     * @param Db $zdb Database instance
      *
      * @return LendStatus[] La liste des statuts actifs triés
      */
@@ -199,7 +198,7 @@ class LendStatus
     /**
      * Renvoi tous les statuts actifs considéré comme empruntés triés par nom
      *
-     * @param Db     $zdb       Database instance
+     * @param Db $zdb Database instance
      *
      * @return LendStatus[] La liste des statuts actifs triés
      */
@@ -229,7 +228,7 @@ class LendStatus
     /**
      * Renvoi tous les statuts actifs considéré comme à la maison triés par nom
      *
-     * @param Db     $zdb       Database instance
+     * @param Db $zdb Database instance
      *
      * @return LendStatus[] La liste des statuts actifs triés
      */
@@ -263,12 +262,10 @@ class LendStatus
      */
     public function delete()
     {
-
         try {
             $delete = $this->zdb->delete(LEND_PREFIX . self::TABLE)
                     ->where(array(self::PK => $this->status_id));
             $this->zdb->execute($delete);
-
             return true;
         } catch (\Exception $e) {
             Analog::log(
