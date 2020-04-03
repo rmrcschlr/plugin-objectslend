@@ -30,7 +30,7 @@
         <tr>
             <th class="id_row">&nbsp;</th>
             <th>
-                <a href="{path_for name="objectslend_categories" data=["option" => {_T string="order" domain="objectslend"}, "value" => "GaletteObjectsLend\Repository\Categories::ORDERBY_NAME"|constant]}">
+                <a href="{path_for name="objectslend_categories" data=["option" => "order", "value" => "GaletteObjectsLend\Repository\Categories::ORDERBY_NAME"|constant]}">
                     {_T string="Name" domain="objectslend"}
                     {if $filters->orderby eq constant('GaletteObjectsLend\Repository\Categories::ORDERBY_NAME')}
                         {if $filters->ordered eq constant('GaletteObjectsLend\Filters\CategoriesList::ORDER_ASC')}
