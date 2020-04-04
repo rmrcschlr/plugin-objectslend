@@ -193,8 +193,8 @@ $this->post(
                 $result_code = $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
                 if ($result_code !== true) {
                     $error_detected[] = isset($ZIP_ERROR[$result_code]) ?
-                    $ZIP_ERROR[$result_code] :
-                    _T('Unknown error.', 'objectslend');
+                        $ZIP_ERROR[$result_code] :
+                        _T('Unknown error.', 'objectslend');
                 } else {
                     $dir_pictures = opendir($picture->getDir());
                     while (($file = readdir($dir_pictures)) !== false) {
@@ -249,11 +249,11 @@ $this->post(
         }
 
         return $response
-        ->withStatus(301)
-        ->withHeader(
-            'Location',
-            $this->router->pathFor('objectslend_adminimages')
-        );
+            ->withStatus(301)
+            ->withHeader(
+                'Location',
+                $this->router->pathFor('objectslend_adminimages')
+            );
     }
 )->setName('objectslend_adminimages_action')->add($authenticate);
 
@@ -320,7 +320,7 @@ $this->post(
         $category->name = $post['name'];
         $category->is_active = $post['is_active'] == 'true';
         if ($category->store()) {
-        // picture upload
+            // picture upload
             if (isset($_FILES['picture'])) {
                 if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
                     if ($_FILES['picture']['tmp_name'] !='') {
@@ -371,7 +371,7 @@ $this->post(
                     $this->router->pathFor('objectslend_category', $args)
                 );
         } else {
-        //redirect to categories list
+            //redirect to categories list
             $this->flash->addMessage(
                 'success_detected',
                 _T('Category has been saved', 'objectslend')
@@ -478,8 +478,7 @@ $this->post(
 
         //reintialize filters
         if (isset($post['clear_filter'])) {
-            $filters = new CategoriesList();
-            //$filters->reinit();
+            $filters->reinit();
         } else {
             //string to filter
             if (isset($post['filter_str'])) { //filter search string
