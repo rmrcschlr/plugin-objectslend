@@ -59,12 +59,16 @@ class CategoriesList extends Pagination
     //filters
     private $filter_str;
     private $active_filter;
+    private $not_empty;
+    private $objects_filters;
 
     protected $query;
 
     protected $categorylist_fields = array(
         'filter_str',
         'active_filter',
+        'not_empty',
+        'objects_filters',
         'query'
     );
 
@@ -93,10 +97,11 @@ class CategoriesList extends Pagination
      */
     public function reinit()
     {
-
         parent::reinit();
         $this->filter_str = null;
         $this->active_filter = null;
+        $this->not_empty = null;
+        $this->objects_filters = null;
     }
 
     /**
@@ -149,6 +154,8 @@ class CategoriesList extends Pagination
 
             switch ($name) {
                 case 'filter_str':
+                case 'query':
+                case 'not_empty':
                     $this->$name = $value;
                     break;
                 case 'active_filter':
@@ -167,9 +174,6 @@ class CategoriesList extends Pagination
                             );
                             break;
                     }
-                    break;
-                case 'query':
-                    $this->$name = $value;
                     break;
                 default:
                     Analog::log(
@@ -204,5 +208,18 @@ class CategoriesList extends Pagination
     {
         $this->counter = (int)$c;
         $this->countPages();
+    }
+
+    /**
+     * Set objects filter
+     *
+     * @param ObjectsList $filters Filters for objects list
+     *
+     * @return CategoriesList
+     */
+    public function setObjectsFilter(ObjectsList $filters)
+    {
+        $this->objects_filters = $filters;
+        return $this;
     }
 }

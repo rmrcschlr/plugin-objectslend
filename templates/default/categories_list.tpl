@@ -4,7 +4,7 @@
     <div id="listfilter">
         <label for="filter_str">{_T string="Search:"}&nbsp;</label>
         <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
-        {_T string="Active:"}
+        {_T string="Active:" domain="objectslend"}
         <input type="radio" name="active_filter" id="filter_dc_active" value="{GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ALL_CATEGORIES')} checked="checked"{/if}>
         <label for="filter_dc_active" >{_T string="Don't care"}</label>
         <input type="radio" name="active_filter" id="filter_yes_active" value="{GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES}"{if $filters->active_filter eq constant('GaletteObjectsLend\Repository\Categories::ACTIVE_CATEGORIES')} checked="checked"{/if}>

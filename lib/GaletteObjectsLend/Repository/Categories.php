@@ -44,6 +44,7 @@ use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Predicate;
 use Galette\Repository\Repository;
 use GaletteObjectsLend\Filters\CategoriesList;
+use GaletteObjectsLend\Filters\ObjectsList;
 use GaletteObjectsLend\Entity\Preferences;
 use GaletteObjectsLend\Entity\LendCategory;
 use GaletteObjectsLend\Entity\LendObject;
@@ -123,6 +124,7 @@ class Categories
     ) {
         try {
             $select = $this->buildSelect($fields, $count);
+
             //add limits to retrieve only relevant rows
             if ($limit === true) {
                 $this->filters->setLimit($select);
@@ -130,6 +132,7 @@ class Categories
 
             $rows = $this->zdb->execute($select);
             $this->filters->query = $this->zdb->query_string;
+
             $categories = array();
             if ($as_cat) {
                 foreach ($rows as $row) {
@@ -179,12 +182,25 @@ class Categories
     private function buildSelect($fields, $count = false)
     {
         try {
-            $fieldsList = ( $fields != null )
-                            ? (( !is_array($fields) || count($fields) < 1 ) ? (array)'*'
-                            : $fields) : (array)'*';
+            $fieldsList = [
+                '*',
+                'objects_count'     => new Expression('COUNT(o.' . self::PK . ')'),
+                'objects_price_sum' => new Expression('SUM(o.price)')
+            ];
+
+            if ($fields !== null && is_array($fields)) {
+                array_merge($fieldsList, $fields);
+            }
 
             $select = $this->zdb->select(LEND_PREFIX . self::TABLE, 'c');
             $select->columns($fieldsList);
+
+            $select->join(
+                array('o' => PREFIX_DB . LEND_PREFIX . LendObject::TABLE),
+                'o.' . LendCategory::PK . '=c.' . LendCategory::PK,
+                [],
+                $select::JOIN_LEFT
+            );
 
             if ($this->filters !== false) {
                 $this->buildWhereClause($select);
@@ -194,6 +210,10 @@ class Categories
             if ($count) {
                 $this->proceedCount($select);
             }
+
+            $select->group(
+                'c.category_id'
+            );
 
             return $select;
         } catch (\Exception $e) {
@@ -285,11 +305,22 @@ class Categories
      *
      * @param Select $select Original select
      *
-     * @return string SQL WHERE clause
+     * @return void
      */
     private function buildWhereClause($select)
     {
         try {
+            //if there are filters on objects; add them
+            if ($this->filters->objects_filters instanceof ObjectsList) {
+                $objects = new Objects(
+                    $this->zdb,
+                    $this->plugins,
+                    new \GaletteObjectsLend\Entity\Preferences($this->zdb),
+                    $this->filters->objects_filters
+                );
+                $objects->buildWhereClause($select);
+            }
+
             if ($this->filters->active_filter == self::ACTIVE_CATEGORIES) {
                 $select->where('c.is_active = true');
             }
@@ -303,8 +334,12 @@ class Categories
                 );
 
                 $select->where(
-                    'c.status_text LIKE ' . $token
+                    'c.name LIKE ' . $token
                 );
+            }
+
+            if ($this->filters->not_empty == true) {
+                $select->having(new Predicate\Operator('objects_count', '>', '0'));
             }
         } catch (\Exception $e) {
             Analog::log(
@@ -334,81 +369,6 @@ class Categories
                 'Trying to order by ' . $field_name  . ' while it is not in ' .
                 'selected fields.',
                 Analog::WARNING
-            );
-            return false;
-        }
-    }
-
-    /**
-     * Get all active categories sort by name with number of objects associated
-     *
-     * @param boolean $empty Retrieve empty categories, defaults to true
-     *
-     * @return LendCategory[]
-     */
-    public function getActiveCategories($empty = true)
-    {
-        try {
-            $select_count = $this->zdb->select(LEND_PREFIX . LendObject::TABLE)
-                ->columns(array(new Predicate\Expression('count(*)')))
-                ->where(
-                    array(
-                        'is_active' => 1,
-                        new Predicate\Expression(
-                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
-                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
-                        )
-                    )
-                );
-
-            $select_sum = $this->zdb->select(LEND_PREFIX . LendObject::TABLE)
-                ->columns(array(new Predicate\Expression('sum(price)')))
-                ->where(
-                    array(
-                        'is_active' => 1,
-                        new Predicate\Expression(
-                            PREFIX_DB . LEND_PREFIX . LendObject::TABLE . '.category_id = ' .
-                            PREFIX_DB . LEND_PREFIX . self::TABLE . '.' . self::PK
-                        )
-                    )
-                );
-
-            $select = $this->zdb->select(LEND_PREFIX . self::TABLE)
-                ->columns(
-                    array(
-                        '*',
-                        'nb' => new Predicate\Expression(
-                            '(' . $this->zdb->sql->getSqlStringForSqlObject($select_count) . ')'
-                        ),
-                        'sum' => new Predicate\Expression(
-                            '(' . $this->zdb->sql->getSqlStringForSqlObject($select_sum) . ')'
-                        ),
-                    )
-                )
-                ->where(['is_active' => 1])
-                ->order('name');
-
-            if ($empty === false) {
-                $select->having(new Predicate\Operator('nb', '>', '0'));
-            }
-
-            $categs = array();
-            $result = $this->zdb->execute($select);
-            foreach ($result as $r) {
-                $cat = new LendCategory($this->zdb, $this->plugins, $r);
-                $cat->objects_nb = $r->nb;
-                if (is_numeric($r->sum)) {
-                    $cat->objects_price_sum = $r->sum;
-                }
-                $categs[] = $cat;
-            }
-            return $categs;
-        } catch (\Exception $e) {
-            throw $e;
-            Analog::log(
-                'Something went wrong :\'( | ' . $e->getMessage() . "\n" .
-                $e->getTraceAsString(),
-                Analog::ERROR
             );
             return false;
         }

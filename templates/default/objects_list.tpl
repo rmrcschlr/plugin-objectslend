@@ -1,7 +1,7 @@
 {extends file="page.tpl"}
 {block name="content"}
-    <div id="lend_content">
-        <form id="filtre" method="POST" action='{path_for name="objectslend_filter_objects"}'>
+<div id="lend_content">
+    <form id="filtre" method="POST" action="{path_for name="objectslend_filter_objects"}">
         <div id="listfilter">
             <label for="filter_str">{_T string="Search:"}&nbsp;</label>
             <input type="text" name="filter_str" id="filter_str" value="{$filters->filter_str}" type="search" placeholder="{_T string="Enter a value"}"/>&nbsp;
@@ -35,9 +35,10 @@
                 </noscript>
             </div>
         </div>
-        </form>
-        {if $lendsprefs.VIEW_CATEGORY }
-            <section id="categories">
+    </form>
+
+    {if $lendsprefs.VIEW_CATEGORY }
+        <section id="categories">
                 <header class="ui-state-default ui-state-active">
                     {_T string="Categories" domain="objectslend"}
                 </header>
@@ -66,7 +67,7 @@
                                     {$categ->objects_price_sum} &euro;
                                     {if $categ->is_active}
                                         <span class="use tooltip" title="{_T string="Category is active" domain="objectslend"}">
-                                            <i class="fas fa-thumb-s-up"></i>
+                                            <i class="fas fa-thumbs-up"></i>
                                             <span class="sr-only">{_T string="Active"}</span>
                                         </span>
                                     {/if}
@@ -262,7 +263,7 @@
                         {if $lendsprefs.VIEW_LEND_PRICE}
                             <td class="right">
                                 {$object->rent_price}&euro;{if $object->price_per_day}
-                            <br/>{_T string="(per day)" domain="objectslend"}{/if}
+                                <br/>{_T string="(per day)" domain="objectslend"}{/if}
                             </td>
                         {/if}
                         {if $lendsprefs.VIEW_DIMENSION}
@@ -299,31 +300,25 @@
                         </td>
                         <td>
                             {if $object->id_adh}
-                                {if !$object->rent_id or $object->is_home_location}
-                                    -
-                                {else}
-                                    <a href="{path_for name="member" data=["id" => $object->id_adh]}">{memberName id=$object->id_adh}</a>
-                                {/if}
+                                <a href="{path_for name="member" data=["id" => $object->id_adh]}">{memberName id=$object->id_adh}</a>
                             {else}
                                 -
                             {/if}
                         </td>
                         {if $lendsprefs.VIEW_DATE_FORECAST}
                             <td class="center nowrap">
-                                {if !$object->date_end}
-                                    {if $object->date_forecast}
-                                        {$object->date_forecast|date_format:_T("Y-m-d")}
-                                    {else}
-                                        -
-                                    {/if}
+                                {if $object->date_forecast}
+                                    {$object->date_forecast|date_format:_T("Y-m-d")}
                                 {else}
                                     -
                                 {/if}
                             </td>
                         {/if}
                         <td class="center {if $object->is_active}use{else}delete{/if}">
-                            <i class="fas fa-thumbs-{if $object->is_active}up{else}down{/if}"
-                               title="{if $object->is_active}{_T string="Object is active" domain="objectslend"}{else}{_T string="Object is inactive" domain="objectslend"}{/if}"></i>
+                            <i
+                                class="fas fa-thumbs-{if $object->is_active}up{else}down{/if}"
+                                title="{if $object->is_active}{_T string="Object is active" domain="objectslend"}{else}{_T string="Object is inactive" domain="objectslend"}{/if}"
+                            ></i>
                             <span class="sr-only">{_T string="Active"}</span>
                             {if $object->isActive()}
                                 <img src="{base_url}/{$template_subdir}images/icon-on.png" alt=""/>
@@ -332,19 +327,23 @@
                         <td class="center nowrap">
                             {if !$object->rent_id or $object->is_home_location}
                                 {if $lendsprefs.ENABLE_MEMBER_RENT_OBJECT || $login->isAdmin() || $login->isStaff()}
-                                    <a class="tooltip action"
-                                       href="{path_for name="objectslend_object" data=["action" => "take_object", "id" => $object->object_id]}"
-                                       title="{_T string="Take object away" domain="objectslend"}">
-                                        <i class="fas fa-cart-arrow-down"></i>
-                                        <span class="sr-only">{_T string="Take away" domain="objectslend"}</span>
+                                    <a
+                                        class="tooltip action"
+                                        href="{path_for name="objectslend_object" data=["action" => "take_object", "id" => $object->object_id]}"
+                                        title="{_T string="Take object away" domain="objectslend"}"
+                                    >
+                                            <i class="fas fa-cart-arrow-down"></i>
+                                            <span class="sr-only">{_T string="Take away" domain="objectslend"}</span>
                                     </a>
                                 {/if}
                             {elseif $login->isAdmin() || $login->isStaff() || $login->id == $object->id_adh}
-                                <a class="tooltip action"
-                                   href="{path_for name="objectslend_object" data=["action" => "give_object_back", "id" => $object->object_id]}"
-                                   title="{_T string="Give object back" domain="objectslend"}">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    <span class="sr-only">{_T string="Give back" domain="objectslend"}</span>
+                                <a
+                                    class="tooltip action"
+                                    href="{path_for name="objectslend_object" data=["action" => "give_object_back", "id" => $object->object_id]}"
+                                    title="{_T string="Give object back" domain="objectslend"}"
+                                >
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span class="sr-only">{_T string="Give back" domain="objectslend"}</span>
                                 </a>
                             {/if}
 

@@ -354,7 +354,7 @@ class Objects
      * @param array $fields Fields list to ensure ORDER clause
      *                      references selected fields. Optionnal.
      *
-     * @return string SQL ORDER clause
+     * @return string[] SQL ORDER clause
      */
     private function buildOrderClause($fields = null)
     {
@@ -362,48 +362,48 @@ class Objects
         switch ($this->filters->orderby) {
             case self::ORDERBY_NAME:
                 if ($this->canOrderBy('name', $fields)) {
-                    $order[] = 'name ' . $this->filters->getDirection();
+                    $order[] = 'o.name ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_SERIAL:
                 if ($this->canOrderBy('serial_number', $fields)) {
-                    $order[] = 'serial_number ' . $this->filters->getDirection();
+                    $order[] = 'o.serial_number ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_PRICE:
                 if ($this->canOrderBy('price', $fields)) {
-                    $order[] = 'price ' . $this->filters->getDirection();
+                    $order[] = 'o.price ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_RENTPRICE:
                 if ($this->canOrderBy('rent_price', $fields)) {
-                    $order[] = 'rent_price ' . $this->filters->getDirection();
+                    $order[] = 'o.rent_price ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_WEIGHT:
                 if ($this->canOrderBy('weight', $fields)) {
-                    $order[] = 'weight ' . $this->filters->getDirection();
+                    $order[] = 'o.weight ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_STATUS:
                 if ($this->canOrderBy('status_text', $fields)) {
-                    $order[] = 'status_text ' . $this->filters->getDirection();
+                    $order[] = 's.status_text ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_BDATE:
                 if ($this->canOrderBy('date_begin', $fields)) {
-                    $order[] = 'date_begin ' . $this->filters->getDirection();
+                    $order[] = 'r.date_begin ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_FDATE:
                 if ($this->canOrderBy('date_forecast', $fields)) {
-                    $order[] = 'date_forecast ' . $this->filters->getDirection();
+                    $order[] = 'r.date_forecast ' . $this->filters->getDirection();
                 }
                 break;
             case self::ORDERBY_MEMBER:
                 if ($this->canOrderBy('nom_adh', $fields) && $this->canOrderBy('prenom_adh', $fields)) {
-                    $order[] = 'nom_adh ' . $this->filters->getDirection() .
-                        ', prenom_adh ' . $this->filters->getDirection();
+                    $order[] = 'a.nom_adh ' . $this->filters->getDirection() .
+                        ', a.prenom_adh ' . $this->filters->getDirection();
                 }
                 break;
         }
@@ -418,7 +418,7 @@ class Objects
      *
      * @return string SQL WHERE clause
      */
-    private function buildWhereClause($select)
+    public function buildWhereClause($select)
     {
         global $login;
 
@@ -472,13 +472,13 @@ class Objects
                         break;
                     case self::FILTER_SERIAL:
                         $select->where(
-                            'LOWER(serial_number) LIKE ' .
+                            'LOWER(o.serial_number) LIKE ' .
                             $token
                         );
                         break;
                     case self::FILTER_DIM:
                         $select->where(
-                            'LOWER(dimension) LIKE ' .
+                            'LOWER(o.dimension) LIKE ' .
                             $token
                         );
                         break;
