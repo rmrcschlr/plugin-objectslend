@@ -1194,7 +1194,6 @@ $this->get(
         $cat_filters = new GaletteObjectsLend\Filters\CategoriesList();
         $cat_filters->is_active = true; //retrieve only active categories
         $cat_filters->not_empty = true; //retrieve only categories with objects
-        $cat_filters->setObjectsFilter($filters);
         $categories = new Categories($this->zdb, $this->login, $this->plugins, $cat_filters);
         $categories_list = $categories->getCategoriesList(true);
 

@@ -46,7 +46,6 @@
                     <a href="{path_for name="objectslend_objects" data=["option" => 'category' , "value" => 0]}"{if $filters->category_filter eq null} class="active"{/if}>
                         <img
                             src="{path_for name="objectslend_photo" data=["type" => "category" , "mode" => "thumbnail" , "id" => 0]}"
-                            class="picture"
                             alt=""/>
                         <br/>
                         {_T string="All"}
@@ -56,7 +55,6 @@
                             <a href="{path_for name="objectslend_objects" data=["option" => 'category' , "value" => $categ->category_id]}"{if $filters->category_filter eq $categ->category_id} class="active"{/if}>
                                 <img
                                     src="{path_for name="objectslend_photo" data=["type" => "category" , "mode" => "thumbnail" , "id" => $categ->category_id]}"
-                                    class="picture"
                                     width="{$categ->picture->getOptimalThumbWidth($olendsprefs)}"
                                     height="{$categ->picture->getOptimalThumbHeight($olendsprefs)}"
                                     alt=""/>
@@ -65,12 +63,6 @@
                                 {if $lendsprefs.VIEW_LIST_PRICE_SUM && $lendsprefs.VIEW_PRICE && ($login->isAdmin() || $login->isStaff())}
                                     &middot;
                                     {$categ->objects_price_sum} &euro;
-                                    {if $categ->is_active}
-                                        <span class="use tooltip" title="{_T string="Category is active" domain="objectslend"}">
-                                            <i class="fas fa-thumbs-up"></i>
-                                            <span class="sr-only">{_T string="Active"}</span>
-                                        </span>
-                                    {/if}
                                 {/if}
                             </a>
                         {/if}
