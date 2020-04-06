@@ -506,11 +506,11 @@ msgstr "Relatif aux images"
 
 #: ../templates/default/preferences.tpl:41
 msgid "Max thumb height (in px)"
-msgstr "Taille maxi miniature (en px)"
+msgstr "Hauteur max. miniature (en px)"
 
 #: ../templates/default/preferences.tpl:45
 msgid "Max thumb width (in px)"
-msgstr "Taille max. minitaure (en px)"
+msgstr "Largeur max. miniature (en px)"
 
 #: ../templates/default/preferences.tpl:49
 msgid "Images in lists:"
@@ -563,7 +563,7 @@ msgstr "Voir le prix loc.&nbsp;:"
 
 #: ../templates/default/preferences.tpl:89
 msgid "Give borrow price:"
-msgstr "Voir le prix loc.&nbsp;:"
+msgstr "Donner le prix loc.&nbsp;:"
 
 #: ../templates/default/preferences.tpl:94
 #: ../templates/default/preferences.tpl:95
